@@ -1643,12 +1643,6 @@
     padding-bottom: 2px;
 }
 
-.THIS #form-container-1 .slds-grid_overflow{
-    border-bottom: 3px solid #e4e3df;
-    padding-bottom: 8px;
-    margin-bottom: 4px;
-    align-items: flex-end;
-}
 
 @media only screen and (max-width: 640px) {
     .THIS .amount-input input{
