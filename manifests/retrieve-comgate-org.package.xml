@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Retrieve manifest pro COMGATE org (NPSP) - doplneni chybejicich komponent -->
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <types>
+        <!-- kompozice Experience Builder stranky "Donation Page" -->
+        <members>*</members>
+        <name>DigitalExperienceBundle</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>DigitalExperienceConfig</name>
+    </types>
+    <types>
+        <!-- starsi format Experience site baliku - pokud org vrati prazdne, nevadi -->
+        <members>*</members>
+        <name>ExperienceBundle</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>Network</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>NetworkBranding</name>
+    </types>
+    <types>
+        <!-- obrazky/assets pouzite v Builder strance -->
+        <members>*</members>
+        <name>ContentAsset</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>LightningExperienceTheme</name>
+    </types>
+    <types>
+        <!-- konfigurace external credential ComgatePayments (bez secretu - ten se prenasi rucne) -->
+        <members>ComgatePayments</members>
+        <name>ExternalCredential</name>
+    </types>
+    <types>
+        <!-- vsechny staticke resources - v puvodnim retrievu zadne nebyly (vc. FooterLogoSimple, DonationPageCss...) -->
+        <members>*</members>
+        <name>StaticResource</name>
+    </types>
+    <types>
+        <!-- Contact vc. field setu pouzivanych formularem (predloha pro Account field sety v NPC) -->
+        <members>Campaign</members>
+        <members>Contact</members>
+        <name>CustomObject</name>
+    </types>
+    <types>
+        <!-- guest user opravneni site Donation Page -->
+        <members>*</members>
+        <name>PermissionSet</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>Profile</name>
+    </types>
+    <version>65.0</version>
+</Package>

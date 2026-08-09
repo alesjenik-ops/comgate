@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Retrieve manifest pro STRIPE org (Nonprofit Cloud) - doplneni chybejicich komponent -->
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <types>
+        <!-- vsechny tridy: doplni FieldSetWrapper a cokoli, co v prvnim retrievu chybelo -->
+        <members>*</members>
+        <name>ApexClass</name>
+    </types>
+    <types>
+        <!-- doplni chybejici trigger StripeNotificationPlatformEvent -->
+        <members>*</members>
+        <name>ApexTrigger</name>
+    </types>
+    <types>
+        <!-- hlavni formularova komponenta donation page (v prvnim retrievu nebyla) -->
+        <members>*</members>
+        <name>AuraDefinitionBundle</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>LightningComponentBundle</name>
+    </types>
+    <types>
+        <!-- originalni definice custom poli na standardnich objektech + Account field sety -->
+        <members>Account</members>
+        <members>Campaign</members>
+        <members>Contact</members>
+        <members>GiftCommitment</members>
+        <members>GiftCommitmentSchedule</members>
+        <members>GiftTransaction</members>
+        <name>CustomObject</name>
+    </types>
+    <types>
+        <!-- guest user opravneni pro site Donation Page -->
+        <members>*</members>
+        <name>PermissionSet</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>Profile</name>
+    </types>
+    <version>65.0</version>
+</Package>
