@@ -6458,9 +6458,15 @@ body.donate--hide .button-donate {
 }
 
 .donate-button-expand {
+    background-color: #fa95c2;
     color: #362031;
 }
 
 h1, h2, h3, .donate-title {
     font-weight: 800;
+}
+
+body {
+    margin: 0;
+    background-color: #f3f0eb;
 }

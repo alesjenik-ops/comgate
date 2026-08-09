@@ -1,5 +1,12 @@
 .campaign-detail{
     background: white;
-    border-radius: 30px;
-    padding: 80px 65px;
+    border-radius: 16px;
+    padding: 48px 52px;
+    box-shadow: 0 14px 40px rgba(54,32,49,.10);
+}
+
+@media only screen and (max-width: 860px) {
+    .campaign-detail{
+        padding: 28px 22px;
+    }
 }

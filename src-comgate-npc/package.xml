@@ -108,6 +108,7 @@
     <types>
         <members>AppleVerification</members>
         <members>DonationPageBackground</members>
+        <members>DonationPageCampaignPhoto</members>
         <members>DonationPageCss</members>
         <members>DonationPageFavicon</members>
         <members>DonationPageFonts</members>

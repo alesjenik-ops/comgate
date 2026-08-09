@@ -442,7 +442,8 @@
     text-transform: uppercase;
     width: 320px;
     text-align: center;
-    box-shadow: 0 20px 20px rgba(175,131,89,.25);
+    border-radius: 30px;
+    box-shadow: 0 10px 24px rgba(54,32,49,.28);
     transition-duration: .35s;
     transition-timing-function: cubic-bezier(.455,.03,.515,.955);
     transition-property: height,background-color,transform,opacity,display;
@@ -465,7 +466,7 @@
         right:2.22222vw;
         bottom: 7.22222vw;
         width: 17.77778vw;
-        box-shadow: 0 1.11111vw 1.11111vw rgba(175,131,89,.25)
+        box-shadow: 0 1.11111vw 1.11111vw rgba(54,32,49,.28)
     }
 }
 
@@ -474,7 +475,7 @@
         right:2.22222vw;
         bottom: 8.22222vw;
         width: 17.77778vw;
-        box-shadow: 0 1.11111vw 1.11111vw rgba(175,131,89,.25)
+        box-shadow: 0 1.11111vw 1.11111vw rgba(54,32,49,.28)
     }
 }
 
@@ -483,7 +484,7 @@
         right:2.38095vw;
         bottom: 9.38095vw;
         width: 23.80952vw;
-        box-shadow: 0 1.42857vw 1.42857vw rgba(175,131,89,.25)
+        box-shadow: 0 1.42857vw 1.42857vw rgba(54,32,49,.28)
     }
 }
 
@@ -492,7 +493,7 @@
         right:2.90698vw;
         bottom: 11.90698vw;
         width: 29.06977vw;
-        box-shadow: 0 1.74419vw 1.74419vw rgba(175,131,89,.25)
+        box-shadow: 0 1.74419vw 1.74419vw rgba(54,32,49,.28)
     }
 }
 
@@ -564,6 +565,19 @@
     background-color: var(--redColor);
 }
 .THIS .brand-button-default:hover{
+    background-color: var(--redColorDim);
+}
+
+.THIS .donate-button .brand-button{
+    background-color: var(--redColor);
+    color: #362031;
+    border-radius: 30px;
+    font-weight: 800;
+    letter-spacing: .1em;
+    font-size: 15px;
+    padding: 16px 30px;
+}
+.THIS .donate-button .brand-button:hover{
     background-color: var(--redColorDim);
 }
 

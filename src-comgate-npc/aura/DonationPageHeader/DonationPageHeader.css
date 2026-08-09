@@ -40,32 +40,35 @@
 }
 
 .THIS .image-text{
-    color: white;
-    padding: 0 0 30px 30px;
-    float: right;
+    color: #f3f0eb;
+    padding: 0;
     position: absolute;
-    right: 6%;
-    bottom: 15%;
-    max-width: 40%;
-    text-align: right;
-    font-weight: 500;
-    line-height: 7em;
+    left: 6%;
+    bottom: 44px;
+    max-width: 60%;
+    text-align: left;
+    font-weight: 400;
+    line-height: 1.2;
 }
 
 .THIS .title-text{
-    font-size: 6em;
-    padding-bottom: 35px;
+    font-size: 52px;
+    font-weight: 800;
+    line-height: 1.05;
+    color: #fa95c2;
+    padding-bottom: 12px;
 }
 .THIS .subtitle-text{
-    font-size: 2em;
-    width: fit-content;
-    float: right;
-    padding: 10px 30px;
-    line-height: normal;
-    box-shadow: 0 4px 15px rgb(0 0 0 / 57%);
-    text-shadow: 1px 1px 2px rgb(0 0 0 / 72%);
-    border-radius: 30px;
-    background: rgb(241 231 231 / 26%);;
+    font-size: 19px;
+    width: auto;
+    float: none;
+    padding: 0;
+    line-height: 1.5;
+    box-shadow: none;
+    text-shadow: none;
+    border-radius: 0;
+    background: none;
+    opacity: .92;
 }
 
 @media only screen and (max-width: 1050px) and (min-width:861px) {
@@ -82,36 +85,36 @@
 
 
 .THIS.header{
-    height: 750px;
+    height: 560px;
 }
 
 @media only screen and (min-width: 1921px) {
     .THIS.header {
-        height:41.66667vw
+        height:29.16667vw
     }
 }
 
 @media only screen and (max-width: 1679px) and (min-width:1051px) {
     .THIS.header {
-        height:41.66667vw
+        height:31.5vw
     }
 }
 
 @media only screen and (max-width: 1050px) and (min-width:861px) {
     .THIS.header {
-        height:57.14286vw
+        height:42.85714vw
     }
 }
 
 @media only screen and (max-width: 860px) and (min-width:641px) {
     .THIS.header {
-        height:52.32558vw
+        height:40.69767vw
     }
 }
 
 @media only screen and (max-width: 640px) {
     .THIS.header {
-        height:93.33333vw
+        height:70vw
     }
 }
 

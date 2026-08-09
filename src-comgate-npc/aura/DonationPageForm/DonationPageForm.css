@@ -619,51 +619,27 @@
     cursor: pointer;
     position: relative;
     z-index: 1;
-    padding: 15px;
-    background-color: #362031;
-    border-radius: 8px 8px 0 0;
+    padding: 14px;
+    background-color: #fa95c2;
+    border-radius: 16px;
     overflow: hidden;
-    font-weight: 700;
-    font-size: 24px;
+    font-weight: 800;
+    font-size: 15px;
+    letter-spacing: .12em;
     line-height: 1.25;
-    color: #fff;
+    color: #362031;
     text-align: center;
+    text-transform: uppercase;
 }
 
-@media only screen and (min-width: 1051px) {
-    .THIS .donate-button-expand {
-        display:none;
-    }
-}
-
-@media only screen and (max-width: 1050px) and (min-width:861px) {
-    .THIS .donate-button-expand {
-        display:none;
-        font-size:2.28571vw;
-    }
-}
-
-@media only screen and (max-width: 860px) and (min-width:641px) {
-    .THIS .donate-button-expand {
-        padding:1.74419vw;
-        font-size:2.7907vw;
-        border-radius: .93023vw;
-    }
-    
-    .THIS .donate-button-expand.expanded {
-        border-radius: .93023vw .93023vw 0 0;
-    }
+.THIS .donate-button-expand.expanded {
+    border-radius: 16px 16px 0 0;
 }
 
 @media only screen and (max-width: 640px) {
     .THIS .donate-button-expand {
-        padding:4vw;
-        border-radius: 2.13333vw;
-        font-size:6.4vw;
-    }
-   
-    .THIS .donate-button-expand.expanded {
-        border-radius: 2.13333vw 2.13333vw 0 0;
+        padding:3.5vw;
+        font-size:4vw;
     }
 }
 
@@ -677,8 +653,8 @@
 .THIS .button-opener.down{
     height: 0.4em;
     width: 0.4em;
-    border-top: 0.15em solid white;
-    border-right: 0.15em solid white;
+    border-top: 0.15em solid #362031;
+    border-right: 0.15em solid #362031;
     transform: rotate(-45deg);
     transition: transform  .35s cubic-bezier(.4,0,0,1);
 
@@ -687,8 +663,8 @@
 .THIS .button-opener.up{
     height: 0.4em;
     width: 0.4em;
-    border-top: 0.15em solid white;
-    border-right: 0.15em solid white;
+    border-top: 0.15em solid #362031;
+    border-right: 0.15em solid #362031;
     transform: rotate(-225deg);
     transition: transform  .35s cubic-bezier(.4,0,0,1);
 
@@ -745,13 +721,28 @@
 .THIS.form .border-form-container{
     z-index: 1;
     position: relative;
+    border-radius: 16px;
+    box-shadow: 0 14px 40px rgba(54,32,49,.12);
 }
 
-.THIS #form-container-1, 
+.THIS.form .brand-button{
+    background-color: #362031;
+    color: #fff;
+    border-radius: 12px;
+    font-weight: 800;
+    letter-spacing: .05em;
+    font-size: 15px;
+    padding: 16px 24px;
+}
+.THIS.form .brand-button:hover{
+    background-color: #4f3549;
+}
+
+.THIS #form-container-1,
 .THIS #form-container-2{
-    padding: 60px 50px;
-    border-radius: 8px;
-    background: #f3f0eb;
+    padding: 40px 36px;
+    border-radius: 0 0 16px 16px;
+    background: #fff;
     z-index: 9000;
     position: relative;
     transition-timing-function: cubic-bezier(.455,.03,.515,.955);
@@ -762,16 +753,14 @@
 @media only screen and (min-width: 1921px) {
     .THIS #form-container-1,
     .THIS #form-container-2{
-        padding:3.33333vw 2.77778vw;
-        border-radius: .44444vw;
+        padding:2.08333vw 1.875vw;
     }
 }
 
 @media only screen and (max-width: 1679px) and (min-width:1051px) {
     .THIS #form-container-1,
     .THIS #form-container-2{
-        padding:3.33333vw 2.77778vw;
-        border-radius: .44444vw;
+        padding:2.38095vw 2.14286vw;
     }
 }
 
@@ -779,7 +768,6 @@
     .THIS #form-container-1,
     .THIS #form-container-2{
         padding:3.80952vw 2.85714vw;
-        border-radius: .7619vw;
     }
 }
 
