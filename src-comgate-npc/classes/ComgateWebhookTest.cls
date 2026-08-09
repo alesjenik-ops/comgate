@@ -121,6 +121,7 @@ public with sharing class ComgateWebhookTest {
     public static void test_cancelledPaidTransaction_untouched(){
         Account donor = [SELECT Id FROM Account LIMIT 1];
         GiftTransaction giftTransaction = ComgateTestFactory.getGiftTransaction(donor.Id, ComgateUtil.GIFT_TRANSACTION_PAID);
+        giftTransaction.TransactionDate = Date.today();
         insert giftTransaction;
 
         Test.setMock(HttpCalloutMock.class, new ComgateMockTest.PaymentStatusResponse('CANCELLED'));
