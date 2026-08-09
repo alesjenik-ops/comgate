@@ -78,7 +78,7 @@
       "components": [
         {
           "componentAttributes": {},
-          "componentName": "donationPageCampaignDetail",
+          "componentName": "c:donationPageCampaignDetail",
           "id": "119d8362-c28c-46c8-98a5-7fa6f8f9fda6",
           "renderPriority": "NEUTRAL",
           "renditionMap": {},
