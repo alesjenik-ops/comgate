@@ -114,6 +114,8 @@ Po doplňkových retrievech z obou orgů jsou definice ve `objects/` převzaté 
 - **Account field set** pro formulář (např. `DonationPage_Default` s poli FirstName, LastName,
   PersonEmail, Phone, Country__c…) — vybírá se v Builderu design atributem.
 - **Webhook URL v Comgate portálu**: `https://<doména-site>/services/apexrest/comgatewebhook`.
+- **AppleVerification static resource**: obsah je vázaný na doménu — pro novou doménu nahrajte
+  domain-association soubor, který pro Apple Pay vydá Comgate (soubor v repu je z původní domény).
 - **Multicurrency**: kód zapisuje/čte `CurrencyIsoCode` (Payment_Log__c, GiftTransaction) — cílový org
   musí mít zapnuté více měn (oba zdrojové orgy je mají), jinak Apex nezkompiluje.
 - **NPC balíčky**: CRMforNonProfit (Nonprofit Cloud), npc_bridge, frops_flow + org automatizace
