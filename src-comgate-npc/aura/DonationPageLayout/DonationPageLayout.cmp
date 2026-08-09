@@ -31,9 +31,5 @@
         <div>{!v.mainBody}</div>
         <div>{!v.footer}</div>
         
-        <div class="{!'donate-button '  + if(v.showDonateButton,' show ', '')}">
-            <lightning:button label="DAROVAT" onclick="{!c.handleDonateNow}"
-                              class="brand-button brand-button-default slds-size_1-of-1"/>
-        </div>
     </div>
 </aura:component>

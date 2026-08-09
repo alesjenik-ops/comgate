@@ -1563,3 +1563,123 @@
     font-size: 0px;
     opacity: 0;
 }
+/* ===== DKD design overrides (vzor formulare) ===== */
+
+.THIS .donate-title{
+    font-size: 26px;
+}
+
+.THIS .donate-subtitle{
+    color: #6b5a65;
+    font-size: 15px;
+}
+
+.THIS .donate-field-title{
+    font-size: 15px;
+}
+
+/* vsechna pole formulare maji ramecek podle designu */
+.THIS input.slds-input,
+.THIS select.slds-select,
+.THIS textarea.slds-textarea{
+    border: 2px solid #e4e3df;
+    border-radius: 10px;
+    background: #fff;
+    color: #362031;
+    font-family: 'Fira Sans', Helvetica, Arial, sans-serif;
+    box-shadow: none;
+}
+
+.THIS input.slds-input:focus,
+.THIS select.slds-select:focus,
+.THIS textarea.slds-textarea:focus{
+    border-color: #362031;
+    box-shadow: none;
+}
+
+.THIS input, .THIS select, .THIS textarea, .THIS button{
+    font-family: 'Fira Sans', Helvetica, Arial, sans-serif;
+}
+
+/* castka: velke cislo vpravo s podtrzenim, bez ramecku */
+.THIS .amount-input input{
+    border: none;
+    border-bottom: 3px solid #e4e3df;
+    border-radius: 0;
+    background: transparent;
+    text-align: right;
+    font-weight: 800;
+    color: #362031;
+}
+
+/* radio skupiny = mrizka stejne sirokych obrysovych tlacitek */
+.THIS .custom-radio-group .slds-radio_button-group{
+    display: flex;
+    width: 100%;
+    gap: 8px;
+    border: none;
+    box-shadow: none;
+}
+
+.THIS .custom-radio-group .slds-radio_button{
+    flex: 1 1 0;
+    display: flex;
+}
+
+.THIS .custom-radio-group .slds-radio_button__label{
+    width: 100%;
+    margin: 0 !important;
+    border: 2px solid #362031;
+    border-radius: 10px !important;
+    background: #fff !important;
+    color: #362031 !important;
+    transition: background-color .2s ease, color .2s ease;
+}
+
+.THIS .custom-radio-group .slds-radio_button__label:hover{
+    color: #362031 !important;
+    background: #f3f0eb !important;
+}
+
+.THIS .custom-radio-group .slds-radio_button input:checked + .slds-radio_button__label{
+    background: #362031 !important;
+    color: #fff !important;
+}
+
+/* zadny prouzek ani odznacek na vybrane volbe */
+.THIS .custom-radio-group .slds-radio_button__label::after{
+    display: none !important;
+}
+
+.THIS .custom-radio-group .slds-radio_button__label::before{
+    display: none !important;
+}
+
+/* velikosti tlacitek podle vzoru */
+.THIS .custom-radio-group.donation-amount .slds-radio_button__label{
+    height: 48px;
+    font-size: 16px;
+}
+
+.THIS .custom-radio-group.standard .slds-radio_button__label{
+    height: 48px;
+    font-size: 15px;
+}
+
+.THIS .custom-radio-group.account-type .slds-radio_button__label{
+    height: 44px;
+    font-size: 15px;
+}
+
+@media only screen and (max-width: 640px) {
+    .THIS .custom-radio-group.donation-amount .slds-radio_button__label{
+        height: 12vw;
+        font-size: 4vw;
+    }
+    .THIS .custom-radio-group .slds-radio_button-group{
+        flex-wrap: wrap;
+    }
+    .THIS .custom-radio-group .slds-radio_button{
+        flex: 1 1 45%;
+    }
+}

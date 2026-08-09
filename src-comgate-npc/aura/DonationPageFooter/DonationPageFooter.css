@@ -1,6 +1,7 @@
 .THIS{
-    background: linear-gradient(to bottom, transparent 0%, #362031 50px), transparent;
-    padding-top: 50px;
+    background: #362031;
+    padding-top: 10px;
+    margin-top: 40px;
 }
 
 .THIS.footer{
@@ -19,7 +20,7 @@
 }
 
 .THIS.section_radius-top{
-    border-radius: 75% 75% 0 0 / 2% 2% 0 0;
+    border-radius: 22px 22px 0 0;
 }
 
 .THIS .section_container{
@@ -60,8 +61,8 @@
 
 .THIS .footer_logo-img {
     display: block;
-    width: 153px;
-    height: 141px;
+    width: 250px;
+    height: 72px;
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
@@ -144,9 +145,11 @@
 }
 
 .THIS.footer .contact-info_title{
-    font-size: 14px;
+    font-size: 12px;
+    letter-spacing: .08em;
     text-transform: uppercase;
-    font-weight: 700;
+    font-weight: 800;
+    color: #fa95c2;
 }
 
 @media only screen and (min-width: 768px) {
@@ -173,8 +176,8 @@
 .THIS .footer-icons .icon{
     height: 32px;
     width: 32px;
-    background-color: rgb(255, 255, 255);
-    border-radius: 4px;
+    background-color: #fa95c2;
+    border-radius: 8px;
     display: inline-block;
 }
 

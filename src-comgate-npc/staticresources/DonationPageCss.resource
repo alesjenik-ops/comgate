@@ -6470,3 +6470,79 @@ body {
     margin: 0;
     background-color: #f3f0eb;
 }
+
+/* ===== DKD: obsah kampane (Donation_Page_Detail__c) ===== */
+.campaign-detail h1 {
+    font: 800 40px/1.1 'Fira Sans', sans-serif;
+    color: #362031;
+    margin-bottom: 18px;
+}
+
+.campaign-detail img {
+    width: 100%;
+    max-width: 100%;
+    border-radius: 14px;
+    display: block;
+    margin: 8px 0 22px;
+}
+
+.campaign-detail p {
+    font-size: 16px;
+    line-height: 1.65;
+    color: #6b5a65;
+    margin-bottom: 14px;
+}
+
+.campaign-detail p b, .campaign-detail p strong {
+    color: #362031;
+}
+
+/* odznaky: tucne polozky v poslednim odstavci se vykresli jako barevne pilulky */
+.campaign-detail p:last-of-type b,
+.campaign-detail p:last-of-type strong {
+    display: inline-block;
+    border-radius: 20px;
+    padding: 7px 16px;
+    font-size: 13px;
+    font-weight: 700;
+    color: #362031;
+    background: #fa95c2;
+    margin-right: 6px;
+    margin-bottom: 6px;
+}
+
+.campaign-detail p:last-of-type b:nth-of-type(2),
+.campaign-detail p:last-of-type strong:nth-of-type(2) {
+    background: #c0baec;
+}
+
+.campaign-detail p:last-of-type b:nth-of-type(3),
+.campaign-detail p:last-of-type strong:nth-of-type(3) {
+    background: #75d4e6;
+}
+
+@media only screen and (max-width: 860px) {
+    .campaign-detail h1 {
+        font-size: 28px;
+    }
+}
+
+/* ===== DKD: cela stranka od kraje ke kraji, bez bileho okraje nahore ===== */
+html, body {
+    margin: 0 !important;
+    padding: 0 !important;
+    background-color: #f3f0eb;
+}
+
+.siteforceContentArea,
+.siteforceStarterBody,
+.siteforceBasicPanels,
+.cCenterPanel {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* fonty i pro SLDS/Lightning prvky */
+body, button, input, select, textarea {
+    font-family: 'Fira Sans', Helvetica, Arial, sans-serif;
+}
