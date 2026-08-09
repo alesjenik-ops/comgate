@@ -1,7 +1,7 @@
 .THIS {
     /*max-width: 78.75rem;*/
     margin: auto;
-    font: 400 14px/1.714 'Roboto', 'sans-serif';
+    font: 400 14px/1.714 'Fira Sans', sans-serif;
     color: #362031;
     background-image: url('/sfsites/c/resource/DonationPageBackground?v2');
     background-position-x: left;
@@ -51,7 +51,7 @@
 }
 
 .THIS .h1,.THIS h1 {
-    font: 700 60px/1 Roboto,sans-serif;
+    font: 800 60px/1 'Fira Sans',sans-serif;
     letter-spacing: .033em;
     color: var(--brand-color);
 }
@@ -93,7 +93,7 @@
 }
 
 .THIS .h2,.THIS h2 {
-    font: 700 48px/1.25 Roboto,sans-serif
+    font: 700 48px/1.25 'Fira Sans',sans-serif
 }
 
 @media only screen and (min-width: 1921px) {
@@ -133,7 +133,7 @@
 }
 
 .THIS .h3,.THIS h3 {
-    font: 700 36px/1.33 Roboto,sans-serif
+    font: 700 36px/1.33 'Fira Sans',sans-serif
 }
 
 @media only screen and (min-width: 1921px) {

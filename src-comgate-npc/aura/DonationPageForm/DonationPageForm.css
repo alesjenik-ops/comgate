@@ -7,7 +7,7 @@
      --greenColor: #75d4e6;
      color: #222;
      cursor: auto;
-     font-family: "Roboto",Helvetica,Arial,sans-serif;
+     font-family: "Fira Sans",Helvetica,Arial,sans-serif;
      font-style: normal;
      font-weight: normal;
      line-height: 1.5;
@@ -241,7 +241,7 @@
     height: 100%;
     padding-left: 18px;
     font-weight: 600;
-    font-family: roboto;
+    font-family: "Fira Sans",sans-serif;
     color: black;
     cursor: pointer;
     margin-right: 10px;
@@ -443,7 +443,7 @@
 }
 
 .THIS h1 {
-    font: 700 60px/1 Roboto,sans-serif;
+    font: 800 60px/1 'Fira Sans',sans-serif;
     letter-spacing: .033em
 }
 
@@ -484,7 +484,7 @@
 }
 
 .THIS h2 {
-    font: 700 48px/1.25 Roboto,sans-serif
+    font: 700 48px/1.25 'Fira Sans',sans-serif
 }
 
 @media only screen and (min-width: 1921px) {
@@ -525,7 +525,7 @@
 
 
 .THIS h3{
-    font: 700 36px/1.33 Roboto,sans-serif;
+    font: 700 36px/1.33 'Fira Sans',sans-serif;
 }
 
 @media only screen and (min-width: 1921px) {
@@ -1544,7 +1544,7 @@
     content: "€";
     position: absolute;
     top: 21px;
-    font-family: "Roboto",Helvetica,Arial,sans-serif;
+    font-family: "Fira Sans",Helvetica,Arial,sans-serif;
     font-size: 1rem;
     font-weight: bold;
     letter-spacing: 1px;
@@ -1554,7 +1554,7 @@
 .THIS .brand-input select:required:invalid, 
 .THIS .brand-input select:optional:invalid  {
     color: #c0c0c0;
-    font-family: "Roboto",Helvetica,Arial,sans-serif;
+    font-family: "Fira Sans",Helvetica,Arial,sans-serif;
     font-weight: 300 !important;
     padding-left: 25px;
 }
@@ -1567,7 +1567,7 @@
 .THIS .brand-input option {
     color: black;
     font-size: 1.25rem;
-    font-family: "Roboto",Helvetica,Arial,sans-serif;
+    font-family: "Fira Sans",Helvetica,Arial,sans-serif;
 }
 
 .THIS .privacy-agreement{
