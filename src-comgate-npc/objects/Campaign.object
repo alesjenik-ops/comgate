@@ -3,51 +3,49 @@
     <fields>
         <fullName>Bank_Account__c</fullName>
         <deleteConstraint>SetNull</deleteConstraint>
-        <description>Reconstructed for Comgate-on-NPC port; if the target org already defines this field, prefer the org definition.</description>
         <label>Bank Account</label>
         <referenceTo>Bank_Account__c</referenceTo>
         <relationshipLabel>Campaigns</relationshipLabel>
         <relationshipName>Campaigns</relationshipName>
         <required>false</required>
-        <trackFeedHistory>false</trackFeedHistory>
         <type>Lookup</type>
     </fields>
     <fields>
         <fullName>Comgate_Bank_Account__c</fullName>
-        <externalId>false</externalId>
-        <inlineHelpText>Comgate account code used for payments collected for this campaign</inlineHelpText>
+        <inlineHelpText>Zde můžete vybrat bankovní účet, vůči kterému Comgate připíše platbu. Tento účet musí být nastaven v portálu comgate: https://portal.comgate.cz/ Pokud nebude žádný účet vybránnebo bude zvolena hodnota &quot;none&quot; využije se výchozí účet nastevený v Comgate.</inlineHelpText>
         <label>Comgate Bank Account</label>
-        <length>32</length>
         <required>false</required>
-        <trackFeedHistory>false</trackFeedHistory>
-        <type>Text</type>
-        <unique>false</unique>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>none</fullName>
+                    <default>false</default>
+                    <label>none</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
     </fields>
     <fields>
         <fullName>Donation_Page_Detail__c</fullName>
-        <description>Reconstructed for Comgate-on-NPC port; if the target org already defines this field, prefer the org definition.</description>
         <label>Donation Page Detail</label>
         <length>32768</length>
-        <trackFeedHistory>false</trackFeedHistory>
         <type>Html</type>
-        <visibleLines>10</visibleLines>
+        <visibleLines>25</visibleLines>
     </fields>
     <fields>
         <fullName>Donation_Page_Thank_You_Text__c</fullName>
-        <description>Reconstructed for Comgate-on-NPC port; if the target org already defines this field, prefer the org definition.</description>
         <label>Donation Page Thank You Text</label>
         <length>32768</length>
-        <trackFeedHistory>false</trackFeedHistory>
-        <type>LongTextArea</type>
-        <visibleLines>3</visibleLines>
+        <type>Html</type>
+        <visibleLines>25</visibleLines>
     </fields>
     <fields>
         <fullName>Donation_Page_Visible__c</fullName>
         <defaultValue>false</defaultValue>
-        <description>Reconstructed for Comgate-on-NPC port; if the target org already defines this field, prefer the org definition.</description>
-        <externalId>false</externalId>
         <label>Donation Page Visible</label>
-        <trackFeedHistory>false</trackFeedHistory>
         <type>Checkbox</type>
     </fields>
 </CustomObject>

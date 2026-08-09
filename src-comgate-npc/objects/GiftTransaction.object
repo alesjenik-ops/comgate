@@ -2,13 +2,12 @@
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
     <fields>
         <fullName>Attempt_Counter__c</fullName>
-        <description>Reconstructed for Comgate-on-NPC port; if the target org already defines this field, prefer the org definition.</description>
         <externalId>false</externalId>
-        <label>Attempt Counter</label>
+        <label>Donation Attempt Counter</label>
         <precision>3</precision>
         <required>false</required>
         <scale>0</scale>
-        <trackTrending>false</trackTrending>
+        <trackHistory>false</trackHistory>
         <type>Number</type>
         <unique>false</unique>
     </fields>
@@ -18,105 +17,83 @@
         <label>Comgate Transaction Id</label>
         <length>64</length>
         <required>false</required>
-        <trackTrending>false</trackTrending>
+        <trackHistory>false</trackHistory>
         <type>Text</type>
         <unique>false</unique>
     </fields>
     <fields>
         <fullName>Comgate_Variable_Symbol__c</fullName>
-        <displayFormat>{0000000000}</displayFormat>
+        <displayFormat>2{000000000}</displayFormat>
         <externalId>false</externalId>
         <label>Comgate Variable Symbol</label>
-        <trackTrending>false</trackTrending>
+        <trackHistory>false</trackHistory>
         <type>AutoNumber</type>
     </fields>
     <fields>
         <fullName>Last_Attempt_Date__c</fullName>
-        <description>Reconstructed for Comgate-on-NPC port; if the target org already defines this field, prefer the org definition.</description>
-        <externalId>false</externalId>
-        <label>Last Attempt Date</label>
+        <label>Donation Last Attempt Date</label>
         <required>false</required>
-        <trackTrending>false</trackTrending>
+        <trackHistory>false</trackHistory>
         <type>DateTime</type>
     </fields>
     <fields>
         <fullName>Payment_Method__c</fullName>
-        <description>Reconstructed for Comgate-on-NPC port; if the target org already defines this field, prefer the org definition.</description>
         <label>Payment Method</label>
         <required>false</required>
-        <trackTrending>false</trackTrending>
+        <trackHistory>false</trackHistory>
         <type>Picklist</type>
         <valueSet>
-            <restricted>false</restricted>
-            <valueSetDefinition>
-                <sorted>false</sorted>
-                <value>
-                    <fullName>CreditCard</fullName>
-                    <default>false</default>
-                    <label>CreditCard</label>
-                </value>
-                <value>
-                    <fullName>Credit Card</fullName>
-                    <default>false</default>
-                    <label>Credit Card</label>
-                </value>
-                <value>
-                    <fullName>Bank Transfer</fullName>
-                    <default>false</default>
-                    <label>Bank Transfer</label>
-                </value>
-                <value>
-                    <fullName>PayPal</fullName>
-                    <default>false</default>
-                    <label>PayPal</label>
-                </value>
-                <value>
-                    <fullName>SEPA Direct Debit</fullName>
-                    <default>false</default>
-                    <label>SEPA Direct Debit</label>
-                </value>
-                <value>
-                    <fullName>Online Bank</fullName>
-                    <default>false</default>
-                    <label>Online Bank</label>
-                </value>
-                <value>
-                    <fullName>Google Pay</fullName>
-                    <default>false</default>
-                    <label>Google Pay</label>
-                </value>
-                <value>
-                    <fullName>Apple Pay</fullName>
-                    <default>false</default>
-                    <label>Apple Pay</label>
-                </value>
-            </valueSetDefinition>
+            <restricted>true</restricted>
+            <valueSetName>Payment_Method</valueSetName>
         </valueSet>
     </fields>
     <fields>
         <fullName>Status_Reason__c</fullName>
-        <description>Reconstructed for Comgate-on-NPC port; if the target org already defines this field, prefer the org definition.</description>
-        <label>Status Reason</label>
-        <length>32768</length>
-        <trackTrending>false</trackTrending>
+        <label>Donation Status Reason</label>
+        <length>20000</length>
+        <trackHistory>false</trackHistory>
         <type>LongTextArea</type>
         <visibleLines>3</visibleLines>
     </fields>
     <fields>
         <fullName>Status__c</fullName>
-        <description>Reconstructed for Comgate-on-NPC port; if the target org already defines this field, prefer the org definition.</description>
-        <label>Status</label>
+        <label>Donation Status</label>
         <required>false</required>
-        <trackTrending>false</trackTrending>
+        <trackHistory>false</trackHistory>
         <type>Picklist</type>
         <valueSet>
-            <restricted>false</restricted>
+            <restricted>true</restricted>
             <valueSetDefinition>
                 <sorted>false</sorted>
+                <value>
+                    <fullName>CAPTURED</fullName>
+                    <default>false</default>
+                    <label>CAPTURED</label>
+                </value>
                 <value>
                     <fullName>PENDING</fullName>
                     <default>false</default>
                     <label>PENDING</label>
+                </value>
+                <value>
+                    <fullName>ERROR</fullName>
+                    <default>false</default>
+                    <label>ERROR</label>
+                </value>
+                <value>
+                    <fullName>CHARGEBACK</fullName>
+                    <default>false</default>
+                    <label>CHARGEBACK</label>
+                </value>
+                <value>
+                    <fullName>CANCELLATION</fullName>
+                    <default>false</default>
+                    <label>CANCELLATION</label>
+                </value>
+                <value>
+                    <fullName>REFUND</fullName>
+                    <default>false</default>
+                    <label>REFUND</label>
                 </value>
                 <value>
                     <fullName>PAID</fullName>
@@ -132,16 +109,6 @@
                     <fullName>CANCELLED</fullName>
                     <default>false</default>
                     <label>CANCELLED</label>
-                </value>
-                <value>
-                    <fullName>ERROR</fullName>
-                    <default>false</default>
-                    <label>ERROR</label>
-                </value>
-                <value>
-                    <fullName>CAPTURED</fullName>
-                    <default>false</default>
-                    <label>CAPTURED</label>
                 </value>
             </valueSetDefinition>
         </valueSet>

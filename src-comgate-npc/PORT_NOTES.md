@@ -15,10 +15,15 @@ Salesforce Nonprofit Cloud. Architektonickým vzorem byla Stripe implementace (`
 | RD.Comgate_Initial_Transaction_Id__c | GiftCommitment.Comgate_Initial_Transaction_Id__c |
 | Payment_Log__c / Payment_Reference__c lookupy na Opportunity/RD/Contact | lookupy `Gift_Transaction__c` / `Gift_Commitment__c` / `Account__c` |
 
-Front-end: aura formulář `DonationPageForm` (a FieldSet/Item) přepnut z Contact na Account
-(atribut `donor`, field sety na Accountu přes `ContactFieldSetsDynamicPicklist` — Account verze ze Stripe orgu,
-country picklist z `Account.Country__c` + global value set `Countries`).
-Nové design atributy: `receiverName`, `supportEmail` (nahrazují hardcode „Clouderia s.r.o." / e-maily).
+Front-end: aura formulář `DonationPageForm` (a FieldSet/Item/Layout/Header/Footer) je založen na
+**reálné NPC verzi ze Stripe orgu** (doplňkový retrieve) — tedy včetně přepínače fyzická/právnická osoba,
+výběru kampaně (message channel `donationPageCampaignSelection`), field setů na Accountu, country picklistu
+z `Account.Country__c` a českých textů. Jediná náhrada: krok platby — místo `stripePaymentForm`
+(embedded Stripe Checkout) se volá `createComgatePayment` a redirect URL se renderuje v
+`comgatePaymentForm` iframu (`allow="payment"`); návrat z brány řeší postMessage `onSuccessPage`
+z vnořené stránky (převzato z Comgate originálu). PayPal volba odstraněna (Comgate ji nenabízí).
+Design atributy `receiverName`/`supportEmail` (výchozí hodnoty ČČK) nahrazují hardcoded texty.
+`getReferenceId` vrací klíče `shopperReference`/`paymentReference` (konvence reálného formuláře).
 
 ## Vědomé opravy oproti originálům
 
@@ -43,7 +48,8 @@ Nové design atributy: `receiverName`, `supportEmail` (nahrazují hardcode „Cl
 11. **Plánování cleanup batche** v `finish()`: plánuje se, když job NENÍ naplánován
     (`checkIfAlreadyScheduled` vrací true = nenaplánováno; Stripe originál měl negaci obráceně,
     takže se cleanup nikdy nenaplánoval).
-12. **Footer logo** default `DonationPageFooterLogo` (resource `FooterLogoSimple` v žádném retrieve neexistuje).
+12. **Footer logo** default `DonationPageFooterLogo` — odpovídá reálné NPC verzi footeru
+    (`FooterLogoSimple` z Comgate orgu je k dispozici ve `src-comgate/staticresources/`).
 
 ## Nové artefakty (nikde předtím neexistovaly)
 
@@ -55,34 +61,53 @@ Nové design atributy: `receiverName`, `supportEmail` (nahrazují hardcode „Cl
 - Kompletní testovací sada (v NPSP stromu žádné Comgate testy nebyly): ComgateTestFactory, ComgateMockTest,
   ComgateServiceTest, ComgateWebhookTest, ComgateChargePaymentsBatchTest, ComgateMonthlyCleanupBatchTest,
   DonationPageControllerTest, ComgateUtilTest, DonationPageUrlRewriterTest.
-- Rekonstruovaná pole na standardních objektech (viz níže).
+- Pole `Comgate_*` na standardních objektech GiftTransaction/GiftCommitment/Campaign (viz níže).
 
-## Rekonstruovaná pole — POZOR před nasazením do orgu, kde už existují
+## Pole na standardních objektech — převzaté reálné definice
 
-Soubory `objects/GiftTransaction.object`, `GiftCommitment.object`, `Campaign.object`, `Account.object`
-definují pole, jejichž originální definice nebyly v žádném retrieve (retrieve neobsahoval standardní objekty).
-Pole `Comgate_*` jsou nová (autoritativní zde). Sdílená pole (`Status__c`, `Status_Reason__c`,
-`Attempt_Counter__c`, `Last_Attempt_Date__c`, `Payment_Method__c`, `Country__c`, `Donation_Page_*`)
-jsou **rekonstrukce podle použití v kódu** — pokud cílový org tato pole už má (org se Stripe integrací),
-před deployem tyto bloky ze souborů odstraňte, nebo je nahraďte definicemi staženými z orgu,
-jinak deploy přepíše jejich picklist hodnoty/popisky.
+Po doplňkových retrievech z obou orgů jsou definice ve `objects/` převzaté z reálných orgů
+(už nejde o rekonstrukce):
 
-`Comgate_Variable_Symbol__c` je AutoNumber `{0000000000}` — pokud má org vlastní číselnou řadu
-variabilních symbolů, upravte formát/startovní číslo před prvním nasazením.
+- Sdílená pole (`Status__c`, `Status_Reason__c`, `Attempt_Counter__c`, `Last_Attempt_Date__c`,
+  `Payment_Method__c`, `Country__c`, `Receive_One_Time_POD__c`, `Tax_identification_number__c`,
+  `Donation_Page_*`, `Campaign.Bank_Account__c`) = přesné definice ze Stripe/NPC orgu, včetně
+  field setu **`Account.DonationPageFieldSet`** (Receive_One_Time_POD__c, FirstName, LastName,
+  PersonEmail, PersonMobilePhone, PersonMailing*).
+- `GiftTransaction.Status__c` je restricted picklist — port rozšiřuje původních šest hodnot
+  (CAPTURED/PENDING/ERROR/CHARGEBACK/CANCELLATION/REFUND) o Comgate stavy **PAID/AUTHORIZED/CANCELLED**;
+  deploy hodnoty sloučí.
+- `Payment_Method__c` (GiftTransaction i GiftCommitment) je vázané na global value set
+  **`Payment_Method`** — port jej rozšiřuje o hodnoty `Credit Card`, `Online Bank`, `Google Pay`,
+  `Apple Pay` (vrací je ComgateUtil.convertComgatePaymentMethod).
+- `Campaign.Comgate_Bank_Account__c` je **restricted picklist** (převzato z Comgate orgu, hodnota `none`) —
+  po nasazení doplňte do picklistu kódy účtů z Comgate portálu.
+- `Comgate_Variable_Symbol__c` je AutoNumber s prefixovou řadou podle vzoru Stripe polí
+  (Stripe: GT `1{000000000}`, GC `8{000000000}`): Comgate používá **GT `2{000000000}`,
+  GC `9{000000000}`**, aby se řady VS nepřekrývaly. Případně upravte před prvním nasazením.
+
+## Co je nově součástí stromu (z doplňkových retrievů)
+
+- `externalCredentials/ComgatePayments.externalCredential` — Basic auth konfigurace (bez secretu);
+  po deployi vyplňte v Setup → Named Credentials principal `Credentials` (merchant + secret z Comgate portálu).
+- `permissionsets/Comgate_Integration.permissionset` — NPC verze permission setu z Comgate orgu
+  (přístup k ComgateWebhook/DonationPageController/ResourceReaderController, Payment_Log__c,
+  Payment_Reference__c, external credential principal). Přiřaďte guest userovi site a integračnímu uživateli.
+- `messageChannels/donationPageCampaignSelection.messageChannel` + LWC `donationPageCampaignDetail`,
+  `loaderRoller` — výběr kampaně a detail kampaně na stránce (reálná NPC kompozice).
+- Reálný `FieldSetWrapper` (country picklist přes `Account.PersonMailingCountry` → hodnoty `Account.Country__c`).
+- `paymentDetailsPage` LWC v české NPC verzi.
 
 ## Co ve stromu záměrně NENÍ (nutno zajistit v cílovém orgu)
 
-- **External Credential `ComgatePayments`** (Basic auth merchant:secret) — named credential
-  `ComgatePaymentsNamed` na něj odkazuje; založit ručně v Setup → Named Credentials a vyplnit
-  merchant + secret z Comgate portálu.
-- **Experience Cloud site** (kompozice stránky v Builderu) — v žádném retrieve není; stránku je nutné
-  složit v Experience Builderu (theme layout `DonationPageLayout`, do regionu form `DonationPageForm`,
-  sekce `donationPage*Section`), nebo stáhnout `DigitalExperienceBundle` ze zdrojového orgu.
+- **Experience Cloud site** (kompozice stránky v Builderu) — `DigitalExperienceBundle` nevrátil ani jeden
+  org (starší typ site bez Builder bundle); stránku je nutné složit v Experience Builderu
+  (theme layout `DonationPageLayout`, do regionu form `DonationPageForm`, sekce `donationPage*Section`,
+  `donationPageCampaignDetail`).
 - **CustomSite definice** (doména, guest user, přiřazení `DonationPageUrlRewriter`) — org-specifické.
-- **Guest user oprávnění** — guest profil site potřebuje: create Account/Contact/GiftTransaction/
-  GiftCommitment/GiftCommitmentSchedule/GiftDefaultDesignation/GiftDesignation/Payment_Reference__c/
-  Payment_Log__c, read Campaign/Bank_Account__c, přístup k Apex třídám DonationPageController,
-  ContactFieldSetsDynamicPicklist, ResourceReaderController a REST endpointu ComgateWebhook.
+  Guest profil „Donation Page Profile" z obou orgů je pro referenci ve `src/profiles/` a
+  `src-comgate/profiles/`; oprávnění pokrývá permission set `Comgate_Integration` + create na
+  Account/Contact/GiftTransaction/GiftCommitment/GiftCommitmentSchedule/GiftDefaultDesignation/
+  GiftDesignation, read Campaign/Bank_Account__c.
 - **Naplánování jobů** (Execute Anonymous po deployi):
   `System.schedule('ComgateChargePaymentsBatch', '0 0 8 * * ?', new ComgateChargePaymentsBatch());`
 - **Org default Comgate_Settings__c** (Attempt_Limit__c, Attempt_Delay__c, Day_Of_Charging__c).
@@ -100,9 +125,10 @@ variabilních symbolů, upravte formát/startovní číslo před prvním nasazen
 - Webhook vrací vždy HTTP 200 (i při neúspěšné verifikaci) — záměr, Comgate pak neretryuje donekonečna.
 - Verifikace webhooku = zpětné ověření stavu přes GET payment status (payload `secret` se nevaliduje) —
   stejné jako originál.
-- Honeypot `privacyAgreement` (skrytý checkbox, Apex při true vyhodí výjimku).
+- Server stále odmítá `privacyAgreement == true` (honeypot); reálný NPC formulář ale skrytý checkbox
+  nemá, takže kontrola je jen pojistka pro přímá volání API.
 - GTM/JENTIS analytické eventy ve formuláři ponechány beze změny.
-- Viditelné texty thank-you kroku v `DonationPageForm.cmp` (odkazy Facebook/Instagram „CLOUDERIA")
-  zůstaly z originálu — upravte podle organizace; první řádek jde přes design atribut `thankYouLabel`,
-  resp. `Campaign.Donation_Page_Thank_You_Text__c`.
-- Kurzy měn pro přepočet nabízených částek jsou hardcoded v `DonationPageForm.cmp` (`currencies`).
+- Thank-you texty: první řádek přes design atribut `thankYouLabel`; text z
+  `Campaign.Donation_Page_Thank_You_Text__c` má přednost (formulář ho načítá při výběru kampaně);
+  fallback odstavce v `DonationPageForm.cmp` odkazují na cervenykriz.eu (převzato z reálného formuláře).
+- Formulář je fixně v CZK (převzato z reálné NPC verze — výběr měny je disabled).

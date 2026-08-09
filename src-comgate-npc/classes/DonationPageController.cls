@@ -52,8 +52,8 @@ public without sharing class DonationPageController {
         DonationPagePaymentWrapper paymentWrapper = (DonationPagePaymentWrapper) JSON.deserialize(paymentWrapperString, DonationPagePaymentWrapper.class);
         if(paymentWrapper?.privacyAgreement == true) throw new DonationPageControllerException('Your payment request cannot be processed, please contact our support services.');
         donor = processDonor(donor, con, isPersonAccount);
-        returnMap.put('shopperReferenceId', donor.Id);
-        returnMap.put('paymentReferenceId', createPaymentReference(donorString, paymentWrapperString, campaignId, donor.Id));
+        returnMap.put('shopperReference', donor.Id);
+        returnMap.put('paymentReference', createPaymentReference(donorString, paymentWrapperString, campaignId, donor.Id));
         return JSON.serialize(returnMap);
     }
 

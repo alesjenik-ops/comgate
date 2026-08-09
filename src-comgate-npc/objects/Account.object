@@ -1,23 +1,100 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fieldSets>
+        <fullName>DonationPageFieldSet</fullName>
+        <description>Default Doantion Page Fields Set</description>
+        <displayedFields>
+            <field>Receive_One_Time_POD__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>true</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>FirstName</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>true</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>LastName</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>true</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>PersonEmail</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>true</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>PersonMobilePhone</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>true</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>PersonMailingStreet</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>true</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>PersonMailingCity</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>true</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>PersonMailingPostalCode</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>true</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>PersonMailingCountry</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>true</isRequired>
+        </displayedFields>
+        <label>DonationPageFieldSet</label>
+    </fieldSets>
     <fields>
         <fullName>Country__c</fullName>
-        <description>Reconstructed for Comgate-on-NPC port; if the target org already defines this field, prefer the org definition.</description>
         <label>Country</label>
         <required>false</required>
         <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
         <type>Picklist</type>
         <valueSet>
-            <restricted>false</restricted>
+            <restricted>true</restricted>
             <valueSetName>Countries</valueSetName>
         </valueSet>
     </fields>
     <fields>
-        <fullName>Email_Marketing_Opt_in__c</fullName>
-        <defaultValue>false</defaultValue>
-        <externalId>false</externalId>
-        <label>Email Marketing Opt-in</label>
+        <fullName>Receive_One_Time_POD__c</fullName>
+        <label>Chcete Potvrzení o Daru?</label>
+        <required>false</required>
         <trackFeedHistory>false</trackFeedHistory>
-        <type>Checkbox</type>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Ano</fullName>
+                    <default>true</default>
+                    <label>Ano</label>
+                </value>
+                <value>
+                    <fullName>Ne</fullName>
+                    <default>false</default>
+                    <label>Ne</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Tax_identification_number__c</fullName>
+        <externalId>false</externalId>
+        <label>DIČ</label>
+        <length>10</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
     </fields>
 </CustomObject>

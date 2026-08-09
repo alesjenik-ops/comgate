@@ -2,20 +2,34 @@
     doInit : function(component, event, helper){
         const status = helper.getUrlParameter('status');
         const campaignId = helper.getUrlParameter('campaignId');
-        const contactId = helper.getUrlParameter('contactId');
+        const donorId = helper.getUrlParameter('donorId');
         
-        if(contactId) component.set('v.donor.Id', contactId);
+        if(donorId){
+            component.set('v.donor.Id', donorId);
+        } else {
+            helper.fillDefaultDonorData(component);
+        }
         if (window.frameElement){
             parent.postMessage({id : 'onSuccessPage', data : {isSuccess : true}}, '*');
             return;
-        } else if(status && status === 'success' ) {
+        }
+        if(status && status === 'success' ) {
             component.set('v.success', true);
             component.set('v.currentStep', 'last');
             helper.pushPurchaseDataLayer(component);
         }
         if(campaignId) component.set('v.campaignId', campaignId);
-        
-        component.set('v.paymentWrapper.redirectURL', window.location.href);
+
+        //If we have campaignId from the url or component design parameter
+        if(component.get('v.campaignId')){
+            window.setTimeout(
+                $A.getCallback(function() {
+                        component.find("campaignChangeMessage").publish({recordId : component.get('v.campaignId')});
+                }), 100
+            );
+        }
+
+        component.set('v.paymentWrapper.redirectURL', location.protocol + '//' + location.host + location.pathname);
         helper.loadFieldSets(component, helper);
         helper.filterAllowedPaymentMethods(component);
         helper.filterAllowedDonationTypeOptions(component);
@@ -58,14 +72,14 @@
             component.set('v.currentStep', 'paymentMethodsSelection');
             helper.fireScrollDonationFormTop(component, event, helper);
             return;
-        }  else if (currentStep === 'paymentMethodsSelection'){
-              const paymentOption = component.get('v.paymentWrapper.paymentOption');
-              if(paymentOption === 'bankTransfer'){
-                  helper.payByBankTransfer(component, event, helper);
-                  return;
-              }
-              component.set('v.currentStep', 'paymentMethods');
-              helper.fireScrollDonationFormTop(component, event, helper);
+        } else if (currentStep === 'paymentMethodsSelection'){
+            const paymentOption = component.get('v.paymentWrapper.paymentOption');
+            if(paymentOption === 'banktransfer'){
+                helper.payByBankTransfer(component, event, helper);
+                return;
+            }
+            component.set('v.currentStep', 'paymentMethods');
+            helper.fireScrollDonationFormTop(component, event, helper);
         }
         
         component.set('v.spinner', true);
@@ -78,29 +92,32 @@
                 
         action1.setParams({
             donorString : JSON.stringify(component.get('v.donor')),
-            conString : '{}',
+            conString : JSON.stringify(component.get('v.contactPerson')),
+            isPersonAccount : JSON.stringify(component.get('v.isPersonAccount')),
             campaignId : component.get('v.campaignId'),
-            paymentWrapperString : JSON.stringify(paymentWrapper),
-            isPersonAccount : component.get('v.isPersonAccount')});
+            paymentWrapperString : JSON.stringify(paymentWrapper)});
+        let shopperReference;
         helper.doPromise(component, action1)
         .then(resolve => {
             const responseObj = JSON.parse(resolve);
-            component.set('v.paymentWrapper.shopperReferenceId', responseObj.shopperReferenceId);
-            component.set('v.paymentWrapper.paymentReferenceId', responseObj.paymentReferenceId);
-
+            shopperReference = responseObj.shopperReference;
+            if(!component.get('v.isPersonAccount')) {
+                component.set('v.donor.PersonEmail', component.get('v.contactPerson.Email'));
+            }
             action2.setParams({
-                paymentReferenceId : responseObj.paymentReferenceId,
+                paymentReferenceId : responseObj.paymentReference,
                 donorString : JSON.stringify(component.get('v.donor')),
                 campaignId : component.get('v.campaignId'),
                 paymentWrapperString : JSON.stringify(component.get('v.paymentWrapper'))
             });
-            helper.storePurchaseDataLayer(component, responseObj.paymentReferenceId);
-            component.set('v.spinnerMessage', 'redirecting');
+            helper.storePurchaseDataLayer(component, responseObj.paymentReference);
+            component.set('v.spinnerMessage', 'redirecting');  
             return helper.doPromise(component, action2);
         })
         .then(resolve => {
-            const paymentReferenceId = component.get('v.paymentWrapper.paymentReferenceId');
-            const shopperReferenceId = component.get('v.paymentWrapper.shopperReferenceId');
+            const paymentReferenceId = action2.getParam('paymentReferenceId');
+            const shopperReferenceId = shopperReference;
+            component.set('v.paymentReferenceId', paymentReferenceId)
             helper.createRelatedRecords(component, event, paymentReferenceId, shopperReferenceId);
             helper.pushCheckoutDataLayer(component, paymentReferenceId);
             
@@ -120,7 +137,6 @@
                         component.set('v.spinner', false);
                 }), 1000
             );
-            //helper.displayDropInComponent(component, event, helper);
             
         })
         .catch(e => {
@@ -132,7 +148,7 @@
             });
             component.set('v.spinnerMessage', '');
             component.set('v.spinner', false);
-            component.set('v.currentStep', 'personDetails');
+            component.set('v.currentStep', 'paymentMethodsSelection');
         })
         .finally(() => {
         });
@@ -145,7 +161,7 @@
         } else if (currentStep === 'paymentMethodsSelection'){
             component.set('v.currentStep', 'personDetails');
         } else if (currentStep === 'paymentMethods'){
-            component.set('v.paymentSessionConfiguration', null);
+            component.set('v.paymentUrl', null);
             component.set('v.currentStep', 'paymentMethodsSelection');
         }
         
@@ -154,13 +170,18 @@
     handleDonationExpander : function(component, event, helper){
         component.set('v.donationWrapperOpened', !component.get('v.donationWrapperOpened'));
     },
-    
-    handleCurrencyChange : function(component, event, helper){
-        const selectedCurrency = event.getSource().get('v.value');
-        const currencyItem = component.get('v.currencies').find(item => item.label === selectedCurrency);
-        const donationOptions = helper.getDefaultDonationAmounts(component, currencyItem);
-        component.set('v.currentCurrencySymbol', currencyItem.symbol);
-        component.set('v.donationOptions', donationOptions);
-        helper.setDefaultDonationAmount(component, component.get('v.defaultDonationTypeOption'));
-    }
+
+    handleCampaignChange : function(component, event, helper){
+        const campaignId = event.getSource().get('v.value');
+        component.find("campaignChangeMessage").publish({recordId : campaignId});
+
+        helper.setFieldsFromSelectedCampaign(component, campaignId);
+    },
+
+    handleAccountTypeChange : function(component, event, helper){
+        const value = event.getParam('value');
+        component.set('v.isPersonAccount', value === 'person');
+        component.set('v.donor', {'sobjectType': 'Account'});
+        component.set('v.contactPerson', {'sobjectType': 'Contact'});
+    },
 });

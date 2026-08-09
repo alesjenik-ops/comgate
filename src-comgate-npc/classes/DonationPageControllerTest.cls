@@ -26,7 +26,7 @@ public with sharing class DonationPageControllerTest {
 
     @IsTest
     public static void test_getFieldSetWrapper_existingDonor(){
-        FieldSet donationFieldSet = Account.SObjectType.getDescribe().fieldSets.getMap().get('DonationPage_Default');
+        FieldSet donationFieldSet = Account.SObjectType.getDescribe().fieldSets.getMap().get('DonationPageFieldSet');
         Id donorId = [SELECT Id FROM Account LIMIT 1].Id;
         if(donationFieldSet == null) return;
 
@@ -56,12 +56,12 @@ public with sharing class DonationPageControllerTest {
         Test.stopTest();
 
         Map<String, Object> returnMap = (Map<String, Object>) JSON.deserializeUntyped(returnJSON);
-        String shopperReferenceId = (String) returnMap.get('shopperReferenceId');
-        String paymentReferenceId = (String) returnMap.get('paymentReferenceId');
+        String shopperReference = (String) returnMap.get('shopperReference');
+        String paymentReference = (String) returnMap.get('paymentReference');
 
         Account donorAssert = [SELECT Id, PersonLeadSource FROM Account WHERE PersonEmail =: donor.PersonEmail];
-        System.assertEquals(paymentReferenceId, [SELECT Id FROM Payment_Reference__c].Id);
-        System.assertEquals(shopperReferenceId, donorAssert.Id);
+        System.assertEquals(paymentReference, [SELECT Id FROM Payment_Reference__c].Id);
+        System.assertEquals(shopperReference, donorAssert.Id);
         System.assertEquals('Donation Page', donorAssert.PersonLeadSource);
     }
 
@@ -78,13 +78,13 @@ public with sharing class DonationPageControllerTest {
         Test.stopTest();
 
         Map<String, Object> returnMap = (Map<String, Object>) JSON.deserializeUntyped(returnJSON);
-        String shopperReferenceId = (String) returnMap.get('shopperReferenceId');
-        String paymentReferenceId = (String) returnMap.get('paymentReferenceId');
+        String shopperReference = (String) returnMap.get('shopperReference');
+        String paymentReference = (String) returnMap.get('paymentReference');
 
         Account donorAssert = [SELECT Id, PersonLeadSource FROM Account WHERE Id =: donor.Id];
         System.assertEquals(1, [SELECT COUNT() FROM Account]);
-        System.assertEquals(paymentReferenceId, [SELECT Id FROM Payment_Reference__c].Id);
-        System.assertEquals(shopperReferenceId, donorAssert.Id);
+        System.assertEquals(paymentReference, [SELECT Id FROM Payment_Reference__c].Id);
+        System.assertEquals(shopperReference, donorAssert.Id);
         System.assertEquals(null, donorAssert.PersonLeadSource);
     }
 
@@ -101,12 +101,12 @@ public with sharing class DonationPageControllerTest {
         Test.stopTest();
 
         Map<String, Object> returnMap = (Map<String, Object>) JSON.deserializeUntyped(returnJSON);
-        String shopperReferenceId = (String) returnMap.get('shopperReferenceId');
-        String paymentReferenceId = (String) returnMap.get('paymentReferenceId');
+        String shopperReference = (String) returnMap.get('shopperReference');
+        String paymentReference = (String) returnMap.get('paymentReference');
 
         Account donorAssert = [SELECT Id FROM Account WHERE Name = 'Test Business'];
-        System.assertEquals(shopperReferenceId, donorAssert.Id);
-        System.assertEquals(paymentReferenceId, [SELECT Id FROM Payment_Reference__c].Id);
+        System.assertEquals(shopperReference, donorAssert.Id);
+        System.assertEquals(paymentReference, [SELECT Id FROM Payment_Reference__c].Id);
         System.assertEquals(1, [SELECT COUNT() FROM Contact WHERE AccountId =: donorAssert.Id]);
     }
 
@@ -152,7 +152,7 @@ public with sharing class DonationPageControllerTest {
         Test.setMock(HttpCalloutMock.class, new ComgateMockTest.PaymentCreatedResponse());
 
         Campaign cam = ComgateTestFactory.getCampaign();
-        cam.Comgate_Bank_Account__c = 'COMGATE-ACC-1';
+        cam.Comgate_Bank_Account__c = 'none';
         insert cam;
 
         Account donor = [SELECT Id, FirstName, LastName, PersonEmail FROM Account LIMIT 1];

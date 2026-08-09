@@ -46,13 +46,14 @@
     </types>
     <types>
         <members>comgatePaymentForm</members>
+        <members>donationPageCampaignDetail</members>
         <members>donationPageDescriptionBox</members>
         <members>donationPageImageSection</members>
         <members>donationPageImagesSection</members>
         <members>donationPageThankYouSection</members>
+        <members>loaderRoller</members>
         <members>donationPageValuesSection</members>
         <members>donationPageVideoSection</members>
-        <members>infoDropdown</members>
         <members>paymentDetailsPage</members>
         <members>qrCodeGenerator</members>
         <name>LightningComponentBundle</name>
@@ -79,12 +80,25 @@
         <name>Flow</name>
     </types>
     <types>
+        <members>ComgatePayments</members>
+        <name>ExternalCredential</name>
+    </types>
+    <types>
         <members>Countries</members>
+        <members>Payment_Method</members>
         <name>GlobalValueSet</name>
+    </types>
+    <types>
+        <members>donationPageCampaignSelection</members>
+        <name>LightningMessageChannel</name>
     </types>
     <types>
         <members>ComgatePaymentsNamed</members>
         <name>NamedCredential</name>
+    </types>
+    <types>
+        <members>Comgate_Integration</members>
+        <name>PermissionSet</name>
     </types>
     <types>
         <members>Comgate</members>

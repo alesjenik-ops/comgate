@@ -6,26 +6,39 @@
     loadFieldSets : function(component, helper){
         component.set('v.spinner', true);
         const action = component.get('c.getFieldSetWrapper');
-        action.setParams({fieldSetName : component.get('v.fieldSetSelection'), 
-                            donorId : component.get('v.donor.Id'),
-                            campaignId : component.get('v.campaignId')});
+        action.setParams({
+            fieldSetName : component.get('v.fieldSetSelection'),
+            donorId : component.get('v.donor.Id'),
+            campaignId : component.get('v.campaignId')
+        });
         
         helper.doPromise(component, action, true)
         .then(resolve => {
-            
             const resolveBody = JSON.parse(resolve);
+            let campaignId = component.get('v.campaignId');
             if(resolveBody.donor) component.set('v.donor', resolveBody.donor);
-            const fieldSetWrapper = (resolveBody.fieldSetWrapper || []).map(item => {
-                if(item.fieldPath === 'Country__c' && !item.picklistValues) item.picklistValues = resolveBody.countryOptions;
-                return item;
-            });
-            component.set('v.fieldSetWrapper', fieldSetWrapper);
+            component.set('v.fieldSetWrapper', resolveBody.fieldSetWrapper);
             component.set('v.campaigns', resolveBody.campaigns);
-            const currentCampaign = (resolveBody.campaigns || []).find(item => item.Id === component.get('v.campaignId'));
-            if(currentCampaign && currentCampaign.Donation_Page_Thank_You_Text__c) component.set('v.thankYouLabel', currentCampaign.Donation_Page_Thank_You_Text__c);
+            component.set('v.countryOptions', resolveBody.countryOptions);
+             if(campaignId == null || campaignId == ''){
+                 if(resolveBody.campaigns.length > 0) {
+                     campaignId =  resolveBody.campaigns[0].Id;
+                     component.set('v.campaignId', campaignId);
+                     component.set('v.thankYouText', resolveBody.campaigns[0].Donation_Page_Thank_You_Text__c);
+                     helper.setFieldsFromSelectedCampaign(component, campaignId);
+                     window.setTimeout(
+                         $A.getCallback(function() {
+                                component.find("campaignChangeMessage").publish({recordId : campaignId});
+                         }), 100
+                     );
+                 }
+             } else {
+                 helper.setFieldsFromSelectedCampaign(component, campaignId);
+             }
         })
         .finally(() => {
             component.set('v.spinner', false);
+            $A.util.addClass(component.find('loadingSpinner'), 'hidden');
         });
     },
     
@@ -35,6 +48,7 @@
         
         const paymentOptions = component.get('v.paymentOptions').filter(item => configObject[item.value]);
         component.set('v.paymentOptions', paymentOptions);
+        component.set('v.paymentWrapper.allowedPaymentMethods', paymentOptions.map(item => item.value, []));
         component.set('v.paymentWrapper.paymentOption', defaultPaymentOption);
     },
     
@@ -43,7 +57,6 @@
         const configObject = {
             oneoff : component.get('v.donationTypeOption_oneOff'),
             recurring_monthly : component.get('v.donationTypeOption_monthly'),
-            recurring_quarterly : component.get('v.donationTypeOption_quarterly'),
             recurring_yearly : component.get('v.donationTypeOption_yearly'),
         }
         
@@ -61,7 +74,6 @@
         const donationOptions = component.get('v.donationOptions');
         this.filterDonationAmountOptions(donationOptions, 'oneoff', component.get('v.donationTypeOption_oneOff_amounts'), additionalSettings);
         this.filterDonationAmountOptions(donationOptions, 'recurring_monthly', component.get('v.donationTypeOption_monthly_amounts'), additionalSettings);
-        this.filterDonationAmountOptions(donationOptions, 'recurring_quarterly', component.get('v.donationTypeOption_quarterly_amounts'), additionalSettings);
         this.filterDonationAmountOptions(donationOptions, 'recurring_yearly', component.get('v.donationTypeOption_yearly_amounts'), additionalSettings);
         return donationOptions;
     },
@@ -70,7 +82,7 @@
         const {symbol = 'Kč', conversionRate } = additionalSettings ? additionalSettings : {};
         donationOptions[type] = selections.split(';').map(item => {
             const itemValue = isNaN(item) || !conversionRate ? item : Math.round(item * conversionRate);
-            return {'label': ((isNaN(itemValue) ? itemValue.toLowerCase() : itemValue) === 'other' ? 'Other' : itemValue + ' ' + symbol), 'value': itemValue}
+            return {'label': ((isNaN(itemValue) ? itemValue.toLowerCase() : itemValue) === 'other' ? 'Jiná' : itemValue + ' ' + symbol), 'value': itemValue}
         });
     },
     
@@ -97,7 +109,7 @@
     getPaymentOptionsConfigObject : function(component){
         return {
            card : component.get('v.paymentOption_card'),
-           bankTransfer : component.get('v.paymentOption_bankTransfer')
+           banktransfer : component.get('v.paymentOption_banktransfer')
        };
     },
     
@@ -282,7 +294,6 @@
     getTransactionTotal : function(component, paymentWrapper){
         switch(paymentWrapper.donationType) {
             case 'recurring_monthly':
-            case 'recurring_quarterly':
             case 'recurring_yearly','oneoff':
                 return paymentWrapper.donationValue;
             default:
@@ -294,8 +305,6 @@
         switch(donationType) {
             case 'recurring_monthly':
                 return 'monthly';
-            case 'recurring_quarterly':
-                return 'quarterly';
             case 'oneoff':
                 return 'once';
             case 'recurring_yearly':
@@ -345,6 +354,29 @@
                 return sParameterName[1] === undefined ? true : sParameterName[1];
             }
         }
+    },
+    
+    justCreateRecords : function(component, event, helper){
+        const paymentWrapper = component.get('v.paymentWrapper');
+        const action = component.get('c.justCreateRecords');
+        action.setParams({
+            donorString : JSON.stringify(component.get('v.donor')),
+            conString : JSON.stringify(component.get('v.contactPerson')),
+            isPersonAccount : JSON.stringify(component.get('v.isPersonAccount')),
+            campaignId : component.get('v.campaignId'),
+            paymentWrapperString : JSON.stringify(paymentWrapper)});
+        helper.doPromise(component, action, true)
+        .then(resolve => {
+            component.set('v.bankAccountDetails', resolve);
+            component.set('v.currentStep', 'last');
+            component.set('v.spinner', false);
+        })
+        .catch(e => {
+        })
+        .finally(() => {
+            component.set('v.spinnerMessage', '');
+            component.set('v.spinner', false);
+        });
     },
     
     fireScrollDonationFormTop : function(component, event, helper){
@@ -409,23 +441,22 @@
         document.dispatchEvent(new CustomEvent("user_interaction", { "detail" : jentisObject }));
     },
     
-    displayDropInComponent : function(component, event, helper){
-        const paymentSessionConfiguration = component.get('v.paymentSessionConfiguration')
-        const dropInComponent =  component.find('dropInComponent');
-        if(!dropInComponent) return;
-        dropInComponent.initialize(paymentSessionConfiguration.client_secret);
-
-    },
-
     addEventListeners : function(component, event, helper){
         window.addEventListener("message", function(event){
-            helper = component.get('v.helper');
             if (event.data.id === 'onSuccessPage'){
                 component.set('v.success', true);
                 component.set('v.currentStep', 'last');
-
             }
         })
+    },
+
+    fillDefaultDonorData : function(component){
+        const pageName = window.location.pathname.split('/').pop();
+        if(pageName == 's' || pageName == '') {
+            //component.set('v.donor.Donation_Page_Name__c', 'home');
+            return;
+        }
+        //component.set('v.donor.Donation_Page_Name__c', pageName);
     },
 
     payByBankTransfer : function(component, event, helper){
@@ -434,29 +465,15 @@
         helper.fireScrollDonationFormTop(component, event, helper);
     },
 
-    justCreateRecords : function(component, event, helper){
-        const paymentWrapper = component.get('v.paymentWrapper');
-        const action = component.get('c.justCreateRecords');
-        action.setParams({
-            donorString : JSON.stringify(component.get('v.donor')),
-            conString : '{}',
-            campaignId : component.get('v.campaignId'),
-            paymentWrapperString : JSON.stringify(paymentWrapper),
-            isPersonAccount : component.get('v.isPersonAccount')});
-        helper.doPromise(component, action, true)
-        .then(resolve => {
-            console.log(component.get('v.paymentWrapper'));
-            console.log(component.get('v.paymentWrapper.paymentOption'));
-            component.set('v.bankAccountDetails', resolve);
-            component.set('v.currentStep', 'last');
-            component.set('v.spinner', false);
-        })
-        .catch(e => {
-        })
-        .finally(() => {
-            component.set('v.spinnerMessage', '');
-            component.set('v.spinner', false);
-        });
+    setFieldsFromSelectedCampaign : function(component, campaignId){
+        if(campaignId == null) return;
+         const options = component.get("v.campaigns");
+         const selectedOption = options.find(function(option) {
+             return option.Id === campaignId;
+         });
+
+         component.set('v.formHeaderLabel', selectedOption.Name);
+         component.set('v.thankYouText', selectedOption.Donation_Page_Thank_You_Text__c);
     },
-   
+
 })

@@ -1,129 +1,109 @@
-<!--
- - Created by LukášGregora on 03/06/2021.
- -->
-
 <aura:component description="DonationPageForm" controller="DonationPageController" implements="forceCommunity:availableForAllPageTypes">
     <aura:attribute name="spinner" type="Boolean" default="false"/>
     <aura:attribute name="spinnerMessage" type="String" default="loading"/>
     <aura:attribute name="success" type="Boolean" default="false"/>
     <aura:attribute name="donor" type="Account" default="{'sobjectType':'Account'}"/>
-    <aura:attribute name="isPersonAccount" type="Boolean" default="true"/>
-    <aura:attribute name="campaigns" type="List"/>
+    <aura:attribute name="contactPerson" type="Contact" default="{'sobjectType':'Contact'}"/>
+
     <aura:attribute name="paymentWrapper" type="Map" default="{'donationType':'oneoff', 'donationValue' : 35, 
                                                                 'paymentOption' : 'card', 'currencyIsoCode':'CZK'} "/>
-    <aura:attribute name="currentCurrencySymbol" type="String" default="Kč"/>
+    <aura:attribute name="paymentReferenceId" type="String" default=""/>
     <aura:attribute name="fieldSetWrapper" type="Map"/>
     <aura:attribute name="referenceId" type="String"/>
     <aura:attribute name="currentStep" type="String" default="first" description="first,personDetails,paymentMethods,last"/>
     <aura:attribute name="donationWrapperOpened" type="Boolean" default="true"/>
     <aura:attribute name="paymentUrl" type="String"/>
-    <aura:attribute name="paymentRetryDisplayed" type="Boolean" description="Show retry button when the transaction failed"/>
-    
+    <aura:attribute name="disabledCampaignSelection" type="Boolean" default="false"/>
+
     <aura:attribute name="helper" type="Aura.Action"/>
 
+
+    <aura:attribute name="bankAccountDetails" type="Object" default="{}"/>
+
     <aura:attribute name="donationTypeOptions" type="List" default="[
-        {'label': 'Once', 'value': 'oneoff'},
-        {'label': 'Monthly', 'value': 'recurring_monthly'},
-        {'label': 'Quarterly', 'value': 'recurring_quarterly'},
-        {'label': 'Yearly', 'value': 'recurring_yearly'}
+        {'label': 'Jednorázově', 'value': 'oneoff'},
+        {'label': 'Měsíčně', 'value': 'recurring_monthly'},
+        {'label': 'Ročně', 'value': 'recurring_yearly'}
     ]"/>
 
-    <aura:attribute name="otherOptionsAvailable" type="Boolean" default="false"/> <!-- whether the user can specify own amount -->
     <aura:attribute name="donationOptionSelected" type="String" default=""/>
     <aura:attribute name="donationOptions" type="Map" default="{
     oneoff : [
         {'label': '20 Kč', 'value': '20'},
         {'label': '50 Kč', 'value': '50'},
         {'label': '100 Kč', 'value': '100'},
-        {'label': 'Other', 'value': 'other'}
+        {'label': 'Jiná', 'value': 'other'}
     ],
     recurring_monthly : [
-        {'label': '10 Kč', 'value': '10'},
         {'label': '20 Kč', 'value': '20'},
         {'label': '50 Kč', 'value': '50'},
-        {'label': 'Other', 'value': 'other'}
-    ],
-    recurring_quarterly : [
-        {'label': '50 Kč', 'value': '50'},
         {'label': '100 Kč', 'value': '100'},
-        {'label': '200 Kč', 'value': '200'},
-        {'label': 'Other', 'value': 'other'}
+        {'label': 'Jiná', 'value': 'other'}
     ],
     recurring_yearly : [
         {'label': '200 Kč', 'value': '200'},
         {'label': '500 Kč', 'value': '500'},
         {'label': '1000 Kč', 'value': '1000'},
-        {'label': 'Other', 'value': 'other'}
+        {'label': 'Jiná', 'value': 'other'}
     ]
     }"/>
 
     <aura:attribute name="paymentOptions" type="List" default="[
-        {'label': 'Credit/Debit Card', 'value': 'card'},
-        {'label': 'Bank Transfer', 'value': 'bankTransfer'}
+        {'label': 'Platební karta', 'value': 'card'},
+        {'label': 'Platební převod', 'value': 'banktransfer'}
+    ]"/>
+
+    <aura:attribute name="accountTypeOptions" type="List" default="[
+        {'label': 'Fyzická osoba', 'value': 'person'},
+        {'label': 'Právnická osoba', 'value': 'legal'}
     ]"/>
     
-    <aura:attribute name="currencies" type="List" default="[
-        {label : 'EUR', symbol : '€', conversionRate : 1},
-        {label : 'CZK', symbol : 'Kč', conversionRate : 24.65278},
-        {label : 'GBP', symbol : '£', conversionRate : 0.83488034},
-        {label : 'HUF', symbol : 'Ft', conversionRate : 397.09268},
-        {label : 'NOK', symbol : 'kr', conversionRate : 9.9295768},
-        {label : 'PLN', symbol : 'zł', conversionRate : 4.7109844},
-        {label : 'RON', symbol : 'lei', conversionRate : 5.11},
-        {label : 'SEK', symbol : 'kr', conversionRate : 10.4021728},
-        {label : 'USD', symbol : '$', conversionRate : 1.01951382},
-    ]"/>
-
-
-    <aura:attribute name="bankAccountDetails" type="Object" default="{}"/>
-
-
+    
     <!-- DESIGN ATTRIBUTES -->
     <aura:attribute name="campaignId" type="String" default=""/>
+    <aura:attribute name="campaigns" type="List" default="[]"/>
+    <aura:attribute name="usePaymentLink" type="Boolean" default="true"/>
 
     <aura:attribute name="donationTypeOption_oneOff" type="Boolean" default="true"/>
     <aura:attribute name="donationTypeOption_monthly" type="Boolean" default="true"/>
-    <aura:attribute name="donationTypeOption_quarterly" type="Boolean" default="true"/>
     <aura:attribute name="donationTypeOption_yearly" type="Boolean" default="true"/>
     <aura:attribute name="defaultDonationTypeOption" type="String" default="oneoff"/>
     
-    <aura:attribute name="donationTypeOption_oneOff_amounts" type="String" default="35;48;110;other"/>
-    <aura:attribute name="donationTypeOption_monthly_amounts" type="String" default="10;20;50;other"/>
-    <aura:attribute name="donationTypeOption_quarterly_amounts" type="String" default="50;100;200;other"/>
+    <aura:attribute name="donationTypeOption_oneOff_amounts" type="String" default="20;50;100;other"/>
+    <aura:attribute name="donationTypeOption_monthly_amounts" type="String" default="20;50;100;other"/>
     <aura:attribute name="donationTypeOption_yearly_amounts" type="String" default="200;500;1000;other"/>
 
-    <aura:attribute name="formHeaderLabel" type="String" default="Help us create a better world for us!"/>
-    <aura:attribute name="formHeaderSubLabel" type="String" default="On behalf of the world, our team would like to thank you in advance for making a difference!"/>
+    <aura:attribute name="formHeaderLabel" type="String" default="Daruj krev – daruj naději"/>
+    <aura:attribute name="formHeaderSubLabel" type="String" default=""/>
 
-    <aura:attribute name="fieldSetSelection" type="String" description="Selected account field set" required="true" />
+    <aura:attribute name="fieldSetSelection" type="String" description="Selected donor field set" required="true" />
     
     <aura:attribute name="paymentOption_card" type="Boolean" default="true"/>
-    <aura:attribute name="paymentOption_bankTransfer" type="Boolean" default="true"/>
+    <aura:attribute name="paymentOption_banktransfer" type="Boolean" default="true"/>
     <aura:attribute name="defaultPaymentOption" type="String" default="card"/>
     
-    <aura:attribute name="marketingOptInLabel" type="String" default="Yes, I want to receive e-mails"/>
-    <aura:attribute name="privacyPolicyLabel" type="String" default="I have read the $privacy policy$ and I agree to it.*"/>
-    <aura:attribute name="privacyPolicyUrl" type="String" default="https://www.clouderia.digital/about-us/data-privacy"/>
+    <aura:attribute name="thankYouLabel" type="String" default="Děkujeme za Vaší podporu."/>
+    <aura:attribute name="thankYouText" type="String" default=""/>
 
-    <aura:attribute name="thankYouLabel" type="String" default="Thank you for making a difference and creating a kinder world for is!"/>
-
-    <aura:attribute name="receiverName" type="String" default=""/>
-    <aura:attribute name="supportEmail" type="String" default=""/>
+    <aura:attribute name="isPersonAccount" type="Boolean" default="true"/>
+    <aura:attribute name="receiverName" type="String" default="Český červený kříž"/>
+    <aura:attribute name="supportEmail" type="String" default="info@cervenykriz.eu"/>
+    <aura:attribute name="countryOptions" type="List" default="[]"/>
 
 
     <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
     <aura:registerEvent name="DonationPageScrollEvent" type="c:DonationPageScrollEvent"/>
-
-
+    <lightning:messageChannel type="donationPageCampaignSelection__c"
+                              aura:id="campaignChangeMessage"/>
+    
+    <aura:if isTrue="{!v.spinner}">
+        <lightning:spinner variant="brand" alternativeText="Loading" class="{!v.spinnerMessage + ' custom-spinner'}"/>
+    </aura:if>
     
     <div class="slds-col slds-size_1-of-1 slds-is-relative form">
-        <aura:if isTrue="{!v.spinner}">
-            <lightning:spinner variant="brand" alternativeText="Loading" class="{!v.spinnerMessage + ' custom-spinner'}"/>
-        </aura:if>
-
         <div class="border-form-container slds-is-relative">
             <div class="{!'donate-button-expand slds-align_absolute-center ' + if(v.donationWrapperOpened,' expanded ', '')}" onclick="{!c.handleDonationExpander}">
-                <div class="slds-align_absolute-center slds-col_bump-right">DONATE</div>
+                <div class="slds-align_absolute-center slds-col_bump-right">DAROVAT</div>
                 <div class="{!if(v.donationWrapperOpened,' down ', ' up ') + 'button-opener slds-align-middle slds-m-right_small'}">
                 </div>
             </div>
@@ -134,85 +114,74 @@
                     <div class="slds-col slds-size_1-of-1 slds-text-align_center donate-subtitle">{!v.formHeaderSubLabel}</div>
                     
                     <div class="form-inner-content slds-grid slds-wrap slds-col slds-size_1-of-1">
-                        <div class="slds-col slds-size_1-of-1 slds-text-align_center donate-field-title">How much do you want to donate?</div>
+                        <div class="slds-col slds-size_1-of-1 slds-text-align_center donate-field-title">Vyberte výši daru:</div>
                         <div class="slds-col slds-size_1-of-1 slds-grid slds-grid_overflow">
                             <lightning:input label="Donation Amount" class="amount-input slds-col"
                                              aura:id="donationAmount"
                                              required="true" value="{!v.paymentWrapper.donationValue}"
                                              placeholder="0"
-                                             min="1" step="1"
+                                             min="15" step="1"
                                              disabled="{!v.donationOptionSelected != 'other'}"
                                              pattern="^([1-9]{1,}[0-9]*)((,||.)([0-9]{0,7}))?$"
                                              type="number" variant="label-hidden"/>
 
                             <lightning:select label="Currencies" required="true" variant="label-hidden"
-                                              class="amount-input-currency slds-p-left_x-small slds-is-relative"
-                                              disabled="false" value="{!v.paymentWrapper.currencyIsoCode}" 
-                                              onchange="{!c.handleCurrencyChange}">
-                                <aura:iteration items="{!v.currencies}" var="curr">
-                                    <option value="{!curr.label}">{!curr.symbol}, {!curr.label}</option>
-                                </aura:iteration>
+                                              class="amount-input-currency hide-arrow slds-p-left_x-small slds-is-relative"
+                                              disabled="true" value="{!v.paymentWrapper.currencyIsoCode}">
+                                <option value="CZK">Kč, CZK</option>
                             </lightning:select>
                         </div>
 
                         <div class="select-group slds-grid slds-wrap slds-size_1-of-1">
                             <lightning:radioGroup name="selectDonationAmount"
-                                                  label="WITH THE AMOUNT OF:"
+                                                  label="S ČÁSTKOU:"
                                                   variant="label-hidden"
                                                   class="custom-radio-group donation-amount slds-col slds-size_1-of-1 slds-p-bottom_medium slds-p-top_large"
                                                   id="donationAmountRadio"
                                                   onchange="{!c.handleDonationOptionChanged}"
                                                   options="{! if(v.paymentWrapper.donationType == 'oneoff', v.donationOptions.oneoff, 
-                                                                        v.paymentWrapper.donationType == 'recurring_monthly' ? v.donationOptions.recurring_monthly
-                                                                        : (v.paymentWrapper.donationType == 'recurring_quarterly' ? v.donationOptions.recurring_quarterly : v.donationOptions.recurring_yearly)) }"
+                                                                        v.paymentWrapper.donationType == 'recurring_monthly' ? v.donationOptions.recurring_monthly : v.donationOptions.recurring_yearly) }"
                                                   value="{! v.donationOptionSelected }"
-                                                  type="button"/>
-                            
-                            <aura:if isTrue="{!or(v.paymentWrapper.currencyIsoCode == 'USD', v.donor.Country__c == 'United States')}">
-                                <div class="slds-col slds-size_1-of-1">
-                                    <c:infoDropdown expanded="true"
-                                                    hideHeading="true"
-                                                    bodyText="Please note that donations made on this page are not tax deductible in the United States."/>
-                                </div>
-                            </aura:if>
-                            
+                                                  type="button"/>                            
                         </div>
 
                         <div class="select-group slds-grid slds-wrap slds-size_1-of-1">
-                            <div class="slds-col slds-size_1-of-1 slds-text-align_center donate-field-title">How often would you like to donate?</div>
+                            <div class="slds-col slds-size_1-of-1 slds-text-align_center donate-field-title">Jak často chcete darovat?</div>
 
                             <lightning:radioGroup name="selectDonationTypeOption"
-                                                  label="I SUPPORT CLOUDERIA:"
+                                                  label="Jak často chcete darovat:"
                                                   variant="label-hidden"
-                                                  class="{!'custom-radio-group donation-amount slds-col slds-size_1-of-1 slds-p-bottom_small ' + if(mod(v.donationTypeOptions.length, 2) == 0, 'two', '') }"
+                                                  class="custom-radio-group donation-amount slds-col slds-size_1-of-1 slds-p-bottom_small"
                                                   onchange="{!c.handleDonationTypeChanged}"
                                                   options="{! v.donationTypeOptions }"
                                                   value="{! v.paymentWrapper.donationType}"
                                                   type="button"/>
+                        </div>
 
-                            <div class="slds-col slds-size_1-of-1">
-                                <aura:if isTrue="{!v.paymentWrapper.donationType == 'oneoff'}">
-                                    <c:infoDropdown heading="Why make a donation?"
-                                                    bodyText="All our activities are funded 100% by donations. Your gift 
-                                                            enables us to help people who desperately need help."/>
-                                </aura:if>
-                                <aura:if isTrue="{!v.paymentWrapper.donationType == 'recurring_monthly'}">
-                                    <c:infoDropdown heading="Why make a monthly donation?"
-                                                    bodyText="As a regular donor, you are at our side for all our missions. 
-                                                            Make a regular donation to allow us to act quickly and plan ahead."/>
-                                </aura:if>
+                        <div class="select-group slds-grid slds-wrap slds-size_1-of-1">
+                            <div class="slds-col slds-size_1-of-1 slds-text-align_center donate-field-title">Kampaň:</div>
 
-                            </div>
+                            <lightning:select name="campaignSelection"
+                                              label="Campaign Selection"
+                                              variant="label-hidden"
+                                              value="{!v.campaignId}"
+                                              onchange="{!c.handleCampaignChange}"
+                                              disabled="{!v.disabledCampaignSelection}"
+                                              class="{!'brand-input slds-col slds-size_1-of-1 slds-p-vertical_small label-hidden' + (v.campaignId ? ' selected' : '')}">
+                                <aura:iteration items="{!v.campaigns}" var="option">
+                                    <option value="{!option.Id}" label="{!option.Name}" disabled="false" selected="{!option.Id == v.campaignId}">{!option.Name}</option>
+                                </aura:iteration>
+                            </lightning:select>
                         </div>
 
 
 
+
                         <div class="slds-col slds-size_1-of-1 slds-grid slds-wrap slds-p-top_x-large">
-                            <lightning:button label="{! 'Yes, donate ' + v.paymentWrapper.donationValue + ' ' + v.currentCurrencySymbol + ' ' + 
-                                                    if(v.paymentWrapper.donationType == 'oneoff', 'once', 
-                                                    v.paymentWrapper.donationType == 'recurring_monthly' ? 'monthly'
-                                                    : if(v.paymentWrapper.donationType == 'recurring_quarterly' ? 'quarterly' : 'yearly' ))}" onclick="{!c.handleDonate}"
-                                              class="brand-button brand-button-orange slds-size_1-of-1"/>
+                            <lightning:button label="{! 'Ano, darovat ' + v.paymentWrapper.donationValue + ' Kč ' +
+                                                    if(v.paymentWrapper.donationType == 'oneoff', 'jednorázově',
+                                                    v.paymentWrapper.donationType == 'recurring_monthly' ? 'měsíčně' : 'ročně')}" onclick="{!c.handleDonate}"
+                                              class="brand-button brand-button-default slds-size_1-of-1"/>
                         </div>
                     </div>
                 </div>
@@ -223,68 +192,109 @@
                 <div class="{! 'slds-grid slds-wrap ' +  if(v.donationWrapperOpened, '',' hidden ')}" id="form-container-2">
                     <div class="step-back-button slds-col slds-grow-none" onclick="{!c.handleStepBack}">
                         <lightning:icon size="xx-small" iconName="utility:chevronleft" class="chevron-left"/>
-                        Return to amount
+                        Zpět k výběru částky
                     </div>
                     
                     <div class="slds-col slds-size_1-of-1">
-                        <h3 class="donate-title slds-align_absolute-center slds-text-align_center">{!'Step 2: Personal Information'}</h3>
+                        <h3 class="donate-title slds-align_absolute-center slds-text-align_center">{!'Krok 2: Osobní údaje'}</h3>
                     </div>
 
 
                     <div class="form-inner-content slds-grid slds-wrap slds-col slds-size_1-of-1">
-                        <div class="slds-col slds-size_1-of-1 slds-grid slds-wrap personal-information">
-                            <c:DonationPageFormFieldSet fieldSetWrapper="{!v.fieldSetWrapper}" 
-                                                        donor="{!v.donor}" 
-                                                        aura:id="cmpValidate"/>
+                        <div class="slds-col slds-size_1-of-1 slds-p-bottom_small">
+                            <lightning:radioGroup name="accountType"
+                                                  label="Typ dárce"
+                                                  variant="label-hidden"
+                                                  class="custom-radio-group account-type slds-col slds-size_1-of-1 slds-p-bottom_small"
+                                                  options="{!v.accountTypeOptions}"
+                                                  value="{! v.isPersonAccount ? 'person' : 'legal' }"
+                                                  onchange="{!c.handleAccountTypeChange}"
+                                                  type="button"/>
                         </div>
 
-                        <aura:if isTrue="{!or(v.paymentWrapper.currencyIsoCode == 'USD', v.donor.Country__c == 'United States')}">
-                            <div class="slds-col slds-size_1-of-1">
-                                <c:infoDropdown expanded="true"
-                                                hideHeading="true"
-                                                bodyText="Please note that donations made on this page are not tax deductible in the United States."/>
-                            </div>
-                        </aura:if>
-        
-                        <div class="slds-grid slds-col slds-size_1-of-1 slds-p-vertical_xx-small privacy-agreement">
-                            <lightning:input label=""
-                                             required="false"
-                                             aura:id="validateField"
-                                             type="checkbox"
-                                             autocomplete="off"
-                                             checked="{! v.paymentWrapper.privacyAgreement}"
-                                             class="custom-checkbox"/>
-                            <span class="">I have read the privacy policy and I agree to it.</span>
-                        </div>
-        
-                        <div class="slds-grid slds-col slds-size_1-of-1 slds-p-vertical_xx-small statement-text">
-                            <lightning:input label=""
-                                             required="false"
-                                             aura:id="validateField"
-                                             type="checkbox"
-                                             checked="{! v.donor.Email_Marketing_Opt_in__c}"
-                                             class="custom-checkbox"/>
-                            <span class="">{!v.marketingOptInLabel}</span>
+                        <div class="slds-col slds-size_1-of-1 slds-grid slds-wrap personal-information">
+                            <aura:if isTrue="{!v.isPersonAccount}">
+                                <c:DonationPageFormFieldSet fieldSetWrapper="{!v.fieldSetWrapper}"
+                                                            record="{!v.donor}"
+                                                            aura:id="cmpValidate"/>
+
+                                <aura:set attribute="else">
+                                    <lightning:input label="IČ" required="true"
+                                                     value="{!v.donor.CRMforNonProfit__ICO__c}"
+                                                     class="brand-input slds-col slds-size_1-of-2 slds-p-right_small slds-p-vertical_small"
+                                                     aura:id="validateField"/>
+                                    <lightning:input label="DIČ"
+                                                     value="{!v.donor.Tax_identification_number__c}"
+                                                     class="brand-input slds-col slds-size_1-of-2 slds-p-vertical_small"
+                                                     aura:id="validateField"/>
+                                    <lightning:input label="Firma" required="true"
+                                                     value="{!v.donor.Name}"
+                                                     class="brand-input slds-col slds-size_1-of-1 slds-p-vertical_small"
+                                                     aura:id="validateField"/>
+                                    <lightning:input label="Jméno kontaktní osoby" required="true"
+                                                     value="{!v.contactPerson.FirstName}"
+                                                     class="brand-input slds-col slds-size_1-of-2 slds-p-right_small slds-p-vertical_small"
+                                                     aura:id="validateField"/>
+                                    <lightning:input label="Příjmení kontaktní osoby" required="true"
+                                                     value="{!v.contactPerson.LastName}"
+                                                     class="brand-input slds-col slds-size_1-of-2 slds-p-vertical_small"
+                                                     aura:id="validateField"/>
+                                    <lightning:input label="Pozice"
+                                                     value="{!v.contactPerson.Department}"
+                                                     class="brand-input slds-col slds-size_1-of-1 slds-p-vertical_small"
+                                                     aura:id="validateField"/>
+                                    <lightning:input label="Telefon" required="true" type="tel"
+                                                     value="{!v.contactPerson.MobilePhone}"
+                                                     class="brand-input slds-col slds-size_1-of-1 slds-p-vertical_small"
+                                                     aura:id="validateField"/>
+                                    <lightning:input label="E-Mail" required="true" type="email"
+                                                     value="{!v.contactPerson.Email}"
+                                                     class="brand-input slds-col slds-size_1-of-1 slds-p-vertical_small"
+                                                     aura:id="validateField"/>
+
+                                    <div class="slds-col slds-size_1-of-1 slds-p-top_x-large donate-field-title">Adresa sídla</div>
+
+                                    <lightning:input label="Ulice a č. p." required="true"
+                                                     value="{!v.donor.BillingStreet}"
+                                                     class="brand-input slds-col slds-size_1-of-1 slds-p-bottom_small"
+                                                     aura:id="validateField"/>
+                                    <lightning:input label="Obec" required="true"
+                                                     value="{!v.donor.BillingCity}"
+                                                     class="brand-input slds-col slds-size_1-of-2 slds-p-right_small slds-p-vertical_small"
+                                                     aura:id="validateField"/>
+                                    <lightning:input label="PSČ" required="true"
+                                                     value="{!v.donor.BillingPostalCode}"
+                                                     class="brand-input slds-col slds-size_1-of-2 slds-p-right_small slds-p-vertical_small"
+                                                     aura:id="validateField"/>
+                                    <lightning:select name="BillingCountry"
+                                                      label="Stát"
+                                                      required="true"
+                                                      aura:id="validateField"
+                                                      value="{!v.donor.BillingCountry}"
+                                                      class="{!'brand-input slds-col slds-size_1-of-1 slds-p-vertical_small' + (v.donor.BillingCountry ? ' selected' : '')}">
+                                        <option value="">{!''}</option>
+                                        <aura:iteration items="{!v.countryOptions}" var="option">
+                                            <option value="{!option.value}" disabled="false">{!option.label}</option>
+                                        </aura:iteration>
+                                    </lightning:select>
+                                </aura:set>
+                            </aura:if>
                         </div>
 
                         <span class="slds-col slds-size_1-of-1 required-text slds-p-top_x-small" data-aura-rendered-by="52:2;a">
-                               * Required       
+                               * Povinná pole
                         </span>
-        
-                        <!--<div class="slds-grid slds-col slds-size_1-of-1 slds-p-vertical_xx-small statement-text">
-                            <lightning:input label=""
-                                             required="true"
-                                             aura:id="validateField"
-                                             type="checkbox"
-                                             checked="{! v.donor.Privacy_Policy_Agreement__c}"
-                                             class="custom-checkbox"/>
-                            <c:donationPagePrivacyPolicy privacyPolicyLabel="{!v.privacyPolicyLabel}" 
-                                                         privacyPolicyUrl="{!v.privacyPolicyUrl}"/>
-                        </div>-->
 
+                        <div class="slds-grid slds-col slds-size_1-of-1 slds-p-vertical_xx-small">
+                            <span class="">
+                                Výběrem komunikačního kanálu souhlasíte s tím, že vás budeme několikrát ročně informovat
+                                o práci Českého Červeného Kříže a o našich společných úspěších v poslání přinášet úsměvy na tváři.
+                            </span>
+                        </div>
+        
                         <div class="slds-col slds-size_1-of-1 slds-grid slds-wrap slds-p-top_x-large">
-                            <lightning:button label="{! 'I confirm my personal details'}" onclick="{!c.handleDonate}"
-                                              class="brand-button brand-button-orange slds-size_1-of-1"/>
+                            <lightning:button label="{! 'Potvrzuji své osobní údaje'}" onclick="{!c.handleDonate}"
+                                              class="brand-button brand-button-default slds-size_1-of-1"/>
                         </div>
                     </div>
                 </div>
@@ -294,10 +304,10 @@
                 <div class="{! 'slds-grid slds-wrap ' +  if(v.donationWrapperOpened, '',' hidden ')}" id="form-container-1">
                     <div class="step-back-button slds-col slds-grow-none" onclick="{!c.handleStepBack}">
                         <lightning:icon size="xx-small" iconName="utility:chevronleft" class="chevron-left"/>
-                        Back to personal details
+                        Zpět k osobním údajům
                     </div>
 
-                    <h3 class="slds-col slds-size_1-of-1 slds-text-align_center donate-title">Step 3: Payment method</h3>
+                    <h3 class="slds-col slds-size_1-of-1 slds-text-align_center donate-title">Krok 3: Výběr platební metody</h3>
 
                     <div class="form-inner-content slds-grid slds-wrap slds-col slds-size_1-of-1">
                         <div class="slds-grid slds-wrap slds-size_1-of-1 slds-col slds-p-bottom_small">
@@ -309,9 +319,9 @@
                                                   value="{! v.paymentWrapper.paymentOption }"/>
                         </div>
 
-                        <div class="slds-col slds-size_1-of-1 slds-grid slds-wrap slds-p-top_x-large">
-                            <lightning:button label="{! 'Proceed to payment'}" onclick="{!c.handleDonate}"
-                                              class="brand-button brand-button-orange slds-size_1-of-1"/>
+                        <div class="slds-col slds-size_1-of-1 slds-grid slds-wrap">
+                            <lightning:button label="{! 'Potvrzení výběru metody'}" onclick="{!c.handleDonate}"
+                                              class="brand-button brand-button-default slds-size_1-of-1"/>
                         </div>
 
                     </div>
@@ -322,38 +332,38 @@
                 <div class="{! 'slds-grid slds-wrap ' +  if(v.donationWrapperOpened, '',' hidden ')}" id="form-container-1">
                     <div class="step-back-button slds-col slds-grow-none" onclick="{!c.handleStepBack}">
                         <lightning:icon size="xx-small" iconName="utility:chevronleft" class="chevron-left"/>
-                        Back to personal details
+                        Zpět na platební metody
                     </div>
                     
-                    <h3 class="slds-col slds-size_1-of-1 slds-text-align_center donate-title">Step 4: Payment</h3>
+                    <h3 class="slds-col slds-size_1-of-1 slds-text-align_center donate-title">Krok 3: Platební brána</h3>
                     
-                    <div class="form-inner-content payment-content slds-grid slds-wrap slds-col slds-size_1-of-1">
-                        <!--<iframe aura:id="dropInComponent" id="dropInComponent" 
-                                src="/apex/PaymentForm" 
-                                width="100%" height="1000" frameborder="false"></iframe>-->
-
+                    <div class="form-inner-content slds-grid slds-wrap slds-col slds-size_1-of-1">
                         <aura:if isTrue="{!v.paymentUrl != null}">
                             <c:comgatePaymentForm aura:id="dropInComponent"
                                                   paymentUrl="{!v.paymentUrl}"
                                                   style="width: 100%;">
                             </c:comgatePaymentForm>
-
-                            <!--<div class="comgate-container">
-                                <iframe class="comgate-iframe" allow="payment" src="{!v.paymentUrl}" frameborder="0px"></iframe>
-                            </div>-->
                         </aura:if>
                         
                     </div>
                 </div>
             </aura:if>
-            
+
             <aura:if isTrue="{!v.currentStep == 'last'}">
                 <div class="slds-grid slds-wrap" id="form-container-1">
-                    <aura:if isTrue="{!v.paymentWrapper.paymentOption != 'bankTransfer'}">
+                    <aura:if isTrue="{!v.paymentWrapper.paymentOption != 'banktransfer'}">
                         <h2 class="slds-p-vertical_small">{!v.thankYouLabel}</h2>
-                        <p>You will shortly receive a confirmation email.</p>
-                        <p>Do you follow CLOUDERIA for stories and updates? Follow us on <a href="https://www.facebook.com/clouderia.digital">Facebook</a> or <a href="https://www.instagram.com/clouderia/">Instagram</a>.</p>
-                        <p>Did you know that you can leave CLOUDERIA a <a href="https://www.clouderia.digital">gift in your will</a>?</p>
+
+                        <p>
+                            <aura:if isTrue="{!v.thankYouText != ''}">
+                                <lightning:formattedRichText value="{!v.thankYouText}"/>
+
+                                <aura:set attribute="else">
+                                    <p>Potvrzujeme přijetí Vašeho daru. Naši činnost a aktuality o výsledcích naší práce můžete sledovat na <a target="_blank" href="https://www.cervenykriz.eu/">www.cervenykriz.eu</a>.</p>
+                                    <p>I sebemenší dar může pomoci! Budeme proto vděčni, pokud budete naši sbírku sdílet s přáteli.</p>
+                                </aura:set>
+                            </aura:if>
+                        </p>
 
                         <aura:set attribute="else">
                             <c:paymentDetailsPage

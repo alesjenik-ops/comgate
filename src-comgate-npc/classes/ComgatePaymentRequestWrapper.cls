@@ -48,7 +48,7 @@ public with sharing class ComgatePaymentRequestWrapper {
         this.label = label;
         this.refId = paymentWrapper.paymentReferenceId;
         this.email = donor.PersonEmail;
-        this.phone = donor.Phone;
+        this.phone = donor.PersonMobilePhone;
         this.fullname = donor.Name ?? (donor.FirstName + ' ' + donor.LastName);
         this.initRecurring = paymentWrapper.donationType != 'oneoff';
         this.url_paid = paymentWrapper.redirectURL + '?status=success&id=${id}&refId=${refId}';
