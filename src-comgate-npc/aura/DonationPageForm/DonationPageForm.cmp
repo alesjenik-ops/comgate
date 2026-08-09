@@ -73,8 +73,8 @@
     <aura:attribute name="donationTypeOption_monthly_amounts" type="String" default="20;50;100;other"/>
     <aura:attribute name="donationTypeOption_yearly_amounts" type="String" default="200;500;1000;other"/>
 
-    <aura:attribute name="formHeaderLabel" type="String" default="Darujeme kroužky dětem"/>
-    <aura:attribute name="formHeaderSubLabel" type="String" default=""/>
+    <aura:attribute name="formHeaderLabel" type="String" default="Darujte kroužky dětem"/>
+    <aura:attribute name="formHeaderSubLabel" type="String" default="Pomáháme rodinám zaplatit volnočasové aktivity pro děti."/>
 
     <aura:attribute name="fieldSetSelection" type="String" description="Selected donor field set" required="true" />
     

@@ -6450,6 +6450,17 @@ body.donate--hide .button-donate {
     color: #362031;
 }
 
+.brand-button,
+.btn {
+    text-transform: uppercase;
+    font-weight: 800;
+    letter-spacing: .03em;
+}
+
+.donate-button-expand {
+    color: #362031;
+}
+
 h1, h2, h3, .donate-title {
     font-weight: 800;
 }
