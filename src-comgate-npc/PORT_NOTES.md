@@ -134,3 +134,25 @@ Po doplňkových retrievech z obou orgů jsou definice ve `objects/` převzaté 
   `Campaign.Donation_Page_Thank_You_Text__c` má přednost (formulář ho načítá při výběru kampaně);
   fallback odstavce v `DonationPageForm.cmp` odkazují na cervenykriz.eu (převzato z reálného formuláře).
 - Formulář je fixně v CZK (převzato z reálné NPC verze — výběr měny je disabled).
+
+## Branding — Darujeme kroužky dětem (ČRDM)
+
+Grafika a obsah komponent upraveny podle DKD Brand Manuálu (10/2025):
+
+- **Barvy** (v `DonationPageCss` + CSS aura komponent): primární Dark Plum `#362031`
+  (odstín 700 `#4f3549`), akcent/CTA Cotton Candy `#fa95c2` (hover `#f76fae`), pozadí
+  Soft Linen `#f3f0eb` (odstín 300 `#e4e3df`), doplňkové Lilac Haze `#c0baec` a Skymint
+  `#75d4e6`. Chybové stavy záměrně zůstaly červené (`#ec3039`) kvůli srozumitelnosti.
+- **Typografie**: Fira Sans (Regular 400, Medium 500, Bold 700, ExtraBold 800; latin +
+  latin-ext) — bundlovaná ve static resource **`DonationPageFonts`** (woff2, @font-face
+  v `DonationPageCss`), takže funguje bez CSP výjimek. Nadpisy ExtraBold dle manuálu.
+- **Texty**: hlavička formuláře „Darujeme kroužky dětem", poděkování a marketingový souhlas
+  odkazují na darujemekrouzky.cz; příjemce plateb „Česká rada dětí a mládeže"; footer
+  s odkazy na darujemekrouzky.cz a crdm.cz. `supportEmail` je prázdný default — doplňte
+  v Builderu (chybová hláška se bez něj zobrazí bez kontaktu).
+- **Zbývá dodat obrazové assety** (nejsou v brand manuálu jako exporty — jsou na Sharepointu,
+  viz kapitola 5 „Kam dál"): nahraďte obsah static resources `DonationPageHeaderLogo`,
+  `DonationPageFooterLogo`, `DonationPageHeaderImage`, `DonationPageBackground`,
+  `DonationPageFavicon` a galerii v `DonationPageImages` DKD verzemi (aktuálně obsahují
+  grafiku ČČK). Footer ukazuje kontakty jen obecně (web + provozovatel) — telefon/adresu
+  případně doplňte přímo v `DonationPageFooter.cmp`.

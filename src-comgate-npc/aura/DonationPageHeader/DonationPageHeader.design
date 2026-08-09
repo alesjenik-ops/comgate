@@ -8,7 +8,7 @@
     <design:attribute name="headerSubTitle" label="Header Sub-Title" default="DARUJTE NYNÍ"/>
     <design:attribute name="headerSubTitleStyle" label="Header Sub-Title CSS" />
     <design:attribute name="logoImage" label="Logo Static Resource" description="Name of the static resource where the logo is stored" />
-    <design:attribute name="logoHref" label="Logo Href URL" description="https://www.cervenykriz.eu/" />
+    <design:attribute name="logoHref" label="Logo Href URL" description="https://darujemekrouzky.cz/" />
     <design:attribute name="headerImage" label="Header Image Static Resource" description="Name of the static resource where the header image is stored"/>
     <design:attribute name="headerImageCSS" label="Header Image CSS" description="Style the header image"/>
 

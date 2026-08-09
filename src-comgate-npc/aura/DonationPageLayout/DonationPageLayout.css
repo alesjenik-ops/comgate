@@ -2,13 +2,13 @@
     /*max-width: 78.75rem;*/
     margin: auto;
     font: 400 14px/1.714 'Roboto', 'sans-serif';
-    color: #1f2a38;
+    color: #362031;
     background-image: url('/sfsites/c/resource/DonationPageBackground?v2');
     background-position-x: left;
-    --brand-color: #364979;
-    --redColor: #D20028;
-    --redColorDim: #ef1b42;
-    --greenColor: #93b548;
+    --brand-color: #362031;
+    --redColor: #fa95c2;
+    --redColorDim: #f76fae;
+    --greenColor: #75d4e6;
 }
 
 @media only screen and (min-width: 1921px) {
@@ -168,7 +168,7 @@
 
 
 .THIS .content{
-    /*background: #f2f2f2;*/
+    /*background: #e4e3df;*/
     max-width: 1680px;
     display: flex;
     align-items: flex-start;
@@ -573,7 +573,7 @@
 
 .THIS .description{
     padding: 40px 40px 40px 50px;
-    border: 2px solid #364979;
+    border: 2px solid #362031;
     border-radius: 30px;
     font-weight: 500;
     font-size: 18px;

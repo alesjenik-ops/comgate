@@ -5,7 +5,7 @@
 import { LightningElement, api } from 'lwc';
 
 export default class PaymentDetailsPage extends LightningElement {
-    @api cardTitle = 'Payment Details';
+    @api cardTitle = 'Platební údaje';
     @api qrPayload;
     @api receiverName;
     @api bankAccount;
@@ -13,7 +13,7 @@ export default class PaymentDetailsPage extends LightningElement {
     @api variableSymbol;
     @api amount; // Should be a number
     @api currency = 'CZK';
-    @api instructionsTitle = 'Instructions for Bank Transfer:';
+    @api instructionsTitle = 'Pokyny pro bankovní převod:';
     @api supportEmail;
 
     get displayAmount() {

@@ -110,6 +110,7 @@
         <members>DonationPageBackground</members>
         <members>DonationPageCss</members>
         <members>DonationPageFavicon</members>
+        <members>DonationPageFonts</members>
         <members>DonationPageFooterLogo</members>
         <members>DonationPageHeaderImage</members>
         <members>DonationPageHeaderLogo</members>

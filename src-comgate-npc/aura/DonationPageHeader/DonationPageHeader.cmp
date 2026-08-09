@@ -13,7 +13,7 @@
     
     <aura:attribute name="logoWidth" type="String" default="200px" description="Width of the logo"/>
     <aura:attribute name="logoImage" type="String" default="DonationPageHeaderLogo?v3" description="Name of the static resources where the image is stored"/>
-    <aura:attribute name="logoHref" type="String" default="https://www.cervenykriz.eu/" description="Logo href"/>
+    <aura:attribute name="logoHref" type="String" default="https://darujemekrouzky.cz/" description="Logo href"/>
 
     <aura:attribute name="headerImage" type="String" default="DonationPageHeaderImage" description="Name of the static resources where the image is stored"/>
     <aura:attribute name="headerImageCSS" type="String" default="" description="Header Image CSS"/>
@@ -26,7 +26,7 @@
              style="{!'background-image: url(' + '/sfsites/c/resource/' + v.headerImage +');' + v.headerImageCSS}">
             <div class="header-inner container">
                 <a class="company-icon" href="{!v.logoHref}" target="_blank">
-                    <img alt="Cesky cerveny kriz" src="{! '/sfsites/c/resource/' + v.logoImage}"/>
+                    <img alt="Darujeme kroužky dětem" src="{! '/sfsites/c/resource/' + v.logoImage}"/>
                 </a>
 
                 <div class="slds-is-absolute image-text">

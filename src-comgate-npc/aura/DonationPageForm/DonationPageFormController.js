@@ -125,7 +125,8 @@
                 component.set('v.currentStep', 'paymentMethodsSelection');
                 component.set('v.spinnerMessage', '');
                 component.set('v.spinner', false);
-                helper.showToast('error','Creation of payment session failed, please try it again. In case this error persist contact the ' + component.get('v.supportEmail'),'Error','sticky');
+                const supportEmail = component.get('v.supportEmail');
+                helper.showToast('error','Vytvoření platby se nezdařilo, zkuste to prosím znovu.' + (supportEmail ? ' Pokud problém přetrvává, kontaktujte ' + supportEmail + '.' : ''),'Chyba','sticky');
                 return; //when the payment session creation failed
             }
             

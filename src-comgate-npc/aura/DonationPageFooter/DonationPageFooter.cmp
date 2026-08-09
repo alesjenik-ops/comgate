@@ -1,6 +1,6 @@
 <aura:component description="DonationPageFooter" implements="forceCommunity:availableForAllPageTypes">
     <aura:attribute name="logoImage" type="String" default="DonationPageFooterLogo" description="Name of the static resources where the image is stored"/>
-    <aura:attribute name="logoHref" type="String" default="https://www.cervenykriz.eu/" description="Logo href"/>
+    <aura:attribute name="logoHref" type="String" default="https://darujemekrouzky.cz/" description="Logo href"/>
 
     <!-- FOOTER -->
     <footer class="footer slds-p-top_xx-large section_radius-top">
@@ -9,30 +9,20 @@
                 <div class="footer_content-item">
                     <ul class="footer-menu ">
                         <li class="footer-menu_item">
-                            <a href="https://www.cervenykriz.eu/kdo-jsme" class="footer-menu_link">
-                                <span class="footer-menu_link-text">O nás</span>
+                            <a href="https://darujemekrouzky.cz/" class="footer-menu_link">
+                                <span class="footer-menu_link-text">O projektu</span>
                             </a>
                         </li>
                         <li class="footer-menu_item">
-                            <a href="https://www.cervenykriz.eu/kde-pusobime" class="footer-menu_link">
-                                <span class="footer-menu_link-text">Kde působíme</span>
-                            </a>
-                        </li>
-                        <li class="footer-menu_item">
-                            <a href="https://www.cervenykriz.eu/nase-cinnost" class="footer-menu_link">
-                                <span class="footer-menu_link-text">Naše činnosti</span>
-                            </a>
-                        </li>
-                        <li class="footer-menu_item">
-                            <a href="https://www.cervenykriz.eu/ochrana-osobnich-udaju" class="footer-menu_link">
-                                <span class="footer-menu_link-text">GDPR</span>
+                            <a href="https://crdm.cz/" class="footer-menu_link">
+                                <span class="footer-menu_link-text">Česká rada dětí a mládeže</span>
                             </a>
                         </li>
                     </ul>          
                 </div>
 
                 <div class="footer_content-item">
-                    <a class="footer_logo-link" href="{!v.logoHref}" title="Cesky cerveny kriz">
+                    <a class="footer_logo-link" href="{!v.logoHref}" title="Darujeme kroužky dětem">
                         <div class="footer_logo-img" style="{!'background-image: url(' + '/sfsites/c/resource/' + v.logoImage +');'}"></div>
                     </a>
                 </div>
@@ -41,24 +31,13 @@
 
                     <div class="contact-info_item">
                         <div class="contact-info_title">
-                            Telefon        
+                            Web
                         </div>
 
                         <ul class="contact-info_list">
                             <li class="contact-info_list-item">
-                                +420 251 104 111
+                                <a href="https://darujemekrouzky.cz/" target="_blank">darujemekrouzky.cz</a>
                             </li>
-                        </ul>
-
-                        <div class="contact-info_title slds-p-top_medium">
-                            E-mail
-                        </div>
-
-                        <ul class="contact-info_list">
-                            <li class="contact-info_list-item">
-                                <a href="mailto:info@cervenykriz.eu">info@cervenykriz.eu</a>
-                            </li>
-
                         </ul>
                     </div>
 
@@ -67,31 +46,18 @@
 
                     <div class="contact-info_item">
                         <div class="contact-info_title">
-                            Sídlo
+                            Provozovatel
                         </div>
 
                         <ul class="contact-info_list">
                             <li class="contact-info_list-item">
-                                Rozdělovská 2467/63,
-                            </li>
-
-                            <li class="contact-info_list-item">
-                                169 00 Praha 6
+                                Česká rada dětí a mládeže
                             </li>
                         </ul>
                     </div>
 
                     <div class="slds-size_1-of-1 slds-p-top_medium footer-icons">
-                        <a href="https://www.facebook.com/cervenykriz" target="_blank" class="slds-m-right_xx-small icon">
-                            <img src="{!$Resource.DonationPageImages + '/social-icons/facebook_icon.svg'}"/>
-                        </a>
-                        <a href="https://twitter.com/CCK_Tweetuje" target="_blank" class="slds-m-right_xx-small icon">
-                            <img src="{!$Resource.DonationPageImages + '/social-icons/twitter_icon.svg'}"/>
-                        </a>
-                        <a href="https://www.instagram.com/ceskycervenykriz_official/?hl=cs" target="_blank" class="slds-m-right_xx-small icon">
-                            <img src="{!$Resource.DonationPageImages + '/social-icons/instagram_icon.svg'}"/>
-                        </a>
-                        <a href="mailto:info@cervenykriz.eu" target="_blank" class="slds-m-right_xx-small icon">
+                        <a href="https://darujemekrouzky.cz/" target="_blank" class="slds-m-right_xx-small icon">
                             <img src="{!$Resource.DonationPageImages + '/social-icons/email_icon.svg'}"/>
                         </a>
                     </div>

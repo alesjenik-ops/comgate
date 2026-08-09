@@ -10,11 +10,11 @@
     </targets>
     <targetConfigs>
         <targetConfig targets="lightningCommunity__Default">
-            <property name="firstImageLabel" type="String" label="First Image Label" default="© Clouderia | Ales Jenik"/>
+            <property name="firstImageLabel" type="String" label="First Image Label" default="© Darujeme kroužky dětem"/>
             <property name="firstImagePath" type="String" label="First Image Path" default="DonationPageImages/img/gallery-img-1.jpg"/>
-            <property name="secondImageLabel" type="String" label="Second Image Label" default="© Clouderia | Ales Jenik"/>
+            <property name="secondImageLabel" type="String" label="Second Image Label" default="© Darujeme kroužky dětem"/>
             <property name="secondImagePath" type="String" label="Second Image Path" default="DonationPageImages/img/gallery-img-2.jpg"/>
-            <property name="thirdImageLabel" type="String" label="Third Image Label" default="© Clouderia | Ales Jenik"/>
+            <property name="thirdImageLabel" type="String" label="Third Image Label" default="© Darujeme kroužky dětem"/>
             <property name="thirdImagePath" type="String" label="Third Image Path" default="DonationPageImages/img/gallery-img-3.jpg"/>
         </targetConfig>
     </targetConfigs>

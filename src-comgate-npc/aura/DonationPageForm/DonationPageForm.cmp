@@ -73,7 +73,7 @@
     <aura:attribute name="donationTypeOption_monthly_amounts" type="String" default="20;50;100;other"/>
     <aura:attribute name="donationTypeOption_yearly_amounts" type="String" default="200;500;1000;other"/>
 
-    <aura:attribute name="formHeaderLabel" type="String" default="Daruj krev – daruj naději"/>
+    <aura:attribute name="formHeaderLabel" type="String" default="Darujeme kroužky dětem"/>
     <aura:attribute name="formHeaderSubLabel" type="String" default=""/>
 
     <aura:attribute name="fieldSetSelection" type="String" description="Selected donor field set" required="true" />
@@ -86,8 +86,8 @@
     <aura:attribute name="thankYouText" type="String" default=""/>
 
     <aura:attribute name="isPersonAccount" type="Boolean" default="true"/>
-    <aura:attribute name="receiverName" type="String" default="Český červený kříž"/>
-    <aura:attribute name="supportEmail" type="String" default="info@cervenykriz.eu"/>
+    <aura:attribute name="receiverName" type="String" default="Česká rada dětí a mládeže"/>
+    <aura:attribute name="supportEmail" type="String" default=""/>
     <aura:attribute name="countryOptions" type="List" default="[]"/>
 
 
@@ -288,7 +288,7 @@
                         <div class="slds-grid slds-col slds-size_1-of-1 slds-p-vertical_xx-small">
                             <span class="">
                                 Výběrem komunikačního kanálu souhlasíte s tím, že vás budeme několikrát ročně informovat
-                                o práci Českého Červeného Kříže a o našich společných úspěších v poslání přinášet úsměvy na tváři.
+                                o projektu Darujeme kroužky dětem a o tom, komu vaše podpora pomáhá.
                             </span>
                         </div>
         
@@ -359,8 +359,8 @@
                                 <lightning:formattedRichText value="{!v.thankYouText}"/>
 
                                 <aura:set attribute="else">
-                                    <p>Potvrzujeme přijetí Vašeho daru. Naši činnost a aktuality o výsledcích naší práce můžete sledovat na <a target="_blank" href="https://www.cervenykriz.eu/">www.cervenykriz.eu</a>.</p>
-                                    <p>I sebemenší dar může pomoci! Budeme proto vděčni, pokud budete naši sbírku sdílet s přáteli.</p>
+                                    <p>Potvrzujeme přijetí Vašeho daru. Díky vám může další dítě chodit na kroužek. Více o projektu najdete na <a target="_blank" href="https://darujemekrouzky.cz/">darujemekrouzky.cz</a>.</p>
+                                    <p>I sebemenší dar může pomoci! Budeme proto vděčni, pokud budete projekt sdílet s přáteli.</p>
                                 </aura:set>
                             </aura:if>
                         </p>

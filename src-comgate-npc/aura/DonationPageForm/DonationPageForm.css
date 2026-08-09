@@ -3,8 +3,8 @@
  */
  
  .THIS {
-     --redColor: #D20028;
-     --greenColor: #93b548;
+     --redColor: #fa95c2;
+     --greenColor: #75d4e6;
      color: #222;
      cursor: auto;
      font-family: "Roboto",Helvetica,Arial,sans-serif;
@@ -168,7 +168,7 @@
     padding: 0;
     font-weight: 800;
     line-height: 1;
-    color: #1f2a38;
+    color: #362031;
     text-align: right;
 }
 
@@ -184,7 +184,7 @@
 .THIS .amount-input input::placeholder{
     -webkit-appearance: none;
     appearance: none;
-    color: #eef1f4
+    color: #f3f0eb
 }
 
 @media only screen and (min-width: 1921px) {
@@ -378,7 +378,7 @@
     font-weight: 500;
     font-size: .88889vw;
     line-height: 1.5;
-    color: #1f2a38;
+    color: #362031;
     cursor: pointer;
 }
 
@@ -434,8 +434,8 @@
 }
 
 .THIS .chevron-left svg{
-    fill: #364979;
-    color: #364979;
+    fill: #362031;
+    color: #362031;
 }
 
 .THIS .step-back-button:hover .chevron-left{
@@ -562,7 +562,7 @@
 .THIS .brand-input .slds-form-element__label{
     font-size: 14px;
     font-weight: 500;
-    color: #1f2a38;
+    color: #362031;
     margin-bottom: 10px;
 }
 
@@ -602,16 +602,16 @@
 }
 
 .THIS .statement-text{
-    color: #696e74;
+    color: #6b5a65;
 }
 
 .THIS lightning-input .slds-checkbox_faux{
     cursor: pointer;
-    border-color: #9da1a6;
+    border-color: #9b8f97;
 }
 
 .THIS lightning-input .slds-checkbox_faux:hover{
-    border-color: #364979;
+    border-color: #362031;
 }
 
 
@@ -620,7 +620,7 @@
     position: relative;
     z-index: 1;
     padding: 15px;
-    background-color: #364979;
+    background-color: #362031;
     border-radius: 8px 8px 0 0;
     overflow: hidden;
     font-weight: 700;
@@ -751,7 +751,7 @@
 .THIS #form-container-2{
     padding: 60px 50px;
     border-radius: 8px;
-    background: #f8f8f8;
+    background: #f3f0eb;
     z-index: 9000;
     position: relative;
     transition-timing-function: cubic-bezier(.455,.03,.515,.955);
@@ -824,7 +824,7 @@
 }
 
 .THIS.form .overlay-title:hover{
-    color: #c3252c;
+    color: #f76fae;
     cursor: pointer;
 }
 
@@ -850,7 +850,7 @@
     transition: color .35s cubic-bezier(.455,.03,.515,.955);
     border-radius: 0.38095vw;
     background: white !important;
-    color: #9da1a6 !important;
+    color: #9b8f97 !important;
     margin: 0 5px;
 }
 
@@ -1035,7 +1035,7 @@
 }
 
 .THIS .custom-radio-group .slds-radio_button input:checked + .slds-radio_button__label::after{
-    border-color: #364979;
+    border-color: #362031;
 }
 
 @media only screen and (min-width: 1921px) {
@@ -1076,7 +1076,7 @@
     display: block;
     border-radius: 50%;
     background-repeat: no-repeat;
-    background-color: #364979;
+    background-color: #362031;
     background-position: 50%;
     background-image: url('../resource/DonationPageImages/icons/icon-check.svg');
     transition: transform .35s cubic-bezier(.455,.03,.515,.955),opacity .35s cubic-bezier(.455,.03,.515,.955);
@@ -1206,7 +1206,7 @@
     font-weight: 500;
     font-size: 18px;
     line-height: 1.66;
-    color: #8f949a;
+    color: #9b8f97;
     transition: color .35s cubic-bezier(.4,0,0,1);
     cursor: pointer;
 }
