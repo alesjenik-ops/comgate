@@ -1573,12 +1573,12 @@
 .THIS .donate-subtitle{
     color: #6b5a65;
     font-size: 15px;
-    margin-bottom: 16px !important;
+    margin-bottom: 10px !important;
 }
 
 .THIS .donate-field-title{
     font-size: 15px;
-    margin-bottom: 8px !important;
+    margin-bottom: 5px !important;
 }
 
 /* kompaktnejsi karta a mezery podle vzoru */
@@ -1588,16 +1588,24 @@
 }
 
 .THIS .custom-radio-group{
-    padding-top: 10px !important;
-    padding-bottom: 6px !important;
+    padding-top: 6px !important;
+    padding-bottom: 4px !important;
 }
 
 .THIS #form-container-1 .slds-p-top_x-large{
-    padding-top: 16px !important;
+    padding-top: 10px !important;
 }
 
 .THIS .select-group{
-    margin-top: 6px;
+    margin-top: 2px;
+}
+
+.THIS .amount-input .slds-form-element__control{
+    line-height: 1;
+}
+
+.THIS .amount-input{
+    margin-bottom: 0 !important;
 }
 
 /* vsechna pole formulare maji ramecek podle designu */
@@ -1632,7 +1640,8 @@
     text-align: right;
     font-weight: 800;
     color: #362031;
-    font-size: 64px;
+    font-size: 56px;
+    padding-bottom: 2px;
 }
 
 @media only screen and (max-width: 640px) {
