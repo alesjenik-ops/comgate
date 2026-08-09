@@ -10,14 +10,14 @@
         {
           "componentAttributes": {
             "headerCss": "",
-            "headerImage": "DonationPageHeaderImage?v7",
+            "headerImage": "DonationPageHeaderImage?v8",
             "headerImageCSS": "",
             "headerSubTitle": "Pomáháme rodinám zaplatit volnočasové aktivity pro děti.",
             "headerSubTitleStyle": "",
             "headerTitle": "Darujte kroužky dětem",
             "headerTitleStyle": "",
             "logoHref": "https://darujemekrouzky.cz/",
-            "logoImage": "DonationPageHeaderLogo?v7"
+            "logoImage": "DonationPageHeaderLogo?v8"
           },
           "componentName": "c:DonationPageHeader",
           "id": "e5700648-f073-4467-a71e-88d69b1c6838",
@@ -40,7 +40,7 @@
         {
           "componentAttributes": {
             "logoHref": "https://darujemekrouzky.cz/",
-            "logoImage": "DonationPageFooterLogo?v7"
+            "logoImage": "DonationPageFooterLogo?v8"
           },
           "componentName": "c:DonationPageFooter",
           "id": "33fc89cb-2a9f-41d5-97fb-0dba96d9e19f",
