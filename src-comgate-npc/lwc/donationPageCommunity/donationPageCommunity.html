@@ -1,0 +1,324 @@
+<template>
+    <div class="page" style={pageStyle}>
+
+        <template lwc:if={spinner}>
+            <div class="spinner-overlay">
+                <div class="spinner-box">
+                    <div class="spinner-ring"></div>
+                    <div class="spinner-text">{spinnerText}</div>
+                </div>
+            </div>
+        </template>
+
+        <!-- ===== HERO ===== -->
+        <div class="hero" style={heroStyle}>
+            <div class="hero-inner">
+                <a class="hero-logo" href="https://darujemekrouzky.cz/" target="_blank" rel="noopener">
+                    <img src={logoUrl} alt="Darujeme kroužky dětem"/>
+                </a>
+                <div class="hero-claim">
+                    <div class="claim-title">Darujte kroužky dětem</div>
+                    <div class="claim-sub">Pomáháme rodinám zaplatit volnočasové aktivity pro děti.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== CONTENT ===== -->
+        <div class="content">
+            <div class="donation-form" data-id="donationForm">
+                <div class="form-card">
+                    <div class={expanderClass} onclick={handleDonationExpander}>
+                        <span>DAROVAT</span>
+                        <span class={expanderArrowClass}></span>
+                    </div>
+
+                    <div class={formInnerClass}>
+
+                        <template lwc:if={isStepFirst}>
+                            <!-- STEP 1: amount + frequency -->
+                            <div class="f-title">{formHeaderLabel}</div>
+                            <div class="f-sub">{formHeaderSubLabel}</div>
+
+                            <div class="f-label">Vyberte výši daru:</div>
+                            <div class="amount-row">
+                                <input class={amountInputClass}
+                                       type="text"
+                                       inputmode="decimal"
+                                       autocomplete="off"
+                                       data-id="donationAmount"
+                                       value={amountDisplayValue}
+                                       disabled={amountInputDisabled}
+                                       oninput={handleAmountInput}/>
+                                <div class="currency">Kč, CZK</div>
+                            </div>
+                            <template lwc:if={amountError}>
+                                <div class="field-error">{amountError}</div>
+                            </template>
+
+                            <div class="opts four">
+                                <template for:each={amountOptions} for:item="opt">
+                                    <button key={opt.value} type="button" class={opt.cls}
+                                            data-value={opt.value} onclick={handleDonationOptionChanged}>{opt.label}</button>
+                                </template>
+                            </div>
+
+                            <div class="f-label">Jak často chcete darovat?</div>
+                            <div class="opts three">
+                                <template for:each={frequencyOptions} for:item="opt">
+                                    <button key={opt.value} type="button" class={opt.cls}
+                                            data-value={opt.value} onclick={handleDonationTypeChanged}>{opt.label}</button>
+                                </template>
+                            </div>
+
+                            <template lwc:if={errorMessage}>
+                                <div class="error-banner">{errorMessage}</div>
+                            </template>
+
+                            <button type="button" class="cta" onclick={handleDonate}>{ctaLabel}</button>
+                        </template>
+
+                        <template lwc:elseif={isStepPersonDetails}>
+                            <!-- STEP 2: personal details -->
+                            <div class="step-back" onclick={handleStepBack}>
+                                <span class="chevron-left"></span>Zpět k výběru částky
+                            </div>
+                            <div class="f-title">Krok 2: Osobní údaje</div>
+
+                            <div class="opts two account-type">
+                                <template for:each={accountTypeOptions} for:item="opt">
+                                    <button key={opt.value} type="button" class={opt.cls}
+                                            data-value={opt.value} onclick={handleAccountTypeChange}>{opt.label}</button>
+                                </template>
+                            </div>
+
+                            <template lwc:if={isPersonAccount}>
+                                <div class="fields">
+                                    <div class="field">
+                                        <label>Chcete Potvrzení o Daru? <span class="req">*</span></label>
+                                        <select class="f-input" data-obj="donor" data-field="Receive_One_Time_POD__c" onchange={handleFieldChange}>
+                                            <option value=""></option>
+                                            <option value="Ano">Ano</option>
+                                            <option value="Ne">Ne</option>
+                                        </select>
+                                    </div>
+                                    <div class="field half">
+                                        <label>Jméno <span class="req">*</span></label>
+                                        <input class="f-input" type="text" data-obj="donor" data-field="FirstName" oninput={handleFieldChange}/>
+                                    </div>
+                                    <div class="field half">
+                                        <label>Příjmení <span class="req">*</span></label>
+                                        <input class="f-input" type="text" data-obj="donor" data-field="LastName" oninput={handleFieldChange}/>
+                                    </div>
+                                    <div class="field">
+                                        <label>E-mail <span class="req">*</span></label>
+                                        <input class="f-input" type="email" data-obj="donor" data-field="PersonEmail" oninput={handleFieldChange}/>
+                                    </div>
+                                    <div class="field">
+                                        <label>Mobilní telefon <span class="req">*</span></label>
+                                        <input class="f-input" type="tel" data-obj="donor" data-field="PersonMobilePhone" oninput={handleFieldChange}/>
+                                    </div>
+                                    <div class="field">
+                                        <label>Ulice a č. p. <span class="req">*</span></label>
+                                        <input class="f-input" type="text" data-obj="donor" data-field="PersonMailingStreet" oninput={handleFieldChange}/>
+                                    </div>
+                                    <div class="field half">
+                                        <label>Obec <span class="req">*</span></label>
+                                        <input class="f-input" type="text" data-obj="donor" data-field="PersonMailingCity" oninput={handleFieldChange}/>
+                                    </div>
+                                    <div class="field half">
+                                        <label>PSČ <span class="req">*</span></label>
+                                        <input class="f-input" type="text" data-obj="donor" data-field="PersonMailingPostalCode" oninput={handleFieldChange}/>
+                                    </div>
+                                    <div class="field">
+                                        <label>Stát <span class="req">*</span></label>
+                                        <select class="f-input" data-obj="donor" data-field="PersonMailingCountry" onchange={handleFieldChange}>
+                                            <option value=""></option>
+                                            <template for:each={countryOptions} for:item="opt">
+                                                <option key={opt.value} value={opt.value}>{opt.label}</option>
+                                            </template>
+                                        </select>
+                                    </div>
+                                </div>
+                            </template>
+                            <template lwc:else>
+                                <div class="fields">
+                                    <div class="field half">
+                                        <label>IČ <span class="req">*</span></label>
+                                        <input class="f-input" type="text" data-obj="donor" data-field="CRMforNonProfit__ICO__c" oninput={handleFieldChange}/>
+                                    </div>
+                                    <div class="field half">
+                                        <label>DIČ</label>
+                                        <input class="f-input" type="text" data-obj="donor" data-field="Tax_identification_number__c" data-optional="true" oninput={handleFieldChange}/>
+                                    </div>
+                                    <div class="field">
+                                        <label>Firma <span class="req">*</span></label>
+                                        <input class="f-input" type="text" data-obj="donor" data-field="Name" oninput={handleFieldChange}/>
+                                    </div>
+                                    <div class="field half">
+                                        <label>Jméno kontaktní osoby <span class="req">*</span></label>
+                                        <input class="f-input" type="text" data-obj="contact" data-field="FirstName" oninput={handleFieldChange}/>
+                                    </div>
+                                    <div class="field half">
+                                        <label>Příjmení kontaktní osoby <span class="req">*</span></label>
+                                        <input class="f-input" type="text" data-obj="contact" data-field="LastName" oninput={handleFieldChange}/>
+                                    </div>
+                                    <div class="field">
+                                        <label>Pozice</label>
+                                        <input class="f-input" type="text" data-obj="contact" data-field="Department" data-optional="true" oninput={handleFieldChange}/>
+                                    </div>
+                                    <div class="field">
+                                        <label>Telefon <span class="req">*</span></label>
+                                        <input class="f-input" type="tel" data-obj="contact" data-field="MobilePhone" oninput={handleFieldChange}/>
+                                    </div>
+                                    <div class="field">
+                                        <label>E-mail <span class="req">*</span></label>
+                                        <input class="f-input" type="email" data-obj="contact" data-field="Email" oninput={handleFieldChange}/>
+                                    </div>
+
+                                    <div class="f-label left">Adresa sídla</div>
+
+                                    <div class="field">
+                                        <label>Ulice a č. p. <span class="req">*</span></label>
+                                        <input class="f-input" type="text" data-obj="donor" data-field="BillingStreet" oninput={handleFieldChange}/>
+                                    </div>
+                                    <div class="field half">
+                                        <label>Obec <span class="req">*</span></label>
+                                        <input class="f-input" type="text" data-obj="donor" data-field="BillingCity" oninput={handleFieldChange}/>
+                                    </div>
+                                    <div class="field half">
+                                        <label>PSČ <span class="req">*</span></label>
+                                        <input class="f-input" type="text" data-obj="donor" data-field="BillingPostalCode" oninput={handleFieldChange}/>
+                                    </div>
+                                    <div class="field">
+                                        <label>Stát <span class="req">*</span></label>
+                                        <select class="f-input" data-obj="donor" data-field="BillingCountry" onchange={handleFieldChange}>
+                                            <option value=""></option>
+                                            <template for:each={countryOptions} for:item="opt">
+                                                <option key={opt.value} value={opt.value}>{opt.label}</option>
+                                            </template>
+                                        </select>
+                                    </div>
+                                </div>
+                            </template>
+
+                            <div class="required-note">* Povinná pole</div>
+                            <div class="consent-note">
+                                Výběrem komunikačního kanálu souhlasíte s tím, že vás budeme několikrát ročně informovat
+                                o projektu Darujeme kroužky dětem a o tom, komu vaše podpora pomáhá.
+                            </div>
+
+                            <template lwc:if={errorMessage}>
+                                <div class="error-banner">{errorMessage}</div>
+                            </template>
+
+                            <button type="button" class="cta" onclick={handleDonate}>Potvrzuji své osobní údaje</button>
+                        </template>
+
+                        <template lwc:elseif={isStepPaymentMethodsSelection}>
+                            <!-- STEP 3: payment method selection -->
+                            <div class="step-back" onclick={handleStepBack}>
+                                <span class="chevron-left"></span>Zpět k osobním údajům
+                            </div>
+                            <div class="f-title">Krok 3: Výběr platební metody</div>
+
+                            <div class="pay-options">
+                                <template for:each={paymentOptions} for:item="opt">
+                                    <div key={opt.value} class={opt.cls} data-value={opt.value} onclick={handlePaymentOptionChange}>
+                                        <span class="radio-dot"></span>
+                                        <span>{opt.label}</span>
+                                    </div>
+                                </template>
+                            </div>
+
+                            <template lwc:if={errorMessage}>
+                                <div class="error-banner">{errorMessage}</div>
+                            </template>
+
+                            <button type="button" class="cta" onclick={handleDonate}>Potvrzení výběru metody</button>
+                        </template>
+
+                        <template lwc:elseif={isStepPaymentMethods}>
+                            <!-- STEP 4: Comgate payment gateway -->
+                            <div class="step-back" onclick={handleStepBack}>
+                                <span class="chevron-left"></span>Zpět na platební metody
+                            </div>
+                            <div class="f-title">Krok 3: Platební brána</div>
+
+                            <template lwc:if={paymentUrl}>
+                                <div class="gateway-wrapper">
+                                    <c-comgate-payment-form payment-url={paymentUrl}></c-comgate-payment-form>
+                                </div>
+                            </template>
+                        </template>
+
+                        <template lwc:elseif={isStepLast}>
+                            <!-- STEP 5: thank you / bank transfer details -->
+                            <template lwc:if={isBankTransfer}>
+                                <c-payment-details-page
+                                        qr-payload={bankAccountDetails.qrPayload}
+                                        receiver-name={receiverName}
+                                        bank-account={bankAccountDetails.bankAccountNumber}
+                                        iban={bankAccountDetails.iban}
+                                        variable-symbol={bankAccountDetails.variableNumber}
+                                        amount={paymentWrapper.donationValue}
+                                        currency={paymentWrapper.currencyIsoCode}
+                                        support-email={supportEmail}>
+                                </c-payment-details-page>
+                            </template>
+                            <template lwc:else>
+                                <div class="f-title">{thankYouLabel}</div>
+                                <template lwc:if={thankYouText}>
+                                    <div class="thank-you-text">
+                                        <lightning-formatted-rich-text value={thankYouText}></lightning-formatted-rich-text>
+                                    </div>
+                                </template>
+                                <template lwc:else>
+                                    <div class="thank-you-text">
+                                        <p>Potvrzujeme přijetí Vašeho daru. Díky vám může další dítě chodit na kroužek.
+                                            Více o projektu najdete na <a target="_blank" rel="noopener" href="https://darujemekrouzky.cz/">darujemekrouzky.cz</a>.</p>
+                                        <p>I sebemenší dar může pomoci! Budeme proto vděčni, pokud budete projekt sdílet s přáteli.</p>
+                                    </div>
+                                </template>
+                            </template>
+                        </template>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-text">
+                <h1>Kroužek pro každé dítě</h1>
+                <img class="photo" src={campaignPhotoUrl} alt="Děti na kroužku"/>
+                <p>Každé dítě si zaslouží svůj kroužek — sport, hudbu, tvoření nebo skauting.
+                    Pro tisíce rodin v Česku jsou ale volnočasové aktivity finančně nedostupné.</p>
+                <p>Váš dar pomůže zaplatit kroužek konkrétnímu dítěti z rodiny v tíživé situaci.
+                    Projekt Darujeme kroužky dětem už pomohl více než <b>17&nbsp;000 dětem</b> částkou
+                    přes <b>28&nbsp;milionů&nbsp;Kč</b>.</p>
+                <div class="badges">
+                    <span class="badge candy">Dobrodružství</span>
+                    <span class="badge lilac">Kamarádi</span>
+                    <span class="badge mint">Dovednosti</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== FOOTER ===== -->
+        <footer>
+            <div class="foot">
+                <ul class="menu">
+                    <li><a href="https://darujemekrouzky.cz/" target="_blank" rel="noopener">O projektu</a></li>
+                    <li><a href="https://crdm.cz/" target="_blank" rel="noopener">Česká rada dětí a mládeže</a></li>
+                </ul>
+                <img class="foot-logo" src={logoUrl} alt="Darujeme kroužky dětem"/>
+                <div class="ct">
+                    <div class="h">Web</div>
+                    <a href="https://darujemekrouzky.cz/" target="_blank" rel="noopener">darujemekrouzky.cz</a>
+                    <div class="h spaced">Provozovatel</div>
+                    Česká rada dětí a mládeže
+                </div>
+            </div>
+        </footer>
+
+        <div class={floatDonateClass} onclick={handleDonateNow}>DAROVAT</div>
+    </div>
+</template>

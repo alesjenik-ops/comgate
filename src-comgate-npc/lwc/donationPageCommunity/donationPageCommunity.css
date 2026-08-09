@@ -1,0 +1,703 @@
+:host {
+    --plum: #362031;
+    --plum700: #4f3549;
+    --candy: #fa95c2;
+    --candy-deep: #f76fae;
+    --linen: #f3f0eb;
+    --linen300: #e4e3df;
+    --lilac: #c0baec;
+    --mint: #75d4e6;
+    --gray: #9b8f97;
+    --gray-d: #6b5a65;
+    display: block;
+}
+
+.page {
+    font-family: 'Fira Sans', sans-serif;
+    color: var(--plum);
+    background-color: var(--linen);
+    background-position: top left;
+    background-size: 960px auto;
+    background-repeat: repeat;
+    min-height: 100vh;
+}
+
+.page a {
+    color: var(--plum);
+}
+
+/* ===== spinner overlay ===== */
+.spinner-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(54, 32, 49, 0.45);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+}
+
+.spinner-box {
+    background: #fff;
+    border-radius: 16px;
+    padding: 28px 36px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    box-shadow: 0 14px 40px rgba(54, 32, 49, 0.25);
+}
+
+.spinner-ring {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: 4px solid var(--linen300);
+    border-top-color: var(--candy-deep);
+    animation: dkd-spin 0.8s linear infinite;
+}
+
+@keyframes dkd-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.spinner-text {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--plum);
+}
+
+/* ===== hero ===== */
+.hero {
+    position: relative;
+    height: 480px;
+    background-color: #362031;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.hero-inner {
+    max-width: 1360px;
+    margin: 0 auto;
+    height: 100%;
+    position: relative;
+    padding: 0 40px;
+}
+
+.hero-logo {
+    position: absolute;
+    top: 30px;
+    right: 40px;
+    width: 320px;
+}
+
+.hero-logo img {
+    width: 100%;
+    display: block;
+}
+
+.hero-claim {
+    position: absolute;
+    left: 40px;
+    bottom: 44px;
+    color: var(--linen);
+    max-width: 60%;
+}
+
+.claim-title {
+    font-size: 52px;
+    line-height: 1.05;
+    font-weight: 800;
+    color: var(--candy);
+}
+
+.claim-sub {
+    font-size: 19px;
+    font-weight: 400;
+    margin-top: 12px;
+    opacity: 0.92;
+}
+
+/* ===== content: form left + campaign right ===== */
+.content {
+    max-width: 1360px;
+    margin: 0 auto;
+    display: flex;
+    align-items: flex-start;
+    gap: 56px;
+    padding: 64px 40px 96px;
+}
+
+.donation-form {
+    flex: 0 0 460px;
+    min-width: 0;
+    max-width: 460px;
+}
+
+.form-card {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 14px 40px rgba(54, 32, 49, 0.12);
+    overflow: hidden;
+}
+
+.expander {
+    background: var(--candy);
+    color: var(--plum);
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-align: center;
+    padding: 14px;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.expander:hover {
+    background: var(--candy-deep);
+}
+
+.expander-arrow {
+    width: 0;
+    height: 0;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+}
+
+.expander-arrow.up {
+    border-bottom: 7px solid var(--plum);
+}
+
+.expander-arrow.down {
+    border-top: 7px solid var(--plum);
+}
+
+.form-inner {
+    padding: 24px 26px 28px;
+}
+
+.form-inner.hidden {
+    display: none;
+}
+
+.f-title {
+    font-weight: 800;
+    font-size: 24px;
+    text-align: center;
+}
+
+.f-sub {
+    font-size: 13.5px;
+    color: var(--gray-d);
+    text-align: center;
+    margin: 8px 0 20px;
+    line-height: 1.5;
+}
+
+.f-label {
+    font-weight: 700;
+    font-size: 14px;
+    text-align: center;
+    margin: 18px 0 10px;
+}
+
+.f-label.left {
+    text-align: left;
+    width: 100%;
+    margin-top: 24px;
+}
+
+.amount-row {
+    display: flex;
+    gap: 10px;
+    align-items: stretch;
+}
+
+.amount-input {
+    flex: 1;
+    min-width: 0;
+    border: 0;
+    border-bottom: 3px solid var(--linen300);
+    border-radius: 0;
+    padding: 0 6px;
+    font-size: 56px;
+    font-weight: 800;
+    font-family: inherit;
+    color: var(--plum);
+    text-align: right;
+    line-height: 1.15;
+    background: transparent;
+    outline: none;
+}
+
+.amount-input:focus {
+    border-bottom-color: var(--candy-deep);
+}
+
+.amount-input:disabled {
+    opacity: 1;
+    -webkit-text-fill-color: var(--plum);
+}
+
+.amount-input.invalid {
+    border-bottom-color: #d33f49;
+}
+
+.currency {
+    align-self: center;
+    background: #fff;
+    border-radius: 26px;
+    box-shadow: 0 5px 10px rgba(54, 32, 49, 0.08);
+    padding: 10px 18px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #000;
+    white-space: nowrap;
+}
+
+.opts {
+    display: grid;
+    gap: 8px;
+    margin-top: 14px;
+}
+
+.opts.four {
+    grid-template-columns: repeat(4, 1fr);
+}
+
+.opts.three {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.opts.two {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.opt {
+    border: 2px solid var(--plum);
+    border-radius: 10px;
+    padding: 11px 4px;
+    text-align: center;
+    font-weight: 700;
+    font-size: 14px;
+    font-family: inherit;
+    color: var(--plum);
+    cursor: pointer;
+    background: #fff;
+}
+
+.opt:hover {
+    background: var(--linen);
+}
+
+.opt.sel {
+    background: var(--plum);
+    color: #fff;
+}
+
+.opt.sel:hover {
+    background: var(--plum);
+}
+
+.cta {
+    display: block;
+    width: 100%;
+    background: var(--plum);
+    color: #fff;
+    border: 0;
+    border-radius: 12px;
+    padding: 16px;
+    font-size: 15px;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-top: 22px;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+.cta:hover {
+    background: var(--plum700);
+}
+
+/* ===== step navigation ===== */
+.step-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--gray-d);
+    cursor: pointer;
+    margin-bottom: 14px;
+}
+
+.step-back:hover {
+    color: var(--plum);
+}
+
+.chevron-left {
+    width: 8px;
+    height: 8px;
+    border-left: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
+    transform: rotate(45deg);
+    display: inline-block;
+}
+
+/* ===== step 2: fields ===== */
+.account-type {
+    margin: 18px 0 6px;
+}
+
+.fields {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 10px;
+    margin-top: 16px;
+}
+
+.field {
+    flex: 1 1 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.field.half {
+    flex: 1 1 calc(50% - 5px);
+    min-width: 140px;
+}
+
+.field label {
+    font-size: 12.5px;
+    font-weight: 700;
+    color: var(--gray-d);
+}
+
+.req {
+    color: var(--candy-deep);
+}
+
+.f-input {
+    width: 100%;
+    border: 2px solid var(--linen300);
+    border-radius: 10px;
+    padding: 11px 12px;
+    font-size: 15px;
+    font-family: inherit;
+    color: var(--plum);
+    background: #fff;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.f-input:focus {
+    border-color: var(--candy-deep);
+}
+
+.f-input.invalid {
+    border-color: #d33f49;
+}
+
+select.f-input {
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: linear-gradient(45deg, transparent 50%, var(--plum) 50%),
+        linear-gradient(135deg, var(--plum) 50%, transparent 50%);
+    background-position:
+        calc(100% - 18px) calc(50% - 2px),
+        calc(100% - 12px) calc(50% - 2px);
+    background-size:
+        6px 6px,
+        6px 6px;
+    background-repeat: no-repeat;
+    padding-right: 34px;
+}
+
+.required-note {
+    font-size: 12px;
+    color: var(--gray-d);
+    margin-top: 14px;
+    width: 100%;
+}
+
+.consent-note {
+    font-size: 12.5px;
+    line-height: 1.55;
+    color: var(--gray-d);
+    margin-top: 10px;
+}
+
+/* ===== step 3: payment methods ===== */
+.pay-options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 18px;
+}
+
+.pay-option {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border: 2px solid var(--linen300);
+    border-radius: 10px;
+    padding: 14px 16px;
+    font-weight: 700;
+    font-size: 15px;
+    cursor: pointer;
+    background: #fff;
+}
+
+.pay-option:hover {
+    border-color: var(--plum);
+}
+
+.pay-option .radio-dot {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border: 2px solid var(--plum);
+    flex: 0 0 auto;
+    box-sizing: border-box;
+}
+
+.pay-option.sel {
+    border-color: var(--plum);
+}
+
+.pay-option.sel .radio-dot {
+    border-width: 5px;
+}
+
+/* ===== step 4: gateway ===== */
+.gateway-wrapper {
+    margin-top: 16px;
+}
+
+/* ===== step 5: thank you ===== */
+.thank-you-text {
+    margin-top: 14px;
+    font-size: 14.5px;
+    line-height: 1.65;
+    color: var(--gray-d);
+}
+
+.thank-you-text p {
+    margin: 0 0 12px;
+}
+
+/* ===== errors ===== */
+.field-error {
+    font-size: 12.5px;
+    font-weight: 700;
+    color: #d33f49;
+    margin-top: 6px;
+    text-align: right;
+}
+
+.error-banner {
+    background: #fdecee;
+    border: 1px solid #f5b8bd;
+    color: #a12832;
+    border-radius: 10px;
+    padding: 12px 14px;
+    font-size: 13.5px;
+    line-height: 1.5;
+    margin-top: 16px;
+}
+
+/* ===== text column ===== */
+.form-text {
+    flex: 1;
+    min-width: 0;
+    padding-top: 8px;
+}
+
+.form-text h1 {
+    font-weight: 800;
+    font-size: 44px;
+    line-height: 1.1;
+    margin: 0 0 18px;
+}
+
+.form-text .photo {
+    width: 100%;
+    border-radius: 14px;
+    display: block;
+    margin: 8px 0 22px;
+}
+
+.form-text p {
+    font-size: 16px;
+    line-height: 1.65;
+    color: var(--gray-d);
+    margin: 0 0 14px;
+    max-width: 640px;
+}
+
+.badges {
+    display: flex;
+    gap: 10px;
+    margin-top: 18px;
+    flex-wrap: wrap;
+}
+
+.badge {
+    border-radius: 20px;
+    padding: 7px 16px;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.badge.candy {
+    background: var(--candy);
+    color: var(--plum);
+}
+
+.badge.lilac {
+    background: var(--lilac);
+    color: var(--plum);
+}
+
+.badge.mint {
+    background: var(--mint);
+    color: var(--plum);
+}
+
+/* ===== footer ===== */
+footer {
+    background: var(--plum);
+    color: var(--linen);
+    border-radius: 22px 22px 0 0;
+    padding: 44px 40px 30px;
+    margin-top: 10px;
+}
+
+.foot {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 34px;
+    justify-content: space-between;
+    align-items: flex-start;
+    max-width: 1280px;
+    margin: 0 auto;
+}
+
+.foot ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.foot .menu a {
+    color: var(--linen);
+    text-decoration: none;
+    font-size: 14.5px;
+    line-height: 2.1;
+    font-weight: 500;
+}
+
+.foot .menu a:hover {
+    color: var(--candy);
+}
+
+.foot-logo {
+    width: 250px;
+}
+
+.foot .ct {
+    font-size: 13.5px;
+    line-height: 1.7;
+}
+
+.foot .ct .h {
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-size: 11px;
+    margin-bottom: 4px;
+    color: var(--candy);
+}
+
+.foot .ct .h.spaced {
+    margin-top: 14px;
+}
+
+.foot .ct a {
+    color: var(--linen);
+}
+
+/* ===== floating donate ===== */
+.float-donate {
+    position: fixed;
+    right: 26px;
+    bottom: 26px;
+    background: var(--candy);
+    color: var(--plum);
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    font-size: 14px;
+    padding: 15px 30px;
+    border-radius: 30px;
+    box-shadow: 0 10px 24px rgba(54, 32, 49, 0.28);
+    cursor: pointer;
+    z-index: 50;
+    display: none;
+}
+
+.float-donate.show {
+    display: block;
+}
+
+.float-donate:hover {
+    background: var(--candy-deep);
+}
+
+/* ===== responsive ===== */
+@media (max-width: 980px) {
+    .content {
+        flex-direction: column-reverse;
+        padding: 40px 20px 70px;
+    }
+
+    .donation-form {
+        flex: 1;
+        width: 100%;
+        max-width: 520px;
+        margin: 0 auto;
+    }
+
+    .claim-title {
+        font-size: 34px;
+    }
+
+    .hero-logo {
+        width: 220px;
+        right: 20px;
+    }
+
+    .hero-claim {
+        left: 20px;
+        max-width: 75%;
+    }
+
+    .hero-inner {
+        padding: 0 20px;
+    }
+
+    .form-text h1 {
+        font-size: 34px;
+    }
+
+    footer {
+        padding: 36px 20px 26px;
+    }
+}
