@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Stripe Settings</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Stripe Settings</value>
+    </caseValues>
+    <fields>
+        <help><!-- Delay between attempts in days --></help>
+        <label><!-- Attempt Delay --></label>
+        <name>Attempt_Delay__c</name>
+    </fields>
+    <fields>
+        <label><!-- Attempt Limit --></label>
+        <name>Attempt_Limit__c</name>
+    </fields>
+    <fields>
+        <help><!-- Day of the month when recurring donations are captured, as well the StripeCreateRecurringPaymentsBatch must be scheduled for daily run.
+            Ex. &quot;25&quot; capture it every 25th day, &quot;0&quot; or keep it empty to capture first recurring donations daily. --></help>
+        <label><!-- Day Of Charging --></label>
+        <name>Day_Of_Charging__c</name>
+    </fields>
+    <fields>
+        <label><!-- HMAC Signature --></label>
+        <name>HMAC_Signature__c</name>
+    </fields>
+    <fields>
+        <label><!-- Public Key --></label>
+        <name>Public_Key__c</name>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

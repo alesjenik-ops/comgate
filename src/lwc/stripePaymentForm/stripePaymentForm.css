@@ -1,0 +1,17 @@
+ul li{
+    margin-left: unset; 
+    padding-left: unset; 
+}
+
+body{
+    background: transparent;
+}
+
+.checkout-wrapper{
+    min-height: 100px;
+}
+
+.loader-style{
+    top: 0;
+    z-index: -1;
+}

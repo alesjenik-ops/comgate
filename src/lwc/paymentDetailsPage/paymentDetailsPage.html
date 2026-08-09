@@ -1,0 +1,39 @@
+<!--
+ - Created by LukášGregora on 24.05.2025.
+ -->
+
+<!-- Payment Details Page -->
+<template>
+    <div class="payment-details-box">
+        <h2>Platební údaje</h2>
+
+        <div class="qr-code-section">
+            <c-qr-code-generator payload={qrPayload} class="slds-align_absolute-center"></c-qr-code-generator>
+            <p style="font-size: 12px; color: #777; margin-top: 5px;">Naskenujte pro rychlou platbu</p>
+        </div>
+
+        <div class="payment-info">
+            <div class="receiver-details">
+                <p><span class="label">Příjemce:</span> <span class="value">{receiverName}</span></p>
+            </div>
+
+            <p><span class="label">Bankovní účet:</span> <span class="value">{bankAccount}</span></p>
+            <p><span class="label">IBAN:</span> <span class="value">{iban}</span></p>
+            <p><span class="label">Variabilní symbol:</span> <span class="value">{variableSymbol}</span></p>
+            <p><span class="label">Částka:</span> <span class="value">{amount} {currency}</span></p>
+            <!-- You can add more fields like Constant Symbol, Specific Symbol if needed -->
+            <!-- <p><span class="label">Constant Symbol:</span> <span class="value">{{CONSTANT_SYMBOL}}</span></p> -->
+        </div>
+
+        <div class="instructions-section">
+            <h3>Pokyny pro bankovní převod:</h3>
+            <ul>
+                <li>Použijte prosím výše uvedené bankovní údaje.</li>
+                <li><strong>Důležité:</strong> Zadejte <strong>variabilní symbol</strong> správně, aby byla vaše platba správně přiřazena k vaší objednávce/službě.</li>
+                <li>Částka k převodu je {amount} {currency}.</li>
+                <li>Platby jsou obvykle zpracovány do 1-2 pracovních dnů.</li>
+                <li>Pokud máte jakékoli dotazy, kontaktujte nás prosím na <a href="mailto:{supportEmail}">{supportEmail}</a>.</li>
+            </ul>
+        </div>
+    </div>
+</template>

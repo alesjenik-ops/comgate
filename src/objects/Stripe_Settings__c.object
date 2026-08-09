@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customSettingsType>Hierarchy</customSettingsType>
+    <enableFeeds>false</enableFeeds>
+    <fields>
+        <fullName>Attempt_Delay__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Delay between attempts in days</inlineHelpText>
+        <label>Attempt Delay</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Attempt_Limit__c</fullName>
+        <defaultValue>0</defaultValue>
+        <description>How many times we should try to capture the payment before stop</description>
+        <externalId>false</externalId>
+        <label>Attempt Limit</label>
+        <precision>2</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Day_Of_Charging__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Day of the month when recurring donations are captured, as well the StripeCreateRecurringPaymentsBatch must be scheduled for daily run.
+            Ex. &quot;25&quot; capture it every 25th day, &quot;0&quot; or keep it empty to capture first recurring donations daily.</inlineHelpText>
+        <label>Day Of Charging</label>
+        <precision>2</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>HMAC_Signature__c</fullName>
+        <label>HMAC Signature</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Public_Key__c</fullName>
+        <label>Public Key</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <label>Stripe Settings</label>
+    <visibility>Public</visibility>
+</CustomObject>

@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <caseType>Nominative</caseType>
+        <plural>false</plural>
+        <value>Transakce</value>
+    </caseValues>
+    <caseValues>
+        <caseType>Nominative</caseType>
+        <plural>true</plural>
+        <value>Transakce</value>
+    </caseValues>
+    <caseValues>
+        <caseType>Accusative</caseType>
+        <plural>false</plural>
+        <value>Transakci</value>
+    </caseValues>
+    <caseValues>
+        <caseType>Accusative</caseType>
+        <plural>true</plural>
+        <value>Transakce</value>
+    </caseValues>
+    <caseValues>
+        <caseType>Genitive</caseType>
+        <plural>false</plural>
+        <value>Transakce</value>
+    </caseValues>
+    <caseValues>
+        <caseType>Genitive</caseType>
+        <plural>true</plural>
+        <value>Transakcí</value>
+    </caseValues>
+    <caseValues>
+        <caseType>Dative</caseType>
+        <plural>false</plural>
+        <value>Transakci</value>
+    </caseValues>
+    <caseValues>
+        <caseType>Dative</caseType>
+        <plural>true</plural>
+        <value>Transakcím</value>
+    </caseValues>
+    <caseValues>
+        <caseType>Instrumental</caseType>
+        <plural>false</plural>
+        <value>Transakcí</value>
+    </caseValues>
+    <caseValues>
+        <caseType>Instrumental</caseType>
+        <plural>true</plural>
+        <value>Transakcemi</value>
+    </caseValues>
+    <caseValues>
+        <caseType>Locative</caseType>
+        <plural>false</plural>
+        <value>Transakci</value>
+    </caseValues>
+    <caseValues>
+        <caseType>Locative</caseType>
+        <plural>true</plural>
+        <value>Transakcích</value>
+    </caseValues>
+    <fields>
+        <caseValues>
+            <caseType>Nominative</caseType>
+            <plural>false</plural>
+            <value>Částka</value>
+        </caseValues>
+        <gender>Feminine</gender>
+        <name>gifttransaction_currentamount</name>
+    </fields>
+    <fields>
+        <caseValues>
+            <caseType>Nominative</caseType>
+            <plural>false</plural>
+            <value>Datum</value>
+        </caseValues>
+        <gender>Neuter</gender>
+        <name>gifttransaction_transactiondate</name>
+    </fields>
+    <fields>
+        <label><!-- Donation Attempt Counter --></label>
+        <name>Attempt_Counter__c</name>
+    </fields>
+    <fields>
+        <label><!-- Kód banky --></label>
+        <name>Bank_Code__c</name>
+    </fields>
+    <fields>
+        <label><!-- Název Kampaně --></label>
+        <name>Campaign_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Donation Last Attempt Date --></label>
+        <name>Last_Attempt_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- One Time POD Sent --></label>
+        <name>One_Time_POD_Sent__c</name>
+    </fields>
+    <fields>
+        <label><!-- Payment Method --></label>
+        <name>Payment_Method__c</name>
+    </fields>
+    <fields>
+        <label><!-- Název bankovního účtu --></label>
+        <name>Source_Account_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- Číslo Bankovní Účtu - Zdroj --></label>
+        <name>Source_Account_Number__c</name>
+    </fields>
+    <fields>
+        <label><!-- Specifický kód --></label>
+        <name>Specific_Identifier__c</name>
+    </fields>
+    <fields>
+        <label><!-- Konstatní kód --></label>
+        <name>Static_Identifier__c</name>
+    </fields>
+    <fields>
+        <label><!-- Donation Status Reason --></label>
+        <name>Status_Reason__c</name>
+    </fields>
+    <fields>
+        <label><!-- Donation Status --></label>
+        <name>Status__c</name>
+        <picklistValues>
+            <masterLabel>CANCELLATION</masterLabel>
+            <translation><!-- CANCELLATION --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>CAPTURED</masterLabel>
+            <translation><!-- CAPTURED --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>CHARGEBACK</masterLabel>
+            <translation><!-- CHARGEBACK --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>ERROR</masterLabel>
+            <translation><!-- ERROR --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>PENDING</masterLabel>
+            <translation><!-- PENDING --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>REFUND</masterLabel>
+            <translation><!-- REFUND --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Stripe Payment Intent --></label>
+        <name>Stripe_Payment_Intent__c</name>
+    </fields>
+    <fields>
+        <label><!-- Stripe Variable Symbol --></label>
+        <name>Stripe_Variable_Symbol__c</name>
+    </fields>
+    <fields>
+        <label><!-- Číslo Bankovní Účtu - Cíl --></label>
+        <name>Target_Account_Number__c</name>
+    </fields>
+    <gender>Feminine</gender>
+</CustomObjectTranslation>

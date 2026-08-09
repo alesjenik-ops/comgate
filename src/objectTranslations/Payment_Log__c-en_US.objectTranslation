@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Payment Log</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Payment Log</value>
+    </caseValues>
+    <fields>
+        <label><!-- Amount --></label>
+        <name>Amount__c</name>
+    </fields>
+    <fields>
+        <label><!-- Currency --></label>
+        <name>Currency__c</name>
+        <picklistValues>
+            <masterLabel>EUR</masterLabel>
+            <translation><!-- EUR --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Event Code --></label>
+        <name>Event_Code__c</name>
+        <picklistValues>
+            <masterLabel>checkout.session.completed</masterLabel>
+            <translation><!-- checkout.session.completed --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Event Date --></label>
+        <name>Event_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Expiry Date --></label>
+        <name>Expiry_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Gift Commitment --></label>
+        <name>Gift_Commitment__c</name>
+        <relationshipLabel><!-- Payment Log --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Gift Transaction --></label>
+        <name>Gift_Transaction__c</name>
+        <relationshipLabel><!-- Payment Log --></relationshipLabel>
+    </fields>
+    <fields>
+        <help><!-- Identification of the payment method in the external system --></help>
+        <label><!-- Payment Method Id --></label>
+        <name>Payment_Method_Id__c</name>
+    </fields>
+    <fields>
+        <label><!-- Payment Method --></label>
+        <name>Payment_Method__c</name>
+        <picklistValues>
+            <masterLabel>CreditCard</masterLabel>
+            <translation><!-- CreditCard --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>PayPal</masterLabel>
+            <translation><!-- PayPal --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>SEPA Direct Debit</masterLabel>
+            <translation><!-- SEPA Direct Debit --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Payment Mode --></label>
+        <name>Payment_Mode__c</name>
+        <picklistValues>
+            <masterLabel>payment</masterLabel>
+            <translation><!-- payment --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>setup</masterLabel>
+            <translation><!-- setup --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Payment Reference --></label>
+        <name>Payment_Reference__c</name>
+        <relationshipLabel><!-- Payment Log --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Setup Intent --></label>
+        <name>Setup_Intent__c</name>
+    </fields>
+    <fields>
+        <label><!-- Status Reason --></label>
+        <name>Status_Reason__c</name>
+    </fields>
+    <fields>
+        <label><!-- Status --></label>
+        <name>Status__c</name>
+        <picklistValues>
+            <masterLabel>complete</masterLabel>
+            <translation><!-- complete --></translation>
+        </picklistValues>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

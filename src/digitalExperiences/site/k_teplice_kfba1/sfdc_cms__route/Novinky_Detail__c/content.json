@@ -1,0 +1,12 @@
+{
+  "type" : "sfdc_cms__route",
+  "title" : "Novinky Detail",
+  "contentBody" : {
+    "activeViewId" : "novinkyDetail",
+    "configurationTags" : [ ],
+    "pageAccess" : "UseParent",
+    "routeType" : "managed-content-sfdc_cms__news",
+    "urlPrefix" : "news"
+  },
+  "urlName" : "novinky-detail"
+}

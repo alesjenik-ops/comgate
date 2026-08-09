@@ -1,0 +1,24 @@
+{
+  "type" : "sfdc_cms__themeLayout",
+  "title" : "Service Not Available Theme Layout",
+  "contentBody" : {
+    "component" : {
+      "attributes" : { },
+      "children" : [ {
+        "id" : "d149f2bf-fc98-4e0f-a3ad-77cca5381458",
+        "name" : "header",
+        "title" : "Záhlaví tématu",
+        "type" : "region"
+      }, {
+        "id" : "924ddebd-3bbf-487a-9ca9-286414c7bfec",
+        "name" : "footer",
+        "title" : "Zápatí tématu",
+        "type" : "region"
+      } ],
+      "definition" : "community_layout:simpleThemeLayout",
+      "id" : "1c874d4a-a0e9-40c1-978f-9e9ff003970a",
+      "type" : "component"
+    }
+  },
+  "urlName" : "service-not-available-theme-layout"
+}

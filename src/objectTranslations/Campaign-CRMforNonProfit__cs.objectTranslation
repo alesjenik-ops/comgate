@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fields>
+        <label><!-- Průměrný dar --></label>
+        <name>Average_Amount__c</name>
+    </fields>
+    <fields>
+        <label><!-- Bank Account --></label>
+        <name>Bank_Account__c</name>
+        <relationshipLabel><!-- Campaigns --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Poznámka / Shrnutí výsledků --></label>
+        <name>Campaign_Summary__c</name>
+    </fields>
+    <fields>
+        <label><!-- Donation Page Detail --></label>
+        <name>Donation_Page_Detail__c</name>
+    </fields>
+    <fields>
+        <label><!-- Donation Page Thank You Text --></label>
+        <name>Donation_Page_Thank_You_Text__c</name>
+    </fields>
+    <fields>
+        <label><!-- Donation Page Visible --></label>
+        <name>Donation_Page_Visible__c</name>
+    </fields>
+    <fields>
+        <label><!-- Počet dárců v Kampani --></label>
+        <name>Donor_Count__c</name>
+    </fields>
+    <fields>
+        <label><!-- Odkaz na web landing page --></label>
+        <name>Landing_Page_URL__c</name>
+    </fields>
+    <fields>
+        <label><!-- Celkový dosah --></label>
+        <name>Overall_Reach__c</name>
+    </fields>
+    <fields>
+        <label><!-- Počet interakcí ze sociálních sítí --></label>
+        <name>Social_Site_Interaction__c</name>
+    </fields>
+    <fields>
+        <label><!-- Celková vybráno --></label>
+        <name>Total_Amount__c</name>
+    </fields>
+    <fields>
+        <label><!-- Počet kliknutí z webu --></label>
+        <name>Website_Interaction_Click__c</name>
+    </fields>
+</CustomObjectTranslation>

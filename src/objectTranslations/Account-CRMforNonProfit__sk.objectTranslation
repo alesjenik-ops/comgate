@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fields>
+        <label><!-- Typ Organizace --></label>
+        <name>Account_Type__c</name>
+        <picklistValues>
+            <masterLabel>Dárce – právnická osoba</masterLabel>
+            <translation><!-- Dárce – právnická osoba --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Jiná NNO</masterLabel>
+            <translation><!-- Jiná NNO --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Médium</masterLabel>
+            <translation><!-- Médium --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Nadace / nadační fond</masterLabel>
+            <translation><!-- Nadace / nadační fond --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Ostatní</masterLabel>
+            <translation><!-- Ostatní --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Partner – firma</masterLabel>
+            <translation><!-- Partner – firma --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Veřejná instituce (obec, kraj, ministerstvo)</masterLabel>
+            <translation><!-- Veřejná instituce (obec, kraj, ministerstvo) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Škola / vzdělávací instituce</masterLabel>
+            <translation><!-- Škola / vzdělávací instituce --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Account --></label>
+        <name>Account__c</name>
+        <relationshipLabel><!-- Accounts --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Typ osoby --></label>
+        <name>Contact_Type__c</name>
+        <picklistValues>
+            <masterLabel>Dobrovolník</masterLabel>
+            <translation><!-- Dobrovolník --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Individuální dárce</masterLabel>
+            <translation><!-- Individuální dárce --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Jiný kontakt</masterLabel>
+            <translation><!-- Jiný kontakt --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Novinář / mediální kontakt</masterLabel>
+            <translation><!-- Novinář / mediální kontakt --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Zaměstnanec firmy</masterLabel>
+            <translation><!-- Zaměstnanec firmy --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Člen ČČK</masterLabel>
+            <translation><!-- Člen ČČK --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Country --></label>
+        <name>Country__c</name>
+    </fields>
+    <fields>
+        <label><!-- Datová schránka --></label>
+        <name>Data_Box__c</name>
+    </fields>
+    <fields>
+        <label><!-- Typ Dárce --></label>
+        <name>Donor_Type__c</name>
+        <picklistValues>
+            <masterLabel>Dlouhodobý dárce (více než 12 měsíců)</masterLabel>
+            <translation><!-- Dlouhodobý dárce (více než 12 měsíců) --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Jednorázový dárce</masterLabel>
+            <translation><!-- Jednorázový dárce --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Neaktivní dárce</masterLabel>
+            <translation><!-- Neaktivní dárce --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Pravidelný dárce</masterLabel>
+            <translation><!-- Pravidelný dárce --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Příležitostný dárce (alespoň 1 dar v posledních 12 měsících)</masterLabel>
+            <translation><!-- Příležitostný dárce (alespoň 1 dar v posledních 12 měsících) --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- E-mail --></label>
+        <name>E_mail__c</name>
+    </fields>
+    <fields>
+        <label><!-- Kontaktní Osoba --></label>
+        <name>Point_of_Contact__c</name>
+        <relationshipLabel><!-- Kontaktní Osoba --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Chcete Potvrzení o Daru? --></label>
+        <name>Receive_One_Time_POD__c</name>
+        <picklistValues>
+            <masterLabel>Ano</masterLabel>
+            <translation><!-- Ano --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Ne</masterLabel>
+            <translation><!-- Ne --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Stripe Customer Id --></label>
+        <name>Stripe_Customer_Id__c</name>
+    </fields>
+    <fields>
+        <label><!-- DIČ --></label>
+        <name>Tax_identification_number__c</name>
+    </fields>
+    <fields>
+        <label><!-- Titul Před --></label>
+        <name>Title_Prefix__c</name>
+    </fields>
+    <fields>
+        <label><!-- Titul Za --></label>
+        <name>Title_Suffix__c</name>
+    </fields>
+    <fields>
+        <label><!-- Letošní dary --></label>
+        <name>Total_Current_Year_Gifts__c</name>
+    </fields>
+    <fields>
+        <label><!-- Loňské dary --></label>
+        <name>Total_Last_Year_Gifts__c</name>
+    </fields>
+</CustomObjectTranslation>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Stripe Notification</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Stripe Notifications</value>
+    </caseValues>
+    <fields>
+        <label><!-- Amount Captured --></label>
+        <name>Amount_Captured__c</name>
+    </fields>
+    <fields>
+        <label><!-- Payment Intent --></label>
+        <name>Payment_Intent__c</name>
+    </fields>
+    <fields>
+        <label><!-- Payment Method --></label>
+        <name>Payment_Method__c</name>
+    </fields>
+    <fields>
+        <label><!-- Payment Reference Id --></label>
+        <name>Payment_Reference_Id__c</name>
+    </fields>
+    <fields>
+        <label><!-- Reason --></label>
+        <name>Reason__c</name>
+    </fields>
+    <fields>
+        <label><!-- Status --></label>
+        <name>Status__c</name>
+    </fields>
+    <fields>
+        <label><!-- Stripe Customer Id --></label>
+        <name>Stripe_Customer_Id__c</name>
+    </fields>
+    <fields>
+        <label><!-- Type --></label>
+        <name>Type__c</name>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

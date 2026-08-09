@@ -1,0 +1,203 @@
+{
+  "type" : "sfdc_cms__themeLayout",
+  "title" : "Scoped Header and Footer",
+  "contentBody" : {
+    "component" : {
+      "attributes" : {
+        "hideThemeFooter" : false,
+        "showThemeFooterAtBottom" : true,
+        "stickyThemeHeader" : false
+      },
+      "children" : [ {
+        "children" : [ {
+          "attributes" : {
+            "backgroundImageConfig" : "",
+            "backgroundImageOverlay" : "rgba(0,0,0,0)",
+            "componentSpacerSize" : "",
+            "layoutDirectionDesktop" : "row",
+            "layoutDirectionMobile" : "column",
+            "layoutDirectionTablet" : "column",
+            "maxContentWidth" : "",
+            "sectionColumnGutterWidth" : "",
+            "sectionConfig" : "{\"UUID\":\"72e52ef9-a284-4e5b-bcd3-3a4b5cc7d13b\",\"columns\":[{\"UUID\":\"3619f8a9-0e69-4998-953f-3aa3dd7b5d11\",\"columnName\":\"Column 1\",\"columnKey\":\"col1\",\"columnWidth\":\"12\",\"seedComponents\":[]}]}",
+            "sectionMinHeight" : "",
+            "sectionVerticalAlign" : "flex-start"
+          },
+          "children" : [ {
+            "children" : [ {
+              "attributes" : { },
+              "definition" : "c:donationPageCampaignDetail",
+              "id" : "e045ea1a-afd6-427e-9d00-bf7f48db49d4",
+              "type" : "component"
+            } ],
+            "id" : "3619f8a9-0e69-4998-953f-3aa3dd7b5d11",
+            "name" : "col1",
+            "title" : "Sloupec 1",
+            "type" : "region"
+          } ],
+          "definition" : "community_layout:section",
+          "id" : "72e52ef9-a284-4e5b-bcd3-3a4b5cc7d13b",
+          "type" : "component"
+        }, {
+          "attributes" : {
+            "backgroundImageConfig" : "",
+            "backgroundImageOverlay" : "rgba(0,0,0,0)",
+            "componentSpacerSize" : "",
+            "layoutDirectionDesktop" : "row",
+            "layoutDirectionMobile" : "column",
+            "layoutDirectionTablet" : "column",
+            "maxContentWidth" : "",
+            "sectionColumnGutterWidth" : "",
+            "sectionConfig" : "{\"UUID\":\"0f778846-45be-4347-8c56-247d8fbbb1ca\",\"columns\":[{\"UUID\":\"72d35e56-8e5f-44d9-8db9-f175980cf619\",\"columnName\":\"Column 1\",\"columnKey\":\"col1\",\"columnWidth\":\"12\",\"seedComponents\":[]}]}",
+            "sectionMinHeight" : "",
+            "sectionVerticalAlign" : "flex-start"
+          },
+          "children" : [ {
+            "children" : [ {
+              "attributes" : { },
+              "definition" : "c:donationPageCampaignDetail",
+              "id" : "5109ad88-ee61-45e7-8056-747c9b4a24e8",
+              "type" : "component"
+            } ],
+            "id" : "72d35e56-8e5f-44d9-8db9-f175980cf619",
+            "name" : "col1",
+            "title" : "Sloupec 1",
+            "type" : "region"
+          } ],
+          "definition" : "community_layout:section",
+          "id" : "0f778846-45be-4347-8c56-247d8fbbb1ca",
+          "type" : "component"
+        }, {
+          "attributes" : {
+            "backgroundImageConfig" : "",
+            "backgroundImageOverlay" : "rgba(0,0,0,0)",
+            "componentSpacerSize" : "",
+            "layoutDirectionDesktop" : "row",
+            "layoutDirectionMobile" : "column",
+            "layoutDirectionTablet" : "column",
+            "maxContentWidth" : "",
+            "sectionColumnGutterWidth" : "",
+            "sectionConfig" : "{\"UUID\":\"d13e4579-3e38-472d-9a20-4d2ea3b2fb00\",\"columns\":[{\"UUID\":\"0180c479-dbb8-496c-8e28-ce404b22eaaa\",\"columnName\":\"Column 1\",\"columnKey\":\"headerSection\",\"columnWidth\":\"12\",\"seedComponents\":null}]}",
+            "sectionMinHeight" : "",
+            "sectionVerticalAlign" : "flex-start"
+          },
+          "children" : [ {
+            "id" : "0180c479-dbb8-496c-8e28-ce404b22eaaa",
+            "name" : "headerSection",
+            "title" : "Záhlaví tématu",
+            "type" : "region"
+          } ],
+          "definition" : "community_layout:section",
+          "id" : "d13e4579-3e38-472d-9a20-4d2ea3b2fb00",
+          "type" : "component"
+        }, {
+          "attributes" : {
+            "backgroundImageConfig" : "",
+            "backgroundImageOverlay" : "rgba(0,0,0,0)",
+            "componentSpacerSize" : "",
+            "layoutDirectionDesktop" : "row",
+            "layoutDirectionMobile" : "column",
+            "layoutDirectionTablet" : "column",
+            "maxContentWidth" : "",
+            "sectionColumnGutterWidth" : "",
+            "sectionConfig" : "{\"UUID\":\"679bf868-e1fb-4120-b7fa-d163e8a183e2\",\"columns\":[{\"UUID\":\"201f85f9-0dfd-4750-ba1a-156cd6584b19\",\"columnName\":\"Column 1\",\"columnKey\":\"col1\",\"columnWidth\":\"12\",\"seedComponents\":[]}]}",
+            "sectionMinHeight" : "",
+            "sectionVerticalAlign" : "flex-start"
+          },
+          "children" : [ {
+            "id" : "201f85f9-0dfd-4750-ba1a-156cd6584b19",
+            "name" : "col1",
+            "title" : "Sloupec 1",
+            "type" : "region"
+          } ],
+          "definition" : "community_layout:section",
+          "id" : "679bf868-e1fb-4120-b7fa-d163e8a183e2",
+          "type" : "component"
+        }, {
+          "attributes" : {
+            "backgroundImageConfig" : "",
+            "backgroundImageOverlay" : "rgba(0,0,0,0)",
+            "componentSpacerSize" : "",
+            "layoutDirectionDesktop" : "row",
+            "layoutDirectionMobile" : "column",
+            "layoutDirectionTablet" : "column",
+            "maxContentWidth" : "",
+            "sectionColumnGutterWidth" : "",
+            "sectionConfig" : "{\"UUID\":\"bce76f9b-1f81-4aaa-a385-ea149fc9a354\",\"columns\":[{\"UUID\":\"85261ce1-4aa0-4f99-b3f9-3b5723821570\",\"columnName\":\"Column 1\",\"columnKey\":\"col1\",\"columnWidth\":\"12\",\"seedComponents\":[]}]}",
+            "sectionMinHeight" : "",
+            "sectionVerticalAlign" : "flex-start"
+          },
+          "children" : [ {
+            "id" : "85261ce1-4aa0-4f99-b3f9-3b5723821570",
+            "name" : "col1",
+            "title" : "Sloupec 1",
+            "type" : "region"
+          } ],
+          "definition" : "community_layout:section",
+          "id" : "bce76f9b-1f81-4aaa-a385-ea149fc9a354",
+          "type" : "component"
+        }, {
+          "attributes" : {
+            "backgroundImageConfig" : "",
+            "backgroundImageOverlay" : "rgba(0,0,0,0)",
+            "componentSpacerSize" : "",
+            "layoutDirectionDesktop" : "row",
+            "layoutDirectionMobile" : "column",
+            "layoutDirectionTablet" : "column",
+            "maxContentWidth" : "",
+            "sectionColumnGutterWidth" : "",
+            "sectionConfig" : "{\"UUID\":\"fb583bf6-29aa-4a42-820a-61eb004d5c78\",\"columns\":[{\"UUID\":\"74caa3b9-0e53-4464-80ba-f9d50d25ed81\",\"columnName\":\"Column 1\",\"columnKey\":\"col1\",\"columnWidth\":\"12\",\"seedComponents\":[]}]}",
+            "sectionMinHeight" : "",
+            "sectionVerticalAlign" : "flex-start"
+          },
+          "children" : [ {
+            "id" : "74caa3b9-0e53-4464-80ba-f9d50d25ed81",
+            "name" : "col1",
+            "title" : "Sloupec 1",
+            "type" : "region"
+          } ],
+          "definition" : "community_layout:section",
+          "id" : "fb583bf6-29aa-4a42-820a-61eb004d5c78",
+          "type" : "component"
+        } ],
+        "id" : "d0ed8006-acf5-4c0d-96c1-a514f083ef84",
+        "name" : "header",
+        "title" : "Záhlaví tématu",
+        "type" : "region"
+      }, {
+        "children" : [ {
+          "attributes" : {
+            "backgroundImageConfig" : "",
+            "backgroundImageOverlay" : "rgba(0,0,0,0)",
+            "componentSpacerSize" : "",
+            "layoutDirectionDesktop" : "row",
+            "layoutDirectionMobile" : "column",
+            "layoutDirectionTablet" : "column",
+            "maxContentWidth" : "",
+            "sectionColumnGutterWidth" : "",
+            "sectionConfig" : "{\"UUID\":\"5de4077f-fb99-4c87-8084-9b140a3ce968\",\"columns\":[{\"UUID\":\"5ba476b9-5cdc-4bc0-b1fe-408ffab5ff78\",\"columnName\":\"Column 1\",\"columnKey\":\"footerSection\",\"columnWidth\":\"12\",\"seedComponents\":null}]}",
+            "sectionMinHeight" : "",
+            "sectionVerticalAlign" : "flex-start"
+          },
+          "children" : [ {
+            "id" : "5ba476b9-5cdc-4bc0-b1fe-408ffab5ff78",
+            "name" : "footerSection",
+            "title" : "Zápatí tématu",
+            "type" : "region"
+          } ],
+          "definition" : "community_layout:section",
+          "id" : "5de4077f-fb99-4c87-8084-9b140a3ce968",
+          "type" : "component"
+        } ],
+        "id" : "5f968b7a-7c43-4a26-8773-84935ef451a0",
+        "name" : "footer",
+        "title" : "Zápatí tématu",
+        "type" : "region"
+      } ],
+      "definition" : "community_byo:scopedHeaderAndFooter",
+      "id" : "6300c03d-b7df-470b-bf39-8a110e4bf3ac",
+      "type" : "component"
+    }
+  },
+  "urlName" : "scoped-header-and-footer"
+}
