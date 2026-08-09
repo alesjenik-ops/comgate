@@ -1427,7 +1427,7 @@
 }
 .THIS .brand-input input:focus,
 .THIS .brand-input select:focus{
-    border: 1px solid white !important;
+    border: 2px solid #362031 !important;
 }
 
 .THIS .brand-input input .slds-has-error,
