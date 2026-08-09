@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>55.0</apiVersion>
+    <description>Donation Page Values Section</description>
+    <isExposed>true</isExposed>
+    <masterLabel>Donation Page Values Section</masterLabel>
+    <targets>
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Default</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightningCommunity__Default">
+            <property name="title" type="String" label="Title" default="How your donation makes a difference"/>
+            <property name="subtitle" type="String" label="Subtitle" default="It is your donation that enables us to 
+                actively keep campaigning for animals in need and improving animal welfare standards worldwide. 
+                Specifically, you can see how your donation contributes towards the betterment and welfare of animals below:"/>
+
+            <property name="firstBoxValue" type="String" label="First Box Value" default="10€"/>
+            <property name="firstBoxText" type="String" label="First Box Text" default="could provide appropriate nutrition for a rescued bear for a da"/>
+
+            <property name="secondBoxValue" type="String" label="Second Box Value" default="35€"/>
+            <property name="secondBoxText" type="String" label="Second Box Text" default="could provide for adequate medical care, vaccination and neutering of a stray"/>
+
+            <property name="thirdBoxValue" type="String" label="Third Box Value" default="90€"/>
+            <property name="thirdBoxText" type="String" label="Third Box Text" default="could contribute to one week of special milk formula for lion cubs"/>
+
+            <property name="fourthBoxValue" type="String" label="Fourth Box Value" default="150€"/>
+            <property name="fourthBoxText" type="String" label="Fourth Box Text" default="could finance all monthly costs of caring and nurturing of an orphaned orangutan"/>
+
+
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

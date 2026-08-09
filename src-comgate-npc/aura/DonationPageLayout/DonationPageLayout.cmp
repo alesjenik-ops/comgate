@@ -1,0 +1,48 @@
+<!--
+ - Created by LukášGregora on 03/06/2021.
+ -->
+
+<aura:component description="DonationPageLayout" implements="forceCommunity:themeLayout,forceCommunity:layout">
+    <aura:attribute name="header" type="Aura.Component[]" required="false"/>
+    <aura:attribute name="bodyText" type="Aura.Component[]" required="false"/>
+    <aura:attribute name="mainBody" type="Aura.Component[]" required="false"/>
+    <aura:attribute name="form" type="Aura.Component[]" required="false"/>
+    <aura:attribute name="footer" type="Aura.Component[]" required="false"/>
+    <aura:attribute name="showDonateButton" type="Boolean" default="false"/>
+    
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:handler event="c:DonationPageScrollEvent" action="{!c.handleScrollEvent}"/>
+
+    <ltng:require styles="{!$Resource.DonationPageCss}" />
+
+
+    <!-- Google Tag Manager (noscript) -->
+    <iframe src="https://www.googletagmanager.com/ns.html"
+            height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    <!-- End Google Tag Manager (noscript) -->
+    
+    <div>
+        <div>{!v.header}</div>
+        <div class="content">
+            <div class="form-text container">
+                <div>
+                    {!v.bodyText}
+                </div>
+            </div>
+            <div class="donation-form" aura:id="donationForm">
+                <div class="form-wrapper">
+                    {!v.form}
+                </div>
+            </div>
+        </div>
+
+        <div>{!v.mainBody}</div>
+        <div>{!v.footer}</div>
+        
+        <div class="{!'donate-button '  + if(v.showDonateButton,' show ', '')}">
+            <lightning:button label="DONATE NOW" onclick="{!c.handleDonateNow}"
+                              class="brand-button brand-button-orange slds-size_1-of-1"/>
+        </div>
+    </div>
+</aura:component>

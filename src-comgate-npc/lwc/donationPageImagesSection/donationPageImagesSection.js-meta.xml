@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>55.0</apiVersion>
+    <description>Donation Page Images Section</description>
+    <isExposed>true</isExposed>
+    <masterLabel>Donation Page Images Section</masterLabel>
+    <targets>
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Default</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightningCommunity__Default">
+            <property name="firstImageLabel" type="String" label="First Image Label" default="© Clouderia | Ales Jenik"/>
+            <property name="firstImagePath" type="String" label="First Image Path" default="DonationPageImages/img/gallery-img-1.jpg"/>
+            <property name="secondImageLabel" type="String" label="Second Image Label" default="© Clouderia | Ales Jenik"/>
+            <property name="secondImagePath" type="String" label="Second Image Path" default="DonationPageImages/img/gallery-img-2.jpg"/>
+            <property name="thirdImageLabel" type="String" label="Third Image Label" default="© Clouderia | Ales Jenik"/>
+            <property name="thirdImagePath" type="String" label="Third Image Path" default="DonationPageImages/img/gallery-img-3.jpg"/>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

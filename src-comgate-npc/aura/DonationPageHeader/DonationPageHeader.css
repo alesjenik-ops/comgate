@@ -1,0 +1,193 @@
+/**
+ * Created by LukášGregora on 03/06/2021.
+ */
+
+.THIS .four-paws-icon{
+    position: absolute;
+}
+
+.THIS .four-paws-icon>img{
+    max-height: 100px;
+    transition: max-height .35s cubic-bezier(.455,.03,.515,.955),opacity .35s cubic-bezier(.455,.03,.515,.955);
+    will-change: opacity;
+}
+
+@media only screen and (min-width: 1921px) {
+    .THIS .four-paws-icon>img {
+        max-height:5.55556vw
+    }
+}
+
+@media only screen and (max-width: 1679px) and (min-width:1051px) {
+    .THIS .four-paws-icon>img {
+        max-height:5.55556vw
+    }
+}
+
+@media only screen and (max-width: 1050px) and (min-width:861px) {
+    .THIS .four-paws-icon>img {
+        max-height:7.61905vw
+    }
+}
+
+@media only screen and (max-width: 860px) and (min-width:641px) {
+    .THIS .four-paws-icon>img {
+        max-height:7.55814vw
+    }
+}
+
+@media only screen and (max-width: 640px) {
+    .THIS .four-paws-icon>img {
+        max-height:17.33333vw
+    }
+}
+
+.THIS .image-text{
+    bottom: 0px;
+    color: white;
+    padding: 0 0 30px 30px;
+}
+
+@media only screen and (max-width: 860px) {
+    .THIS .image-text{
+        display: none;
+    }
+}
+
+
+.THIS.header{
+    height: 750px;
+}
+
+@media only screen and (min-width: 1921px) {
+    .THIS.header {
+        height:41.66667vw
+    }
+}
+
+@media only screen and (max-width: 1679px) and (min-width:1051px) {
+    .THIS.header {
+        height:41.66667vw
+    }
+}
+
+@media only screen and (max-width: 1050px) and (min-width:861px) {
+    .THIS.header {
+        height:57.14286vw
+    }
+}
+
+@media only screen and (max-width: 860px) and (min-width:641px) {
+    .THIS.header {
+        height:52.32558vw
+    }
+}
+
+@media only screen and (max-width: 640px) {
+    .THIS.header {
+        height:93.33333vw
+    }
+}
+
+.THIS .header-inner{
+    padding: 60px 0 25px;
+    transition: padding .35s cubic-bezier(.455,.03,.515,.955);
+}
+
+@media only screen and (min-width: 1921px) {
+    .THIS .header-inner {
+        padding:3.33333vw 0 1.38889vw
+    }
+}
+
+@media only screen and (max-width: 1679px) and (min-width:1051px) {
+    .THIS .header-inner {
+        padding:3.33333vw 0 1.38889vw
+    }
+}
+
+@media only screen and (max-width: 1050px) and (min-width:861px) {
+    .THIS .header-inner {
+        padding-top:2.38095vw
+    }
+}
+
+@media only screen and (max-width: 860px) and (min-width:641px) {
+    .THIS .header-inner {
+        padding-top:2.90698vw
+    }
+}
+
+@media only screen and (max-width: 640px) {
+    .THIS .header-inner {
+        padding-top:6.66667vw
+    }
+}
+
+.THIS .header-image{
+    width: 100%;
+    object-fit: contain;
+    min-height: 125px;
+}
+
+.THIS .background-image{
+    height: 100%;
+    width: 100%;
+    background-size: cover;
+    background-position: center;
+}
+
+
+.THIS .container{
+    padding-right: 100px;
+    padding-left: 100px;
+}
+
+@media only screen and (min-width: 1921px) {
+    .THIS .container {
+        padding-right:5.55556vw;
+        padding-left: 5.55556vw
+    }
+}
+
+@media only screen and (max-width: 1679px) and (min-width:1051px) {
+    .THIS .container {
+        padding-right:5.55556vw;
+        padding-left: 5.55556vw
+    }
+}
+
+@media only screen and (max-width: 1440px) and (min-width:1371px) {
+    .THIS .container {
+        padding-right:5.55556vw;
+        padding-left: 5.55556vw
+    }
+}
+
+@media only screen and (max-width: 1370px) and (min-width:1051px) {
+    .THIS .container {
+        padding-right:4.37956vw;
+        padding-left: 4.37956vw
+    }
+}
+
+@media only screen and (max-width: 1050px) and (min-width:861px) {
+    .THIS .container {
+        padding-right:3.80952vw;
+        padding-left: 3.80952vw
+    }
+}
+
+@media only screen and (max-width: 860px) and (min-width:641px) {
+    .THIS .container {
+        padding-right:3.48837vw;
+        padding-left: 3.48837vw
+    }
+}
+
+@media only screen and (max-width: 640px) {
+    .THIS .container {
+        padding-right:5.33333vw;
+        padding-left: 5.33333vw
+    }
+}

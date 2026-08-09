@@ -1,0 +1,36 @@
+<!-- Donation Page Values Section -->
+<template>
+    <div class="impact">
+        <div class="impact__bg">
+            <img src={bigPawBackground}>
+        </div>
+        <div class="impact__inner container">
+            <div class="impact__info is-visible" data-visibility="">
+                <h2 class="impact__title">{title}</h2>
+                <div class="impact__subtitle">{subtitle}</div>
+            </div>
+            <div class="impact__items">
+                <div class="impact__item is-visible" data-visibility="">
+                    <div class="impact__donation-size">{firstBoxValue}</div>
+                    <img class="impact__donation-wave" src={iconWave}>
+                    <div class="impact__donation-desc">{firstBoxText}</div>
+                </div>
+                <div class="impact__item is-visible" data-visibility="">
+                    <div class="impact__donation-size">{secondBoxValue}</div>
+                    <img class="impact__donation-wave" src={iconWave}>
+                    <div class="impact__donation-desc">{secondBoxText}</div>
+                </div>
+                <div class="impact__item is-visible" data-visibility="">
+                    <div class="impact__donation-size">{thirdBoxValue}</div>
+                    <img class="impact__donation-wave" src={iconWave}>
+                    <div class="impact__donation-desc">{thirdBoxText}</div>
+                </div>
+                <div class="impact__item is-visible" data-visibility="">
+                    <div class="impact__donation-size">{fourthBoxValue}</div>
+                    <img class="impact__donation-wave" src={iconWave}>
+                    <div class="impact__donation-desc">{fourthBoxText}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

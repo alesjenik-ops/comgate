@@ -1,0 +1,16 @@
+<!--
+ - Created by LukášGregora on 10/06/2021.
+ -->
+
+<aura:component description="DonationPageFormFieldSet">
+    <aura:attribute name="fieldSetWrapper" type="Map"/>
+    <aura:attribute name="donor" type="Account"/>
+    <aura:method name="validate"/>
+    
+    <aura:iteration items="{!v.fieldSetWrapper}" var="item">
+        <c:DonationPageFormFieldSetItem item="{!item}" 
+                                        donor="{!V.donor}" 
+                                        aura:id="cmpValidate"/>
+
+    </aura:iteration>
+</aura:component>

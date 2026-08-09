@@ -1,0 +1,87 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* For centering demo */
+    margin: 0;
+    padding: 20px; /* Add some padding for context */
+    box-sizing: border-box;
+}
+
+.payment-details-box {
+    width: 450px;
+    background-color: #ffffff;
+    border: 1px solid #dddddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 25px;
+    box-sizing: border-box; /* Important for width calculation */
+}
+
+.payment-details-box h2 {
+    text-align: center;
+    color: #333333;
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 20px;
+}
+
+.qr-code-section {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.qr-code-section img {
+    max-width: 180px; /* Adjust QR code size as needed */
+    height: auto;
+    border: 1px solid #eee;
+}
+
+.payment-info p {
+    margin: 10px 0;
+    font-size: 15px;
+    line-height: 1.6;
+    color: #555555;
+}
+
+.payment-info .label {
+    font-weight: bold;
+    color: #333333;
+    display: inline-block;
+    min-width: 150px; /* Adjust for alignment if needed */
+}
+
+.payment-info .value {
+    color: #007bff; /* Highlight the value */
+    word-break: break-all; /* For long account numbers */
+}
+
+.instructions-section {
+    margin-top: 25px;
+    padding-top: 15px;
+    border-top: 1px dashed #cccccc;
+}
+
+.instructions-section h3 {
+    font-size: 16px;
+    color: #333333;
+    margin-bottom: 10px;
+}
+
+.instructions-section ul {
+    list-style-type: disc;
+    padding-left: 20px;
+    margin: 0;
+    font-size: 14px;
+    color: #555555;
+}
+
+.instructions-section ul li {
+    margin-bottom: 8px;
+}
+
+.receiver-details {
+    margin-bottom: 15px;
+}

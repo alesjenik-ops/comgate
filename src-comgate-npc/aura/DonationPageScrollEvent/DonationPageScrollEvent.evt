@@ -1,0 +1,7 @@
+<!--
+ - Created by LukášGregora on 30/05/2022.
+ -->
+
+<aura:event type="APPLICATION" description="DonationPageScrollEvent">
+    <aura:attribute name="type" type="String" required="true"/> <!-- donationFormUp -->
+</aura:event>

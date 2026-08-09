@@ -6,8 +6,9 @@ Salesforce metadata projektu (retrieve z orgů, Metadata API formát). Repozitá
 
 - `src/` – varianta **Stripe + Nonprofit Cloud** (`CRMforNonProfit`, donor = Account): Apex třídy Stripe integrace, LWC, Visualforce, objekty, flows, statické resources, Experience Cloud site, `src/package.xml`.
 - `src-comgate/` – varianta **Comgate + NPSP** (`npe03`, donor = Contact): Apex třídy Comgate integrace (ComgateService, ComgateWebhook…), Communities/Site controllery, aura komponenty, LWC, objectTranslations, `src-comgate/package.xml`.
+- `src-comgate-npc/` – **Comgate předělaný na Nonprofit Cloud** (donor = Account, GiftTransaction/GiftCommitment): port Comgate integrace i donation page na NPC datový model, včetně testů, objektů, flows a `package.xml`. Detaily, vědomé opravy a deploy checklist viz `src-comgate-npc/PORT_NOTES.md`.
 
-Sady se v ~100 souborech překrývají s odlišným obsahem (např. `DonationPageController`), proto jsou drženy odděleně a nelze je slepě sloučit.
+Sady `src/` a `src-comgate/` se v ~100 souborech překrývají s odlišným obsahem (např. `DonationPageController`), proto jsou drženy odděleně a nelze je slepě sloučit.
 
 ## Nasazení
 

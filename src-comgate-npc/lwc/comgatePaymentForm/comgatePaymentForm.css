@@ -1,0 +1,26 @@
+.comgate-container {
+    position: relative;
+    z-index: 9999;
+    left: 50%;
+    overflow: auto;
+    margin-left: -250px;
+}
+
+.comgate-container.show{
+    display: block;
+}
+
+.comgate-container.hide{
+    display: none;
+}
+
+.comgate-iframe {
+    width: 504px;
+    height: 900px;
+}
+
+@media (max-height: 700px) {
+    .comgate-iframe {
+        top: 0px;
+    }
+}

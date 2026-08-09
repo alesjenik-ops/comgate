@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>57.0</apiVersion>
+    <description>Donation Page Image Section</description>
+    <isExposed>true</isExposed>
+    <masterLabel>Donation Page Image Section</masterLabel>
+    <targets>
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Default</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightningCommunity__Default">
+            <property name="imageUrl" type="String" label="Image URL" default="DonationPageImages/img/gallery-img-2.jpg"/>
+            <property name="imageHeight" type="String" label="Image Height (in pixels)" default="500"/>
+            <property name="imageAltLabel" type="String" label="Text Over Image" default="© FOUR PAWS"/>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

@@ -1,0 +1,32 @@
+<!--
+ - Created by LukášGregora on 03/06/2021.
+ -->
+
+<aura:component description="DonationPageHeader" implements="forceCommunity:availableForAllPageTypes">
+    <aura:attribute name="headerCss" type="String" default=""/>
+    
+    <aura:attribute name="headerTitle" type="String" default="Contribute to a better world"/>
+    <aura:attribute name="headerTitleStyle" type="String" default=""/>
+    
+    <aura:attribute name="logoWidth" type="String" default="200px" description="Width of the logo"/>
+    <aura:attribute name="logoImage" type="String" default="DonationPageHeaderLogo" description="Name of the static resources where the image is stored"/>
+    <aura:attribute name="logoHref" type="String" default="https://www.clouderia.digital/" description="Logo href"/>
+
+    <aura:attribute name="headerImage" type="String" default="DonationPageHeaderImage" description="Name of the static resources where the image is stored"/>
+    <aura:attribute name="headerImageHeight" type="String" default="500px" description="NOT USED Max Height of the header image"/>
+
+
+    <!-- BANNER -->
+    <div class="slds-col slds-size_1-of-1 slider slds-is-relative header" style="{!v.headerCss}">
+
+        <div class="slds-is-relative background-image" style="{!'background-image: url(' + '/sfsites/c/resource/' + v.headerImage +');'}">
+            <div class="header-inner container">
+                <a class="four-paws-icon" href="{!v.logoHref}" target="_blank">
+                    <img alt="Four Paws" src="{! '/sfsites/c/resource/' + v.logoImage}"/>
+                </a>
+
+                <span class="slds-is-absolute image-text" style="{!v.headerTitleStyle}">{!v.headerTitle}</span>
+            </div>
+        </div>
+    </div>
+</aura:component>

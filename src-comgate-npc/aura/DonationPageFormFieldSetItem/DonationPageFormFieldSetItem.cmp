@@ -1,0 +1,81 @@
+<!--
+ - Created by LukášGregora on 13/06/2021.
+ -->
+
+<aura:component description="DonationPageFormFieldSetItem">
+    <aura:attribute name="item" type="Map"/>
+    <aura:attribute name="donor" type="Account"/>
+    <aura:attribute name="selectedValue" type="Boolean" default="false"/>
+    <aura:attribute name="variant" type="String" default="standard"/>
+    <aura:attribute name="usePlaceholder" type="Boolean" default="false"/>
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:method name="validate"/>
+
+    <aura:if isTrue="{!v.item.displayType == 'text' || v.item.displayType == 'tel' || v.item.displayType == 'email' 
+                        || v.item.displayType == 'date' || v.item.displayType == 'datetime' || v.item.displayType == 'number'}">
+        <lightning:input label="{!v.item.label}"
+                         type="{!v.item.displayType}"
+                         required="{!v.item.required}"
+                         name="{!v.item.fieldPath}"
+                         onchange="{!c.onValueChange}"
+                         variant="{!v.variant}"
+                         placeholder="{!if(v.usePlaceholder, v.item.label + if(v.item.required, ' *',''), '')}"
+                         aura:id="validateField"
+                         class="brand-input slds-col slds-size_1-of-1 slds-p-vertical_small"/>
+    </aura:if>
+
+    <aura:if isTrue="{!v.item.displayType == 'currency'}">
+        <lightning:input label="{!v.item.label}"
+                         type="number"
+                         formatter="currency"
+                         step="1"
+                         required="{!v.item.required}"
+                         name="{!v.item.fieldPath}"
+                         onchange="{!c.onValueChange}"
+                         variant="{!v.variant}"
+                         placeholder="{!if(v.usePlaceholder, v.item.label + if(v.item.required, ' *',''),'')}"
+                         aura:id="validateField"
+                         class="brand-input slds-col slds-size_1-of-1 slds-p-vertical_small"/>
+    </aura:if>
+
+    <aura:if isTrue="{!v.item.displayType == 'percent'}">
+        <lightning:input label="{!v.item.label}"
+                         type="number"
+                         formatter="percent"
+                         step="0.01"
+                         required="{!v.item.required}"
+                         name="{!v.item.fieldPath}"
+                         onchange="{!c.onValueChange}"
+                         variant="{!v.variant}"
+                         placeholder="{!if(v.usePlaceholder, v.item.label + if(v.item.required, ' *','',''))}"
+                         aura:id="validateField"
+                         class="brand-input slds-col slds-size_1-of-1 slds-p-vertical_small"/>
+    </aura:if>
+
+    <aura:if isTrue="{!v.item.displayType == 'boolean'}">
+        <lightning:input label="{!v.item.label}"
+                         type="checkbox"
+                         required="{!v.item.required}"
+                         name="{!v.item.fieldPath}"
+                         onchange="{!c.onCheckedChange}"
+                         variant="{!v.variant}"
+                         placeholder="{!if(v.usePlaceholder, v.item.label + if(v.item.required, ' *',''),'')}"
+                         aura:id="validateField"
+                         class="brand-input slds-col slds-size_1-of-1 slds-p-vertical_small"/>
+    </aura:if>
+
+    <aura:if isTrue="{!v.item.displayType == 'picklist'}">
+        <lightning:select name="{!v.item.fieldPath}" 
+                          label="{!v.item.label}"
+                          variant="{!v.variant}"
+                          aura:id="validateField"
+                          required="{!v.item.required}" onchange="{!c.onValueChange}"
+                          class="{!'brand-input slds-col slds-size_1-of-1 slds-p-vertical_small' + (v.selectedValue ? ' selected' : '')}">
+            <option value="">{!if(v.usePlaceholder, v.item.label + if(v.item.required, ' *',''),'')}</option>
+            <aura:iteration items="{!v.item.picklistValues}" var="option">
+                <option value="{!option.value}" disabled="false">{!option.label}</option>
+            </aura:iteration>
+        </lightning:select>
+    </aura:if>
+</aura:component>

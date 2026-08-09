@@ -1,0 +1,20 @@
+<!--
+ - Created by LukášGregora on 02/05/2022.
+ -->
+
+<!-- Info Dropdown -->
+<template>
+    <div class="impact-button slds-align_absolute-center" onclick={handleDropdownOpener} if:false={hideHeading}>
+        <div class="impact-button-name slds-col_bump-right">
+            {heading}
+        </div>
+        
+        <div class={openerClasses}></div>
+        
+        <div class="button-ripple"></div>
+        
+    </div>
+    <div class={expandedBoxClass} if:true={expanded}>
+        {bodyText}
+    </div>
+</template>

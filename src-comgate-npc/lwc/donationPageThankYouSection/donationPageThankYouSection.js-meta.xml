@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>55.0</apiVersion>
+    <description>Donation Page Thank You Section</description>
+    <isExposed>true</isExposed>
+    <masterLabel>Donation Page Thank You Section</masterLabel>
+    <targets>
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Default</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightningCommunity__Default">
+            <property name="thankYouText" type="String" label="Thank You Text" default="On behalf of the world, the Couderia team thanks you for making a difference!"/>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

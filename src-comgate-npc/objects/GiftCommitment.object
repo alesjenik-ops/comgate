@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fields>
+        <fullName>Comgate_Authorized__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Comgate Authorized</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Comgate_Initial_Transaction_Id__c</fullName>
+        <externalId>false</externalId>
+        <label>Comgate Initial Transaction Id</label>
+        <length>64</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Comgate_Recurring__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Comgate Recurring</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Comgate_Variable_Symbol__c</fullName>
+        <displayFormat>{0000000000}</displayFormat>
+        <externalId>false</externalId>
+        <label>Comgate Variable Symbol</label>
+        <trackTrending>false</trackTrending>
+        <type>AutoNumber</type>
+    </fields>
+    <fields>
+        <fullName>Payment_Method__c</fullName>
+        <description>Reconstructed for Comgate-on-NPC port; if the target org already defines this field, prefer the org definition.</description>
+        <label>Payment Method</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>false</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>CreditCard</fullName>
+                    <default>false</default>
+                    <label>CreditCard</label>
+                </value>
+                <value>
+                    <fullName>Credit Card</fullName>
+                    <default>false</default>
+                    <label>Credit Card</label>
+                </value>
+                <value>
+                    <fullName>Bank Transfer</fullName>
+                    <default>false</default>
+                    <label>Bank Transfer</label>
+                </value>
+                <value>
+                    <fullName>PayPal</fullName>
+                    <default>false</default>
+                    <label>PayPal</label>
+                </value>
+                <value>
+                    <fullName>SEPA Direct Debit</fullName>
+                    <default>false</default>
+                    <label>SEPA Direct Debit</label>
+                </value>
+                <value>
+                    <fullName>Online Bank</fullName>
+                    <default>false</default>
+                    <label>Online Bank</label>
+                </value>
+                <value>
+                    <fullName>Google Pay</fullName>
+                    <default>false</default>
+                    <label>Google Pay</label>
+                </value>
+                <value>
+                    <fullName>Apple Pay</fullName>
+                    <default>false</default>
+                    <label>Apple Pay</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+</CustomObject>

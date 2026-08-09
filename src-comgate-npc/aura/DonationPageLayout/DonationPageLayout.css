@@ -1,0 +1,797 @@
+.THIS {
+    /*max-width: 78.75rem;*/
+    margin: auto;
+    font: 400 14px/1.714 Roboto, sans-serif;
+    color: #1f2a38;
+    --fp-brand-color: var(--base-color, #48abe3);
+    --orangeColor: #ea7300;
+    --greenColor: #93b548;
+    --base-color: inherit;
+}
+
+@media only screen and (min-width: 1921px) {
+    .THIS {
+        font-size:.77778vw
+    }
+}
+
+@media only screen and (max-width: 1679px) and (min-width:1051px) {
+    .THIS {
+        font-size:.77778vw
+    }
+}
+
+@media only screen and (max-width: 1050px) and (min-width:861px) {
+    .THIS {
+        font-size:1.2381vw
+    }
+}
+
+@media only screen and (max-width: 860px) and (min-width:641px) {
+    .THIS {
+        font-size:1.51163vw
+    }
+}
+
+@media only screen and (max-width: 640px) {
+    .THIS {
+        font-size:3.73333vw
+    }
+}
+
+.THIS .button-ripple{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.THIS .h1,.THIS h1 {
+    font: 700 60px/1 Roboto,sans-serif;
+    letter-spacing: .033em;
+    color: var(--fp-brand-color);
+}
+
+@media only screen and (min-width: 1921px) {
+    .THIS .h1,.THIS h1 {
+        font-size:3.33333vw;
+    }
+}
+
+@media only screen and (max-width: 1679px) and (min-width:1051px) {
+    .THIS .h1,.THIS h1 {
+        font-size:3.33333vw
+    }
+}
+
+@media only screen and (max-width: 1050px) {
+    .THIS .h1,.THIS h1 {
+        line-height:1.16
+    }
+}
+
+@media only screen and (max-width: 1050px) and (min-width:861px) {
+    .THIS .h1,.THIS h1 {
+        font-size:3.42857vw
+    }
+}
+
+@media only screen and (max-width: 860px) and (min-width:641px) {
+    .THIS .h1,.THIS h1 {
+        font-size:4.18605vw
+    }
+}
+
+@media only screen and (max-width: 640px) {
+    .THIS .h1,.THIS h1 {
+        font-size:9.6vw
+    }
+}
+
+.THIS .h2,.THIS h2 {
+    font: 700 48px/1.25 Roboto,sans-serif
+}
+
+@media only screen and (min-width: 1921px) {
+    .THIS .h2,.THIS h2 {
+        font-size:2.66667vw
+    }
+}
+
+@media only screen and (max-width: 1679px) and (min-width:1051px) {
+    .THIS .h2,.THIS h2 {
+        font-size:2.66667vw
+    }
+}
+
+@media only screen and (max-width: 1050px) {
+    .THIS .h2,.THIS h2 {
+        line-height:1.2
+    }
+}
+
+@media only screen and (max-width: 1050px) and (min-width:861px) {
+    .THIS .h2,.THIS h2 {
+        font-size:2.85714vw
+    }
+}
+
+@media only screen and (max-width: 860px) and (min-width:641px) {
+    .THIS .h2,.THIS h2 {
+        font-size:3.48837vw
+    }
+}
+
+@media only screen and (max-width: 640px) {
+    .THIS .h2,.THIS h2 {
+        font-size:8vw
+    }
+}
+
+.THIS .h3,.THIS h3 {
+    font: 700 36px/1.33 Roboto,sans-serif
+}
+
+@media only screen and (min-width: 1921px) {
+    .THIS .h3,.THIS h3 {
+        font-size:2vw
+    }
+}
+
+@media only screen and (max-width: 1679px) and (min-width:1051px) {
+    .THIS .h3,.THIS h3 {
+        font-size:2vw
+    }
+}
+
+@media only screen and (max-width: 1050px) and (min-width:861px) {
+    .THIS .h3,.THIS h3 {
+        font-size:2.28571vw
+    }
+}
+
+@media only screen and (max-width: 860px) and (min-width:641px) {
+    .THIS .h3,.THIS h3 {
+        font-size:2.7907vw
+    }
+}
+
+@media only screen and (max-width: 640px) {
+    .THIS .h3,.THIS h3 {
+        font-size:6.4vw
+    }
+}
+
+
+.THIS .content{
+    /*background: #f2f2f2;*/
+    max-width: 1680px;
+    display: flex;
+    align-items: flex-start;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.THIS .form-text{
+     padding-right: 100px;
+     padding-bottom: 250px;
+     padding-top: 100px;
+     width: -webkit-fill-available;
+}
+
+.THIS .donation-form{
+    margin-right: 120px;
+    margin-bottom: 50px;
+}
+
+.THIS .form-wrapper{
+    width: 550px;
+}
+
+@media only screen and (min-width: 1921px) {
+    .THIS .content {
+        max-width:90%;
+    }
+    
+    .THIS .form-text{
+        padding-right:5.55556vw;
+        padding-top:100px;
+        padding-bottom: 13.88889vw;
+    }
+    
+    .THIS .donation-form{
+        margin-right: 6.66667vw;
+        margin-bottom: 2.77778vw;
+    }
+    
+    .THIS .form-wrapper{
+        width:30.55556vw;
+    }
+}
+
+@media only screen and (max-width: 1679px) and (min-width:1051px) {
+    .THIS .content {
+        max-width:90%;
+    }
+        
+    .THIS .form-text{
+        padding-right:5.55556vw;
+        padding-top:100px;
+        padding-bottom: 13.88889vw;
+    }
+    
+    .THIS .donation-form{
+        margin-right: 6.66667vw;
+        margin-bottom: 2.77778vw;
+    }
+    
+    .THIS .form-wrapper{
+        width:30.55556vw;
+    }
+}
+
+@media only screen and (max-width: 1050px) {
+    .THIS .content {
+        max-width:100%
+    }
+}
+
+@media only screen and (max-width: 1050px) and (min-width:861px) {
+    .THIS .content {
+    }
+    
+            
+    .THIS .form-text{
+        padding-top: 55px;
+        padding-right:3.80952vw;
+    }
+    
+    .THIS .donation-form{
+        margin-right: 5.71429vw;
+        margin-bottom: 3.80952vw;
+    }
+    
+    .THIS .form-wrapper{
+        width:38.09524vw;
+    }
+}
+
+@media only screen and (max-width: 860px) and (min-width:641px) {
+    .THIS .content {
+        margin: unset;
+        display:flex;
+        flex-direction: column;
+    }
+    
+                
+    .THIS .form-text{
+        width:100%;
+        float: none;
+        padding-right:3.48837vw;
+        padding-top:9.30233vw;
+        padding-bottom: 11.62791vw;
+    }
+    
+    .THIS .donation-form{
+        width: 100%;
+        margin: auto;
+        position: relative !important;
+        padding: 0 17.44186vw 0 17.44186vw;
+
+    }
+    
+    .THIS .form-wrapper{
+        width:100%;
+    }
+    
+}
+
+@media only screen and (max-width: 640px) {
+    .THIS .content {
+        display:flex;
+        flex-direction: column;
+    }
+    
+                
+    .THIS .form-text{
+        width:100%;
+        float: none;
+        padding-right:5.33333vw;
+        padding-top:16vw;
+        padding-bottom: 26.66667vw;
+    }
+    
+    .THIS .donation-form{
+        width: 100%;
+        margin-top: -21.33333vw;
+        margin-right: 4vw;
+        margin-bottom: 4vw;
+        position: relative !important;
+    }
+    
+    .THIS .form-wrapper{
+        width:100%;
+        padding: 0 4vw 0 4vw;
+    }
+}
+
+
+@media only screen and (max-width: 860px) {
+    .THIS .content{
+        flex-direction: column-reverse;
+    }
+    
+    .THIS .form-wrapper{
+        margin-left: unset !important; 
+        margin-right: unset !important; 
+        margin-top: unset !important; 
+    }
+}
+
+.THIS .container {
+    padding-right: 100px;
+    padding-left: 100px
+}
+
+@media only screen and (min-width: 1921px) {
+    .THIS .container {
+        padding-right:5.55556vw;
+        padding-left: 5.55556vw
+    }
+}
+
+@media only screen and (max-width: 1679px) and (min-width:1051px) {
+    .THIS .container {
+        padding-right:5.55556vw;
+        padding-left: 5.55556vw
+    }
+}
+
+@media only screen and (max-width: 1440px) and (min-width:1371px) {
+    .THIS .container {
+        padding-right:5.55556vw;
+        padding-left: 5.55556vw
+    }
+}
+
+@media only screen and (max-width: 1370px) and (min-width:1051px) {
+    .THIS .container {
+        padding-right:4.37956vw;
+        padding-left: 4.37956vw
+    }
+}
+
+@media only screen and (max-width: 1050px) and (min-width:861px) {
+    .THIS .container {
+        padding-right:3.80952vw;
+        padding-left: 3.80952vw
+    }
+}
+
+@media only screen and (max-width: 860px) and (min-width:641px) {
+    .THIS .container {
+        padding-right:3.48837vw;
+        padding-left: 3.48837vw
+    }
+}
+
+@media only screen and (max-width: 640px) {
+    .THIS .container {
+        padding-right:5.33333vw;
+        padding-left: 5.33333vw
+    }
+}
+
+.THIS .donation-form{
+    top: 0px;
+    margin-top: -450px;
+    position: sticky;
+    transition-timing-function: cubic-bezier(.455,.03,.515,.955);
+    transition-duration: .35s;
+    transition-property: transform,border-radius;
+}
+
+@media only screen and (min-width: 1921px) {
+    .THIS .donation-form {
+        margin-top: -25vw;
+    }
+}
+
+@media only screen and (max-width: 1679px) and (min-width:1051px) {
+    .THIS .donation-form {
+        margin-top: -25vw;
+    }
+}
+
+@media only screen and (max-width: 1050px) and (min-width:861px) {
+    .THIS .donation-form {
+        margin-top:-34.09524vw;
+    }
+}
+
+@media only screen and (max-width: 860px) and (min-width:641px) {
+    .THIS .donation-form {
+        margin-top: -9.30233vw;
+    }
+}
+
+@media only screen and (max-width: 860px) {
+    .THIS .donation-form {
+        position: relative!important;
+        top: auto!important;
+    }
+}
+
+@media only screen and (max-width: 640px) {
+    .THIS .donation-form {
+        margin-top: -21.33333vw;
+        margin-bottom: 4vw;
+    }
+}
+
+.THIS .donate-button {
+    cursor: pointer;
+    position: fixed;
+    right: 40px;
+    bottom: 145px;
+    z-index: -100;
+    text-transform: uppercase;
+    width: 320px;
+    text-align: center;
+    box-shadow: 0 20px 20px rgba(175,131,89,.25);
+    transition-duration: .35s;
+    transition-timing-function: cubic-bezier(.455,.03,.515,.955);
+    transition-property: height,background-color,transform,opacity,display;
+    opacity: 0;
+    transform: translate3d(0,150%,0);
+}
+
+.THIS .donate-button.show{
+    opacity: 1 !important;
+    z-index: 10;
+}
+
+.THIS .donate-button button{
+    border: unset;
+    cursor: pointer;
+}
+
+@media only screen and (min-width: 1921px) {
+    .THIS .donate-button {
+        right:2.22222vw;
+        bottom: 7.22222vw;
+        width: 17.77778vw;
+        box-shadow: 0 1.11111vw 1.11111vw rgba(175,131,89,.25)
+    }
+}
+
+@media only screen and (max-width: 1679px) and (min-width:1051px) {
+    .THIS .donate-button {
+        right:2.22222vw;
+        bottom: 8.22222vw;
+        width: 17.77778vw;
+        box-shadow: 0 1.11111vw 1.11111vw rgba(175,131,89,.25)
+    }
+}
+
+@media only screen and (max-width: 1050px) and (min-width:861px) {
+    .THIS .donate-button {
+        right:2.38095vw;
+        bottom: 9.38095vw;
+        width: 23.80952vw;
+        box-shadow: 0 1.42857vw 1.42857vw rgba(175,131,89,.25)
+    }
+}
+
+@media only screen and (max-width: 860px) and (min-width:641px) {
+    .THIS .donate-button {
+        right:2.90698vw;
+        bottom: 11.90698vw;
+        width: 29.06977vw;
+        box-shadow: 0 1.74419vw 1.74419vw rgba(175,131,89,.25)
+    }
+}
+
+@media only screen and (max-width: 640px) {
+    .THIS .donate-button {
+        right:4vw;
+        bottom: 33.66667vw;
+        left: 4vw;
+        width: auto;
+        padding: 3.46667vw 0 0 0;
+        text-transform: inherit
+    }
+}
+
+.THIS .brand-button{
+    padding: 21px 30px;
+    border-radius: 4px;
+    font-weight: 700;
+    line-height: 1.4;
+    font-size: 20px;
+    color: #fff;
+    word-break: break-word;
+    transition: background-color .3s cubic-bezier(.455,.03,.515,.955);
+
+}
+
+@media only screen and (min-width: 1921px) {
+    .THIS .brand-button {
+        padding:1.16667vw 1.66667vw;
+        border-radius: .22222vw;
+        font-size:1.11111vw;
+    }
+}
+
+@media only screen and (max-width: 1679px) and (min-width:1051px) {
+    .THIS .brand-button {
+        padding:1.16667vw 1.66667vw;
+        border-radius: .22222vw;
+        font-size:1.11111vw;
+    }
+}
+
+@media only screen and (max-width: 1050px) and (min-width:861px) {
+    .THIS .brand-button {
+        padding:1.2381vw 2.85714vw;
+        border-radius: .47619vw;
+        font-size:1.52381vw;
+    }
+}
+
+@media only screen and (max-width: 860px) and (min-width:641px) {
+    .THIS .brand-button {
+        padding:1.51163vw 1.74419vw;
+        border-radius: .5814vw;
+        font-size:1.86047vw;
+    }
+}
+
+@media only screen and (max-width: 640px) {
+    .THIS .brand-button {
+        padding:4.8vw 4vw;
+        border-radius: 1.33333vw;
+        font-size:4.26667vw;
+    }
+}
+
+
+/* ORANGE BRAND BUTTON*/
+.THIS .brand-button-orange{
+    background-color: var(--orangeColor);
+}
+.THIS .brand-button-orange:hover{
+    background-color: #ea5b0c;
+}
+
+.THIS .brand-button-green{
+    background-color: var(--greenColor);
+}
+/* ORANGE BRAND BUTTON END*/
+
+
+
+.THIS ul li{
+    transition: opacity .3s linear;
+    will-change: opacity;
+    margin-bottom: 10px;
+    line-height:2;
+    position: relative;
+    font-size: 18px;
+}
+
+@media only screen and (min-width: 1921px) {
+    .THIS ul li {
+        font-size: 1vw
+    }
+    
+    .THIS ul{
+        margin-bottom:3.33333vw;
+    }
+}
+
+@media only screen and (max-width: 1679px) and (min-width:1051px) {
+    .THIS ul li {
+        font-size: 1vw
+    }
+    
+    .THIS ul{
+        margin-bottom:3.33333vw;
+    }
+}
+
+@media only screen and (max-width: 1050px) {
+    .THIS ul li {
+        line-height:1.75
+    }
+}
+
+@media only screen and (max-width: 1050px) and (min-width:861px) {
+    .THIS ul li {
+        font-size: 1.52381vw
+    }
+    
+    .THIS ul{
+        margin-bottom:5.71429vw;
+    }
+}
+
+@media only screen and (max-width: 860px) and (min-width:641px) {
+    .THIS ul li {
+        font-size: 1.86047vw;
+    }
+    
+    .THIS ul{
+        margin-bottom:6.97674vw;
+    }
+}
+
+@media only screen and (max-width: 640px) {
+    .THIS ul li {
+        font-size: 4.26667vw;
+    }
+    
+    .THIS ul {
+        margin-bottom:16vw
+    }
+}
+
+@media only screen and (min-width: 1921px) {
+    .THIS ul li::before {
+        width: 1.11111vw;
+        height: 1.11111vw
+    }
+}
+
+@media only screen and (max-width: 1679px) and (min-width:1051px) {
+    .THIS ul li::before {
+        width: 1.11111vw;
+        height: 1.11111vw;
+    }
+}
+
+@media only screen and (max-width: 1050px) and (min-width:861px) {
+    .THIS ul li::before {
+        width: 1.90476vw;
+        height: 1.90476vw
+    }
+}
+
+@media only screen and (max-width: 860px) and (min-width:641px) {
+    .THIS ul li::before {
+        width: 2.32558vw;
+        height: 2.32558vw
+    }
+}
+
+@media only screen and (max-width: 640px) {
+    .THIS ul li::before {
+        width: 5.33333vw;
+        height: 5.33333vw
+    }
+}
+
+.THIS .description{
+    padding: 40px 40px 40px 50px;
+    border: 2px solid var(--base-color, #48abe3);
+    border-radius: 30px;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 2;
+}
+
+@media only screen and (min-width: 1921px) {
+    .THIS .description {
+        padding:2.22222vw 2.22222vw 2.22222vw 2.77778vw;
+        border-width: .11111vw;
+        border-radius: 1.66667vw;
+        font-size: 1vw
+    }
+}
+
+@media only screen and (max-width: 1679px) and (min-width:1051px) {
+    .THIS .description {
+        padding:2.22222vw 2.22222vw 2.22222vw 2.77778vw;
+        border-width: .11111vw;
+        border-radius: 1.66667vw;
+        font-size: 1vw
+    }
+}
+
+@media only screen and (max-width: 1050px) {
+    .THIS .description {
+        line-height:1.75
+    }
+}
+
+@media only screen and (max-width: 1050px) and (min-width:861px) {
+    .THIS .description {
+        padding:3.33333vw;
+        border-radius: 1.90476vw;
+        font-size: 1.52381vw
+    }
+}
+
+@media only screen and (max-width: 860px) and (min-width:641px) {
+    .THIS .description {
+        padding:4.06977vw;
+        border-radius: 2.32558vw;
+        font-size: 1.86047vw
+    }
+}
+
+@media only screen and (max-width: 640px) {
+    .THIS .description {
+        padding:9.33333vw;
+        border-radius: 5.33333vw;
+        font-size: 4.26667vw
+    }
+}
+
+.THIS p {
+    font-size: 20px;
+    line-height: 1.8
+}
+
+@media only screen and (min-width: 1921px) {
+    .THIS p {
+        font-size: 1.11111vw
+    }
+}
+
+@media only screen and (max-width: 1679px) and (min-width:1051px) {
+    .THIS p {
+        font-size: 1.11111vw
+    }
+}
+
+@media only screen and (max-width: 1050px) and (min-width:861px) {
+    .THIS p {
+        font-size: 1.71429vw
+    }
+}
+
+@media only screen and (max-width: 860px) and (min-width:641px) {
+    .THIS p {
+        font-size: 2.09302vw
+    }
+}
+
+@media only screen and (max-width: 640px) {
+    .THIS p {
+        font-size: 4.8vw
+    }
+}
+
+
+/* ADYEN DROP IN */
+.THIS .dropin-container,
+.THIS .dropin-container-additions{
+    width: 100%;
+}
+
+.THIS .dropin-container ul li,
+.THIS .dropin-container-additions ul li{
+    transition: inherit;
+    will-change: inherit;
+    margin-bottom: 10px;
+    line-height: inherit;
+    position: inherit;
+    padding-left: inherit;
+    font-size: inherit;
+}
+
+.THIS .dropin-container ul,
+.THIS .dropin-container-additions ul{
+    margin-bottom: unset;
+}
+
+.THIS .dropin-container li:before{
+    display: none;
+}
+
+.THIS .dropin-container .adyen-checkout__card__brands__brand-wrapper>img.adyen-checkout__image{
+    margin-top: -8px;
+}
