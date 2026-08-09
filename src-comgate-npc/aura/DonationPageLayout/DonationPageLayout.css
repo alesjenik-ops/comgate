@@ -184,7 +184,7 @@
 }
 
 .THIS .donation-form{
-    margin-right: 120px;
+    margin-right: 56px;
     margin-bottom: 50px;
 }
 
@@ -204,7 +204,7 @@
     }
     
     .THIS .donation-form{
-        margin-right: 6.66667vw;
+        margin-right: 2.91667vw;
         margin-bottom: 2.77778vw;
     }
     
@@ -225,7 +225,7 @@
     }
     
     .THIS .donation-form{
-        margin-right: 6.66667vw;
+        margin-right: 2.91667vw;
         margin-bottom: 2.77778vw;
     }
     
@@ -251,7 +251,7 @@
     }
     
     .THIS .donation-form{
-        margin-right: 5.71429vw;
+        margin-right: 3vw;
         margin-bottom: 3.80952vw;
     }
     
@@ -674,5 +674,18 @@
 @media only screen and (max-width: 640px) {
     .THIS p {
         font-size: 4.8vw
+    }
+}
+
+/* DKD: textovy sloupec bez vnitrniho odsazeni - stejny okraj jako formular, sirsi box */
+.THIS .form-text.container{
+    padding-left: 0;
+    padding-right: 0;
+}
+
+@media only screen and (max-width: 860px) {
+    .THIS .form-text.container{
+        padding-left: 3.5vw;
+        padding-right: 3.5vw;
     }
 }
