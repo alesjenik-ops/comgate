@@ -3,7 +3,7 @@
     margin: auto;
     font: 400 14px/1.714 'Fira Sans', sans-serif;
     color: #362031;
-    background-image: url('/sfsites/c/resource/DonationPageBackground?v2');
+    background-image: url('/sfsites/c/resource/DonationPageBackground?v7');
     background-position-x: left;
     --brand-color: #362031;
     --redColor: #fa95c2;
@@ -179,7 +179,7 @@
 .THIS .form-text{
      padding-right: 100px;
      padding-bottom: 250px;
-     padding-top: 100px;
+     padding-top: 64px;
      width: -webkit-fill-available;
 }
 
@@ -199,7 +199,7 @@
     
     .THIS .form-text{
         padding-right:5.55556vw;
-        padding-top:100px;
+        padding-top:3.33333vw;
         padding-bottom: 13.88889vw;
     }
     
@@ -220,7 +220,7 @@
         
     .THIS .form-text{
         padding-right:5.55556vw;
-        padding-top:100px;
+        padding-top:3.33333vw;
         padding-bottom: 13.88889vw;
     }
     
@@ -307,7 +307,7 @@
     
     .THIS .donation-form{
         width: 100%;
-        margin-top: -21.33333vw;
+        margin-top: 4vw;
         margin-right: 4vw;
         margin-bottom: 4vw;
         position: relative !important;
@@ -388,7 +388,7 @@
 
 .THIS .donation-form{
     top: 0px;
-    margin-top: -450px;
+    margin-top: 64px;
     position: sticky;
     transition-timing-function: cubic-bezier(.455,.03,.515,.955);
     transition-duration: .35s;
@@ -397,25 +397,25 @@
 
 @media only screen and (min-width: 1921px) {
     .THIS .donation-form {
-        margin-top: -25vw;
+        margin-top: 3.33333vw;
     }
 }
 
 @media only screen and (max-width: 1679px) and (min-width:1051px) {
     .THIS .donation-form {
-        margin-top: -25vw;
+        margin-top: 3.33333vw;
     }
 }
 
 @media only screen and (max-width: 1050px) and (min-width:861px) {
     .THIS .donation-form {
-        margin-top:-34.09524vw;
+        margin-top: 4vw;
     }
 }
 
 @media only screen and (max-width: 860px) and (min-width:641px) {
     .THIS .donation-form {
-        margin-top: -9.30233vw;
+        margin-top: 4vw;
     }
 }
 
