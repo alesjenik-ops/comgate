@@ -48,11 +48,11 @@ public with sharing class ComgateWebhookEventWrapper {
         );
 
         if(ComgateUtil.isIdValid(this.refId)){
-            if(((Id) this.refId).getSobjectType() == GiftTransaction.SObjectType){
+            if(((Id) this.refId).getSobjectType() == Schema.GiftTransaction.SObjectType){
                 paymentLog.Gift_Transaction__c = this.refId;
-            } else if(((Id) this.refId).getSobjectType() == GiftCommitment.SObjectType){
+            } else if(((Id) this.refId).getSobjectType() == Schema.GiftCommitment.SObjectType){
                 paymentLog.Gift_Commitment__c = this.refId;
-            } else if(((Id) this.refId).getSobjectType() == Payment_Reference__c.SObjectType){
+            } else if(((Id) this.refId).getSobjectType() == Schema.Payment_Reference__c.SObjectType){
                 paymentLog.Payment_Reference__c = this.refId;
             }
         }
