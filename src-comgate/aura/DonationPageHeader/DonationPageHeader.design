@@ -1,0 +1,15 @@
+<!--
+ - Created by LukášGregora on 03/06/2021.
+ -->
+
+<design:component>
+    <design:attribute name="headerTitle" label="Header Title" />
+    <design:attribute name="headerTitleStyle" label="Header Title CSS" />
+    <design:attribute name="logoImage" label="Logo Static Resource" description="Name of the static resource where the logo is stored" />
+    <design:attribute name="logoWidth" label="DEPRECATED Logo Width" description="Ex. 200px" />
+    <design:attribute name="logoHref" label="Logo Href URL" description="https://www.four-paws.org/" />
+    <design:attribute name="headerImage" label="Header Image Static Resource" description="Name of the static resource where the header image is stored"/>
+    <design:attribute name="headerImageHeight" label="NOT USED Header Image Height" description="Ex. 500px" />
+    
+    <design:attribute name="headerCss" label="Header CSS" description="Custom CSS"/>
+</design:component>

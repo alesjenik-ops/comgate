@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fields>
+        <label><!-- Bank Account --></label>
+        <name>Bank_Account__c</name>
+        <relationshipLabel><!-- Campaigns --></relationshipLabel>
+    </fields>
+    <fields>
+        <help><!-- Zde můžete vybrat bankovní účet, vůči kterému Comgate připíše platbu. Tento účet musí být nastaven v portálu comgate: https://portal.comgate.cz/ Pokud nebude žádný účet vybránnebo bude zvolena hodnota &quot;none&quot; využije se výchozí účet nastevený v Comgate. --></help>
+        <label><!-- Comgate Bank Account --></label>
+        <name>Comgate_Bank_Account__c</name>
+        <picklistValues>
+            <masterLabel>none</masterLabel>
+            <translation><!-- none --></translation>
+        </picklistValues>
+    </fields>
+</CustomObjectTranslation>

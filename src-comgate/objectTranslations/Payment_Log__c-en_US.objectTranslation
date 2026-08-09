@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Payment Log</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Payment Log</value>
+    </caseValues>
+    <fields>
+        <label><!-- Amount --></label>
+        <name>Amount__c</name>
+    </fields>
+    <fields>
+        <label><!-- Currency --></label>
+        <name>Currency__c</name>
+        <picklistValues>
+            <masterLabel>CZK</masterLabel>
+            <translation><!-- CZK --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>EUR</masterLabel>
+            <translation><!-- EUR --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Is Test --></label>
+        <name>Is_Test__c</name>
+    </fields>
+    <fields>
+        <label><!-- Merchant Code --></label>
+        <name>Merchant_Code__c</name>
+    </fields>
+    <fields>
+        <label><!-- Opportunity --></label>
+        <name>Opportunity__c</name>
+        <relationshipLabel><!-- Payment Log --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Payment Method --></label>
+        <name>Payment_Method__c</name>
+        <picklistValues>
+            <masterLabel>CARD_CZ_COMGATE</masterLabel>
+            <translation><!-- CARD_CZ_COMGATE --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Payment Reference --></label>
+        <name>Payment_Reference__c</name>
+        <relationshipLabel><!-- Payment Log --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Recurring Donation --></label>
+        <name>Recurring_Donation__c</name>
+        <relationshipLabel><!-- Payment Log --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Status Reason --></label>
+        <name>Status_Reason__c</name>
+    </fields>
+    <fields>
+        <label><!-- Status --></label>
+        <name>Status__c</name>
+        <picklistValues>
+            <masterLabel>AUTHORIZED</masterLabel>
+            <translation><!-- AUTHORIZED --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>CANCELLED</masterLabel>
+            <translation><!-- CANCELLED --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>PAID</masterLabel>
+            <translation><!-- PAID --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>PENDING</masterLabel>
+            <translation><!-- PENDING --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Transaction Id --></label>
+        <name>Transaction_Id__c</name>
+    </fields>
+    <fields>
+        <label><!-- Variable --></label>
+        <name>Variable__c</name>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

@@ -1,0 +1,3 @@
+<apex:page id="ResourceReader" controller="ResourceReaderController" contentType="text/plain">
+    <apex:outputText value="{!Content}" escape="false" />
+</apex:page>

@@ -1,0 +1,50 @@
+<!--
+ - Created by LukášGregora on 15/06/2021.
+ -->
+
+<aura:component description="DonationPageFooter" implements="forceCommunity:availableForAllPageTypes">
+    <aura:attribute name="firstLine" type="String" default="Clouderia s.r.o." />
+    <aura:attribute name="secondLine" type="String" default="Karla Engliše 3201/6, Smíchov, 150 00 Praha"/>
+    <aura:attribute name="thirdLine" type="String" default="E-mail: support@clouderia.digital | Phone: +420 xxx xxx xxx"/>
+    <aura:attribute name="fourthLine" type="String" default="Clouderia your salesforce partner"/>
+    <aura:attribute name="fifthLine" type="String" default="We going beyond"/>
+    <aura:attribute name="sixthLine" type="String" default="Registered in Czechia"/>
+
+    <aura:attribute name="logoImage" type="String" default="FooterLogoSimple" description="Name of the static resources where the image is stored"/>
+    <aura:attribute name="logoHref" type="String" default="" description="Logo href"/>
+    <aura:attribute name="dataPrivacyStatementLink" type="String" default="" description="Data Privacy Statement href"/>
+    
+    <!-- FOOTER -->
+    <div class="footer">
+        <div class="footer-inner container slds-align_absolute-center slds-grid slds-wrap">
+            <a class="footer-logo slds-grow-none slds-align_absolute-center"
+               href="{!v.logoHref}" target="_blank">
+                <div class="footer-logo-img" style="{!'background-image: url(' + '/sfsites/c/resource/' + v.logoImage +');'}"></div>
+            </a>
+            
+            <div class="footer-info slds-text-align_center slds-size_1-of-1">
+                <aura:if isTrue="{!v.firstLine}">
+                    <p>{!v.firstLine}</p>
+                </aura:if>
+                <aura:if isTrue="{!v.secondLine}">
+                    <p>{!v.secondLine}</p>
+                </aura:if>
+                <aura:if isTrue="{!v.thirdLine}">
+                    <p>{!v.thirdLine}</p>
+                </aura:if>
+                <aura:if isTrue="{!v.fourthLine}">
+                    <p>{!v.fourthLine}</p>
+                </aura:if>
+                <aura:if isTrue="{!v.fifthLine}">
+                    <p>{!v.fifthLine}</p>
+                </aura:if>
+                <aura:if isTrue="{!v.sixthLine}">
+                    <p>{!v.sixthLine}</p>
+                </aura:if>
+                <aura:if isTrue="{!v.dataPrivacyStatementLink}">
+                    <p><a href="{!v.dataPrivacyStatementLink}" target="_blank">Data Privacy Statement</a> </p>
+                </aura:if>
+            </div>
+        </div>
+    </div>
+</aura:component>

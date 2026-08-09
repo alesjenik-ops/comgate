@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fields>
+        <label><!-- Donation Attempt Counter --></label>
+        <name>Attempt_Counter__c</name>
+    </fields>
+    <fields>
+        <label><!-- Comgate Donation Status Reason --></label>
+        <name>Comgate_Donation_Status_Reason__c</name>
+    </fields>
+    <fields>
+        <label><!-- Comgate Donation Status --></label>
+        <name>Comgate_Donation_Status__c</name>
+        <picklistValues>
+            <masterLabel>AUTHORIZED</masterLabel>
+            <translation><!-- AUTHORIZED --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>CANCELLED</masterLabel>
+            <translation><!-- CANCELLED --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>PAID</masterLabel>
+            <translation><!-- PAID --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>PENDING</masterLabel>
+            <translation><!-- PENDING --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Comgate Transaction Id --></label>
+        <name>Comgate_Transaction_Id__c</name>
+    </fields>
+    <fields>
+        <label><!-- Comgate Variable Symbol --></label>
+        <name>Comgate_Variable_Symbol__c</name>
+    </fields>
+    <fields>
+        <label><!-- Current Generator(s) --></label>
+        <name>CurrentGenerators__c</name>
+    </fields>
+    <fields>
+        <label><!-- Delivery/Installation Status --></label>
+        <name>DeliveryInstallationStatus__c</name>
+        <picklistValues>
+            <masterLabel>Completed</masterLabel>
+            <translation><!-- Completed --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>In progress</masterLabel>
+            <translation><!-- In progress --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Yet to begin</masterLabel>
+            <translation><!-- Yet to begin --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Donation Last Attempt Date --></label>
+        <name>Last_Attempt_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Main Competitor(s) --></label>
+        <name>MainCompetitors__c</name>
+    </fields>
+    <fields>
+        <label><!-- Order Number --></label>
+        <name>OrderNumber__c</name>
+    </fields>
+    <fields>
+        <label><!-- Payment Method --></label>
+        <name>Payment_Method__c</name>
+        <picklistValues>
+            <masterLabel>CARD_CZ_COMGATE</masterLabel>
+            <translation><!-- CARD_CZ_COMGATE --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Tracking Number --></label>
+        <name>TrackingNumber__c</name>
+    </fields>
+</CustomObjectTranslation>

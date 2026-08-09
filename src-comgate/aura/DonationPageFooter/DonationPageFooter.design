@@ -1,0 +1,17 @@
+<!--
+ - Created by LukášGregora on 15/06/2021.
+ -->
+
+<design:component>
+    <design:attribute name="firstLine" label="1st Line" />
+    <design:attribute name="secondLine" label="2nd Line" />
+    <design:attribute name="thirdLine" label="3rd Line" />
+    <design:attribute name="fourthLine" label="4th Line" />
+    <design:attribute name="fifthLine" label="5th Line" />
+    <design:attribute name="sixthLine" label="6th Line" />
+
+    <design:attribute name="logoImage" label="Logo Static Resource" description="Name of the static resource where the logo is stored" />
+    <design:attribute name="logoHref" label="Logo Href URL" description="http://www.vier-pfoten.org/en" />
+    
+    <design:attribute name="dataPrivacyStatementLink" label="Data Privacy Statement URL" description="https://www.four-paws.org/about-us/data-privacy" />
+</design:component>

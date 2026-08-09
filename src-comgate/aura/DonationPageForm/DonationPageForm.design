@@ -1,0 +1,40 @@
+<!--
+ - Created by LukášGregora on 08/06/2021.
+ -->
+
+<design:component>
+    <design:attribute name="campaignId" label="Campaign Id" description="Salesforce Id of the selected campaign ex. '7017R000001unrRQAQ'. When campaignId is passed by URL parameter it will override this value ex. 'http://xxx.xxx?campaignId=7017R000001unrRQAQ'"/>
+
+    <!-- FORM HEADING -->
+    <design:attribute name="formHeaderLabel" label="Form Heading Label" description="Very top H2 text on the form"/>
+    <design:attribute name="formHeaderSubLabel" label="Form Heading Sub-Label" description="Text under the form heading"/>
+    
+    <!-- DONATION FREQUENCY SETUP -->
+    <design:attribute name="donationTypeOption_oneOff" label="One-Off Donation Allowed" description="Check to allow usage of One-Off donations"/>
+    <design:attribute name="donationTypeOption_monthly" label="Monthly Donation Allowed" description="Check to allow usage of Monthly donations"/>
+    <design:attribute name="donationTypeOption_quarterly" label="Quarterly Donation Allowed" description="Check to allow usage of Quarterly donations"/>
+    <design:attribute name="donationTypeOption_yearly" label="Yearly Donation Allowed" description="Check to allow usage of Yearly donations"/>
+    <design:attribute name="defaultDonationTypeOption" label="Default donation type option" dataSource=",oneoff,recurring_monthly,recurring_yearly" description="Which donation option will be preselected"/>
+
+    <design:attribute name="donationTypeOption_oneOff_amounts" label="One-Off Donation Amounts" description="Predefined amount delimited by semicolon, use other to display free input. Ex. '10;30;110;other'"/>
+    <design:attribute name="donationTypeOption_monthly_amounts" label="Monthly Donation Amounts" description="Predefined amount delimited by semicolon, use other to display free input. Ex. '10;30;110;other'"/>
+    <design:attribute name="donationTypeOption_quarterly_amounts" label="Quarterly Donation Amounts" description="Predefined amount delimited by semicolon, use other to display free input. Ex. '10;30;110;other'"/>
+    <design:attribute name="donationTypeOption_yearly_amounts" label="Yearly Donation Amounts" description="Predefined amount delimited by semicolon, use other to display free input. Ex. '10;30;110;other'"/>
+
+    <!-- PAYMENT METHODS SETUP -->
+    <design:attribute name="paymentOption_card" label="Card Allowed" description="Check to allow usage of CARD payment method"/>
+    <design:attribute name="paymentOption_bankTransfer" label="Bank Transfer Allowed" description="Check to allow usage of Bank Transfer payment method"/>
+    <design:attribute name="defaultPaymentOption" label="Default payment option" dataSource=",card,paypal,sepadirectdebit" description="Which payment option will be preselected"/>
+
+    <!-- FIELD SET SELECTION -->
+    <design:attribute name="fieldSetSelection" label="Contact field set" datasource="apex://ContactFieldSetsDynamicPicklist" description="Select contact field set based on which fields gonna be displayed"/>
+
+    <!-- CHECKBOXES SETUP -->
+    <design:attribute name="marketingOptInLabel" label="Marketing Opt-In Consent Label" description="Text next to the first checkbox - Marketing Opt-In Email"/>
+    <design:attribute name="privacyPolicyLabel" label="Privacy Policy Label" description="Text next to the second checkbox - Privacy Policy Agreement. Privacy Policy href is defined by $$ ex. 'I have read the $privacy policy$ and I agree to it.*'"/>
+    <design:attribute name="privacyPolicyUrl" label="Privacy Policy URL" description="URL to the privacy policy"/>
+
+    <design:attribute name="thankYouLabel" label="Thank You Label" description="Define headline of the thank you page"/>
+
+
+</design:component>

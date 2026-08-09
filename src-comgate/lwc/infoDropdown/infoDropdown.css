@@ -1,0 +1,160 @@
+/**
+ * Created by LukášGregora on 02/05/2022.
+ */
+ 
+ .impact-button{
+     cursor: pointer;
+     position: relative;
+     display: flex;
+     padding: 7px 20px 7px 20px;
+     background-color: #fff;
+ }
+ 
+ @media only screen and (min-width: 1921px) {
+     .impact-button {
+         padding:.38889vw 1.11111vw .38889vw 1.11111vw
+     }
+ }
+ 
+ @media only screen and (max-width: 1679px) and (min-width:1051px) {
+     .impact-button {
+         padding:.38889vw 1.11111vw .38889vw 1.11111vw
+     }
+ }
+ 
+ @media only screen and (max-width: 1050px) and (min-width:861px) {
+     .impact-button {
+         padding:.66667vw 1.90476vw .66667vw 1.90476vw
+     }
+ }
+ 
+ @media only screen and (max-width: 860px) and (min-width:641px) {
+     .impact-button {
+         padding:.81395vw 2.32558vw .81395vw 2.32558vw
+     }
+ }
+ 
+ @media only screen and (max-width: 640px) {
+     .impact-button {
+         padding:1.86667vw 5.33333vw 1.86667vw 5.33333vw
+     }
+ }
+ 
+ .impact-button-name{
+     padding: 3px 0;
+     font-weight: 500;
+     color: #696e74;
+     line-height: 1.714;
+ }
+
+@media only screen and (min-width: 1921px) {
+    .impact-button-name {
+        padding:.16667vw 0
+    }
+}
+
+@media only screen and (max-width: 1679px) and (min-width:1051px) {
+    .impact-button-name {
+        padding:.16667vw 0
+    }
+}
+
+@media only screen and (max-width: 1050px) and (min-width:861px) {
+    .impact-button-name {
+        padding:.28571vw 0
+    }
+}
+
+@media only screen and (max-width: 860px) and (min-width:641px) {
+    .impact-button-name {
+        padding:.34884vw 0
+    }
+}
+
+@media only screen and (max-width: 640px) {
+    .impact-button-name {
+        padding:.8vw 0
+    }
+}
+
+.icon-opener{
+    right: 20px;
+    position: absolute;
+}
+
+
+
+.impact-button-content{
+    padding: 14px 20px;
+    border-radius: 2px;
+    background-color: #fff;
+    color: #696e74;
+}
+
+@media only screen and (min-width: 1921px) {
+    .impact-button-content {
+        padding:.77778vw 1.11111vw;
+        border-radius: .11111vw
+    }
+}
+
+@media only screen and (max-width: 1679px) and (min-width:1051px) {
+    .impact-button-content {
+        padding:.77778vw 1.11111vw;
+        border-radius: .11111vw
+    }
+}
+
+@media only screen and (min-width: 1051px) {
+    .impact-button-content {
+        display:block
+    }
+}
+
+@media only screen and (max-width: 1050px) and (min-width:861px) {
+    .impact-button-content {
+        padding:1.33333vw 1.90476vw;
+        border-radius: .19048vw
+    }
+}
+
+@media only screen and (max-width: 860px) and (min-width:641px) {
+    .impact-button-content {
+        padding:1.62791vw 2.32558vw;
+        border-radius: .23256vw
+    }
+}
+
+@media only screen and (max-width: 640px) {
+    .impact-button-content {
+        padding:3.73333vw 5.33333vw;
+        border-radius: .53333vw
+    }
+}
+
+
+
+.button-opener.down{
+    height: 0.6em;
+    width: 0.6em;
+    border-top: 0.2em solid black;
+    border-right: 0.2em solid black;
+    transform: rotate(-45deg);
+    transition: transform  .35s cubic-bezier(.4,0,0,1);
+
+}
+
+.button-opener.up{
+    height: 0.6em;
+    width: 0.6em;
+    border-top: 0.2em solid black;
+    border-right: 0.2em solid black;
+    transform: rotate(-225deg);
+    transition: transform  .35s cubic-bezier(.4,0,0,1);
+
+}
+
+.orange-box-shadow{
+    box-shadow: 0 0 3px #ea7300;
+    margin-top: 2px;
+}

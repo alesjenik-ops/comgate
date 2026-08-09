@@ -1,0 +1,452 @@
+/**
+ * Created by LukášGregora on 11/03/2021.
+ */
+
+({
+    loadFieldSets : function(component, helper){
+        component.set('v.spinner', true);
+        const action = component.get('c.getFieldSetWrapper');
+        action.setParams({fieldSetName : component.get('v.fieldSetSelection'), 
+                            contactId : component.get('v.contact.Id')});
+        
+        helper.doPromise(component, action, true)
+        .then(resolve => {
+            
+            const resolveBody = JSON.parse(resolve);
+            if(resolveBody.contact) component.set('v.contact', resolveBody.contact);
+            component.set('v.fieldSetWrapper', resolveBody.fieldSetWrapper);
+        })
+        .finally(() => {
+            component.set('v.spinner', false);
+        });
+    },
+    
+    filterAllowedPaymentMethods : function(component){
+        const defaultPaymentOption = component.get('v.defaultPaymentOption');
+        const configObject = this.getPaymentOptionsConfigObject(component);
+        
+        const paymentOptions = component.get('v.paymentOptions').filter(item => configObject[item.value]);
+        component.set('v.paymentOptions', paymentOptions);
+        component.set('v.paymentWrapper.paymentOption', defaultPaymentOption);
+    },
+    
+    filterAllowedDonationTypeOptions : function(component){
+        const defaultDonationTypeOption = component.get('v.defaultDonationTypeOption');
+        const configObject = {
+            oneoff : component.get('v.donationTypeOption_oneOff'),
+            recurring_monthly : component.get('v.donationTypeOption_monthly'),
+            recurring_quarterly : component.get('v.donationTypeOption_quarterly'),
+            recurring_yearly : component.get('v.donationTypeOption_yearly'),
+        }
+        
+        const donationTypeOptions = component.get('v.donationTypeOptions').filter(item => configObject[item.value]);
+        component.set('v.donationTypeOptions', donationTypeOptions);
+        component.set('v.paymentWrapper.donationType', defaultDonationTypeOption);
+    },
+    
+    setDonationAmounts : function(component){
+        component.set('v.donationOptions', this.getDefaultDonationAmounts(component));
+        this.setDefaultDonationAmount(component, component.get('v.defaultDonationTypeOption'));
+    },
+    
+    getDefaultDonationAmounts : function(component, additionalSettings){
+        const donationOptions = component.get('v.donationOptions');
+        this.filterDonationAmountOptions(donationOptions, 'oneoff', component.get('v.donationTypeOption_oneOff_amounts'), additionalSettings);
+        this.filterDonationAmountOptions(donationOptions, 'recurring_monthly', component.get('v.donationTypeOption_monthly_amounts'), additionalSettings);
+        this.filterDonationAmountOptions(donationOptions, 'recurring_quarterly', component.get('v.donationTypeOption_quarterly_amounts'), additionalSettings);
+        this.filterDonationAmountOptions(donationOptions, 'recurring_yearly', component.get('v.donationTypeOption_yearly_amounts'), additionalSettings);
+        return donationOptions;
+    },
+    
+    filterDonationAmountOptions : function(donationOptions, type, selections, additionalSettings){
+        const {symbol = 'Kč', conversionRate } = additionalSettings ? additionalSettings : {};
+        donationOptions[type] = selections.split(';').map(item => {
+            const itemValue = isNaN(item) || !conversionRate ? item : Math.round(item * conversionRate);
+            return {'label': ((isNaN(itemValue) ? itemValue.toLowerCase() : itemValue) === 'other' ? 'Other' : itemValue + ' ' + symbol), 'value': itemValue}
+        });
+    },
+    
+    setDefaultDonationAmount : function(component, type){
+        const donationOptions = component.get('v.donationOptions');
+        if(!type){
+            component.set('v.donationOptionSelected', ''); 
+            component.set('v.paymentWrapper.donationValue', null); 
+            return;
+        }
+                
+        const actualDonationType = donationOptions[type];
+        let amount = null;
+        if(actualDonationType.length && actualDonationType.length > 1){
+            amount = actualDonationType[1].value;
+        } else if (actualDonationType.length && actualDonationType.length == 1){
+            amount = actualDonationType[0].value;
+        }
+                
+        component.set('v.donationOptionSelected', amount + ''); 
+        component.set('v.paymentWrapper.donationValue', amount); 
+    },
+    
+    getPaymentOptionsConfigObject : function(component){
+        return {
+           card : component.get('v.paymentOption_card'),
+           bankTransfer : component.get('v.paymentOption_bankTransfer')
+       };
+    },
+    
+    createRelatedRecords : function(component, event, paymentReferenceId, shopperReferenceId){
+        const action = component.get('c.createRelatedRecords');
+        action.setBackground();
+        action.setParams({paymentReferenceId, shopperReferenceId});
+        this.doPromise(component, action, false);
+    },
+    
+    doPromise : function(component, action, handleErrors, debugMode){
+        component.set('v.errorMessage',{message : '', type : ''});
+        return new Promise(
+            $A.getCallback((resolve, reject) => {
+                action.setBackground();
+                action.setCallback(this, response => {
+                    const state = response.getState();
+                    if(state === 'SUCCESS'){
+                        resolve(response.getReturnValue());
+                    } else {
+                        if(handleErrors){
+                            const errors = response.getError();
+                            if(debugMode){
+                                this.showToast('error',`Message: ${errors[0].message}, Stack trace: ${errors[0].stackTrace}`,'Error');
+                            } else {
+                                this.showToast('error',`Message: ${errors[0].message}`,'Error');
+                            }
+                        }
+
+                        reject(response.getError());
+                    }
+                });
+                $A.enqueueAction(action);
+            }
+        ));
+    },
+    
+    validateForm : function(component, event, helper){
+        const cmpForValidation = component.find('cmpValidate');
+        const validateCmp = cmpForValidation && cmpForValidation.length ?  cmpForValidation : [cmpForValidation];
+        const cmpValid = validateCmp.reduce((acc,item) => acc && (item && item.validate ? item.validate() : true), true);
+        
+        const validateField = component.find("validateField") || [];
+        if(component.find('donationAmount')) validateField.push(component.find('donationAmount'));
+        if(!validateField || validateField.length == 0) return cmpValid;
+
+        const fieldsToValidate = validateField.length ? validateField : [validateField];
+        let validityOfFields = fieldsToValidate.reduce((acc,field) => {
+            field.showHelpMessageIfInvalid();
+            return (field.get("v.validity") ? field.get("v.validity").valid : true) && acc;
+        },true);
+        
+        return validityOfFields && cmpValid;
+    },
+    
+    pushCheckoutDataLayer : function(component, recordId){
+        const contact = component.get('v.contact');
+        const paymentWrapper = component.get('v.paymentWrapper');
+        
+        //GTM
+        const dataLayerObject = {
+            'event' : 'checkout',
+            'ecommerce' : {
+                'checkout' : {
+                    'actionField' : {
+                        'step' : component.get('v.currentStep'), //ex. first;second;last
+                        'option' : this.getPaymentType(component, paymentWrapper.paymentOption) //ex. creditcard
+                    },
+                    'products' : [
+                        {
+                            'name' : window.location.pathname, //ex. /s/adopt-bobby
+                            'id' : this.getPaymentFrequency(component, paymentWrapper.donationType), //ex. once
+                            'price' : paymentWrapper.donationValue, //ex. 100
+                            'brand' : '',
+                            'category' : this.getPaymentType(component, paymentWrapper.paymentOption), //ex. creditcard
+                            'variant' : this.getPaymentFrequency(component, paymentWrapper.donationType), //ex. once
+                            'quantity' : 1,
+                            'coupon' : ''
+                        }
+                    ]
+                }
+            }
+        };
+        document.dispatchEvent(new CustomEvent("pushDataLayer", { "detail" : { event: dataLayerObject} }));
+        
+        
+        //JENTIS
+        const jentisObject = {
+            event : 'begin_checkout',
+            ecommerce : {
+                transaction_id: recordId,
+                campaign_name: window.location.pathname,
+                currency: paymentWrapper.currencyIsoCode,
+                value: paymentWrapper.donationValue,
+                recurrence: this.getPaymentFrequency(component, paymentWrapper.donationType),
+                payment_type: this.getPaymentType(component, paymentWrapper.paymentOption),
+                items: [{
+                    item_name: window.location.pathname,
+                    currency: paymentWrapper.currencyIsoCode,
+                    price: paymentWrapper.donationValue,
+                    quantity: 1
+                }]  
+            }
+        };
+        document.dispatchEvent(new CustomEvent("user_interaction", { "detail" : jentisObject }));
+    },
+    
+    pushPurchaseDataLayer : function(component){
+        const dataLayerEvents = localStorage.getItem('dataLayerEvents') ? JSON.parse(localStorage.getItem('dataLayerEvents')) : null;
+        if(dataLayerEvents){
+            document.dispatchEvent(new CustomEvent("pushDataLayer", { "detail" : { event: dataLayerEvents.gtm} }));
+            document.dispatchEvent(new CustomEvent("user_interaction", { "detail" : dataLayerEvents.jentis }));
+            localStorage.removeItem('dataLayerEvents');
+        }
+    },
+    
+    
+    storePurchaseDataLayer : function(component, recordId){
+        const contact = component.get('v.contact');
+        const paymentWrapper = component.get('v.paymentWrapper');
+
+        localStorage.setItem('dataLayerEvents', JSON.stringify({
+            gtm : this.purchaseGTMEvent(component, {recordId, contact, paymentWrapper}),
+            jentis : this.purchaseJentisEvent(component, {recordId, contact, paymentWrapper})
+        }));
+    },
+    
+    purchaseGTMEvent : function(component, inputValues){
+        const {recordId, contact, paymentWrapper} = inputValues;
+        //GTM
+        return {
+            'event' : 'purchase',
+            'ecommerce' : {
+                'purchase' : {
+                    'actionField' : {
+                        'id' : recordId, // ex. 00x537UJFU2UI2
+                        'affiliation' : '',
+                        'revenue' : this.getTransactionTotal(component, paymentWrapper), //ex. 200
+                        'tax' : '',
+                        'shipping' : '',
+                        'coupon' : ''
+                    },
+                    'products' : [{
+                        'name' : window.location.pathname, //ex. /s/adopt-bobby
+                        'id' : this.getPaymentFrequency(component, paymentWrapper.donationType), //ex. once
+                        'category' : this.getPaymentType(component, paymentWrapper.paymentOption), //ex. creditcard
+                        'brand' : '',
+                        'price' : paymentWrapper.donationValue, //ex. 100
+                        'variant' : this.getPaymentFrequency(component, paymentWrapper.donationType), //ex. once
+                        'quantity' : 1, //constant
+                        'coupon' : ''
+                    }]
+                }
+            }
+        };
+    },
+    
+    purchaseJentisEvent : function(component, inputValues){
+        const {recordId, contact, paymentWrapper} = inputValues;
+        
+        //jentis purchase
+        return {
+            event : 'Purchase',
+            ecommerce : {
+                transaction_id: recordId,
+                campaign_name: window.location.pathname,
+                currency: paymentWrapper.currencyIsoCode,
+                value: paymentWrapper.donationValue,
+                recurrence: this.getPaymentFrequency(component, paymentWrapper.donationType),
+                payment_type: this.getPaymentType(component, paymentWrapper.paymentOption),
+                items: [{
+                    item_name: window.location.pathname,
+                    currency: paymentWrapper.currencyIsoCode,
+                    price: paymentWrapper.donationValue,
+                    quantity: 1
+                }]  
+            }
+        };
+    },
+   
+    
+    getTransactionTotal : function(component, paymentWrapper){
+        switch(paymentWrapper.donationType) {
+            case 'recurring_monthly':
+            case 'recurring_quarterly':
+            case 'recurring_yearly','oneoff':
+                return paymentWrapper.donationValue;
+            default:
+                return 0;
+        }
+    },    
+    
+    getPaymentFrequency : function(component, donationType){
+        switch(donationType) {
+            case 'recurring_monthly':
+                return 'monthly';
+            case 'recurring_quarterly':
+                return 'quarterly';
+            case 'oneoff':
+                return 'once';
+            case 'recurring_yearly':
+                return 'yearly';
+            default:
+                return '';
+        }
+    },   
+    
+    getPaymentType : function(component, paymentOption){
+        switch(paymentOption) {
+            case 'card':
+                return 'creditcard';
+            case 'paypal':
+                return 'paypal';
+            case 'sepadirectdebit':
+                return 'directdebit';
+            default:
+                return '';
+        }
+    },
+    
+    showToast: function(type, title, message, mode){
+        const toastEvent = $A.get("e.force:showToast");
+        if(!toastEvent) {
+            console.log(message);
+            return;
+        }
+        toastEvent.setParams({
+            title,
+            type,
+            message,
+            mode,
+        });
+        toastEvent.fire();
+    },
+    
+    getUrlParameter : function(sParam) {
+        let sPageURL = decodeURIComponent(window.location.search.substring(1)),
+            sURLVariables = sPageURL.split('&'),
+            sParameterName,
+            i;
+
+        for (i = 0; i < sURLVariables.length; i++) {
+            sParameterName = sURLVariables[i].split('=');
+            if (sParameterName[0] === sParam) {
+                return sParameterName[1] === undefined ? true : sParameterName[1];
+            }
+        }
+    },
+    
+    fireScrollDonationFormTop : function(component, event, helper){
+        const appEvent = $A.get("e.c:DonationPageScrollEvent");
+        appEvent.setParams({
+            type : 'donationFormUp' 
+        });
+        appEvent.fire();
+    },
+    
+    onError : function(component, error){
+        error = error || {};
+        console.error(error.name, error.message, error.stack, component);
+        const paymentWrapper = component.get('v.paymentWrapper');
+        const recordId = component.get('v.paymentReferenceId');
+        
+        //GTM
+        const dataLayerObject = {
+            'event' : 'donation_error',
+            'error_code' : error.name,
+            'error_message' : error.message,
+            'error_stack' : error.stack,
+            'ecommerce' : {
+                'products' : [
+                    {
+                        'name' : window.location.pathname,
+                        'id' : this.getPaymentFrequency(component, paymentWrapper.donationType),
+                        'price' : paymentWrapper.donationValue,
+                        'brand' : '',
+                        'category' : this.getPaymentType(component, paymentWrapper.paymentOption),
+                        'variant' : this.getPaymentFrequency(component, paymentWrapper.donationType),
+                        'quantity' : 1,
+                        'coupon' : ''
+                    }
+                ]
+            }
+        };
+        document.dispatchEvent(new CustomEvent("pushDataLayer", { "detail" : { event: dataLayerObject} }));
+        
+        
+        //JENTIS
+        const jentisObject = {
+            event : 'error',
+            error_code : error.name,
+            error_message : error.message,
+            error_stack : error.stack,
+            ecommerce : {
+                transaction_id: recordId,
+                campaign_name: window.location.pathname,
+                currency: paymentWrapper.currencyIsoCode,
+                value: paymentWrapper.donationValue,
+                recurrence: this.getPaymentFrequency(component, paymentWrapper.donationType),
+                payment_type: this.getPaymentType(component, paymentWrapper.paymentOption),
+                items: [{
+                    item_name: window.location.pathname,
+                    currency: paymentWrapper.currencyIsoCode,
+                    price: paymentWrapper.donationValue,
+                    quantity: 1
+                }]  
+            }
+        };
+        document.dispatchEvent(new CustomEvent("user_interaction", { "detail" : jentisObject }));
+    },
+    
+    displayDropInComponent : function(component, event, helper){
+        const paymentSessionConfiguration = component.get('v.paymentSessionConfiguration')
+        const dropInComponent =  component.find('dropInComponent');
+        if(!dropInComponent) return;
+        dropInComponent.initialize(paymentSessionConfiguration.client_secret);
+
+    },
+
+    addEventListeners : function(component, event, helper){
+        window.addEventListener("message", function(event){
+            helper = component.get('v.helper');
+            if (event.data.id === 'onSuccessPage'){
+                component.set('v.success', true);
+                component.set('v.currentStep', 'last');
+
+            }
+        })
+    },
+
+    payByBankTransfer : function(component, event, helper){
+        component.set('v.spinner', true);
+        helper.justCreateRecords(component, event, helper);
+        helper.fireScrollDonationFormTop(component, event, helper);
+    },
+
+    justCreateRecords : function(component, event, helper){
+        const paymentWrapper = component.get('v.paymentWrapper');
+        const action = component.get('c.justCreateRecords');
+        action.setParams({
+            conString : JSON.stringify(component.get('v.contact')),
+            campaignId : component.get('v.campaignId'),
+            paymentWrapperString : JSON.stringify(paymentWrapper)});
+        helper.doPromise(component, action, true)
+        .then(resolve => {
+            console.log(component.get('v.paymentWrapper'));
+            console.log(component.get('v.paymentWrapper.paymentOption'));
+            component.set('v.bankAccountDetails', resolve);
+            component.set('v.currentStep', 'last');
+            component.set('v.spinner', false);
+        })
+        .catch(e => {
+        })
+        .finally(() => {
+            component.set('v.spinnerMessage', '');
+            component.set('v.spinner', false);
+        });
+    },
+   
+})

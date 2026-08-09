@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Payment Reference</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Payment References</value>
+    </caseValues>
+    <fields>
+        <label><!-- CampaignId --></label>
+        <name>CampaignId__c</name>
+    </fields>
+    <fields>
+        <label><!-- Contact --></label>
+        <name>Contact__c</name>
+        <relationshipLabel><!-- Payment References --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- JSON Contact --></label>
+        <name>JSON_Contact__c</name>
+    </fields>
+    <fields>
+        <label><!-- JSON Payment Wrapper --></label>
+        <name>JSON_Payment_Wrapper__c</name>
+    </fields>
+    <fields>
+        <label><!-- Opportunity --></label>
+        <name>Opportunity__c</name>
+        <relationshipLabel><!-- Payment References --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Recurring Donation --></label>
+        <name>Recurring_Donation__c</name>
+        <relationshipLabel><!-- Payment References --></relationshipLabel>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>
