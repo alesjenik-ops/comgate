@@ -1,0 +1,34 @@
+{
+  "appPageId" : "df0c588e-3c17-4db5-ad0a-2ec94644d54d",
+  "componentName" : "siteforce:sldsOneColLayout",
+  "dataProviders" : [ ],
+  "id" : "2cef67d4-9cbf-4d46-8e98-f00d50437f62",
+  "label" : "Create Record",
+  "regions" : [ {
+    "id" : "fcd9a288-38ce-4513-85bd-6794acfd1ab5",
+    "regionName" : "header",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "actionApiName" : "{!actionApiName}",
+        "isMicrobatch" : false
+      },
+      "componentName" : "forceCommunity:createRecordForm",
+      "id" : "4d0bca9b-358e-4967-bc0c-68bd94d89a10",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "25566fa6-5ac9-426d-90b9-865e9e5fcb87",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "id" : "b8ca898b-c0e1-4f91-b842-4ccd7258182b",
+    "regionName" : "footer",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "Inner",
+  "type" : "view",
+  "viewType" : "createrecord"
+}
