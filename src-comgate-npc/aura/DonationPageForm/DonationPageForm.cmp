@@ -158,21 +158,23 @@
                                                   type="button"/>
                         </div>
 
-                        <div class="select-group slds-grid slds-wrap slds-size_1-of-1">
-                            <div class="slds-col slds-size_1-of-1 slds-text-align_center donate-field-title">Kampaň:</div>
+                        <aura:if isTrue="{!not(v.disabledCampaignSelection)}">
+                            <div class="select-group slds-grid slds-wrap slds-size_1-of-1">
+                                <div class="slds-col slds-size_1-of-1 slds-text-align_center donate-field-title">Kampaň:</div>
 
-                            <lightning:select name="campaignSelection"
-                                              label="Campaign Selection"
-                                              variant="label-hidden"
-                                              value="{!v.campaignId}"
-                                              onchange="{!c.handleCampaignChange}"
-                                              disabled="{!v.disabledCampaignSelection}"
-                                              class="{!'brand-input slds-col slds-size_1-of-1 slds-p-vertical_small label-hidden' + (v.campaignId ? ' selected' : '')}">
-                                <aura:iteration items="{!v.campaigns}" var="option">
-                                    <option value="{!option.Id}" label="{!option.Name}" disabled="false" selected="{!option.Id == v.campaignId}">{!option.Name}</option>
-                                </aura:iteration>
-                            </lightning:select>
-                        </div>
+                                <lightning:select name="campaignSelection"
+                                                  label="Campaign Selection"
+                                                  variant="label-hidden"
+                                                  value="{!v.campaignId}"
+                                                  onchange="{!c.handleCampaignChange}"
+                                                  disabled="{!v.disabledCampaignSelection}"
+                                                  class="{!'brand-input slds-col slds-size_1-of-1 slds-p-vertical_small label-hidden' + (v.campaignId ? ' selected' : '')}">
+                                    <aura:iteration items="{!v.campaigns}" var="option">
+                                        <option value="{!option.Id}" label="{!option.Name}" disabled="false" selected="{!option.Id == v.campaignId}">{!option.Name}</option>
+                                    </aura:iteration>
+                                </lightning:select>
+                            </div>
+                        </aura:if>
 
 
 
