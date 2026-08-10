@@ -34,6 +34,7 @@
         helper.filterAllowedPaymentMethods(component);
         helper.filterAllowedDonationTypeOptions(component);
         helper.setDonationAmounts(component);
+        helper.applyUrlPrefill(component, helper);
         helper.addEventListeners(component, event, helper);
         
         component.set('v.helper', helper);

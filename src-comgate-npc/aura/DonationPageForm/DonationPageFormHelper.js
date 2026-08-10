@@ -106,6 +106,46 @@
         component.set('v.paymentWrapper.donationValue', amount); 
     },
     
+    applyUrlPrefill : function(component, helper){
+        if(component.get('v.success')) return;
+
+        const frequencyAliases = {
+            oneoff : 'oneoff',
+            once : 'oneoff',
+            monthly : 'recurring_monthly',
+            recurring_monthly : 'recurring_monthly',
+            yearly : 'recurring_yearly',
+            recurring_yearly : 'recurring_yearly'
+        };
+        const urlFrequency = helper.getUrlParameter('frequency');
+        const donationType = frequencyAliases[String(urlFrequency || '').toLowerCase()];
+        const allowedTypes = component.get('v.donationTypeOptions').map(item => item.value);
+        if(donationType && allowedTypes.indexOf(donationType) !== -1){
+            component.set('v.paymentWrapper.donationType', donationType);
+            helper.setDefaultDonationAmount(component, donationType);
+        }
+
+        const urlAmount = helper.getUrlParameter('amount');
+        if(urlAmount !== undefined){
+            const normalized = String(urlAmount).replace(',', '.');
+            const numericValue = parseFloat(normalized);
+            if(!isNaN(numericValue) && numericValue > 0){
+                const donationOptions = component.get('v.donationOptions')[component.get('v.paymentWrapper.donationType')] || [];
+                const preset = donationOptions.find(item => !isNaN(item.value) && parseFloat(item.value) === numericValue);
+                component.set('v.donationOptionSelected', preset ? preset.value + '' : 'other');
+                component.set('v.paymentWrapper.donationValue', preset ? preset.value : normalized);
+            }
+        }
+
+        const urlStep = helper.getUrlParameter('step');
+        if((urlStep === '2' || urlStep === 'personDetails') && component.get('v.currentStep') === 'first'){
+            const donationValue = parseFloat(String(component.get('v.paymentWrapper.donationValue')).replace(',', '.'));
+            if(!isNaN(donationValue) && donationValue >= 15){
+                component.set('v.currentStep', 'personDetails');
+            }
+        }
+    },
+
     getPaymentOptionsConfigObject : function(component){
         return {
            card : component.get('v.paymentOption_card'),

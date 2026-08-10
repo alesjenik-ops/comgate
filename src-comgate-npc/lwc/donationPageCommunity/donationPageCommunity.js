@@ -27,6 +27,14 @@ const DONATION_TYPE_OPTIONS = [
     { label: 'Měsíčně', value: 'recurring_monthly' },
     { label: 'Ročně', value: 'recurring_yearly' }
 ];
+const URL_FREQUENCY_ALIASES = {
+    oneoff: 'oneoff',
+    once: 'oneoff',
+    monthly: 'recurring_monthly',
+    recurring_monthly: 'recurring_monthly',
+    yearly: 'recurring_yearly',
+    recurring_yearly: 'recurring_yearly'
+};
 const PAYMENT_OPTIONS = [
     { label: 'Platební karta', value: 'card' },
     { label: 'Platební převod', value: 'banktransfer' }
@@ -96,6 +104,9 @@ export default class DonationPageCommunity extends LightningElement {
         const status = this.getUrlParameter('status');
         const urlCampaignId = this.getUrlParameter('campaignId');
         const donorId = this.getUrlParameter('donorId');
+        const urlFrequency = this.getUrlParameter('frequency');
+        const urlAmount = this.getUrlParameter('amount');
+        const urlStep = this.getUrlParameter('step');
 
         if (donorId) {
             this.donor = { ...this.donor, Id: donorId };
@@ -118,7 +129,17 @@ export default class DonationPageCommunity extends LightningElement {
             redirectURL: location.protocol + '//' + location.host + location.pathname
         };
 
-        this.setDefaultDonationAmount(DEFAULT_DONATION_TYPE);
+        const urlDonationType = URL_FREQUENCY_ALIASES[String(urlFrequency || '').toLowerCase()];
+        if (urlDonationType) {
+            this.paymentWrapper = { ...this.paymentWrapper, donationType: urlDonationType };
+        }
+        this.setDefaultDonationAmount(this.paymentWrapper.donationType);
+        if (urlAmount !== undefined) {
+            this.applyUrlDonationAmount(urlAmount);
+        }
+        if (!this.success && (urlStep === '2' || urlStep === 'personDetails') && this.validateForm()) {
+            this.currentStep = 'personDetails';
+        }
         this.loadFieldSets();
 
         this._boundOnScroll = this.onWindowScroll.bind(this);
@@ -351,6 +372,19 @@ export default class DonationPageCommunity extends LightningElement {
         this.paymentWrapper = {
             ...this.paymentWrapper,
             donationValue: isNaN(amount) ? null : parseInt(amount, 10)
+        };
+    }
+
+    applyUrlDonationAmount(rawAmount) {
+        const normalized = String(rawAmount).replace(',', '.');
+        const numericValue = parseFloat(normalized);
+        if (isNaN(numericValue) || numericValue <= 0) return;
+        const presets = DONATION_AMOUNTS[this.paymentWrapper.donationType];
+        const preset = presets.find((value) => value !== 'other' && parseFloat(value) === numericValue);
+        this.donationOptionSelected = preset || 'other';
+        this.paymentWrapper = {
+            ...this.paymentWrapper,
+            donationValue: preset ? parseInt(preset, 10) : normalized
         };
     }
 
