@@ -6,7 +6,7 @@
   "id" : "e96a3bfc-4632-4f3e-aadf-776016613bab",
   "label" : "Ochrana osobních údajů",
   "pageAccess" : "Public",
-  "routeType" : "custom",
+  "routeType" : "ochrana-osobnich-udaju",
   "type" : "route",
   "urlPrefix" : "ochrana-osobnich-udaju"
 }

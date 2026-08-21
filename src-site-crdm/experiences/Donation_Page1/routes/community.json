@@ -6,7 +6,7 @@
   "id" : "ea075b91-afde-4b5c-bb96-4592aa6de08c",
   "label" : "Community",
   "pageAccess" : "Public",
-  "routeType" : "custom",
+  "routeType" : "community",
   "type" : "route",
   "urlPrefix" : "community"
 }

@@ -6,7 +6,7 @@
   "id" : "b51ad231-6622-4a7d-a4ed-819cd81a7a92",
   "label" : "Obchodní podmínky",
   "pageAccess" : "Public",
-  "routeType" : "custom",
+  "routeType" : "obchodni-podminky",
   "type" : "route",
   "urlPrefix" : "obchodni-podminky"
 }
