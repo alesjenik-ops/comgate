@@ -40,6 +40,15 @@
         <type>Number</type>
         <unique>false</unique>
     </fields>
+    <fields>
+        <fullName>Test_Mode__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Force Comgate test payments (test=true) even in a production org. Uncheck before go-live.</inlineHelpText>
+        <label>Test Mode</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
     <label>Comgate Settings</label>
     <visibility>Public</visibility>
 </CustomObject>
