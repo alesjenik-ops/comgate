@@ -11,12 +11,6 @@
     --greenColor: #75d4e6;
 }
 
-@media only screen and (min-width: 1921px) {
-    .THIS {
-        font-size:.77778vw
-    }
-}
-
 @media only screen and (max-width: 1679px) and (min-width:1051px) {
     .THIS {
         font-size:.77778vw
@@ -56,12 +50,6 @@
     color: var(--brand-color);
 }
 
-@media only screen and (min-width: 1921px) {
-    .THIS .h1,.THIS h1 {
-        font-size:3.33333vw;
-    }
-}
-
 @media only screen and (max-width: 1679px) and (min-width:1051px) {
     .THIS .h1,.THIS h1 {
         font-size:3.33333vw
@@ -96,12 +84,6 @@
     font: 700 48px/1.25 'Fira Sans',sans-serif
 }
 
-@media only screen and (min-width: 1921px) {
-    .THIS .h2,.THIS h2 {
-        font-size:2.66667vw
-    }
-}
-
 @media only screen and (max-width: 1679px) and (min-width:1051px) {
     .THIS .h2,.THIS h2 {
         font-size:2.66667vw
@@ -134,12 +116,6 @@
 
 .THIS .h3,.THIS h3 {
     font: 700 36px/1.33 'Fira Sans',sans-serif
-}
-
-@media only screen and (min-width: 1921px) {
-    .THIS .h3,.THIS h3 {
-        font-size:2vw
-    }
 }
 
 @media only screen and (max-width: 1679px) and (min-width:1051px) {
@@ -190,27 +166,6 @@
 
 .THIS .form-wrapper{
     width: 550px;
-}
-
-@media only screen and (min-width: 1921px) {
-    .THIS .content {
-        max-width:90%;
-    }
-    
-    .THIS .form-text{
-        padding-right:5.55556vw;
-        padding-top:3.33333vw;
-        padding-bottom: 13.88889vw;
-    }
-    
-    .THIS .donation-form{
-        margin-right: 2.91667vw;
-        margin-bottom: 2.77778vw;
-    }
-    
-    .THIS .form-wrapper{
-        width:30.55556vw;
-    }
 }
 
 /* 1680-1920px: bez tohoto pravidla plati max-width 1680px a box formulare
@@ -345,13 +300,6 @@
     padding-left: 100px
 }
 
-@media only screen and (min-width: 1921px) {
-    .THIS .container {
-        padding-right:5.55556vw;
-        padding-left: 5.55556vw
-    }
-}
-
 @media only screen and (max-width: 1679px) and (min-width:1051px) {
     .THIS .container {
         padding-right:5.55556vw;
@@ -401,12 +349,6 @@
     transition-timing-function: cubic-bezier(.455,.03,.515,.955);
     transition-duration: .35s;
     transition-property: transform,border-radius;
-}
-
-@media only screen and (min-width: 1921px) {
-    .THIS .donation-form {
-        margin-top: 3.33333vw;
-    }
 }
 
 @media only screen and (max-width: 1679px) and (min-width:1051px) {
@@ -469,15 +411,6 @@
     cursor: pointer;
 }
 
-@media only screen and (min-width: 1921px) {
-    .THIS .donate-button {
-        right:2.22222vw;
-        bottom: 7.22222vw;
-        width: 17.77778vw;
-        box-shadow: 0 1.11111vw 1.11111vw rgba(54,32,49,.28)
-    }
-}
-
 @media only screen and (max-width: 1679px) and (min-width:1051px) {
     .THIS .donate-button {
         right:2.22222vw;
@@ -526,14 +459,6 @@
     word-break: break-word;
     transition: background-color .3s cubic-bezier(.455,.03,.515,.955);
 
-}
-
-@media only screen and (min-width: 1921px) {
-    .THIS .brand-button {
-        padding:1.16667vw 1.66667vw;
-        border-radius: .22222vw;
-        font-size:1.11111vw;
-    }
 }
 
 @media only screen and (max-width: 1679px) and (min-width:1051px) {
@@ -602,15 +527,6 @@
     line-height: 2;
 }
 
-@media only screen and (min-width: 1921px) {
-    .THIS .description {
-        padding:2.22222vw 2.22222vw 2.22222vw 2.77778vw;
-        border-width: .11111vw;
-        border-radius: 1.66667vw;
-        font-size: 1vw
-    }
-}
-
 @media only screen and (max-width: 1679px) and (min-width:1051px) {
     .THIS .description {
         padding:2.22222vw 2.22222vw 2.22222vw 2.77778vw;
@@ -653,12 +569,6 @@
 .THIS p {
     font-size: 20px;
     line-height: 1.8
-}
-
-@media only screen and (min-width: 1921px) {
-    .THIS p {
-        font-size: 1.11111vw
-    }
 }
 
 @media only screen and (max-width: 1679px) and (min-width:1051px) {

@@ -6526,6 +6526,24 @@ body {
     }
 }
 
+/* vyssi specificita nez .THIS h1/.THIS p z theme layoutu - jinak na sirokych
+   monitorech vitezi jejich velikosti (60px/20px) nad zamyslenym designem */
+.form-text .campaign-detail h1 {
+    font-size: 40px;
+    line-height: 1.1;
+}
+
+.form-text .campaign-detail p {
+    font-size: 16px;
+    line-height: 1.65;
+}
+
+@media only screen and (max-width: 860px) {
+    .form-text .campaign-detail h1 {
+        font-size: 28px;
+    }
+}
+
 /* ===== DKD: cela stranka od kraje ke kraji, bez bileho okraje nahore ===== */
 html, body {
     margin: 0 !important;
