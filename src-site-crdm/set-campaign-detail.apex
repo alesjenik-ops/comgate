@@ -20,7 +20,8 @@ c.put('Donation_Page_Detail__c',
     + '<b>33&nbsp;milionů&nbsp;Kč</b>. Pomozte nám, aby další děti nemusely stát stranou jen kvůli '
     + 'finanční situaci své rodiny. Darujte dětem příležitost dělat to, co je baví, rozvíjí '
     + 'a dává jim pocit, že někam patří. Děkujeme.</p>'
-    + '<p><img src="https://czechcouncilofchildrenandyouth.my.site.com/donations/sfsites/c/resource/DonationPageCampaignPhoto" alt="Děti na kroužku"></img></p>'
+    // relativni URL - absolutni na ...my.site.com blokuje CSP na domene darci.darujemekrouzky.cz
+    + '<p><img src="/sfsites/c/resource/DonationPageCampaignPhoto" alt="Děti na kroužku"></img></p>'
     + '<p><a href="https://www.darujemekrouzky.cz/" target="_blank"><b>Více o projektu</b></a></p>');
 update c;
 System.debug('Donation_Page_Detail__c nastaveno.');

@@ -6497,13 +6497,17 @@ body {
     color: #362031;
 }
 
-/* odznaky: tucne polozky v poslednim odstavci se vykresli jako barevne pilulky */
+/* tlacitko "Vice o projektu": odkaz s <b> v poslednim odstavci se vykresli jako ruzova pilulka */
+.campaign-detail p:last-of-type a {
+    text-decoration: none;
+}
+
 .campaign-detail p:last-of-type b,
 .campaign-detail p:last-of-type strong {
     display: inline-block;
     border-radius: 20px;
-    padding: 7px 16px;
-    font-size: 13px;
+    padding: 10px 24px;
+    font-size: 14px;
     font-weight: 700;
     color: #362031;
     background: #fa95c2;
@@ -6511,14 +6515,9 @@ body {
     margin-bottom: 6px;
 }
 
-.campaign-detail p:last-of-type b:nth-of-type(2),
-.campaign-detail p:last-of-type strong:nth-of-type(2) {
-    background: #c0baec;
-}
-
-.campaign-detail p:last-of-type b:nth-of-type(3),
-.campaign-detail p:last-of-type strong:nth-of-type(3) {
-    background: #75d4e6;
+.campaign-detail p:last-of-type a:hover b,
+.campaign-detail p:last-of-type a:hover strong {
+    background: #f76fae;
 }
 
 @media only screen and (max-width: 860px) {

@@ -18,7 +18,17 @@
                                 <span class="footer-menu_link-text">Česká rada dětí a mládeže</span>
                             </a>
                         </li>
-                    </ul>          
+                        <li class="footer-menu_item">
+                            <a href="obchodni-podminky" class="footer-menu_link">
+                                <span class="footer-menu_link-text">Všeobecné obchodní podmínky</span>
+                            </a>
+                        </li>
+                        <li class="footer-menu_item">
+                            <a href="ochrana-osobnich-udaju" class="footer-menu_link">
+                                <span class="footer-menu_link-text">Ochrana osobních údajů</span>
+                            </a>
+                        </li>
+                    </ul>
                 </div>
 
                 <div class="footer_content-item">
@@ -31,12 +41,15 @@
 
                     <div class="contact-info_item">
                         <div class="contact-info_title">
-                            Web
+                            Kontakt
                         </div>
 
                         <ul class="contact-info_list">
                             <li class="contact-info_list-item">
-                                <a href="https://darujemekrouzky.cz/" target="_blank">darujemekrouzky.cz</a>
+                                <a href="mailto:info@darujemekrouzky.cz">info@darujemekrouzky.cz</a>
+                            </li>
+                            <li class="contact-info_list-item">
+                                <a href="tel:+420773772202">+420&nbsp;773&nbsp;772&nbsp;202</a>
                             </li>
                         </ul>
                     </div>
@@ -52,6 +65,12 @@
                         <ul class="contact-info_list">
                             <li class="contact-info_list-item">
                                 Česká rada dětí a mládeže
+                            </li>
+                            <li class="contact-info_list-item">
+                                Senovážné náměstí 977/24, 110&nbsp;00 Praha&nbsp;1
+                            </li>
+                            <li class="contact-info_list-item">
+                                IČ: 68379439
                             </li>
                         </ul>
                     </div>
