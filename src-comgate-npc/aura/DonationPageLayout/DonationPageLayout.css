@@ -213,11 +213,19 @@
     }
 }
 
+/* 1680-1920px: bez tohoto pravidla plati max-width 1680px a box formulare
+   je temer nalepeny na kraj okna (napr. pri sirce 1713px zbyva ~16px) */
+@media only screen and (max-width: 1920px) and (min-width:1680px) {
+    .THIS .content {
+        max-width:90%;
+    }
+}
+
 @media only screen and (max-width: 1679px) and (min-width:1051px) {
     .THIS .content {
         max-width:90%;
     }
-        
+
     .THIS .form-text{
         padding-right:5.55556vw;
         padding-top:3.33333vw;
