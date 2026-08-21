@@ -1,0 +1,26 @@
+<!--
+  Embed snippet darovaciho widgetu pro externi weby (napr. darujemekrouzky.cz).
+
+  Predpoklady na strane Salesforce:
+  1. V Experience Builderu existuje stranka s URL "widget" (Standard Page > Blank),
+     ktera obsahuje pouze komponentu Donation Page Form (region "form" theme layoutu).
+     Design atributy: castky 500;1000;1500;other, oneoff/monthly/yearly, card+banktransfer,
+     fieldSetSelection=DonationPageFieldSet, receiverName, supportEmail, campaignId.
+  2. Site povoluje vlozeni do iframe z domen externiho webu:
+     Setup > Sites > (site) > Clickjack Protection Level =
+     "Allow framing by trusted external domains" + do "Trusted Domains for Inline Frames"
+     pridat https://darujemekrouzky.cz a https://www.darujemekrouzky.cz.
+
+  Poznamky:
+  - allow="payment" je nutne kvuli platebni brane vnorene ve widgetu (Google Pay ap.).
+  - Vyska je fixni; formular je delsi v kroku osobnich udaju, proto 1100px + scrolling.
+  - Predvyplneni: do src lze pridat ?amount=1000&frequency=monthly (aliasy: once/monthly/yearly).
+  - Apple Pay se na externim webu nenabidne, dokud neni jeho domena tez verifikovana u Comgate.
+-->
+<iframe
+    src="https://darci.darujemekrouzky.cz/s/widget"
+    title="Darujte krouzky detem"
+    style="width:100%;max-width:600px;height:1100px;border:0;border-radius:16px;overflow:auto;"
+    loading="lazy"
+    allow="payment">
+</iframe>
