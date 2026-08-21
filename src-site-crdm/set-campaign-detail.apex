@@ -5,17 +5,22 @@
 // (Doporuceni: pote si v Setup > Object Manager > Campaign > Fields nastavte
 // u poli Donation_Page_* viditelnost pro profil System Administrator,
 // at je vidite i v UI kampane.)
-// Styly (nadpis, kulata fotka, barevne odznaky) dodava DonationPageCss.
-// Cisla (17 000 deti, 28 mil. Kc) prosim overte/aktualizujte podle skutecnosti.
+// Styly (nadpis, kulata fotka) dodava DonationPageCss.
+// Cisla (20 000 deti, 33 mil. Kc) prosim overte/aktualizujte podle skutecnosti.
 SObject c = Schema.getGlobalDescribe().get('Campaign').newSObject();
 c.put('Id', '701Te00000gDlc7IAC');
 c.put('Donation_Page_Detail__c',
       '<h1>Kroužek pro každé dítě</h1>'
+    + '<p>Každé dítě si zaslouží místo, kde může dělat to, co ho baví. Kroužky dětem přinášejí '
+    + 'mnohem víc než smysluplně strávený volný čas – nacházejí v nich kamarády a bezpečné prostředí, '
+    + 'objevují své silné stránky, učí se nové věci a získávají zdravé sebevědomí. Pro řadu rodin '
+    + 'v Česku jsou ale náklady na sport, hudbu, tvoření, skauting a další aktivity příliš vysoké.</p>'
+    + '<p>Váš dar může dítěti otevřít dveře do světa, do kterého by se jinak nedostalo. '
+    + 'Projekt Darujeme kroužky dětem už podpořil více než <b>20&nbsp;000 dětí</b> částkou bezmála '
+    + '<b>33&nbsp;milionů&nbsp;Kč</b>. Pomozte nám, aby další děti nemusely stát stranou jen kvůli '
+    + 'finanční situaci své rodiny. Darujte dětem příležitost dělat to, co je baví, rozvíjí '
+    + 'a dává jim pocit, že někam patří. Děkujeme.</p>'
     + '<p><img src="https://czechcouncilofchildrenandyouth.my.site.com/donations/sfsites/c/resource/DonationPageCampaignPhoto" alt="Děti na kroužku"></img></p>'
-    + '<p>Každé dítě si zaslouží svůj kroužek — sport, hudbu, tvoření nebo skauting. '
-    + 'Pro tisíce rodin v Česku jsou ale volnočasové aktivity finančně nedostupné.</p>'
-    + '<p>Váš dar pomůže zaplatit kroužek konkrétnímu dítěti z rodiny v tíživé situaci. '
-    + 'Projekt Darujeme kroužky dětem už pomohl více než <b>17&nbsp;000 dětem</b> částkou přes <b>28&nbsp;milionů&nbsp;Kč</b>.</p>'
-    + '<p><b>Dobrodružství</b> <b>Kamarádi</b> <b>Dovednosti</b></p>');
+    + '<p><a href="https://www.darujemekrouzky.cz/" target="_blank"><b>Více o projektu</b></a></p>');
 update c;
 System.debug('Donation_Page_Detail__c nastaveno.');

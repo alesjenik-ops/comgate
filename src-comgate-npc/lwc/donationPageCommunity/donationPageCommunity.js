@@ -1,4 +1,5 @@
 import { LightningElement } from 'lwc';
+import basePath from '@salesforce/community/basePath';
 import FONTS from '@salesforce/resourceUrl/DonationPageFonts';
 import HERO_IMAGE from '@salesforce/resourceUrl/DonationPageHeaderImage';
 import LOGO from '@salesforce/resourceUrl/DonationPageHeaderLogo';
@@ -18,9 +19,9 @@ const SUPPORT_EMAIL = 'info@darujemekrouzky.cz';
 const DEFAULT_DONATION_TYPE = 'oneoff';
 const DEFAULT_PAYMENT_OPTION = 'card';
 const DONATION_AMOUNTS = {
-    oneoff: ['20', '50', '100', 'other'],
-    recurring_monthly: ['20', '50', '100', 'other'],
-    recurring_yearly: ['200', '500', '1000', 'other']
+    oneoff: ['500', '1000', '1500', 'other'],
+    recurring_monthly: ['500', '1000', '1500', 'other'],
+    recurring_yearly: ['500', '1000', '1500', 'other']
 };
 const DONATION_TYPE_OPTIONS = [
     { label: 'Jednorázově', value: 'oneoff' },
@@ -253,6 +254,14 @@ export default class DonationPageCommunity extends LightningElement {
     }
     get isBankTransfer() {
         return this.paymentWrapper.paymentOption === 'banktransfer';
+    }
+
+    get termsUrl() {
+        return basePath + '/obchodni-podminky';
+    }
+
+    get privacyUrl() {
+        return basePath + '/ochrana-osobnich-udaju';
     }
 
     /* ================= getters: form ================= */

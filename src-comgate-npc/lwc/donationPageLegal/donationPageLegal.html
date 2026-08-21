@@ -1,0 +1,156 @@
+<template>
+    <div class="page">
+        <div class="doc-header">
+            <a class="doc-logo" href={homeUrl}>
+                <img src={logoUrl} alt="Darujeme kroužky dětem"/>
+            </a>
+        </div>
+
+        <div class="doc-card">
+            <a class="back-link" href={homeUrl}><span class="chevron-left"></span>Zpět na darovací stránku</a>
+
+            <template lwc:if={isTerms}>
+                <h1>Všeobecné obchodní podmínky</h1>
+                <p class="doc-sub">pro poskytování darů prostřednictvím stránek darci.darujemekrouzky.cz</p>
+
+                <h2>1. Provozovatel</h2>
+                <p><b>Česká rada dětí a mládeže</b><br/>
+                    sídlo: Senovážné náměstí 977/24, 110&nbsp;00 Praha&nbsp;1<br/>
+                    IČ: 68379439<br/>
+                    zapsaná ve spolkovém rejstříku vedeném Městským soudem v Praze, sp. zn. L&nbsp;9136<br/>
+                    e-mail: <a href="mailto:info@darujemekrouzky.cz">info@darujemekrouzky.cz</a>,
+                    telefon: <a href="tel:+420773772202">+420&nbsp;773&nbsp;772&nbsp;202</a><br/>
+                    (dále jen „provozovatel")</p>
+
+                <h2>2. Úvodní ustanovení</h2>
+                <p>Tyto všeobecné obchodní podmínky upravují poskytování peněžitých darů na podporu
+                    projektu Darujeme kroužky dětem prostřednictvím darovací stránky
+                    darci.darujemekrouzky.cz. Odesláním darovacího formuláře a provedením platby uzavírá
+                    dárce s provozovatelem darovací smlouvu podle § 2055 a násl. zákona č. 89/2012 Sb.,
+                    občanského zákoníku. Prostřednictvím stránek nedochází k prodeji zboží ani služeb.</p>
+
+                <h2>3. Dary a jejich použití</h2>
+                <p>Dárce může poskytnout dar jednorázově, nebo opakovaně v měsíčním či ročním intervalu,
+                    a to ve výši, kterou si sám zvolí. Poskytnutí daru je dobrovolné. Dary jsou použity
+                    na úhradu volnočasových aktivit dětí z rodin v tíživé finanční situaci a na
+                    zajištění projektu Darujeme kroužky dětem, který provozuje Česká rada dětí a mládeže.</p>
+
+                <h2>4. Platební podmínky</h2>
+                <p>Dary jsou přijímány v českých korunách (CZK) těmito způsoby:</p>
+                <ul>
+                    <li><b>platební kartou</b> prostřednictvím zabezpečené platební brány Comgate,
+                        kterou provozuje společnost Comgate, a.s., Gočárova třída 1754/48b,
+                        500&nbsp;02 Hradec Králové, IČ: 27924505, platební instituce podléhající
+                        dohledu České národní banky,</li>
+                    <li><b>bankovním převodem</b> (včetně QR platby) na účet provozovatele podle
+                        instrukcí zobrazených po odeslání formuláře.</li>
+                </ul>
+                <p>U opakovaných darů je zvolená částka automaticky strhávána z platební karty dárce
+                    v měsíčním, resp. ročním intervalu. Provedením první platby uděluje dárce souhlas
+                    s opakovaným strháváním. Opakovaný dar může dárce kdykoli ukončit e-mailem na
+                    <a href="mailto:info@darujemekrouzky.cz">info@darujemekrouzky.cz</a> nebo telefonicky;
+                    ukončení je účinné pro následující platební období. Provozovatel nemá přístup
+                    k údajům o platební kartě dárce — ty zpracovává výhradně provozovatel platební brány.</p>
+
+                <h2>5. Dodací podmínky</h2>
+                <p>Předmětem darovací smlouvy není dodání zboží ani poskytnutí služby, žádné plnění se
+                    proto dárci nedoručuje. Přijetí daru provozovatel potvrdí e-mailem na adresu uvedenou
+                    v darovacím formuláři. Potvrzení o daru pro daňové účely (§ 15 odst. 1, resp.
+                    § 20 odst. 8 zákona č. 586/1992 Sb., o daních z příjmů) provozovatel vystaví a zašle
+                    na základě volby v darovacím formuláři, případně kdykoli na vyžádání.</p>
+
+                <h2>6. Reklamační podmínky, vrácení daru a storno</h2>
+                <p>Pokud při platbě dojde k chybě — zejména k zadání jiné než zamýšlené částky,
+                    k duplicitní platbě nebo k neautorizované platbě — může dárce platbu reklamovat
+                    e-mailem na <a href="mailto:info@darujemekrouzky.cz">info@darujemekrouzky.cz</a>
+                    nebo telefonicky na <a href="tel:+420773772202">+420&nbsp;773&nbsp;772&nbsp;202</a>.
+                    Oprávněné reklamace provozovatel vyřídí bez zbytečného odkladu, nejpozději do 30 dnů
+                    od doručení; chybně poskytnutá platba bude vrácena na účet či kartu, ze které byla
+                    odeslána. Opakovaný dar lze kdykoli stornovat způsobem popsaným v čl. 4; storno je
+                    účinné pro následující platební období.</p>
+
+                <h2>7. Ochrana osobních údajů</h2>
+                <p>Informace o zpracování osobních údajů dárců jsou uvedeny v dokumentu
+                    <a href={privacyUrl}>Zásady ochrany osobních údajů</a>.</p>
+
+                <h2>8. Závěrečná ustanovení</h2>
+                <p>Právní vztahy těmito podmínkami výslovně neupravené se řídí právním řádem České
+                    republiky, zejména občanským zákoníkem. K mimosoudnímu řešení případných sporů je
+                    příslušná Česká obchodní inspekce (<a href="https://www.coi.cz/" target="_blank"
+                    rel="noopener">www.coi.cz</a>). Provozovatel je oprávněn tyto podmínky měnit;
+                    pro dar je rozhodné znění účinné v okamžiku jeho poskytnutí.</p>
+                <p>Tyto podmínky jsou účinné od 21.&nbsp;8.&nbsp;2026.</p>
+            </template>
+
+            <template lwc:if={isPrivacy}>
+                <h1>Zásady ochrany osobních údajů</h1>
+                <p class="doc-sub">informace o zpracování osobních údajů dárců projektu Darujeme kroužky dětem</p>
+
+                <h2>1. Správce osobních údajů</h2>
+                <p><b>Česká rada dětí a mládeže</b><br/>
+                    sídlo: Senovážné náměstí 977/24, 110&nbsp;00 Praha&nbsp;1<br/>
+                    IČ: 68379439<br/>
+                    zapsaná ve spolkovém rejstříku vedeném Městským soudem v Praze, sp. zn. L&nbsp;9136<br/>
+                    e-mail: <a href="mailto:info@darujemekrouzky.cz">info@darujemekrouzky.cz</a>,
+                    telefon: <a href="tel:+420773772202">+420&nbsp;773&nbsp;772&nbsp;202</a></p>
+
+                <h2>2. Jaké údaje zpracováváme</h2>
+                <ul>
+                    <li>identifikační a kontaktní údaje: jméno a příjmení, e-mail, telefon, adresa;
+                        u darů právnických osob také název, IČ, DIČ a údaje kontaktní osoby,</li>
+                    <li>údaje o darech a platbách: částka, měna, datum, frekvence daru, variabilní
+                        symbol, identifikátor transakce a zvolená platební metoda.</li>
+                </ul>
+                <p>Údaje o platební kartě zpracovává výhradně provozovatel platební brány, společnost
+                    Comgate, a.s. (Gočárova třída 1754/48b, 500&nbsp;02 Hradec Králové, IČ: 27924505);
+                    správce k nim nemá přístup.</p>
+
+                <h2>3. Účely a právní základy zpracování</h2>
+                <ul>
+                    <li>přijetí a zpracování daru včetně opakovaných plateb — plnění darovací smlouvy
+                        (čl. 6 odst. 1 písm. b GDPR),</li>
+                    <li>vystavení potvrzení o daru a plnění účetních a daňových povinností — plnění
+                        právní povinnosti (čl. 6 odst. 1 písm. c GDPR),</li>
+                    <li>zasílání informací o projektu Darujeme kroužky dětem několikrát ročně —
+                        oprávněný zájem správce na komunikaci s dárci (čl. 6 odst. 1 písm. f GDPR);
+                        z odběru se lze kdykoli odhlásit.</li>
+                </ul>
+
+                <h2>4. Příjemci osobních údajů</h2>
+                <ul>
+                    <li>Comgate, a.s. — zpracování platebních transakcí,</li>
+                    <li>Salesforce — provozovatel platformy, na které běží darovací stránka a databáze
+                        dárců,</li>
+                    <li>dodavatelé účetních a IT služeb správce,</li>
+                    <li>orgány veřejné moci, stanoví-li tak právní předpis.</li>
+                </ul>
+                <p>Zpracování probíhá primárně v Evropské unii / EHP. Případné předání údajů mimo EHP
+                    se uskutečňuje pouze se zárukami podle kapitoly V GDPR (zejména standardními
+                    smluvními doložkami).</p>
+
+                <h2>5. Doba uchování</h2>
+                <p>Osobní údaje uchováváme po dobu nezbytnou k naplnění výše uvedených účelů: údaje
+                    související s dary po dobu vyžadovanou účetními a daňovými předpisy, údaje
+                    zpracovávané pro komunikaci s dárci do doby odhlášení z odběru či vznesení námitky.</p>
+
+                <h2>6. Vaše práva</h2>
+                <p>Máte právo na přístup ke svým osobním údajům, jejich opravu či výmaz, omezení
+                    zpracování, přenositelnost údajů a právo vznést námitku proti zpracování založenému
+                    na oprávněném zájmu. Uplatnit je můžete e-mailem na
+                    <a href="mailto:info@darujemekrouzky.cz">info@darujemekrouzky.cz</a>. Máte rovněž
+                    právo podat stížnost u Úřadu pro ochranu osobních údajů, Pplk. Sochora 27,
+                    170&nbsp;00 Praha&nbsp;7, <a href="https://uoou.gov.cz/" target="_blank"
+                    rel="noopener">uoou.gov.cz</a>.</p>
+                <p>Při zpracování osobních údajů nedochází k automatizovanému rozhodování ani
+                    profilování.</p>
+                <p>Tyto zásady jsou účinné od 21.&nbsp;8.&nbsp;2026.</p>
+            </template>
+        </div>
+
+        <footer>
+            <div class="foot">
+                Česká rada dětí a mládeže · Senovážné náměstí 977/24, 110&nbsp;00 Praha&nbsp;1 · IČ: 68379439
+            </div>
+        </footer>
+    </div>
+</template>

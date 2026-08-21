@@ -51,6 +51,7 @@
         <members>donationPageDescriptionBox</members>
         <members>donationPageImageSection</members>
         <members>donationPageImagesSection</members>
+        <members>donationPageLegal</members>
         <members>donationPageThankYouSection</members>
         <members>loaderRoller</members>
         <members>donationPageValuesSection</members>

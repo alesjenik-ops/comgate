@@ -543,33 +543,20 @@ select.f-input {
     max-width: 640px;
 }
 
-.badges {
-    display: flex;
-    gap: 10px;
-    margin-top: 18px;
-    flex-wrap: wrap;
-}
-
-.badge {
-    border-radius: 20px;
-    padding: 7px 16px;
-    font-size: 13px;
-    font-weight: 700;
-}
-
-.badge.candy {
+.form-text .more-link {
+    display: inline-block;
     background: var(--candy);
     color: var(--plum);
+    border-radius: 20px;
+    padding: 10px 24px;
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+    margin-top: 4px;
 }
 
-.badge.lilac {
-    background: var(--lilac);
-    color: var(--plum);
-}
-
-.badge.mint {
-    background: var(--mint);
-    color: var(--plum);
+.form-text .more-link:hover {
+    background: var(--candy-deep);
 }
 
 /* ===== footer ===== */

@@ -1,0 +1,150 @@
+:host {
+    --plum: #362031;
+    --plum700: #4f3549;
+    --candy: #fa95c2;
+    --candy-deep: #f76fae;
+    --linen: #f3f0eb;
+    --linen300: #e4e3df;
+    --gray-d: #6b5a65;
+    display: block;
+}
+
+.page {
+    font-family: 'Fira Sans', sans-serif;
+    color: var(--plum);
+    background-color: var(--linen);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.doc-header {
+    max-width: 900px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 28px 24px 0;
+    box-sizing: border-box;
+}
+
+.doc-logo {
+    display: inline-block;
+    width: 260px;
+}
+
+.doc-logo img {
+    width: 100%;
+    display: block;
+}
+
+.doc-card {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 14px 40px rgba(54, 32, 49, 0.12);
+    max-width: 900px;
+    width: 100%;
+    margin: 28px auto 64px;
+    padding: 40px 48px 48px;
+    box-sizing: border-box;
+    flex: 1;
+}
+
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--gray-d);
+    text-decoration: none;
+    margin-bottom: 22px;
+}
+
+.back-link:hover {
+    color: var(--plum);
+}
+
+.chevron-left {
+    width: 8px;
+    height: 8px;
+    border-left: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
+    transform: rotate(45deg);
+    display: inline-block;
+}
+
+h1 {
+    font-weight: 800;
+    font-size: 34px;
+    line-height: 1.15;
+    margin: 0 0 6px;
+}
+
+.doc-sub {
+    font-size: 15px;
+    color: var(--gray-d);
+    margin: 0 0 26px;
+}
+
+h2 {
+    font-weight: 800;
+    font-size: 19px;
+    margin: 28px 0 10px;
+}
+
+p,
+ul {
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--gray-d);
+    margin: 0 0 12px;
+}
+
+ul {
+    padding-left: 22px;
+}
+
+li {
+    margin-bottom: 6px;
+}
+
+a {
+    color: var(--plum);
+}
+
+a:hover {
+    color: var(--candy-deep);
+}
+
+b {
+    color: var(--plum);
+}
+
+footer {
+    background: var(--plum);
+    color: var(--linen);
+    border-radius: 22px 22px 0 0;
+    padding: 22px 24px;
+}
+
+.foot {
+    max-width: 900px;
+    margin: 0 auto;
+    font-size: 13px;
+    text-align: center;
+}
+
+@media (max-width: 700px) {
+    .doc-card {
+        padding: 28px 22px 34px;
+        margin: 20px 16px 48px;
+        width: auto;
+    }
+
+    .doc-logo {
+        width: 200px;
+    }
+
+    h1 {
+        font-size: 27px;
+    }
+}

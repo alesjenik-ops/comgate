@@ -1,0 +1,48 @@
+{
+  "appPageId" : "df0c588e-3c17-4db5-ad0a-2ec94644d54d",
+  "componentName" : "siteforce:sldsOneColLayout",
+  "dataProviders" : [ ],
+  "id" : "4e5ff007-be5b-4183-8aa0-00c38777b1eb",
+  "label" : "Ochrana osobních údajů",
+  "regions" : [ {
+    "id" : "5bef05de-cd4c-4afc-97b1-9941137bcea0",
+    "regionName" : "header",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "document" : "privacy"
+      },
+      "componentName" : "c:donationPageLegal",
+      "id" : "5a3be655-ed85-41e2-9b82-af7758888b61",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "6bd4c9c8-aeba-4607-bd96-51759d25add3",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "id" : "eb83fcb0-4a78-47fd-bc34-64338260925a",
+    "regionName" : "footer",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "customHeadTags" : "",
+        "description" : "Zásady ochrany osobních údajů dárců projektu Darujeme kroužky dětem.",
+        "title" : "Ochrana osobních údajů – Darujeme kroužky dětem"
+      },
+      "componentName" : "forceCommunity:seoAssistant",
+      "id" : "b29869c5-5f15-45b0-8b5e-82c43e1d03e6",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "2a203f5e-9263-4215-9a4f-c65a3b153500",
+    "regionName" : "sfdcHiddenRegion",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "Inner",
+  "type" : "view",
+  "viewType" : "custom"
+}

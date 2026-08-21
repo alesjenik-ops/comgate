@@ -1,0 +1,48 @@
+{
+  "appPageId" : "df0c588e-3c17-4db5-ad0a-2ec94644d54d",
+  "componentName" : "siteforce:sldsOneColLayout",
+  "dataProviders" : [ ],
+  "id" : "b8d3378c-706d-47e7-b729-3a0441990b53",
+  "label" : "Obchodní podmínky",
+  "regions" : [ {
+    "id" : "c0f23c5e-966d-4de0-b27b-08c0040054bb",
+    "regionName" : "header",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "document" : "terms"
+      },
+      "componentName" : "c:donationPageLegal",
+      "id" : "deda3466-692f-4716-9192-336776e6484f",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "ee02f1ba-6a14-42cc-93b8-e270aadfdc8c",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "id" : "91beec15-61b3-4c46-b4df-8442f76ecd7a",
+    "regionName" : "footer",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "customHeadTags" : "",
+        "description" : "Všeobecné obchodní podmínky pro poskytování darů na projekt Darujeme kroužky dětem.",
+        "title" : "Všeobecné obchodní podmínky – Darujeme kroužky dětem"
+      },
+      "componentName" : "forceCommunity:seoAssistant",
+      "id" : "bcc22175-eaad-4f92-bade-1da377be295e",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "47192a33-191b-469e-82c9-ccae89d286a3",
+    "regionName" : "sfdcHiddenRegion",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "Inner",
+  "type" : "view",
+  "viewType" : "custom"
+}
