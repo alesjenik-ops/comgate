@@ -87,14 +87,23 @@ v UI se tu neobjeví.
 Kontrola, jestli šablony opravdu dosedly:
 
 ```sql
-SELECT Id, DeveloperName, UiType, Folder.Name, RelatedEntityType FROM EmailTemplate
+SELECT Id, DeveloperName, UiType, Folder.Name FROM EmailTemplate
 WHERE DeveloperName IN ('DKD_Thank_You_One_Time','DKD_Thank_You_Recurring')
 ```
 
-Očekává se **2 řádky s `UiType = SFX`**. `SFX` znamená Lightning šablonu, na kterou
-je navázaná merge syntaxe `{{{Record.Pole__c}}}`. Kdyby vyšlo `Aloha`, merge pole se
-nevyhodnotí a dopis by dárci přišel s doslovným `{{{Record...}}}` — v tom případě je
-potřeba šablony přepsat na Classic syntaxi `{!GiftTransaction.Pole__c}`.
+Očekávají se **2 řádky s `UiType = Aloha`** ve složce DKD Děkovné dopisy — dopisy jsou
+záměrně **Classic HTML** šablony, ne Lightning. Důvod: `EmailFolder` v Metadata API
+zakládá klasickou e-mailovou složku a Lightning šablona (`uiType SFX`) do ní nepatří.
+Deploy to hlásí jako `Cannot find folder:<název>` i ve chvíli, kdy složka prokazatelně
+existuje a `SELECT ... FROM Folder` ji vrací — chybová hláška je zavádějící.
+
+Proto merge pole používají Classic syntaxi `{!GiftTransaction.Pole__c}`, ne
+`{{{Record.Pole__c}}}`. Vyhodnocují se proti záznamu, který flow předá jako
+`relatedRecordId` (whatId).
+
+Ověření merge polí: Setup → *Classic Email Templates* → otevřít šablonu →
+**Send Test and Verify Merge Fields** → jako "Related To" vybrat konkrétní
+GiftTransaction. Musí se dosadit jméno dárce a částka.
 
 ### Krok 3 — `thank-you-letters-3-base.zip`
 

@@ -12,8 +12,8 @@
                 </tr>
                 <tr>
                     <td style="padding:36px 40px 4px 40px;font-family:'Fira Sans','Segoe UI',Arial,Helvetica,sans-serif;font-size:16px;line-height:1.65;color:#3a3340;">
-                        <p style="margin:0 0 20px;font-size:18px;color:#362031;">Dobrý den, {{{Record.Thank_You_Donor_Name__c}}},</p>
-                        <p style="margin:0 0 16px;">děkujeme za Váš dar ve výši <strong style="color:#362031;">{{{Record.Thank_You_Amount__c}}} Kč</strong> pro projekt Darujeme kroužky dětem. Moc si Vaší podpory vážíme.</p>
+                        <p style="margin:0 0 20px;font-size:18px;color:#362031;">Dobrý den, {!GiftTransaction.Thank_You_Donor_Name__c},</p>
+                        <p style="margin:0 0 16px;">děkujeme za Váš dar ve výši <strong style="color:#362031;">{!GiftTransaction.Thank_You_Amount__c} Kč</strong> pro projekt Darujeme kroužky dětem. Moc si Vaší podpory vážíme.</p>
                         <p style="margin:0 0 16px;">Váš dar využijeme na příspěvky na kroužky pro děti, kterým jejich životní nebo rodinná situace znesnadňuje přístup k volnočasovým aktivitám. Svým darem přispějete na náklady spojené se sportem, hudbou, tvořením, oddílovými a dalšími volnočasovými aktivitami, a pomůžete tak dětem věnovat se tomu, co je baví.</p>
                         <p style="margin:0 0 16px;">Kroužek přitom není jen způsob, jak trávit volný čas. Pro dítě může být místem, kde objeví své silné stránky, naváže přátelství, naučí se něco nového, získá větší sebedůvěru a zažije pocit, že někam patří.</p>
                         <p style="margin:0 0 16px;">Právě díky lidem, jako jste Vy, mohou tuto příležitost dostat i děti, pro které by kroužky jinak nebyly dostupné.</p>

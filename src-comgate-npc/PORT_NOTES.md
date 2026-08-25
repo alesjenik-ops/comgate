@@ -189,8 +189,12 @@ formule `Thank_You_Donor_Name__c` (`Donor.FirstName`, fallback `Donor.Name`) a
 a ne „500.00"). Příjemce je `Donor.PersonContactId`, u firemního účtu
 `Donor.npc_bridge__PrimaryContact__c`.
 
-Šablony jsou Lightning Email Templates (`uiType SFX`, `relatedEntityType GiftTransaction`)
-ve složce `email/DKD_Dekovne_Dopisy/`. Logo DKD se do e-mailu tahá z veřejné URL static
+Šablony jsou **Classic HTML** (`type custom`, bez `uiType`) ve složce
+`email/DKD_Dekovne_Dopisy/`, merge syntaxe `{!GiftTransaction.Pole__c}` proti whatId.
+Lightning verze (`uiType SFX` + `{{{Record.Pole__c}}}`) nasadit nešla: `EmailFolder`
+v Metadata API zakládá klasickou složku a SFX šablona do ní nepatří — deploy to hlásí
+jako `Cannot find folder:<název>`, přestože složku `SELECT ... FROM Folder` vrací
+(ověřeno na `DKD_Dekovne_Dopisy`, Id 00lTe000000V7rdIAC). Logo DKD se do e-mailu tahá z veřejné URL static
 resource `DonationPageHeaderLogo` — při změně domény site je potřeba přepsat `src`
 v obou `.email` souborech.
 

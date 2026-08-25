@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
     <available>true</available>
-    <description>Děkovný dopis individuálnímu dárci za pravidelný dar. Odesílá flow Gift_Transaction_Thank_You_Email po zaplacení první GiftTransaction pod daným GiftCommitment. Merge pole se plní z GiftTransaction (relatedRecordId).</description>
+    <description>Děkovný dopis individuálnímu dárci za pravidelný dar. Odesílá flow Gift_Transaction_Thank_You_Email po zaplacení první GiftTransaction pod daným GiftCommitment. Classic HTML šablona - merge pole se plní z GiftTransaction předané jako relatedRecordId (whatId).</description>
     <encodingKey>UTF-8</encodingKey>
     <name>DKD Děkovný dopis - pravidelný dar</name>
-    <relatedEntityType>GiftTransaction</relatedEntityType>
     <style>none</style>
     <subject>Děkujeme, že v tom jedete s námi</subject>
-    <textOnly>Dobrý den, {{{Record.Thank_You_Donor_Name__c}}},
+    <textOnly>Dobrý den, {!GiftTransaction.Thank_You_Donor_Name__c},
 
-děkujeme, že jste se rozhodli pravidelně podporovat projekt Darujeme kroužky dětem částkou {{{Record.Thank_You_Amount__c}}} Kč. Moc si Vaší podpory vážíme.
+děkujeme, že jste se rozhodli pravidelně podporovat projekt Darujeme kroužky dětem částkou {!GiftTransaction.Thank_You_Amount__c} Kč. Moc si Vaší podpory vážíme.
 
 Váš dar využijeme na příspěvky na kroužky pro děti, kterým jejich životní nebo rodinná situace znesnadňuje přístup k volnočasovým aktivitám. Svým pravidelným darem přispíváte na náklady spojené se sportem, hudbou, tvořením, oddílovými a dalšími volnočasovými aktivitami, a pomáháte tak dětem věnovat se tomu, co je baví.
 
@@ -32,5 +31,4 @@ tel. 603 373 201
 e-mail: petra.votavova@crdm.cz
 www.darujemekrouzky.cz</textOnly>
     <type>custom</type>
-    <uiType>SFX</uiType>
 </EmailTemplate>
