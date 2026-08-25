@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  KROK 2 z 2 - samotne e-mailove sablony.
-  Nasazujte az potom, co krok 1 (deploy/thank-you-letters-1-base.zip) vytvoril
-  slozku DKD_Thank_You. Bez existujici slozky deploy skonci chybou
-  "Cannot find folder:DKD_Thank_You".
+  KROK 2 z 3 - samotne e-mailove sablony.
+  Az potom, co krok 1 vytvoril slozku DKD_Thank_You. Slozka a jeji obsah nesmi jit
+  v jednom deployi - Metadata API nezarucuje poradi a sablony se zpracuji driv.
 -->
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
     <types>

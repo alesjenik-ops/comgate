@@ -4,11 +4,15 @@
 # Jediny zdroj pravdy je src-comgate-npc/ - tenhle skript z nej vytahne soubory
 # podle manifestu v deploy/*/package.xml a zabali je.
 #
-# Deploy je zamerne rozdeleny na dva kroky:
-#   1) deploy/thank-you-letters-1-base.zip      vse vcetne slozky DKD_Thank_You
-#   2) deploy/thank-you-letters-2-templates.zip samotne e-mailove sablony
-# Slozka a jeji sablony nesmi jit najednou - Metadata API nezarucuje poradi
-# a sablony se zpracuji driv nez slozka ("Cannot find folder:DKD_Thank_You").
+# Deploy je zamerne rozdeleny na tri nezavisle kroky:
+#   1) deploy/thank-you-letters-1-folder.zip    jen slozka DKD_Thank_You
+#   2) deploy/thank-you-letters-2-templates.zip e-mailove sablony
+#   3) deploy/thank-you-letters-3-base.zip      kod, pole, flow, komponenty, fotky
+#
+# Proc tri: slozka a jeji sablony nesmi jit najednou, protoze Metadata API nezarucuje
+# poradi a sablony se zpracuji driv ("Cannot find folder:DKD_Thank_You"). A slozka nesmi
+# byt ve stejnem balicku jako flow - pri Rollback On Error by ji kazda chyba flow smazala
+# zpatky a krok se sablonami by spadl znovu.
 #
 # Pouziti:  ./deploy/build-thank-you-letters.sh
 
@@ -29,9 +33,31 @@ copy() {
     cp -R "$SRC/$rel" "$STAGE/$rel"
 }
 
-# ---------- krok 1: vse krome sablon ----------
+# ---------- krok 1: jen slozka ----------
 STAGE="$(mktemp -d)"
 trap 'rm -rf "$STAGE"' EXIT
+
+cp "$REPO_ROOT/deploy/thank-you-letters-folder/package.xml" "$STAGE/package.xml"
+copy email/DKD_Thank_You-meta.xml
+
+ZIP1="$REPO_ROOT/deploy/thank-you-letters-1-folder.zip"
+rm -f "$ZIP1"
+(cd "$STAGE" && zip -qr "$ZIP1" .)
+rm -rf "$STAGE"
+
+# ---------- krok 2: sablony ----------
+STAGE="$(mktemp -d)"
+
+cp "$REPO_ROOT/deploy/thank-you-letters-templates/package.xml" "$STAGE/package.xml"
+copy email/DKD_Thank_You
+
+ZIP2="$REPO_ROOT/deploy/thank-you-letters-2-templates.zip"
+rm -f "$ZIP2"
+(cd "$STAGE" && zip -qr "$ZIP2" .)
+rm -rf "$STAGE"
+
+# ---------- krok 3: zbytek ----------
+STAGE="$(mktemp -d)"
 
 cp "$REPO_ROOT/deploy/thank-you-letters/package.xml" "$STAGE/package.xml"
 
@@ -52,9 +78,6 @@ copy lwc/donationPageCommunity
 copy objects/GiftTransaction.object
 copy objects/GiftCommitment.object
 
-# Slozka na dekovne dopisy (sablony az v kroku 2)
-copy email/DKD_Thank_You-meta.xml
-
 # Flow, ktery dopisy rozesila
 copy flows/Gift_Transaction_Thank_You_Email.flow
 
@@ -64,23 +87,11 @@ copy staticresources/DonationPageHeaderImage.resource-meta.xml
 copy staticresources/DonationPageCampaignPhoto.resource
 copy staticresources/DonationPageCampaignPhoto.resource-meta.xml
 
-ZIP1="$REPO_ROOT/deploy/thank-you-letters-1-base.zip"
-rm -f "$ZIP1"
-(cd "$STAGE" && zip -qr "$ZIP1" .)
-rm -rf "$STAGE"
+ZIP3="$REPO_ROOT/deploy/thank-you-letters-3-base.zip"
+rm -f "$ZIP3"
+(cd "$STAGE" && zip -qr "$ZIP3" .)
 
-# ---------- krok 2: samotne sablony ----------
-STAGE="$(mktemp -d)"
-
-cp "$REPO_ROOT/deploy/thank-you-letters-templates/package.xml" "$STAGE/package.xml"
-copy email/DKD_Thank_You
-
-ZIP2="$REPO_ROOT/deploy/thank-you-letters-2-templates.zip"
-rm -f "$ZIP2"
-(cd "$STAGE" && zip -qr "$ZIP2" .)
-
-echo "Hotovo:"
-echo "  1) ${ZIP1#"$REPO_ROOT"/}"
-unzip -l "$ZIP1" | tail -3
-echo "  2) ${ZIP2#"$REPO_ROOT"/}"
-unzip -l "$ZIP2"
+echo "Hotovo - nasazujte v tomhle poradi:"
+for z in "$ZIP1" "$ZIP2" "$ZIP3"; do
+    printf '  %-45s %s souboru\n' "${z#"$REPO_ROOT"/}" "$(unzip -l "$z" | tail -1 | awk '{print $2}')"
+done

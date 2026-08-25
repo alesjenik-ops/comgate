@@ -3,16 +3,23 @@
 Balíčky obsahují jen to, co se touto změnou mění — není to nasazení celého stromu
 `src-comgate-npc/`.
 
-Nasazuje se **nadvakrát**:
+Nasazuje se **natřikrát**, v tomto pořadí:
 
 | # | ZIP | Obsah |
 |---|---|---|
-| 1 | `thank-you-letters-1-base.zip` | vše včetně **složky** DKD Thank You |
-| 2 | `thank-you-letters-2-templates.zip` | samotné **šablony** dopisů |
+| 1 | `thank-you-letters-1-folder.zip` | jen **složka** DKD Thank You |
+| 2 | `thank-you-letters-2-templates.zip` | **šablony** dopisů |
+| 3 | `thank-you-letters-3-base.zip` | kód, pole, flow, komponenty, fotky |
 
-Složka a její šablony nesmí jít v jednom deployi — Metadata API nezaručuje pořadí
-a šablony se zpracují dřív než složka, což skončí chybou
-`Cannot find folder:DKD_Thank_You`.
+Proč tři a ne jeden:
+
+- Složka a šablony v ní nesmí jít najednou — Metadata API nezaručuje pořadí a šablony
+  se zpracují dřív než složka, což skončí chybou `Cannot find folder:DKD_Thank_You`.
+- Složka zároveň nesmí být ve stejném balíčku jako flow. Při zapnutém **Rollback On Error**
+  ji každá chyba flow smaže zpátky a krok se šablonami pak spadne znovu, i když se
+  s ním nic nestalo.
+
+Kroky na sobě jinak nezávisí, takže opakovaný pokus o flow už e-mailové šablony neohrozí.
 
 Přebuildit ze zdrojů: `./deploy/build-thank-you-letters.sh`
 
@@ -33,23 +40,28 @@ Přebuildit ze zdrojů: `./deploy/build-thank-you-letters.sh`
 
 <https://workbench.developerforce.com> → přihlásit do cílového orgu → **migration → Deploy**
 
-### Krok 1 — `thank-you-letters-1-base.zip`
+### Krok 1 — `thank-you-letters-1-folder.zip`
 
-1. Zaškrtnout **Rollback On Error** a **Single Package**
-2. Test Level:
-   - sandbox → `NoTestRun` (rychlé) nebo `RunLocalTests`
-   - **produkce → `RunSpecifiedTests`** a do seznamu `DonationPageControllerTest`
-     (balíček mění Apex, produkce vyžaduje testy)
-3. **Next → Deploy**
-4. Počkat, až *Metadata API Process Status* ukáže `Status: Succeeded`
+Rollback On Error, Single Package, Test Level `NoTestRun`. Balíček má 3 soubory,
+projde během vteřiny.
 
 ### Krok 2 — `thank-you-letters-2-templates.zip`
 
-Až po úspěšném kroku 1, jinak složka neexistuje a deploy spadne.
+Až po úspěšném kroku 1, jinak složka neexistuje.
+Rollback On Error, Single Package, `NoTestRun`.
 
-1. Zaškrtnout **Rollback On Error** a **Single Package**
-2. Test Level `NoTestRun` (šablony Apex nemění)
+### Krok 3 — `thank-you-letters-3-base.zip`
+
+1. Rollback On Error, Single Package
+2. Test Level:
+   - sandbox → `NoTestRun` nebo `RunLocalTests`
+   - **produkce → `RunSpecifiedTests`** a do seznamu `DonationPageControllerTest`
+     (balíček mění Apex, produkce vyžaduje testy)
 3. **Next → Deploy**
+
+Tip: flow validuje Salesforce až při deployi a hlásí vždy jen první chybu. Než pustíte
+ostrý deploy, můžete si krok 3 nejdřív projet se zaškrtnutým **Check Only** — validace
+proběhne stejně, ale nic se nezapíše.
 
 ## Po nasazení — bez tohoto se dopisy neodešlou
 

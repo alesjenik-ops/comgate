@@ -32,8 +32,9 @@ které se dají nahrát ve Workbench → *migration → Deploy*. Postup, seznam 
 a kroky po nasazení viz [`deploy/README.md`](deploy/README.md).
 
 ```bash
-./deploy/build-thank-you-letters.sh   # přebuildí oba ZIPy ze src-comgate-npc/
+./deploy/build-thank-you-letters.sh   # přebuildí všechny ZIPy ze src-comgate-npc/
 ```
 
-Pozor: e-mailová složka a šablony v ní se musí nasazovat ve dvou krocích — Metadata API
-nezaručuje, že složku zpracuje dřív než její obsah.
+Pozor: e-mailová složka, šablony v ní a zbytek metadat se musí nasazovat ve třech
+samostatných krocích — Metadata API nezaručuje, že složku zpracuje dřív než její obsah,
+a při Rollback On Error by chyba kdekoliv jinde složku smazala zpátky.
