@@ -3,11 +3,11 @@
   KROK 1 z 3 - jen slozka na dekovne dopisy.
   Zamerne uplne samostatne: slozka nesmi viset na niceem, co muze spadnout.
   Kdyz je ve stejnem balicku jako flow, kazda chyba flow ji pri Rollback On Error
-  smaze zpatky a krok se sablonami pak spadne na "Cannot find folder:DKD_Thank_You_2".
+  smaze zpatky a krok se sablonami pak spadne na "Cannot find folder:DKD_Dekovne_Dopisy".
 -->
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
     <types>
-        <members>DKD_Thank_You_2</members>
+        <members>DKD_Dekovne_Dopisy</members>
         <name>EmailTemplate</name>
     </types>
     <version>66.0</version>

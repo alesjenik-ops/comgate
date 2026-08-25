@@ -190,16 +190,16 @@ a ne „500.00"). Příjemce je `Donor.PersonContactId`, u firemního účtu
 `Donor.npc_bridge__PrimaryContact__c`.
 
 Šablony jsou Lightning Email Templates (`uiType SFX`, `relatedEntityType GiftTransaction`)
-ve složce `email/DKD_Thank_You_2/`. Logo DKD se do e-mailu tahá z veřejné URL static
+ve složce `email/DKD_Dekovne_Dopisy/`. Logo DKD se do e-mailu tahá z veřejné URL static
 resource `DonationPageHeaderLogo` — při změně domény site je potřeba přepsat `src`
 v obou `.email` souborech.
 
 **Předpoklad nasazení:** ověřená Org-Wide Email Address `info@darujemekrouzky.cz`.
 Bez ní flow doběhne, ale nic neodešle (viz `deploy/README.md`).
 
-**Pozor při nasazování:** složka `DKD_Thank_You_2` a šablony v ní musí jít ve dvou
+**Pozor při nasazování:** složka `DKD_Dekovne_Dopisy` a šablony v ní musí jít ve dvou
 samostatných deployích. Metadata API nezaručuje pořadí a šablony se zpracují dřív
-než složka — deploy pak spadne na `Cannot find folder:DKD_Thank_You_2`. Proto jsou
+než složka — deploy pak spadne na `Cannot find folder:DKD_Dekovne_Dopisy`. Proto jsou
 v `deploy/` dva ZIPy. Ze stejného důvodu `Update Records` nad výsledkem `Get Records`
 nesmí kombinovat `inputReference` s `inputAssignments` (na `$Record` to Salesforce
 povoluje, na proměnnou z Get Records ne) — `Mark_Commitment_Sent` proto hledá

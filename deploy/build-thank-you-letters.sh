@@ -5,12 +5,12 @@
 # podle manifestu v deploy/*/package.xml a zabali je.
 #
 # Deploy je zamerne rozdeleny na tri nezavisle kroky:
-#   1) deploy/thank-you-letters-1-folder.zip    jen slozka DKD_Thank_You_2
+#   1) deploy/thank-you-letters-1-folder.zip    jen slozka DKD_Dekovne_Dopisy
 #   2) deploy/thank-you-letters-2-templates.zip e-mailove sablony
 #   3) deploy/thank-you-letters-3-base.zip      kod, pole, flow, komponenty, fotky
 #
 # Proc tri: slozka a jeji sablony nesmi jit najednou, protoze Metadata API nezarucuje
-# poradi a sablony se zpracuji driv ("Cannot find folder:DKD_Thank_You_2"). A slozka nesmi
+# poradi a sablony se zpracuji driv ("Cannot find folder:DKD_Dekovne_Dopisy"). A slozka nesmi
 # byt ve stejnem balicku jako flow - pri Rollback On Error by ji kazda chyba flow smazala
 # zpatky a krok se sablonami by spadl znovu.
 #
@@ -38,7 +38,7 @@ STAGE="$(mktemp -d)"
 trap 'rm -rf "$STAGE"' EXIT
 
 cp "$REPO_ROOT/deploy/thank-you-letters-folder/package.xml" "$STAGE/package.xml"
-copy email/DKD_Thank_You_2-meta.xml
+copy email/DKD_Dekovne_Dopisy-meta.xml
 
 ZIP1="$REPO_ROOT/deploy/thank-you-letters-1-folder.zip"
 rm -f "$ZIP1"
@@ -49,7 +49,7 @@ rm -rf "$STAGE"
 STAGE="$(mktemp -d)"
 
 cp "$REPO_ROOT/deploy/thank-you-letters-templates/package.xml" "$STAGE/package.xml"
-copy email/DKD_Thank_You_2
+copy email/DKD_Dekovne_Dopisy
 
 ZIP2="$REPO_ROOT/deploy/thank-you-letters-2-templates.zip"
 rm -f "$ZIP2"
