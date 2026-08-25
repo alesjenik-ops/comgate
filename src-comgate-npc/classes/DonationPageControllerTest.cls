@@ -263,4 +263,50 @@ public with sharing class DonationPageControllerTest {
         System.assertEquals('CZ6508000000192000145399', returnMap.get('iban'));
         System.assert(((String) returnMap.get('qrPayload')).startsWith('SPD*1.0*ACC:CZ6508000000192000145399'));
     }
+
+    //Campaign without its own bank account falls back to the Bank_Account__c flagged as Default__c
+    @IsTest
+    public static void test_justCreateRecords_defaultBankAccount(){
+        insert new Bank_Account__c(IBAN__c = 'CZ1920100000002602488698',
+                Bank_Account_Number__c = '2602488698/2010', Default__c = true);
+
+        Campaign cam = ComgateTestFactory.getCampaign();
+        insert cam;
+
+        Account donor = [SELECT Id, FirstName, LastName, PersonEmail FROM Account LIMIT 1];
+        DonationPagePaymentWrapper paymentWrapper = ComgateTestFactory.getPaymentWrapper('oneoff', 500, 'bankTransfer', null);
+        Contact con = ComgateTestFactory.getContact();
+
+        Test.startTest();
+        Map<String, Object> returnMap = DonationPageController.justCreateRecords(JSON.serialize(donor),
+                JSON.serialize(con), cam.Id, JSON.serialize(paymentWrapper), true);
+        Test.stopTest();
+
+        Assert.areEqual('2602488698/2010', returnMap.get('bankAccountNumber'), 'Default bank account should be used');
+        Assert.areEqual('CZ1920100000002602488698', returnMap.get('iban'), 'Default IBAN should be used');
+        Assert.isTrue(((String) returnMap.get('qrPayload')).startsWith('SPD*1.0*ACC:CZ1920100000002602488698'),
+                'QR payload should be built from the default IBAN');
+    }
+
+    //No default record at all must not throw - the page shows placeholders instead of erroring out
+    @IsTest
+    public static void test_justCreateRecords_noBankAccount(){
+        Campaign cam = ComgateTestFactory.getCampaign();
+        insert cam;
+
+        Account donor = [SELECT Id, FirstName, LastName, PersonEmail FROM Account LIMIT 1];
+        DonationPagePaymentWrapper paymentWrapper = ComgateTestFactory.getPaymentWrapper('oneoff', 500, 'bankTransfer', null);
+        Contact con = ComgateTestFactory.getContact();
+
+        Test.startTest();
+        Map<String, Object> returnMap = DonationPageController.justCreateRecords(JSON.serialize(donor),
+                JSON.serialize(con), cam.Id, JSON.serialize(paymentWrapper), true);
+        Test.stopTest();
+
+        Assert.areEqual('XXX-XXXXXXXX/XXX', returnMap.get('bankAccountNumber'),
+                'Missing default account should fall back to the placeholder, not throw');
+        Assert.areEqual('XXX-XXXXXXXX/XXX', returnMap.get('iban'),
+                'Missing default account should fall back to the placeholder, not throw');
+        Assert.isNotNull(returnMap.get('variableNumber'), 'Variable symbol should still be returned');
+    }
 }

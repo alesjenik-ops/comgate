@@ -12,6 +12,8 @@ node_modules/
 .DS_Store
 Thumbs.db
 
-# Deploy artifacts
+# Deploy artifacts - zipy se generuji skriptem, do repa nepatri
+# (deploy/*.xml, README a build skript jsou zdroj, ty se verzuji)
 deploy.zip
+deploy/*.zip
 *.log

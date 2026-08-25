@@ -21,7 +21,11 @@ Proč tři a ne jeden:
 
 Kroky na sobě jinak nezávisí, takže opakovaný pokus o flow už e-mailové šablony neohrozí.
 
-Přebuildit ze zdrojů: `./deploy/build-thank-you-letters.sh`
+ZIPy nejsou v repu (jsou to build artefakty) — sestavte si je:
+
+```bash
+./deploy/build-thank-you-letters.sh
+```
 
 ## Co se nasazuje
 
@@ -97,8 +101,12 @@ potřeba šablony přepsat na Classic syntaxi `{!GiftTransaction.Pole__c}`.
 1. Rollback On Error, Single Package
 2. Test Level:
    - sandbox → `NoTestRun` nebo `RunLocalTests`
-   - **produkce → `RunSpecifiedTests`** a do seznamu `DonationPageControllerTest`
-     (balíček mění Apex, produkce vyžaduje testy)
+   - **produkce → `RunLocalTests`**
+
+   `RunSpecifiedTests` se `DonationPageControllerTest` by teoreticky stačilo, ale ten
+   režim vyžaduje, aby **každá** nasazovaná třída dosáhla ≥ 75 % z uvedených testů.
+   `RunLocalTests` tuhle podmínku neřeší a u balíčku s jedinou změněnou třídou stojí
+   jen o něco víc času.
 3. **Next → Deploy**
 
 Tip: flow validuje Salesforce až při deployi a hlásí vždy jen první chybu. Než pustíte
