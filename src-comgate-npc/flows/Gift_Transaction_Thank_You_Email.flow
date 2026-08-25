@@ -10,7 +10,7 @@
         <connector>
             <targetReference>Mark_Transaction_Sent</targetReference>
         </connector>
-        <flowTransactionModel>Automatic</flowTransactionModel>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
         <inputParameters>
             <name>emailTemplateId</name>
             <value>
@@ -60,7 +60,7 @@
         <connector>
             <targetReference>Mark_Commitment_Sent</targetReference>
         </connector>
-        <flowTransactionModel>Automatic</flowTransactionModel>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
         <inputParameters>
             <name>emailTemplateId</name>
             <value>
