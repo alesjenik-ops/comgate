@@ -47,8 +47,37 @@ projde během vteřiny.
 
 ### Krok 2 — `thank-you-letters-2-templates.zip`
 
-Až po úspěšném kroku 1, jinak složka neexistuje.
-Rollback On Error, Single Package, `NoTestRun`.
+Až po **úspěšném** kroku 1, jinak složka neexistuje a deploy skončí na
+`Cannot find folder:DKD_Thank_You`. Rollback On Error, Single Package, `NoTestRun`.
+
+Ověření, že složka v orgu opravdu je — Workbench → *queries → SOQL Query*,
+object `Folder`, nebo rovnou:
+
+```sql
+SELECT Id, Name, DeveloperName, Type FROM Folder WHERE DeveloperName = 'DKD_Thank_You'
+```
+
+- **1 řádek** → složka existuje, krok 2 může jít.
+- **0 řádků** → krok 1 neproběhl nebo spadl. Buď ho pusťte znovu, nebo složku
+  založte ručně (viz níže).
+
+Pozor: každý neúspěšný deploy se zapnutým **Rollback On Error** složku smaže zpátky,
+i když se sama nasadila v pořádku. Po každém failu je proto potřeba se na složku
+podívat znovu.
+
+#### Ruční založení složky (spolehlivá varianta)
+
+Setup → *Email Templates* → **All Email Templates** → tlačítko **New Folder**:
+
+| Pole | Hodnota |
+|---|---|
+| Email Template Folder Label | `DKD Thank You` |
+| Unique Name (API název) | `DKD_Thank_You` |
+| Access | Public / ReadWrite |
+
+Unique Name musí sedět **přesně**, na něj se šablony v balíčku odkazují.
+Ručně založená složka se nesmaže žádným rollbackem, takže tímhle se cyklus
+"krok 1 spadl, krok 2 nemá složku" definitivně ukončí.
 
 ### Krok 3 — `thank-you-letters-3-base.zip`
 
