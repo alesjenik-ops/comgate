@@ -8,4 +8,13 @@
         <target>lightningCommunity__Page</target>
         <target>lightningCommunity__Default</target>
     </targets>
+    <targetConfigs>
+        <targetConfig targets="lightningCommunity__Default">
+            <property name="thankYouPageUrl"
+                      type="String"
+                      label="Thank You Page URL"
+                      default="https://www.darujemekrouzky.cz/dekujeme/"
+                      description="When filled in, a successful payment redirects the whole browser window to this address instead of showing the in-form thank you step. Clear the value to keep the donor on the form."/>
+        </targetConfig>
+    </targetConfigs>
 </LightningComponentBundle>

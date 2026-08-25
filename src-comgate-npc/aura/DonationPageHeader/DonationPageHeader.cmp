@@ -15,7 +15,7 @@
     <aura:attribute name="logoImage" type="String" default="DonationPageHeaderLogo?v3" description="Name of the static resources where the image is stored"/>
     <aura:attribute name="logoHref" type="String" default="https://darujemekrouzky.cz/" description="Logo href"/>
 
-    <aura:attribute name="headerImage" type="String" default="DonationPageHeaderImage" description="Name of the static resources where the image is stored"/>
+    <aura:attribute name="headerImage" type="String" default="DonationPageHeaderImage?v2" description="Name of the static resources where the image is stored"/>
     <aura:attribute name="headerImageCSS" type="String" default="" description="Header Image CSS"/>
 
 

@@ -27,6 +27,7 @@
     <!-- FIELD SET SELECTION -->
     <design:attribute name="fieldSetSelection" label="Contact field set" datasource="apex://ContactFieldSetsDynamicPicklist" description="Select contact field set based on which fields gonna be displayed"/>
     <design:attribute name="thankYouLabel" label="Thank You Label" description="Define headline of the thank you page"/>
+    <design:attribute name="thankYouPageUrl" label="Thank You Page URL" description="When filled in, a successful payment redirects the whole browser window to this address instead of showing the in-form thank you step. Clear the value to keep the donor on the form. Ex. 'https://www.darujemekrouzky.cz/dekujeme/'"/>
 
     <design:attribute name="disabledCampaignSelection" label="Disable Campaign Selection" description="Disable Campaign Selection"/>
 

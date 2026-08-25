@@ -1,6 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
     <fields>
+        <fullName>Thank_You_Amount__c</fullName>
+        <externalId>false</externalId>
+        <formula>TEXT(ROUND(OriginalAmount, 0))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Thank You Amount</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Thank_You_Donor_Name__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(ISBLANK(Donor.FirstName), Donor.Name, Donor.FirstName)</formula>
+        <formulaTreatBlanksAs>BlankAsBlank</formulaTreatBlanksAs>
+        <label>Thank You Donor Name</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Thank_You_Email_Sent__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Thank You Email Sent</label>
+        <trackHistory>false</trackHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
         <fullName>Attempt_Counter__c</fullName>
         <externalId>false</externalId>
         <label>Donation Attempt Counter</label>

@@ -109,7 +109,7 @@ public without sharing class DonationPageController {
 
         DonationPagePaymentWrapper paymentWrapper = (DonationPagePaymentWrapper) JSON.deserialize(paymentWrapperString, DonationPagePaymentWrapper.class);
 
-        Bank_Account__c bankAccount = campaign?.Bank_Account__r ?? [SELECT Id, Bank_Account_Number__c, IBAN__c FROM Bank_Account__c WHERE Default__c = TRUE];
+        Bank_Account__c bankAccount = campaign?.Bank_Account__r ?? getDefaultBankAccount();
 
         processDonor(donor, con, isPersonAccount);
         Id donationRecordId = prepareDonationRecord(donor, paymentWrapper, campaignId, bankAccount);
@@ -121,6 +121,13 @@ public without sharing class DonationPageController {
                 'variableNumber' => comgateVar,
                 'qrPayload' => getQrPayload(paymentWrapper, comgateVar, bankAccount)
         };
+    }
+
+    //Missing default record must not break the bank transfer page - the placeholders below signal the misconfiguration
+    private static Bank_Account__c getDefaultBankAccount(){
+        List<Bank_Account__c> bankAccounts = [SELECT Id, Bank_Account_Number__c, IBAN__c
+                FROM Bank_Account__c WHERE Default__c = TRUE ORDER BY CreatedDate ASC LIMIT 1];
+        return bankAccounts.isEmpty() ? new Bank_Account__c() : bankAccounts[0];
     }
 
     //https://developer.mastercard.com/mastercard-checkout-solutions/documentation/use-cases/sqr/generate-qr-codes/

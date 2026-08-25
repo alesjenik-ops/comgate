@@ -156,3 +156,56 @@ Grafika a obsah komponent upraveny podle DKD Brand Manuálu (10/2025):
   `DonationPageFavicon` a galerii v `DonationPageImages` DKD verzemi (aktuálně obsahují
   grafiku ČČK). Footer ukazuje kontakty jen obecně (web + provozovatel) — telefon/adresu
   případně doplňte přímo v `DonationPageFooter.cmp`.
+- **Fotky už vyměněné**: `DonationPageHeaderImage` = holčička u piana (převzato ze záhlaví
+  darujemekrouzky.cz/obecne-darcovstvi, oříznuto na poměr 2,56:1 kvůli `background-size: cover`),
+  `DonationPageCampaignPhoto` = původní fotka tří dětí ze záhlaví (nahradila fotku
+  s paní Pavlovou). `DonationPageHeaderLogo`/`FooterLogo` už DKD logo (negativ) jsou.
+
+## Děkovné dopisy po zaplacení daru
+
+Rozesílá flow **`Gift_Transaction_Thank_You_Email`** (GiftTransaction, after save,
+create i update). Vstupní podmínka: `Status = 'Paid'` **a** `Thank_You_Email_Sent__c = false`.
+Vlastní logika běží na cestě **Run Asynchronously** (`AsyncAfterCommit`) — stejně jako
+`Gift_Transaction_After_Update` ve Stripe stromu. Důvod: odeslání e-mailu se tím oddělí
+od transakce Comgate webhooku, takže chyba v e-mailu nemůže zrušit zápis „zaplaceno".
+
+Větvení:
+
+| Situace | Šablona |
+|---|---|
+| GiftTransaction **bez** GiftCommitment | `DKD_Thank_You_One_Time` („Děkujeme za váš dar") |
+| **první** zaplacená transakce pod GiftCommitment | `DKD_Thank_You_Recurring` („Děkujeme, že v tom jedete s námi") |
+| další pravidelné platby | žádný e-mail, jen se nastaví příznak |
+
+„První transakce" se nepozná počítáním transakcí, ale příznakem
+`GiftCommitment.Thank_You_Email_Sent__c` — je to idempotentní, takže ani opakovaný
+webhook nebo ruční překlopení stavu dopis neposlou dvakrát.
+`GiftTransaction.Thank_You_Email_Sent__c` drží totéž na úrovni transakce a zároveň
+brání rekurzi (je součástí vstupní podmínky flow).
+
+Merge pole se berou z GiftTransaction přes `relatedRecordId`, ne z příjemce —
+formule `Thank_You_Donor_Name__c` (`Donor.FirstName`, fallback `Donor.Name`) a
+`Thank_You_Amount__c` (`TEXT(ROUND(OriginalAmount, 0))`, aby v dopise bylo „500 Kč"
+a ne „500.00"). Příjemce je `Donor.PersonContactId`, u firemního účtu
+`Donor.npc_bridge__PrimaryContact__c`.
+
+Šablony jsou Lightning Email Templates (`uiType SFX`, `relatedEntityType GiftTransaction`)
+ve složce `email/DKD_Thank_You/`. Logo DKD se do e-mailu tahá z veřejné URL static
+resource `DonationPageHeaderLogo` — při změně domény site je potřeba přepsat `src`
+v obou `.email` souborech.
+
+**Předpoklad nasazení:** ověřená Org-Wide Email Address `info@darujemekrouzky.cz`.
+Bez ní flow doběhne, ale nic neodešle (viz `deploy/README.md`).
+
+## Thank you page — plný redirect
+
+`DonationPageForm` (design atribut **Thank You Page URL**) i `donationPageCommunity`
+(`@api thankYouPageUrl`) mají výchozí hodnotu `https://www.darujemekrouzky.cz/dekujeme/`.
+Když je vyplněná, po úspěšné platbě se místo děkovné sekce provede redirect
+přes `window.top.location.href` (fallback `window.location.href`) — `top`, aby se
+prohlížeč dostal ven z iframu platební brány. Děkovná sekce se nastaví ještě před
+redirectem, takže při odmítnuté navigaci zůstane původní chování. Prázdná hodnota =
+dárce zůstane na formuláři.
+
+Platí pro oba návraty z brány: top-level návrat s `?status=success` i postMessage
+`onSuccessPage` z vnořené stránky.

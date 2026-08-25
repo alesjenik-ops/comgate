@@ -17,6 +17,7 @@
             component.set('v.success', true);
             component.set('v.currentStep', 'last');
             helper.pushPurchaseDataLayer(component);
+            helper.redirectToThankYouPage(component);
         }
         if(campaignId) component.set('v.campaignId', campaignId);
 

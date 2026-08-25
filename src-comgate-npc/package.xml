@@ -76,8 +76,15 @@
         <name>CustomTab</name>
     </types>
     <types>
+        <members>DKD_Thank_You</members>
+        <members>DKD_Thank_You/DKD_Thank_You_One_Time</members>
+        <members>DKD_Thank_You/DKD_Thank_You_Recurring</members>
+        <name>EmailTemplate</name>
+    </types>
+    <types>
         <members>Gift_Commitment_After_Insert_Comgate</members>
         <members>Gift_Transaction_After_Insert_Comgate</members>
+        <members>Gift_Transaction_Thank_You_Email</members>
         <name>Flow</name>
     </types>
     <types>

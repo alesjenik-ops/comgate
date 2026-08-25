@@ -24,3 +24,13 @@ Případně validace bez nasazení:
 ```bash
 sf project deploy validate --metadata-dir <složka> --target-org <alias-orgu>
 ```
+
+### Nasazení přes Workbench
+
+Pro dílčí změny jsou v `deploy/` připravené ZIP balíčky (package.xml v kořeni ZIPu),
+které se dají nahrát ve Workbench → *migration → Deploy*. Postup, seznam metadat
+a kroky po nasazení viz [`deploy/README.md`](deploy/README.md).
+
+```bash
+./deploy/build-thank-you-letters.sh   # přebuildí deploy/thank-you-letters.zip ze src-comgate-npc/
+```

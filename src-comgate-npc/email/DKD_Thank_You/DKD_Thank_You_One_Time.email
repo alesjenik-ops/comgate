@@ -1,0 +1,52 @@
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#f3f0eb;margin:0;padding:24px 12px;">
+    <tr>
+        <td align="center">
+            <table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="width:600px;max-width:600px;background-color:#ffffff;border-radius:16px;overflow:hidden;">
+                <tr>
+                    <td align="center" style="background-color:#362031;padding:30px 24px;">
+                        <img src="https://czechcouncilofchildrenandyouth.my.site.com/donations/sfsites/c/resource/DonationPageHeaderLogo" alt="Darujeme kroužky dětem" width="240" style="display:block;width:240px;max-width:70%;height:auto;border:0;" />
+                    </td>
+                </tr>
+                <tr>
+                    <td style="height:6px;background-color:#fa95c2;font-size:0;line-height:0;">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td style="padding:36px 40px 4px 40px;font-family:'Fira Sans','Segoe UI',Arial,Helvetica,sans-serif;font-size:16px;line-height:1.65;color:#3a3340;">
+                        <p style="margin:0 0 20px;font-size:18px;color:#362031;">Dobrý den, {{{Record.Thank_You_Donor_Name__c}}},</p>
+                        <p style="margin:0 0 16px;">děkujeme za Váš dar ve výši <strong style="color:#362031;">{{{Record.Thank_You_Amount__c}}} Kč</strong> pro projekt Darujeme kroužky dětem. Moc si Vaší podpory vážíme.</p>
+                        <p style="margin:0 0 16px;">Váš dar využijeme na příspěvky na kroužky pro děti, kterým jejich životní nebo rodinná situace znesnadňuje přístup k volnočasovým aktivitám. Svým darem přispějete na náklady spojené se sportem, hudbou, tvořením, oddílovými a dalšími volnočasovými aktivitami, a pomůžete tak dětem věnovat se tomu, co je baví.</p>
+                        <p style="margin:0 0 16px;">Kroužek přitom není jen způsob, jak trávit volný čas. Pro dítě může být místem, kde objeví své silné stránky, naváže přátelství, naučí se něco nového, získá větší sebedůvěru a zažije pocit, že někam patří.</p>
+                        <p style="margin:0 0 16px;">Právě díky lidem, jako jste Vy, mohou tuto příležitost dostat i děti, pro které by kroužky jinak nebyly dostupné.</p>
+                        <p style="margin:0 0 16px;">Děkujeme, že dětem pomáháte dělat to, co je baví, poznávat nové kamarády, zažívat dobrodružství a rozvíjet své dovednosti.</p>
+                        <p style="margin:0 0 24px;">Přejeme Vám krásný den a budeme rádi, když nám zachováte přízeň i do budoucna.</p>
+                        <p style="margin:0 0 4px;color:#362031;">Za celý tým Darujeme kroužky dětem</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding:20px 40px 36px 40px;font-family:'Fira Sans','Segoe UI',Arial,Helvetica,sans-serif;font-size:14px;line-height:1.6;color:#6b6270;">
+                        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                            <tr>
+                                <td style="border-top:2px solid #e4e3df;padding-top:20px;">
+                                    <p style="margin:0 0 2px;font-size:16px;font-weight:bold;color:#362031;">Petra Votavová</p>
+                                    <p style="margin:0 0 12px;">fundraising a péče o dárce</p>
+                                    <p style="margin:0;color:#362031;font-weight:bold;">Darujeme kroužky dětem</p>
+                                    <p style="margin:0 0 12px;">Česká rada dětí a mládeže</p>
+                                    <p style="margin:0;">Senovážné nám. 977/24 | 110 00 Praha</p>
+                                    <p style="margin:0;">tel. 603 373 201</p>
+                                    <p style="margin:0;">e-mail: <a href="mailto:petra.votavova@crdm.cz" style="color:#4f3549;">petra.votavova@crdm.cz</a></p>
+                                    <p style="margin:0;"><a href="https://www.darujemekrouzky.cz" style="color:#4f3549;">www.darujemekrouzky.cz</a></p>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center" style="background-color:#f3f0eb;padding:18px 40px;font-family:'Fira Sans','Segoe UI',Arial,Helvetica,sans-serif;font-size:12px;line-height:1.6;color:#8a8292;">
+                        Česká rada dětí a mládeže, Senovážné nám. 977/24, 110 00 Praha<br />
+                        <a href="https://www.darujemekrouzky.cz" style="color:#8a8292;">www.darujemekrouzky.cz</a>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
