@@ -76,9 +76,9 @@
         <name>CustomTab</name>
     </types>
     <types>
-        <members>DKD_Thank_You</members>
-        <members>DKD_Thank_You/DKD_Thank_You_One_Time</members>
-        <members>DKD_Thank_You/DKD_Thank_You_Recurring</members>
+        <members>DKD_Thank_You_2</members>
+        <members>DKD_Thank_You_2/DKD_Thank_You_One_Time</members>
+        <members>DKD_Thank_You_2/DKD_Thank_You_Recurring</members>
         <name>EmailTemplate</name>
     </types>
     <types>

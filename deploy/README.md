@@ -7,14 +7,14 @@ Nasazuje se **natřikrát**, v tomto pořadí:
 
 | # | ZIP | Obsah |
 |---|---|---|
-| 1 | `thank-you-letters-1-folder.zip` | jen **složka** DKD Thank You |
+| 1 | `thank-you-letters-1-folder.zip` | jen **složka** DKD Thank You (v CRDM orgu už založena ručně — přeskočte) |
 | 2 | `thank-you-letters-2-templates.zip` | **šablony** dopisů |
 | 3 | `thank-you-letters-3-base.zip` | kód, pole, flow, komponenty, fotky |
 
 Proč tři a ne jeden:
 
 - Složka a šablony v ní nesmí jít najednou — Metadata API nezaručuje pořadí a šablony
-  se zpracují dřív než složka, což skončí chybou `Cannot find folder:DKD_Thank_You`.
+  se zpracují dřív než složka, což skončí chybou `Cannot find folder:DKD_Thank_You_2`.
 - Složka zároveň nesmí být ve stejném balíčku jako flow. Při zapnutém **Rollback On Error**
   ji každá chyba flow smaže zpátky a krok se šablonami pak spadne znovu, i když se
   s ním nic nestalo.
@@ -42,19 +42,22 @@ Přebuildit ze zdrojů: `./deploy/build-thank-you-letters.sh`
 
 ### Krok 1 — `thank-you-letters-1-folder.zip`
 
+**V produkčním CRDM orgu tenhle krok přeskočte** — složka tam už je, založená ručně
+pod API názvem `DKD_Thank_You_2`. Balíček je tu pro čistý org.
+
 Rollback On Error, Single Package, Test Level `NoTestRun`. Balíček má 3 soubory,
 projde během vteřiny.
 
 ### Krok 2 — `thank-you-letters-2-templates.zip`
 
 Až po **úspěšném** kroku 1, jinak složka neexistuje a deploy skončí na
-`Cannot find folder:DKD_Thank_You`. Rollback On Error, Single Package, `NoTestRun`.
+`Cannot find folder:DKD_Thank_You_2`. Rollback On Error, Single Package, `NoTestRun`.
 
 Ověření, že složka v orgu opravdu je — Workbench → *queries → SOQL Query*,
 object `Folder`, nebo rovnou:
 
 ```sql
-SELECT Id, Name, DeveloperName, Type FROM Folder WHERE DeveloperName = 'DKD_Thank_You'
+SELECT Id, Name, DeveloperName, Type FROM Folder WHERE DeveloperName = 'DKD_Thank_You_2'
 ```
 
 - **1 řádek** → složka existuje, krok 2 může jít.
@@ -72,12 +75,18 @@ Setup → *Email Templates* → **All Email Templates** → tlačítko **New Fol
 | Pole | Hodnota |
 |---|---|
 | Email Template Folder Label | `DKD Thank You` |
-| Unique Name (API název) | `DKD_Thank_You` |
+| Unique Name (API název) | `DKD_Thank_You_2` |
 | Access | Public / ReadWrite |
 
 Unique Name musí sedět **přesně**, na něj se šablony v balíčku odkazují.
 Ručně založená složka se nesmaže žádným rollbackem, takže tímhle se cyklus
 "krok 1 spadl, krok 2 nemá složku" definitivně ukončí.
+
+Proč `_2` a ne `DKD_Thank_You`: původní název zůstal zablokovaný smazanými složkami
+z rollbacknutých deployů. Salesforce API názvy smazaných složek hned neuvolňuje,
+takže se sáhlo po volném `DKD_Thank_You_2` a repo se srovnalo podle orgu.
+Na DeveloperName samotných šablon (`DKD_Thank_You_One_Time`, `DKD_Thank_You_Recurring`)
+to nemá vliv — flow je hledá podle nich, ne podle složky.
 
 ### Krok 3 — `thank-you-letters-3-base.zip`
 
