@@ -352,13 +352,21 @@
         <connector>
             <targetReference>Mark_Transaction_Sent</targetReference>
         </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.GiftCommitmentId</elementReference>
+            </value>
+        </filters>
         <inputAssignments>
             <field>Thank_You_Email_Sent__c</field>
             <value>
                 <booleanValue>true</booleanValue>
             </value>
         </inputAssignments>
-        <inputReference>Get_Gift_Commitment</inputReference>
+        <object>GiftCommitment</object>
     </recordUpdates>
     <recordUpdates>
         <name>Mark_Transaction_Sent</name>

@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  Delta manifest: dekovne dopisy + thank-you page redirect + nove fotky.
+  KROK 1 z 2 - vse krome samotnych e-mailovych sablon, vcetne slozky DKD_Thank_You.
+  Slozka a jeji sablony nesmi jit v jednom deployi: Metadata API nezarucuje poradi
+  a sablony se pak zpracuji driv nez slozka ("Cannot find folder:DKD_Thank_You").
+  Po uspesnem kroku 1 nasadte deploy/thank-you-letters-2-templates.zip.
+
   Zdrojem vsech souboru je src-comgate-npc/ - tento manifest jen vybira, co se nasazuje.
-  ZIP pro Workbench sestavite skriptem deploy/build-thank-you-letters.sh
+  ZIPy pro Workbench sestavite skriptem deploy/build-thank-you-letters.sh
 -->
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
     <types>
@@ -26,8 +30,6 @@
     </types>
     <types>
         <members>DKD_Thank_You</members>
-        <members>DKD_Thank_You/DKD_Thank_You_One_Time</members>
-        <members>DKD_Thank_You/DKD_Thank_You_Recurring</members>
         <name>EmailTemplate</name>
     </types>
     <types>

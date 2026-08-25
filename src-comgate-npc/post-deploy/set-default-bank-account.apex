@@ -43,9 +43,21 @@ upsert toUpdate;
 
 System.debug('Vychozi Bank_Account__c: ' + accountNumber + ' / ' + iban + ' (Id ' + target.Id + ')');
 
-// Pozor: pokud ma kampan vyplnene sve vlastni Campaign.Bank_Account__c, ma prednost
-// pred timto vychozim zaznamem. Zkontrolujte:
+// Campaign.Bank_Account__c ma prednost pred vychozim zaznamem, takze kampan darovaci
+// stranky musi ukazovat na tenhle ucet - jinak by se zmena na QR strance neprojevila.
+Id donationCampaignId = '701Te00000gDlc7IAC';
+List<Campaign> donationCampaigns = [SELECT Id, Name, Bank_Account__c FROM Campaign WHERE Id = :donationCampaignId];
+if (donationCampaigns.isEmpty()) {
+    System.debug('POZOR: kampan ' + donationCampaignId + ' v orgu neexistuje - zkontrolujte Id.');
+} else {
+    Campaign donationCampaign = donationCampaigns[0];
+    donationCampaign.put('Bank_Account__c', target.Id);
+    update donationCampaign;
+    System.debug('Kampan ' + donationCampaign.Name + ' napojena na ucet ' + accountNumber);
+}
+
+// Ostatni kampane s vlastnim uctem - projdete a rozhodnete, jestli maji zustat:
 for (Campaign c : [SELECT Id, Name, Bank_Account__r.Bank_Account_Number__c
-                   FROM Campaign WHERE Bank_Account__c != NULL]) {
-    System.debug('Kampan s vlastnim uctem: ' + c.Name + ' -> ' + c.Bank_Account__r.Bank_Account_Number__c);
+                   FROM Campaign WHERE Bank_Account__c != NULL AND Id != :donationCampaignId]) {
+    System.debug('Jina kampan s vlastnim uctem: ' + c.Name + ' -> ' + c.Bank_Account__r.Bank_Account_Number__c);
 }

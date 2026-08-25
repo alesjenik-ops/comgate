@@ -197,6 +197,14 @@ v obou `.email` souborech.
 **Předpoklad nasazení:** ověřená Org-Wide Email Address `info@darujemekrouzky.cz`.
 Bez ní flow doběhne, ale nic neodešle (viz `deploy/README.md`).
 
+**Pozor při nasazování:** složka `DKD_Thank_You` a šablony v ní musí jít ve dvou
+samostatných deployích. Metadata API nezaručuje pořadí a šablony se zpracují dřív
+než složka — deploy pak spadne na `Cannot find folder:DKD_Thank_You`. Proto jsou
+v `deploy/` dva ZIPy. Ze stejného důvodu `Update Records` nad výsledkem `Get Records`
+nesmí kombinovat `inputReference` s `inputAssignments` (na `$Record` to Salesforce
+povoluje, na proměnnou z Get Records ne) — `Mark_Commitment_Sent` proto hledá
+GiftCommitment přes filtr na `Id`, ne přes uloženou proměnnou.
+
 ## Thank you page — plný redirect
 
 `DonationPageForm` (design atribut **Thank You Page URL**) i `donationPageCommunity`
