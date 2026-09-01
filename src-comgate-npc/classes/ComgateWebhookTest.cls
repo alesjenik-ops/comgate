@@ -178,6 +178,61 @@ public with sharing class ComgateWebhookTest {
     }
 
     @IsTest
+    public static void test_paidOneOff_googlePay(){
+        //Regression: Comgate sends method=GOOGLEPAY (not GPAY). While the code was unmapped the upsert
+        //failed with INVALID_OR_NULL_FOR_RESTRICTED_PICKLIST and the webhook answered 500.
+        Account donor = [SELECT Id FROM Account LIMIT 1];
+        GiftTransaction giftTransaction = ComgateTestFactory.getGiftTransaction(donor.Id, ComgateUtil.GIFT_TRANSACTION_UNPAID);
+        insert giftTransaction;
+
+        Payment_Reference__c paymentReference = ComgateTestFactory.getPaymentReference(donor.Id, null);
+        paymentReference.Gift_Transaction__c = giftTransaction.Id;
+        insert paymentReference;
+
+        Test.setMock(HttpCalloutMock.class, new ComgateMockTest.PaymentStatusResponse('PAID'));
+
+        Test.startTest();
+        callWebhook(ComgateTestFactory.getWebhookEventJson(paymentReference.Id, 'PAID', 'GOOGLEPAY', ComgateMockTest.TRANS_ID));
+        Test.stopTest();
+
+        GiftTransaction giftTransactionAssert = [SELECT Id, Status, Status__c, Payment_Method__c
+                FROM GiftTransaction WHERE Id = :giftTransaction.Id];
+        Assert.areEqual(ComgateUtil.GIFT_TRANSACTION_PAID, giftTransactionAssert.Status);
+        Assert.areEqual('PAID', giftTransactionAssert.Status__c);
+        Assert.areEqual('Google Pay', giftTransactionAssert.Payment_Method__c);
+
+        Payment_Log__c log = [SELECT Id, Payment_Method__c FROM Payment_Log__c];
+        Assert.areEqual('GOOGLEPAY', log.Payment_Method__c);
+
+        Assert.areEqual(200, RestContext.response.statusCode);
+    }
+
+    @IsTest
+    public static void test_paidOneOff_unknownPaymentMethod(){
+        //An unknown method must not reach the restricted picklist - the payment still has to be
+        //recorded and the raw code stays on Payment_Log__c.
+        Account donor = [SELECT Id FROM Account LIMIT 1];
+        GiftTransaction giftTransaction = ComgateTestFactory.getGiftTransaction(donor.Id, ComgateUtil.GIFT_TRANSACTION_UNPAID);
+        insert giftTransaction;
+
+        Test.setMock(HttpCalloutMock.class, new ComgateMockTest.PaymentStatusResponse('PAID'));
+
+        Test.startTest();
+        callWebhook(ComgateTestFactory.getWebhookEventJson(giftTransaction.Id, 'PAID', 'LATER_TWISTO', ComgateMockTest.TRANS_ID));
+        Test.stopTest();
+
+        GiftTransaction giftTransactionAssert = [SELECT Id, Status, Payment_Method__c
+                FROM GiftTransaction WHERE Id = :giftTransaction.Id];
+        Assert.areEqual(ComgateUtil.GIFT_TRANSACTION_PAID, giftTransactionAssert.Status);
+        Assert.isNull(giftTransactionAssert.Payment_Method__c);
+
+        Payment_Log__c log = [SELECT Id, Payment_Method__c FROM Payment_Log__c];
+        Assert.areEqual('LATER_TWISTO', log.Payment_Method__c);
+
+        Assert.areEqual(200, RestContext.response.statusCode);
+    }
+
+    @IsTest
     public static void test_statusMismatch_noChanges(){
         Account donor = [SELECT Id FROM Account LIMIT 1];
         GiftTransaction giftTransaction = ComgateTestFactory.getGiftTransaction(donor.Id, ComgateUtil.GIFT_TRANSACTION_UNPAID);

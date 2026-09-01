@@ -5,11 +5,28 @@ public with sharing class ComgateUtilTest {
     public static void test_convertComgatePaymentMethod(){
         Assert.areEqual('Credit Card', ComgateUtil.convertComgatePaymentMethod('CARD_CZ_COMGATE'));
         Assert.areEqual('Online Bank', ComgateUtil.convertComgatePaymentMethod('BANK_CZ_KB'));
+        Assert.areEqual('Bank Transfer', ComgateUtil.convertComgatePaymentMethod('TRANSFER'));
+    }
+
+    @IsTest
+    public static void test_convertComgatePaymentMethod_wallets(){
+        //GOOGLEPAY is the code Comgate actually sends in the webhook; GPAY kept for backwards compatibility
+        Assert.areEqual('Google Pay', ComgateUtil.convertComgatePaymentMethod('GOOGLEPAY'));
+        Assert.areEqual('Google Pay', ComgateUtil.convertComgatePaymentMethod('GOOGLEPAY_REDIRECT'));
         Assert.areEqual('Google Pay', ComgateUtil.convertComgatePaymentMethod('GPAY'));
         Assert.areEqual('Apple Pay', ComgateUtil.convertComgatePaymentMethod('APPLEPAY'));
-        Assert.areEqual('Bank Transfer', ComgateUtil.convertComgatePaymentMethod('TRANSFER'));
-        Assert.areEqual('LATER_TWISTO', ComgateUtil.convertComgatePaymentMethod('LATER_TWISTO'));
+        Assert.areEqual('Apple Pay', ComgateUtil.convertComgatePaymentMethod('APPLEPAY_REDIRECT'));
+    }
+
+    @IsTest
+    public static void test_convertComgatePaymentMethod_unknownStaysNull(){
+        //Payment_Method__c is a restricted picklist - an unmapped code must not get through,
+        //otherwise the DML fails with INVALID_OR_NULL_FOR_RESTRICTED_PICKLIST and the webhook answers 500
+        Assert.isNull(ComgateUtil.convertComgatePaymentMethod('LATER_TWISTO'));
+        Assert.isNull(ComgateUtil.convertComgatePaymentMethod('PRSMS'));
         Assert.isNull(ComgateUtil.convertComgatePaymentMethod(null));
+        Assert.isNull(ComgateUtil.convertComgatePaymentMethod(''));
+        Assert.isNull(ComgateUtil.convertComgatePaymentMethod('   '));
     }
 
     @IsTest

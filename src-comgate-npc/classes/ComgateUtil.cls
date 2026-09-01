@@ -36,23 +36,23 @@ public with sharing class ComgateUtil {
         set;
     }
 
+    //Comgate reports the method actually used (GOOGLEPAY, APPLEPAY, CARD_CZ_COMGATE, BANK_CZ_KB, LATER_TWISTO...).
+    //Payment_Method__c on GiftTransaction and GiftCommitment is a restricted picklist bound to the
+    //Payment_Method global value set, so anything we cannot map has to stay null - otherwise the DML
+    //fails with INVALID_OR_NULL_FOR_RESTRICTED_PICKLIST and the webhook answers 500.
+    //The raw code is still kept on Payment_Log__c.Payment_Method__c.
     public static String convertComgatePaymentMethod(String comgatePaymentMethod){
-        if(comgatePaymentMethod == null) return null;
-        if(comgatePaymentMethod.startsWith('CARD')) return 'Credit Card';
-        if(comgatePaymentMethod.startsWith('BANK')) return 'Online Bank';
+        if(String.isBlank(comgatePaymentMethod)) return null;
 
-        switch on comgatePaymentMethod{
-            when 'GPAY'{
-                return 'Google Pay';
-            }
-            when 'APPLEPAY'{
-                return 'Apple Pay';
-            }
-            when 'TRANSFER'{
-                return 'Bank Transfer';
-            }
-        }
-        return comgatePaymentMethod;
+        String methodCode = comgatePaymentMethod.trim().toUpperCase();
+
+        if(methodCode.startsWith('GOOGLEPAY') || methodCode.startsWith('GPAY')) return 'Google Pay';
+        if(methodCode.startsWith('APPLEPAY')) return 'Apple Pay';
+        if(methodCode.startsWith('CARD')) return 'Credit Card';
+        if(methodCode.startsWith('TRANSFER')) return 'Bank Transfer';
+        if(methodCode.startsWith('BANK')) return 'Online Bank';
+
+        return null;
     }
 
     public static Boolean isIdValid(String inputValue){

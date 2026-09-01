@@ -50,6 +50,13 @@ Design atributy `receiverName`/`supportEmail` (výchozí hodnoty ČČK) nahrazuj
     takže se cleanup nikdy nenaplánoval).
 12. **Footer logo** default `DonationPageFooterLogo` — odpovídá reálné NPC verzi footeru
     (`FooterLogoSimple` z Comgate orgu je k dispozici ve `src-comgate/staticresources/`).
+13. **Mapování platební metody** (`ComgateUtil.convertComgatePaymentMethod`): Comgate posílá ve webhooku
+    `GOOGLEPAY` / `APPLEPAY` (originál mapoval jen `GPAY`), a hlavně — nenamapovaný kód se **už nevrací
+    surový**, ale jako `null`. `Payment_Method__c` je restricted picklist, takže surový kód (`GOOGLEPAY`,
+    `LATER_TWISTO`…) shodil `upsert` na `INVALID_OR_NULL_FOR_RESTRICTED_PICKLIST` a webhook vrátil HTTP 500
+    — platba se pak v Salesforce vůbec nezaúčtovala. Surová hodnota zůstává na `Payment_Log__c.Payment_Method__c`
+    (Text 255). Kdyby se do picklistu měly propisovat další metody (Twisto, SkipPay, PRSMS), je potřeba
+    nejdřív rozšířit global value set `Payment_Method` a pak doplnit větev v mapování.
 
 ## Nové artefakty (nikde předtím neexistovaly)
 
