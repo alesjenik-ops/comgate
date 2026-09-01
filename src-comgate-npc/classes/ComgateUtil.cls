@@ -16,6 +16,13 @@ public with sharing class ComgateUtil {
         set;
     }
 
+    // test payments: always in a sandbox, in production only with Comgate_Settings__c.Test_Mode__c checked
+    public static Boolean isTestPayment {
+        get {
+            return runningInASandbox || comgateSettings.Test_Mode__c == true;
+        }
+    }
+
     public static Comgate_Settings__c comgateSettings {
         get {
             if (comgateSettings == null) {

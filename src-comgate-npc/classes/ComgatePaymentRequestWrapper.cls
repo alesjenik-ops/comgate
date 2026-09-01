@@ -35,7 +35,7 @@ public with sharing class ComgatePaymentRequestWrapper {
 
 
     public ComgatePaymentRequestWrapper(){
-        this.test = ComgateUtil.runningInASandbox;
+        this.test = ComgateUtil.isTestPayment;
         this.method = 'ALL';
         this.lang = 'cs';
         this.enableApplePayGooglePay = true;

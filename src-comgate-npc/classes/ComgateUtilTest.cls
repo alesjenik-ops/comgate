@@ -85,4 +85,18 @@ public with sharing class ComgateUtilTest {
     public static void test_runningInASandbox(){
         Assert.isNotNull(ComgateUtil.runningInASandbox);
     }
+
+    @IsTest
+    public static void test_isTestPayment(){
+        ComgateUtil.runningInASandbox = false;
+        ComgateUtil.comgateSettings = new Comgate_Settings__c(Test_Mode__c = false);
+        Assert.isFalse(ComgateUtil.isTestPayment);
+
+        ComgateUtil.comgateSettings = new Comgate_Settings__c(Test_Mode__c = true);
+        Assert.isTrue(ComgateUtil.isTestPayment);
+
+        ComgateUtil.runningInASandbox = true;
+        ComgateUtil.comgateSettings = new Comgate_Settings__c(Test_Mode__c = false);
+        Assert.isTrue(ComgateUtil.isTestPayment);
+    }
 }
