@@ -1,4 +1,5 @@
 import { LightningElement, api } from 'lwc';
+import { injectDonationFonts } from 'c/donationFonts';
 import getFieldSetWrapper from '@salesforce/apex/DonationPageController.getFieldSetWrapper';
 import getReferenceId from '@salesforce/apex/DonationPageController.getReferenceId';
 import createComgatePayment from '@salesforce/apex/DonationPageController.createComgatePayment';
@@ -113,6 +114,7 @@ export default class DonationWidget extends LightningElement {
     /* ================= lifecycle ================= */
 
     connectedCallback() {
+        injectDonationFonts();
         // Uvnitr iframe platebni brany jen ohlasime uspech rodicovskemu oknu
         if (window.frameElement) {
             parent.postMessage({ id: 'onSuccessPage', data: { isSuccess: true } }, '*');

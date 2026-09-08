@@ -1,4 +1,5 @@
 import { LightningElement, api } from 'lwc';
+import { injectDonationFonts } from 'c/donationFonts';
 
 export default class DonationThankYou extends LightningElement {
     @api headline = 'Děkujeme Vám';
@@ -10,6 +11,10 @@ export default class DonationThankYou extends LightningElement {
     @api infolineHours = 'pondělí–pátek, 9–16 hodin · infolinka v českém jazyce';
     @api backLabel = 'Zpět na úvod';
     @api backUrl = 'https://www.darujemekrouzky.cz/';
+
+    connectedCallback() {
+        injectDonationFonts();
+    }
 
     get mailtoHref() {
         return `mailto:${this.contactEmail}`;

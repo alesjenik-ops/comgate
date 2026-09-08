@@ -4,10 +4,12 @@
         <members>donationArrow</members>
         <members>donationWidget</members>
         <members>donationThankYou</members>
+        <members>donationFonts</members>
         <name>LightningComponentBundle</name>
     </types>
     <types>
         <members>DonationWidgetIcons</members>
+        <members>DonationPageFonts</members>
         <name>StaticResource</name>
     </types>
     <version>64.0</version>
