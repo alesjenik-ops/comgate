@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>64.0</apiVersion>
+    <description>Darcovsky widget CRDM - konfigurovatelny formular s vyberem castky, barevnou sipkou a napojenim na Comgate</description>
+    <isExposed>true</isExposed>
+    <masterLabel>Darcovsky widget</masterLabel>
+    <targets>
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Default</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightningCommunity__Default">
+            <property name="widgetMode"
+                      type="String"
+                      label="Rezim widgetu"
+                      datasource="popup,landing"
+                      default="popup"
+                      description="popup = samotna karta formulare (pro vlozeni do popup okna na webu nebo na mobilu). landing = karta i s levym sloupcem, nadpisem a barevnou sipkou."/>
+            <property name="campaignId"
+                      type="String"
+                      label="ID kampane"
+                      description="Kampan, na kterou se navazou dary z tohoto widgetu. Timto se widgety odlisuji v reportech - kazdy svoji kampan. Kdyz zustane prazdne, pouzije se prvni dostupna kampan."/>
+            <property name="amountsOneOff"
+                      type="String"
+                      label="Castky - jednorazove"
+                      default="500,1000,1500"
+                      description="Tri castky oddelene carkou, napr. 500,1000,1500. Ctvrtou dlazdici je vzdy Vlastni castka."/>
+            <property name="amountsMonthly"
+                      type="String"
+                      label="Castky - mesicne"
+                      default="500,1000,1500"
+                      description="Tri castky pro mesicni darovani, oddelene carkou. Pouzije se jen kdyz je zapnute mesicni darovani."/>
+            <property name="allowMonthly"
+                      type="Boolean"
+                      label="Nabizet mesicni darovani"
+                      default="true"
+                      description="Zobrazi prepinac Jednorazove / Mesicne nad castkami."/>
+            <property name="defaultFrequency"
+                      type="String"
+                      label="Vychozi frekvence"
+                      datasource="oneoff,monthly"
+                      default="oneoff"
+                      description="Ktera moznost je predvybrana pri otevreni. Parametr frequency v URL ma prednost."/>
+            <property name="headline"
+                      type="String"
+                      label="Nadpis"
+                      default="Změňte život dětem jedním kliknutím"
+                      description="Zobrazuje se jen v rezimu landing."/>
+            <property name="subheadline"
+                      type="String"
+                      label="Podnadpis"
+                      default="Zvolte částku a proměňte ji v konkrétní podporu dětí. Vaše vybraná částka zajistí pro děti toto:"
+                      description="Zobrazuje se jen v rezimu landing."/>
+            <property name="showArrow"
+                      type="Boolean"
+                      label="Zobrazit barevnou sipku"
+                      default="false"
+                      description="Zapne barevny sipkovy pruh pod textem, ktery se meni podle zvolene castky. Funguje v rezimu landing."/>
+            <property name="arrowVariant1"
+                      type="String"
+                      label="Sipka pro 1. castku"
+                      datasource="Zadna sipka,1 dite / 1 mesic,1 dite / 1 mesic (Podpora),1 dite / pololeti,1 dite / skolni rok,1 dite / cely rok,3 deti / pololeti,6 deti / pololeti,12 deti / pololeti,1 dite / krouzek,Oddil ci tabor (noty),Oddil ci tabor (mic),Oddil ci tabor (paleta),Oddil ci tabor (stan),Vlastni castka,Volna varianta (cteni),Volna varianta (psani)"
+                      description="Varianta sipky pro prvni castku v poradi. Kazda varianta nese svuj text, barvu i ikonu."/>
+            <property name="arrowVariant2"
+                      type="String"
+                      label="Sipka pro 2. castku"
+                      datasource="Zadna sipka,1 dite / 1 mesic,1 dite / 1 mesic (Podpora),1 dite / pololeti,1 dite / skolni rok,1 dite / cely rok,3 deti / pololeti,6 deti / pololeti,12 deti / pololeti,1 dite / krouzek,Oddil ci tabor (noty),Oddil ci tabor (mic),Oddil ci tabor (paleta),Oddil ci tabor (stan),Vlastni castka,Volna varianta (cteni),Volna varianta (psani)"
+                      description="Varianta sipky pro druhou castku v poradi."/>
+            <property name="arrowVariant3"
+                      type="String"
+                      label="Sipka pro 3. castku"
+                      datasource="Zadna sipka,1 dite / 1 mesic,1 dite / 1 mesic (Podpora),1 dite / pololeti,1 dite / skolni rok,1 dite / cely rok,3 deti / pololeti,6 deti / pololeti,12 deti / pololeti,1 dite / krouzek,Oddil ci tabor (noty),Oddil ci tabor (mic),Oddil ci tabor (paleta),Oddil ci tabor (stan),Vlastni castka,Volna varianta (cteni),Volna varianta (psani)"
+                      description="Varianta sipky pro treti castku v poradi."/>
+            <property name="arrowVariantCustom"
+                      type="String"
+                      label="Sipka pro vlastni castku"
+                      datasource="Zadna sipka,1 dite / 1 mesic,1 dite / 1 mesic (Podpora),1 dite / pololeti,1 dite / skolni rok,1 dite / cely rok,3 deti / pololeti,6 deti / pololeti,12 deti / pololeti,1 dite / krouzek,Oddil ci tabor (noty),Oddil ci tabor (mic),Oddil ci tabor (paleta),Oddil ci tabor (stan),Vlastni castka,Volna varianta (cteni),Volna varianta (psani)"
+                      description="Varianta sipky, kdyz si darce zvoli vlastni castku."/>
+            <property name="thankYouPageUrl"
+                      type="String"
+                      label="URL dekovaci stranky"
+                      description="Kam se darce presmeruje po uspesne platbe v Comgate. Kdyz zustane prazdne, zobrazi se podekovani primo ve formulari."/>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

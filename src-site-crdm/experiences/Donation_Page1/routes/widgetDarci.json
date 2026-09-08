@@ -1,0 +1,12 @@
+{
+  "activeViewId" : "03051e95-d3e6-4608-842b-4069de043ae0",
+  "appPageId" : "df0c588e-3c17-4db5-ad0a-2ec94644d54d",
+  "configurationTags" : [ ],
+  "devName" : "widgetDarci__c",
+  "id" : "05f6e6cf-3c96-49d1-b46c-d565c934bafe",
+  "label" : "Widget darci",
+  "pageAccess" : "UseParent",
+  "routeType" : "custom-widgetDarci",
+  "type" : "route",
+  "urlPrefix" : "widget-darci"
+}

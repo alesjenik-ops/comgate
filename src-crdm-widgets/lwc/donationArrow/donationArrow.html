@@ -1,0 +1,10 @@
+<template>
+    <div if:true={hasVariant} class="arrow" style={backgroundStyle}>
+        <img class="arrow__icon" src={iconUrl} alt="" aria-hidden="true" />
+        <p class="arrow__text">
+            <template for:each={lines} for:item="line">
+                <span key={line.key} class="arrow__line">{line.text}</span>
+            </template>
+        </p>
+    </div>
+</template>

@@ -1,132 +1,114 @@
 {
-  "appPageId": "df0c588e-3c17-4db5-ad0a-2ec94644d54d",
-  "componentName": "c:DonationPageLayout",
-  "dataProviders": [],
-  "id": "1bb76850-2be7-44ab-87a1-a110f23f0994",
-  "label": "Home",
-  "regions": [
-    {
-      "components": [
-        {
-          "componentAttributes": {
-            "headerCss": "",
-            "headerImage": "DonationPageHeaderImage?v11",
-            "headerImageCSS": "",
-            "headerSubTitle": "Pomáháme rodinám zaplatit volnočasové aktivity pro děti.",
-            "headerSubTitleStyle": "",
-            "headerTitle": "Darujte kroužky dětem",
-            "headerTitleStyle": "",
-            "logoHref": "https://darujemekrouzky.cz/",
-            "logoImage": "DonationPageHeaderLogo?v8"
-          },
-          "componentName": "c:DonationPageHeader",
-          "id": "e5700648-f073-4467-a71e-88d69b1c6838",
-          "renderPriority": "NEUTRAL",
-          "renditionMap": {},
-          "type": "component"
-        }
-      ],
-      "id": "1bed8bc4-eff6-4373-9ddd-eee4df693bc9",
-      "regionName": "header",
-      "type": "region"
-    },
-    {
-      "id": "34796767-68ec-4455-90fc-41a97281b31b",
-      "regionName": "content",
-      "type": "region"
-    },
-    {
-      "components": [
-        {
-          "componentAttributes": {
-            "logoHref": "https://darujemekrouzky.cz/",
-            "logoImage": "DonationPageFooterLogo?v8"
-          },
-          "componentName": "c:DonationPageFooter",
-          "id": "33fc89cb-2a9f-41d5-97fb-0dba96d9e19f",
-          "renderPriority": "NEUTRAL",
-          "renditionMap": {},
-          "type": "component"
-        }
-      ],
-      "id": "c73ba715-314c-40de-8dfb-944d9a223a12",
-      "regionName": "footer",
-      "type": "region"
-    },
-    {
-      "components": [
-        {
-          "componentAttributes": {
-            "customHeadTags": "",
-            "description": "Pomáháme rodinám zaplatit volnočasové aktivity pro děti. Přispějte jednorázově nebo pravidelně.",
-            "title": "Darujeme kroužky dětem"
-          },
-          "componentName": "forceCommunity:seoAssistant",
-          "id": "8bba3228-a35e-4d82-ba82-3c8644a6ef05",
-          "renditionMap": {},
-          "type": "component"
-        }
-      ],
-      "id": "828507fb-9672-4d5b-82e5-84af87d4a9de",
-      "regionName": "sfdcHiddenRegion",
-      "type": "region"
-    },
-    {
-      "id": "aa372d63-e29e-4702-a8d7-de97bf2b35f6",
-      "regionName": "bodyText",
-      "type": "region",
-      "components": [
-        {
-          "componentAttributes": {},
-          "componentName": "c:donationPageCampaignDetail",
-          "id": "119d8362-c28c-46c8-98a5-7fa6f8f9fda6",
-          "renderPriority": "NEUTRAL",
-          "renditionMap": {},
-          "type": "component"
-        }
-      ]
-    },
-    {
-      "id": "4c7b95db-4119-4363-a6e8-557808f4c49a",
-      "regionName": "mainBody",
-      "type": "region"
-    },
-    {
-      "components": [
-        {
-          "componentAttributes": {
-            "campaignId": "701Te00000gDlc7IAC",
-            "defaultDonationTypeOption": "oneoff",
-            "defaultPaymentOption": "card",
-            "disabledCampaignSelection": true,
-            "donationTypeOption_monthly": true,
-            "donationTypeOption_monthly_amounts": "20;50;100;other",
-            "donationTypeOption_oneOff": true,
-            "donationTypeOption_oneOff_amounts": "20;50;100;other",
-            "donationTypeOption_yearly": true,
-            "donationTypeOption_yearly_amounts": "200;500;1000;other",
-            "fieldSetSelection": "DonationPageFieldSet",
-            "formHeaderLabel": "Daruj kroužky pro děti",
-            "formHeaderSubLabel": "Podporujeme rodiny v ČR, které jsou v tíživé finanční situaci.",
-            "paymentOption_banktransfer": true,
-            "paymentOption_card": true,
-            "receiverName": "Česká rada dětí a mládeže",
-            "supportEmail": "info@darujemekrouzky.cz",
-            "thankYouLabel": "Děkujeme za Vaší podporu."
-          },
-          "componentName": "c:DonationPageForm",
-          "id": "0dba7d36-eec3-499a-b550-fd17053d2baa",
-          "renderPriority": "NEUTRAL",
-          "renditionMap": {},
-          "type": "component"
-        }
-      ],
-      "id": "9f5f9189-4749-4a27-97f7-277a3619760e",
-      "regionName": "form",
-      "type": "region"
-    }
-  ],
-  "themeLayoutType": "Inner",
-  "type": "view",
-  "viewType": "home"
+  "appPageId" : "df0c588e-3c17-4db5-ad0a-2ec94644d54d",
+  "componentName" : "c:DonationPageLayout",
+  "dataProviders" : [ ],
+  "id" : "1bb76850-2be7-44ab-87a1-a110f23f0994",
+  "label" : "Home",
+  "regions" : [ {
+    "components" : [ {
+      "componentAttributes" : {
+        "headerCss" : "",
+        "headerImage" : "DonationPageHeaderImage?v10",
+        "headerImageCSS" : "",
+        "headerSubTitle" : "Pomáháme rodinám zaplatit volnočasové aktivity pro děti.",
+        "headerSubTitleStyle" : "",
+        "headerTitle" : "Darujte kroužky dětem",
+        "headerTitleStyle" : "",
+        "logoHref" : "https://darujemekrouzky.cz/",
+        "logoImage" : "DonationPageHeaderLogo?v10"
+      },
+      "componentName" : "c:DonationPageHeader",
+      "id" : "e5700648-f073-4467-a71e-88d69b1c6838",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "1bed8bc4-eff6-4373-9ddd-eee4df693bc9",
+    "regionName" : "header",
+    "type" : "region"
+  }, {
+    "id" : "34796767-68ec-4455-90fc-41a97281b31b",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "logoHref" : "https://darujemekrouzky.cz/",
+        "logoImage" : "DonationPageFooterLogo?v8"
+      },
+      "componentName" : "c:DonationPageFooter",
+      "id" : "33fc89cb-2a9f-41d5-97fb-0dba96d9e19f",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "c73ba715-314c-40de-8dfb-944d9a223a12",
+    "regionName" : "footer",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "customHeadTags" : "",
+        "description" : "Pomáháme rodinám zaplatit volnočasové aktivity pro děti. Přispějte jednorázově nebo pravidelně.",
+        "title" : "Darujeme kroužky dětem"
+      },
+      "componentName" : "forceCommunity:seoAssistant",
+      "id" : "8bba3228-a35e-4d82-ba82-3c8644a6ef05",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "828507fb-9672-4d5b-82e5-84af87d4a9de",
+    "regionName" : "sfdcHiddenRegion",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : { },
+      "componentName" : "c:donationPageCampaignDetail",
+      "id" : "119d8362-c28c-46c8-98a5-7fa6f8f9fda6",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "aa372d63-e29e-4702-a8d7-de97bf2b35f6",
+    "regionName" : "bodyText",
+    "type" : "region"
+  }, {
+    "id" : "4c7b95db-4119-4363-a6e8-557808f4c49a",
+    "regionName" : "mainBody",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "campaignId" : "701Te00000gDlc7IAC",
+        "defaultDonationTypeOption" : "oneoff",
+        "defaultPaymentOption" : "card",
+        "disabledCampaignSelection" : true,
+        "donationTypeOption_monthly" : true,
+        "donationTypeOption_monthly_amounts" : "500;1000;1500;other",
+        "donationTypeOption_oneOff" : true,
+        "donationTypeOption_oneOff_amounts" : "500;1000;1500;other",
+        "donationTypeOption_yearly" : true,
+        "donationTypeOption_yearly_amounts" : "500;1000;1500;other",
+        "fieldSetSelection" : "DonationPageFieldSet",
+        "formHeaderLabel" : "Daruj kroužky pro děti",
+        "formHeaderSubLabel" : "Podporujeme rodiny v ČR, které jsou v tíživé finanční situaci.",
+        "paymentOption_banktransfer" : true,
+        "paymentOption_card" : true,
+        "receiverName" : "Česká rada dětí a mládeže",
+        "supportEmail" : "info@darujemekrouzky.cz",
+        "thankYouLabel" : "Děkujeme za Vaší podporu."
+      },
+      "componentName" : "c:DonationPageForm",
+      "id" : "0dba7d36-eec3-499a-b550-fd17053d2baa",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "9f5f9189-4749-4a27-97f7-277a3619760e",
+    "regionName" : "form",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "Inner",
+  "type" : "view",
+  "viewType" : "home"
 }

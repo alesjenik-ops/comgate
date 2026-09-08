@@ -1,0 +1,70 @@
+{
+  "appPageId" : "df0c588e-3c17-4db5-ad0a-2ec94644d54d",
+  "componentName" : "siteforce:dynamicLayout",
+  "dataProviders" : [ ],
+  "id" : "7b8f788f-c3fa-4c28-9593-75ad7492544e",
+  "label" : "Obchodní podmínky",
+  "regions" : [ {
+    "components" : [ {
+      "componentAttributes" : {
+        "background" : "background: rgba(0,0,0,0)",
+        "backgroundOverlay" : "rgba(0,0,0,0.5)",
+        "contentAreaWidth" : 100,
+        "sectionConfig" : {
+          "UUID" : "8faa0d48-12ad-4dbb-94d1-43db4892f21b",
+          "columns" : [ {
+            "UUID" : "d90ba060-fc06-4a35-8673-fc5ac486e421",
+            "columnKey" : "1",
+            "columnName" : "Column 1",
+            "columnWidth" : "12",
+            "seedComponents" : [ ]
+          } ]
+        },
+        "sectionHeight" : 300
+      },
+      "componentName" : "forceCommunity:section",
+      "id" : "8faa0d48-12ad-4dbb-94d1-43db4892f21b",
+      "regions" : [ {
+        "components" : [ {
+          "componentAttributes" : {
+            "document" : "terms"
+          },
+          "componentName" : "c:donationPageLegal",
+          "id" : "e765c540-8b6a-4637-8341-b79cc38ab93d",
+          "renderPriority" : "NEUTRAL",
+          "renditionMap" : { },
+          "type" : "component"
+        } ],
+        "id" : "d90ba060-fc06-4a35-8673-fc5ac486e421",
+        "regionLabel" : "Column 1",
+        "regionName" : "1",
+        "renditionMap" : { },
+        "type" : "region"
+      } ],
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "c5f853c4-9b63-4ce7-ba16-386d26d44482",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "customHeadTags" : "",
+        "description" : "",
+        "title" : "Obchodní podmínky"
+      },
+      "componentName" : "forceCommunity:seoAssistant",
+      "id" : "8cca08f2-b926-4801-9c17-90e1c62151d7",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "2d49521a-f3c8-4fe5-9119-7523005b0c3b",
+    "regionName" : "sfdcHiddenRegion",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "Inner",
+  "type" : "view",
+  "viewType" : "custom-obchodni-podmnky"
+}

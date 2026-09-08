@@ -1,0 +1,106 @@
+/* Design system CRDM (Figma CRDM-DEVS) */
+:host {
+    --c-text: #362031;
+    --c-deep: #4F3549;
+    --c-bg: #F5F3F0;
+    --c-accent: #1DBED3;
+    --font-head: 'Fira Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    --font-body: 'Source Sans 3', 'Source Sans Pro', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    display: block;
+    background: var(--c-bg);
+    color: var(--c-text);
+    font-family: var(--font-body);
+}
+
+.ty {
+    padding: 4rem 1.5rem;
+}
+
+.ty__inner {
+    max-width: 44rem;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.ty__headline {
+    font-family: var(--font-head);
+    font-weight: 800;
+    font-size: 3.625rem;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--c-deep);
+    margin: 0 0 1rem;
+}
+
+.ty__message {
+    font-size: 1.3125rem;
+    line-height: 1.5;
+    margin: 0 0 2.5rem;
+}
+
+.ty__contact {
+    font-size: 1.0625rem;
+    line-height: 1.55;
+    margin: 0 0 3rem;
+}
+
+.ty__link {
+    color: var(--c-accent);
+    text-decoration: none;
+    border-bottom: 1px solid currentColor;
+}
+.ty__link:hover {
+    color: var(--c-deep);
+}
+
+.ty__infoline {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 1.75rem;
+    margin-bottom: 2.5rem;
+}
+.ty__infoline-title {
+    font-family: var(--font-head);
+    font-weight: 700;
+    font-size: 1.125rem;
+    margin: 0 0 0.5rem;
+    color: var(--c-deep);
+}
+.ty__infoline-phone {
+    font-family: var(--font-head);
+    font-weight: 700;
+    font-size: 1.5rem;
+    margin: 0 0 0.375rem;
+}
+.ty__infoline-hours {
+    font-size: 0.9375rem;
+    margin: 0;
+}
+
+.ty__back {
+    display: inline-block;
+    background: var(--c-text);
+    color: var(--c-bg);
+    font-family: var(--font-head);
+    font-weight: 600;
+    font-size: 1.0625rem;
+    letter-spacing: 0.01em;
+    padding: 1rem 2rem;
+    border-radius: 8px;
+    text-decoration: none;
+}
+.ty__back:hover {
+    background: var(--c-deep);
+}
+
+@media (max-width: 640px) {
+    .ty {
+        padding: 2.5rem 1.25rem;
+    }
+    .ty__headline {
+        font-size: 2.25rem;
+    }
+    .ty__message {
+        font-size: 1.125rem;
+    }
+}

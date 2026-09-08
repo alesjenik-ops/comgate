@@ -1,0 +1,12 @@
+{
+  "activeViewId" : "526344c9-2a2c-415a-a0c8-e74a68765578",
+  "appPageId" : "df0c588e-3c17-4db5-ad0a-2ec94644d54d",
+  "configurationTags" : [ ],
+  "devName" : "dekujeme__c",
+  "id" : "0634716d-194f-4fca-9ca8-71fa13cc2baa",
+  "label" : "Dekujeme",
+  "pageAccess" : "UseParent",
+  "routeType" : "custom-dekujeme",
+  "type" : "route",
+  "urlPrefix" : "dekujeme"
+}

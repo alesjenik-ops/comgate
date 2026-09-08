@@ -1,0 +1,12 @@
+{
+  "activeViewId" : "7b8f788f-c3fa-4c28-9593-75ad7492544e",
+  "appPageId" : "df0c588e-3c17-4db5-ad0a-2ec94644d54d",
+  "configurationTags" : [ ],
+  "devName" : "custom_obchodni_podmnky__c",
+  "id" : "d01110a0-f79b-47a6-bda8-ed0e672ec395",
+  "label" : "Obchodní podmínky",
+  "pageAccess" : "UseParent",
+  "routeType" : "custom-obchodni-podmnky",
+  "type" : "route",
+  "urlPrefix" : "obchodni-podminky"
+}

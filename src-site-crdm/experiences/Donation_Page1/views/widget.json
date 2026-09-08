@@ -1,0 +1,87 @@
+{
+  "appPageId" : "df0c588e-3c17-4db5-ad0a-2ec94644d54d",
+  "componentName" : "siteforce:dynamicLayout",
+  "dataProviders" : [ ],
+  "id" : "f2d8ee47-dc04-4394-90fe-b2991671cb5d",
+  "label" : "widget",
+  "regions" : [ {
+    "components" : [ {
+      "componentAttributes" : {
+        "background" : "background: rgba(0,0,0,0)",
+        "backgroundOverlay" : "rgba(0,0,0,0.5)",
+        "contentAreaWidth" : 100,
+        "sectionConfig" : {
+          "UUID" : "6085c839-5be7-4504-8e49-b179f5cda1c3",
+          "columns" : [ {
+            "UUID" : "253d8f1a-36d5-4a89-8279-5e9ea4bdd0ba",
+            "columnKey" : "1",
+            "columnName" : "Column 1",
+            "columnWidth" : "12",
+            "seedComponents" : [ ]
+          } ]
+        },
+        "sectionHeight" : 300
+      },
+      "componentName" : "forceCommunity:section",
+      "id" : "6085c839-5be7-4504-8e49-b179f5cda1c3",
+      "regions" : [ {
+        "components" : [ {
+          "componentAttributes" : {
+            "campaignId" : "701Te00000gDlc7IAC",
+            "defaultDonationTypeOption" : "oneoff",
+            "defaultPaymentOption" : "card",
+            "disabledCampaignSelection" : false,
+            "donationTypeOption_monthly" : true,
+            "donationTypeOption_monthly_amounts" : "20;50;100;other",
+            "donationTypeOption_oneOff" : true,
+            "donationTypeOption_oneOff_amounts" : "20;50;100;other",
+            "donationTypeOption_yearly" : true,
+            "donationTypeOption_yearly_amounts" : "200;500;1000;other",
+            "fieldSetSelection" : "DonationPageFieldSet",
+            "formHeaderLabel" : "Darujte kroužky dětem",
+            "formHeaderSubLabel" : "Pomáháme rodinám zaplatit volnočasové aktivity pro děti.",
+            "paymentOption_banktransfer" : true,
+            "paymentOption_card" : true,
+            "receiverName" : "Česká rada dětí a mládeže",
+            "supportEmail" : "",
+            "thankYouLabel" : "Děkujeme za Vaší podporu."
+          },
+          "componentName" : "c:DonationPageForm",
+          "id" : "c3a702db-ae2c-44d3-bd85-7fde3f1bd86c",
+          "renderPriority" : "NEUTRAL",
+          "renditionMap" : { },
+          "type" : "component"
+        } ],
+        "id" : "253d8f1a-36d5-4a89-8279-5e9ea4bdd0ba",
+        "regionLabel" : "Column 1",
+        "regionName" : "1",
+        "renditionMap" : { },
+        "type" : "region"
+      } ],
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "0f5c4f32-c522-4b13-96d4-2c91e56a028b",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "customHeadTags" : "",
+        "description" : "",
+        "title" : "widget"
+      },
+      "componentName" : "forceCommunity:seoAssistant",
+      "id" : "cc589fd3-114b-404c-8178-8ff6b82581b1",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "519ad763-1b31-4efe-a6f4-9c9c566ca516",
+    "regionName" : "sfdcHiddenRegion",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "Inner",
+  "type" : "view",
+  "viewType" : "custom-widget"
+}

@@ -7,5 +7,30 @@
   "mainAppPageId" : "df0c588e-3c17-4db5-ad0a-2ec94644d54d",
   "preferredDomain" : "none",
   "selfRegistrationRouteId" : "88e59657-4dc6-4668-beec-2fba44bb659f",
+  "trustedSitesForScript" : [ {
+    "id" : "3a1c7152-50d0-448e-9bf8-dc5457a489ec",
+    "isActive" : true,
+    "trustedSiteName" : "Comgate",
+    "trustedSiteUrl" : "https://payments.comgate.cz",
+    "type" : "trustedSitesForScripts"
+  }, {
+    "id" : "ed0b9cb6-88cb-41df-bdf0-f9ca891f42e2",
+    "isActive" : true,
+    "trustedSiteName" : "www.google-analytics.com",
+    "trustedSiteUrl" : "https://www.google-analytics.com",
+    "type" : "trustedSitesForScripts"
+  }, {
+    "id" : "0d2e0274-79a8-4839-bc15-f0454e7b037a",
+    "isActive" : true,
+    "trustedSiteName" : "stats.g.doubleclick.net",
+    "trustedSiteUrl" : "https://stats.g.doubleclick.net",
+    "type" : "trustedSitesForScripts"
+  }, {
+    "id" : "22057c94-ad4d-4dc9-abbb-265de2ecc76b",
+    "isActive" : true,
+    "trustedSiteName" : "www.googletagmanager.com",
+    "trustedSiteUrl" : "https://www.googletagmanager.com/gtag/js",
+    "type" : "trustedSitesForScripts"
+  } ],
   "type" : "site"
 }

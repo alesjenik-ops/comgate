@@ -1,0 +1,12 @@
+{
+  "activeViewId" : "a8861f78-0048-4443-9059-a0cdbc8d2876",
+  "appPageId" : "df0c588e-3c17-4db5-ad0a-2ec94644d54d",
+  "configurationTags" : [ ],
+  "devName" : "widgetLanding__c",
+  "id" : "1229dea9-898c-4af4-bb59-91aff417d289",
+  "label" : "Widget landing",
+  "pageAccess" : "UseParent",
+  "routeType" : "custom-widgetLanding",
+  "type" : "route",
+  "urlPrefix" : "widget-landing"
+}

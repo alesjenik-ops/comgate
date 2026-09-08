@@ -1,0 +1,77 @@
+{
+  "appPageId" : "df0c588e-3c17-4db5-ad0a-2ec94644d54d",
+  "componentName" : "siteforce:dynamicLayout",
+  "dataProviders" : [ ],
+  "id" : "6f7d809a-3ca4-4397-961b-1251ce91a160",
+  "label" : "Widget popup",
+  "regions" : [ {
+    "components" : [ {
+      "componentAttributes" : {
+        "background" : "background: rgba(0,0,0,0)",
+        "backgroundOverlay" : "rgba(0,0,0,0.5)",
+        "contentAreaWidth" : 100,
+        "sectionConfig" : {
+          "UUID" : "bb9eefc5-d01c-47d1-9b66-c467924ddde8",
+          "columns" : [ {
+            "UUID" : "83743992-7fab-418f-86a4-2b60ca082dbe",
+            "columnKey" : "1",
+            "columnName" : "Column 1",
+            "columnWidth" : "12",
+            "seedComponents" : [ ]
+          } ]
+        },
+        "sectionHeight" : 300
+      },
+      "componentName" : "forceCommunity:section",
+      "id" : "bb9eefc5-d01c-47d1-9b66-c467924ddde8",
+      "regions" : [ {
+        "components" : [ {
+          "componentAttributes" : {
+            "allowMonthly" : true,
+            "amountsMonthly" : "500,1000,1500",
+            "amountsOneOff" : "500,1000,1500",
+            "campaignId" : "701Te00000gDlc7IAC",
+            "defaultFrequency" : "oneoff",
+            "showArrow" : false,
+            "thankYouPageUrl" : "https://darci.darujemekrouzky.cz/s/dekujeme",
+            "widgetMode" : "popup"
+          },
+          "componentName" : "c:donationWidget",
+          "id" : "af4cf07f-7ee9-453f-a9cf-dad848bc4146",
+          "renderPriority" : "NEUTRAL",
+          "renditionMap" : { },
+          "type" : "component"
+        } ],
+        "id" : "83743992-7fab-418f-86a4-2b60ca082dbe",
+        "regionLabel" : "Column 1",
+        "regionName" : "1",
+        "renditionMap" : { },
+        "type" : "region"
+      } ],
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "84ef0cdd-4e8d-4d0b-b8b5-2f6365805f42",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "customHeadTags" : "",
+        "description" : "",
+        "title" : "widget"
+      },
+      "componentName" : "forceCommunity:seoAssistant",
+      "id" : "4e2f97a1-42c2-4df3-9efe-1a35f3656a47",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "39014a25-27d3-4576-b8be-c7c7dea47873",
+    "regionName" : "sfdcHiddenRegion",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "Inner",
+  "type" : "view",
+  "viewType" : "custom-widgetPopup"
+}

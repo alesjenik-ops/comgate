@@ -1,0 +1,25 @@
+<template>
+    <section class="ty">
+        <div class="ty__inner">
+            <h1 class="ty__headline">{headline}</h1>
+            <p class="ty__message">{message}</p>
+
+            <p class="ty__contact">
+                {contactText}
+                <a href={mailtoHref} class="ty__link">{contactEmail}</a>
+            </p>
+
+            <div class="ty__infoline">
+                <p class="ty__infoline-title">{infolineTitle}</p>
+                <p class="ty__infoline-phone">
+                    <a href={telHref} class="ty__link">{infolinePhone}</a>
+                </p>
+                <p class="ty__infoline-hours">{infolineHours}</p>
+            </div>
+
+            <template lwc:if={hasBackLink}>
+                <a href={backUrl} class="ty__back">{backLabel}</a>
+            </template>
+        </div>
+    </section>
+</template>

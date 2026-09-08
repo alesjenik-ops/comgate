@@ -1,0 +1,77 @@
+{
+  "appPageId" : "df0c588e-3c17-4db5-ad0a-2ec94644d54d",
+  "componentName" : "siteforce:dynamicLayout",
+  "dataProviders" : [ ],
+  "id" : "03051e95-d3e6-4608-842b-4069de043ae0",
+  "label" : "Widget darci",
+  "regions" : [ {
+    "components" : [ {
+      "componentAttributes" : {
+        "background" : "background: rgba(0,0,0,0)",
+        "backgroundOverlay" : "rgba(0,0,0,0.5)",
+        "contentAreaWidth" : 100,
+        "sectionConfig" : {
+          "UUID" : "422afe72-258a-433d-92cb-a7ae982e88e3",
+          "columns" : [ {
+            "UUID" : "53627009-6a11-4df0-a3a3-4e54d128a5fe",
+            "columnKey" : "1",
+            "columnName" : "Column 1",
+            "columnWidth" : "12",
+            "seedComponents" : [ ]
+          } ]
+        },
+        "sectionHeight" : 300
+      },
+      "componentName" : "forceCommunity:section",
+      "id" : "422afe72-258a-433d-92cb-a7ae982e88e3",
+      "regions" : [ {
+        "components" : [ {
+          "componentAttributes" : {
+            "allowMonthly" : true,
+            "amountsMonthly" : "500,1000,1500",
+            "amountsOneOff" : "500,1000,1500",
+            "campaignId" : "701Te00000gDlc7IAC",
+            "defaultFrequency" : "oneoff",
+            "showArrow" : false,
+            "thankYouPageUrl" : "https://darci.darujemekrouzky.cz/s/dekujeme",
+            "widgetMode" : "popup"
+          },
+          "componentName" : "c:donationWidget",
+          "id" : "9f9374aa-3013-4609-815e-a7204ef49b4f",
+          "renderPriority" : "NEUTRAL",
+          "renditionMap" : { },
+          "type" : "component"
+        } ],
+        "id" : "53627009-6a11-4df0-a3a3-4e54d128a5fe",
+        "regionLabel" : "Column 1",
+        "regionName" : "1",
+        "renditionMap" : { },
+        "type" : "region"
+      } ],
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "f01e635d-d3db-4b31-9ed7-846f5da43546",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "customHeadTags" : "",
+        "description" : "",
+        "title" : "widget"
+      },
+      "componentName" : "forceCommunity:seoAssistant",
+      "id" : "6927aceb-5e3a-497a-8858-76155e336429",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "641bac83-79d9-4de6-9de3-4f7063de0c03",
+    "regionName" : "sfdcHiddenRegion",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "Inner",
+  "type" : "view",
+  "viewType" : "custom-widgetDarci"
+}

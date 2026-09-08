@@ -1,0 +1,238 @@
+<template>
+    <div class={rootClass}>
+        <template lwc:if={spinner}>
+            <div class="overlay">
+                <div class="overlay__box">
+                    <div class="overlay__spinner"></div>
+                    <p class="overlay__text">{spinnerText}</p>
+                </div>
+            </div>
+        </template>
+
+        <!-- Levy sloupec je jen v landing rezimu; v popupu zustava samotna karta -->
+        <template lwc:if={isLanding}>
+            <div class="intro">
+                <h2 class="intro__headline">{headline}</h2>
+                <p class="intro__sub">{subheadline}</p>
+                <template lwc:if={showArrowBlock}>
+                    <c-donation-arrow variant={arrowVariant}></c-donation-arrow>
+                </template>
+            </div>
+        </template>
+
+        <div class="card">
+            <!-- ===== krok 1: castka ===== -->
+            <template lwc:if={isStepAmount}>
+                <template lwc:if={allowMonthly}>
+                    <div class="toggles toggles--2">
+                        <button type="button" class={oneOffChipClass} data-value="oneoff" onclick={handleFrequencyChange}>
+                            Jednorázově
+                        </button>
+                        <button type="button" class={monthlyChipClass} data-value="recurring_monthly" onclick={handleFrequencyChange}>
+                            Měsíčně
+                        </button>
+                    </div>
+                </template>
+
+                <div class="chips">
+                    <template for:each={amountOptions} for:item="opt">
+                        <button key={opt.key} type="button" class={opt.cssClass} data-value={opt.value} onclick={handleAmountClick}>
+                            {opt.label}
+                        </button>
+                    </template>
+
+                    <template lwc:if={isCustomSelected}>
+                        <div class="chip chip--on chip--input">
+                            <input
+                                class="custom-input"
+                                type="text"
+                                inputmode="numeric"
+                                placeholder="Vlastní částka"
+                                value={customAmount}
+                                oninput={handleCustomInput}
+                            />
+                            <span class="custom-input__suffix">Kč</span>
+                        </div>
+                    </template>
+                    <template lwc:else>
+                        <button type="button" class={customChipClass} onclick={handleCustomClick}>Vlastní částka</button>
+                    </template>
+                </div>
+
+                <template lwc:if={amountError}>
+                    <p class="error">{amountError}</p>
+                </template>
+
+                <button type="button" class="cta" onclick={handleNext}>{ctaLabel}</button>
+            </template>
+
+            <!-- ===== krok 2: osobni udaje ===== -->
+            <template lwc:elseif={isStepDetails}>
+                <button type="button" class="back" onclick={handleBack}>&larr; Zpět k výběru částky</button>
+                <h3 class="card__title">Osobní údaje</h3>
+
+                <div class="toggles toggles--2">
+                    <template for:each={personTypeOptions} for:item="opt">
+                        <button key={opt.key} type="button" class={opt.cssClass} data-value={opt.value} onclick={handlePersonTypeChange}>
+                            {opt.label}
+                        </button>
+                    </template>
+                </div>
+
+                <template lwc:if={isPersonAccount}>
+                    <div class="fields">
+                        <div class="field">
+                            <label>Chcete potvrzení o daru? <span class="req">*</span></label>
+                            <select class="f-input" data-obj="donor" data-field="Receive_One_Time_POD__c" onchange={handleFieldChange}>
+                                <option value=""></option>
+                                <option value="Ano">Ano</option>
+                                <option value="Ne">Ne</option>
+                            </select>
+                        </div>
+                        <div class="field field--half">
+                            <label>Křestní jméno <span class="req">*</span></label>
+                            <input class="f-input" type="text" data-obj="donor" data-field="FirstName" oninput={handleFieldChange} />
+                        </div>
+                        <div class="field field--half">
+                            <label>Příjmení <span class="req">*</span></label>
+                            <input class="f-input" type="text" data-obj="donor" data-field="LastName" oninput={handleFieldChange} />
+                        </div>
+                        <div class="field">
+                            <label>E-mail <span class="req">*</span></label>
+                            <input class="f-input" type="email" data-obj="donor" data-field="PersonEmail" oninput={handleFieldChange} />
+                        </div>
+                        <div class="field">
+                            <label>Mobilní telefon <span class="req">*</span></label>
+                            <input class="f-input" type="tel" data-obj="donor" data-field="PersonMobilePhone" oninput={handleFieldChange} />
+                        </div>
+                        <div class="field">
+                            <label>Ulice a č. p. <span class="req">*</span></label>
+                            <input class="f-input" type="text" data-obj="donor" data-field="PersonMailingStreet" oninput={handleFieldChange} />
+                        </div>
+                        <div class="field field--half">
+                            <label>Město <span class="req">*</span></label>
+                            <input class="f-input" type="text" data-obj="donor" data-field="PersonMailingCity" oninput={handleFieldChange} />
+                        </div>
+                        <div class="field field--half">
+                            <label>PSČ <span class="req">*</span></label>
+                            <input class="f-input" type="text" data-obj="donor" data-field="PersonMailingPostalCode" oninput={handleFieldChange} />
+                        </div>
+                        <div class="field">
+                            <label>Země <span class="req">*</span></label>
+                            <select class="f-input" data-obj="donor" data-field="PersonMailingCountry" onchange={handleFieldChange}>
+                                <option value=""></option>
+                                <template for:each={countryOptionList} for:item="c">
+                                    <option key={c.key} value={c.value}>{c.label}</option>
+                                </template>
+                            </select>
+                        </div>
+                    </div>
+                </template>
+
+                <template lwc:else>
+                    <div class="fields">
+                        <div class="field">
+                            <label>Název organizace <span class="req">*</span></label>
+                            <input class="f-input" type="text" data-obj="donor" data-field="Name" oninput={handleFieldChange} />
+                        </div>
+                        <div class="field field--half">
+                            <label>IČO <span class="req">*</span></label>
+                            <input class="f-input" type="text" data-obj="donor" data-field="CRMforNonProfit__ICO__c" oninput={handleFieldChange} />
+                        </div>
+                        <div class="field field--half">
+                            <label>DIČ</label>
+                            <input
+                                class="f-input"
+                                type="text"
+                                data-obj="donor"
+                                data-field="Tax_identification_number__c"
+                                data-optional="true"
+                                oninput={handleFieldChange}
+                            />
+                        </div>
+                        <div class="field field--half">
+                            <label>Křestní jméno <span class="req">*</span></label>
+                            <input class="f-input" type="text" data-obj="contact" data-field="FirstName" oninput={handleFieldChange} />
+                        </div>
+                        <div class="field field--half">
+                            <label>Příjmení <span class="req">*</span></label>
+                            <input class="f-input" type="text" data-obj="contact" data-field="LastName" oninput={handleFieldChange} />
+                        </div>
+                        <div class="field">
+                            <label>E-mail <span class="req">*</span></label>
+                            <input class="f-input" type="email" data-obj="contact" data-field="Email" oninput={handleFieldChange} />
+                        </div>
+                        <div class="field">
+                            <label>Mobilní telefon <span class="req">*</span></label>
+                            <input class="f-input" type="tel" data-obj="contact" data-field="MobilePhone" oninput={handleFieldChange} />
+                        </div>
+                        <div class="field">
+                            <label>Ulice a č. p. <span class="req">*</span></label>
+                            <input class="f-input" type="text" data-obj="donor" data-field="BillingStreet" oninput={handleFieldChange} />
+                        </div>
+                        <div class="field field--half">
+                            <label>Město <span class="req">*</span></label>
+                            <input class="f-input" type="text" data-obj="donor" data-field="BillingCity" oninput={handleFieldChange} />
+                        </div>
+                        <div class="field field--half">
+                            <label>PSČ <span class="req">*</span></label>
+                            <input class="f-input" type="text" data-obj="donor" data-field="BillingPostalCode" oninput={handleFieldChange} />
+                        </div>
+                    </div>
+                </template>
+
+                <template lwc:if={errorMessage}>
+                    <p class="error">{errorMessage}</p>
+                </template>
+                <button type="button" class="cta" onclick={handleNext}>{ctaLabel}</button>
+            </template>
+
+            <!-- ===== krok 3: zpusob platby ===== -->
+            <template lwc:elseif={isStepPayment}>
+                <button type="button" class="back" onclick={handleBack}>&larr; Zpět na osobní údaje</button>
+                <h3 class="card__title">Způsob platby</h3>
+                <div class="toggles toggles--2">
+                    <template for:each={paymentOptions} for:item="opt">
+                        <button key={opt.key} type="button" class={opt.cssClass} data-value={opt.value} onclick={handlePaymentOptionChange}>
+                            {opt.label}
+                        </button>
+                    </template>
+                </div>
+                <template lwc:if={errorMessage}>
+                    <p class="error">{errorMessage}</p>
+                </template>
+                <button type="button" class="cta" onclick={handleNext}>{ctaLabel}</button>
+            </template>
+
+            <!-- ===== krok 4: platebni brana ===== -->
+            <template lwc:elseif={isStepGateway}>
+                <button type="button" class="back" onclick={handleBack}>&larr; Zpět</button>
+                <template lwc:if={paymentUrl}>
+                    <div class="gateway">
+                        <c-comgate-payment-form payment-url={paymentUrl}></c-comgate-payment-form>
+                    </div>
+                </template>
+            </template>
+
+            <!-- ===== krok 5: hotovo ===== -->
+            <template lwc:elseif={isStepDone}>
+                <h3 class="card__title">Děkujeme za Vaši podporu.</h3>
+                <template lwc:if={thankYouText}>
+                    <p class="done__text">{thankYouText}</p>
+                </template>
+                <template lwc:if={isBankTransfer}>
+                    <c-payment-details-page
+                        qr-payload={bankAccountDetails.qrPayload}
+                        receiver-name={receiverName}
+                        bank-account={bankAccountDetails.bankAccountNumber}
+                        iban={bankAccountDetails.iban}
+                        variable-symbol={bankAccountDetails.variableNumber}
+                        amount={paymentWrapper.donationValue}
+                        currency={paymentWrapper.currencyIsoCode}
+                        support-email={supportEmail}>
+                    </c-payment-details-page>
+                </template>
+            </template>
+        </div>
+    </div>
+</template>

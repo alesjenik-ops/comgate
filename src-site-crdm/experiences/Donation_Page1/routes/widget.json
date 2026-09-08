@@ -1,0 +1,12 @@
+{
+  "activeViewId" : "f2d8ee47-dc04-4394-90fe-b2991671cb5d",
+  "appPageId" : "df0c588e-3c17-4db5-ad0a-2ec94644d54d",
+  "configurationTags" : [ ],
+  "devName" : "widget__c",
+  "id" : "4c9a2487-80dd-4305-9a01-29f88354f73a",
+  "label" : "widget",
+  "pageAccess" : "UseParent",
+  "routeType" : "custom-widget",
+  "type" : "route",
+  "urlPrefix" : "widget"
+}

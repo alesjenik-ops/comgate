@@ -1,0 +1,83 @@
+{
+  "appPageId" : "df0c588e-3c17-4db5-ad0a-2ec94644d54d",
+  "componentName" : "siteforce:dynamicLayout",
+  "dataProviders" : [ ],
+  "id" : "a8861f78-0048-4443-9059-a0cdbc8d2876",
+  "label" : "Widget landing",
+  "regions" : [ {
+    "components" : [ {
+      "componentAttributes" : {
+        "background" : "background: rgba(0,0,0,0)",
+        "backgroundOverlay" : "rgba(0,0,0,0.5)",
+        "contentAreaWidth" : 100,
+        "sectionConfig" : {
+          "UUID" : "d8028937-5b0c-4b92-9f7d-ad0b8a7ace50",
+          "columns" : [ {
+            "UUID" : "cd9b27e9-5ff8-48ad-9e1f-68f15ef18b48",
+            "columnKey" : "1",
+            "columnName" : "Column 1",
+            "columnWidth" : "12",
+            "seedComponents" : [ ]
+          } ]
+        },
+        "sectionHeight" : 300
+      },
+      "componentName" : "forceCommunity:section",
+      "id" : "d8028937-5b0c-4b92-9f7d-ad0b8a7ace50",
+      "regions" : [ {
+        "components" : [ {
+          "componentAttributes" : {
+            "allowMonthly" : true,
+            "amountsMonthly" : "300,1500,3000",
+            "amountsOneOff" : "300,1500,3000",
+            "arrowVariant1" : "1 dite / 1 mesic (Podpora)",
+            "arrowVariant2" : "1 dite / pololeti",
+            "arrowVariant3" : "1 dite / skolni rok",
+            "arrowVariantCustom" : "1 dite / krouzek",
+            "campaignId" : "701Te00000gDlc7IAC",
+            "defaultFrequency" : "oneoff",
+            "headline" : "Změňte život dětem jedním kliknutím",
+            "showArrow" : true,
+            "subheadline" : "Zvolte částku a proměňte ji v konkrétní podporu dětí. Vaše vybraná částka zajistí pro děti toto:",
+            "thankYouPageUrl" : "https://darci.darujemekrouzky.cz/s/dekujeme",
+            "widgetMode" : "landing"
+          },
+          "componentName" : "c:donationWidget",
+          "id" : "38f44802-ab4b-4129-a59d-b13874c85061",
+          "renderPriority" : "NEUTRAL",
+          "renditionMap" : { },
+          "type" : "component"
+        } ],
+        "id" : "cd9b27e9-5ff8-48ad-9e1f-68f15ef18b48",
+        "regionLabel" : "Column 1",
+        "regionName" : "1",
+        "renditionMap" : { },
+        "type" : "region"
+      } ],
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "465f2059-c8ce-4ebb-8ee4-c2c184553b0a",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "customHeadTags" : "",
+        "description" : "",
+        "title" : "widget"
+      },
+      "componentName" : "forceCommunity:seoAssistant",
+      "id" : "79bf8100-5d43-49a8-a368-55103c859908",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "98efbdd0-7b0d-404d-896f-8d5d29451440",
+    "regionName" : "sfdcHiddenRegion",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "Inner",
+  "type" : "view",
+  "viewType" : "custom-widgetLanding"
+}

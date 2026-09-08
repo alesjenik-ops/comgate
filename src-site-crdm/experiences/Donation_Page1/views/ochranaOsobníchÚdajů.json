@@ -1,0 +1,70 @@
+{
+  "appPageId" : "df0c588e-3c17-4db5-ad0a-2ec94644d54d",
+  "componentName" : "siteforce:dynamicLayout",
+  "dataProviders" : [ ],
+  "id" : "d8552cdd-7530-42ca-909c-b154b6580e5e",
+  "label" : "Ochrana osobních údajů",
+  "regions" : [ {
+    "components" : [ {
+      "componentAttributes" : {
+        "background" : "background: rgba(0,0,0,0)",
+        "backgroundOverlay" : "rgba(0,0,0,0.5)",
+        "contentAreaWidth" : 100,
+        "sectionConfig" : {
+          "UUID" : "30fd8858-52d2-47fb-b3fa-0f669e5de96c",
+          "columns" : [ {
+            "UUID" : "b83b9a96-9818-4e2b-8229-98f78dfd3926",
+            "columnKey" : "1",
+            "columnName" : "Column 1",
+            "columnWidth" : "12",
+            "seedComponents" : [ ]
+          } ]
+        },
+        "sectionHeight" : 300
+      },
+      "componentName" : "forceCommunity:section",
+      "id" : "30fd8858-52d2-47fb-b3fa-0f669e5de96c",
+      "regions" : [ {
+        "components" : [ {
+          "componentAttributes" : {
+            "document" : "privacy"
+          },
+          "componentName" : "c:donationPageLegal",
+          "id" : "83991a3e-7f0b-4480-a20b-8aa30d6c43ba",
+          "renderPriority" : "NEUTRAL",
+          "renditionMap" : { },
+          "type" : "component"
+        } ],
+        "id" : "b83b9a96-9818-4e2b-8229-98f78dfd3926",
+        "regionLabel" : "Column 1",
+        "regionName" : "1",
+        "renditionMap" : { },
+        "type" : "region"
+      } ],
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "1b8114dd-898e-4edf-b47d-91d841e1dcce",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "customHeadTags" : "",
+        "description" : "",
+        "title" : "Ochrana osobních údajů"
+      },
+      "componentName" : "forceCommunity:seoAssistant",
+      "id" : "6e06cf29-56ec-4d22-8fc8-870f99a54f2f",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "2e05a2cc-0f97-416c-8132-6b2186ae0813",
+    "regionName" : "sfdcHiddenRegion",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "Inner",
+  "type" : "view",
+  "viewType" : "custom-ochrana-osobnich-udaju"
+}

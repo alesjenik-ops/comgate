@@ -1,0 +1,12 @@
+{
+  "activeViewId" : "6f7d809a-3ca4-4397-961b-1251ce91a160",
+  "appPageId" : "df0c588e-3c17-4db5-ad0a-2ec94644d54d",
+  "configurationTags" : [ ],
+  "devName" : "widgetPopup__c",
+  "id" : "585dc470-c20d-457e-bba2-2694e1092057",
+  "label" : "Widget popup",
+  "pageAccess" : "UseParent",
+  "routeType" : "custom-widgetPopup",
+  "type" : "route",
+  "urlPrefix" : "widget-popup"
+}

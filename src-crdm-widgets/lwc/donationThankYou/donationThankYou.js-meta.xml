@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>64.0</apiVersion>
+    <description>Dekovaci sekce po uspesne platbe - obsah prevzaty z darujemekrouzky.cz/dekujeme/</description>
+    <isExposed>true</isExposed>
+    <masterLabel>Podekovani za dar</masterLabel>
+    <targets>
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Default</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightningCommunity__Default">
+            <property name="headline" type="String" label="Nadpis" default="Děkujeme Vám"/>
+            <property name="message" type="String" label="Text podekovani" default="Děkujeme za váš příspěvek."/>
+            <property name="contactText" type="String" label="Uvod ke kontaktu" default="Máte dotaz? Napište nám na"/>
+            <property name="contactEmail" type="String" label="Kontaktni e-mail" default="info@darujemekrouzky.cz"/>
+            <property name="infolineTitle" type="String" label="Nazev infolinky" default="Infolinka Darujeme kroužky dětem"/>
+            <property name="infolinePhone" type="String" label="Telefon na infolinku" default="+420 773 772 202"/>
+            <property name="infolineHours" type="String" label="Provozni doba infolinky" default="pondělí–pátek, 9–16 hodin · infolinka v českém jazyce"/>
+            <property name="backLabel" type="String" label="Popisek tlacitka zpet" default="Zpět na úvod"/>
+            <property name="backUrl" type="String" label="Odkaz tlacitka zpet" default="https://www.darujemekrouzky.cz/"/>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>
