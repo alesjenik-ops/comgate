@@ -16,6 +16,11 @@ public without sharing class DKD_GiftThankYouScheduler implements Schedulable {
     }
 
     public static Integer enqueuePending() {
+        // Bez overene organizacni adresy by kazdy beh jen plnil Error Log - radeji pockat, dary zustavaji To Be Sent
+        if (!DKD_GiftThankYouService.isFromAddressReady()) {
+            System.debug(LoggingLevel.WARN, 'DKD podekovani: organizacni adresa ' + DKD_GiftThankYouService.FROM_ADDRESS + ' neni pripravena, cekam.');
+            return 0;
+        }
         List<GiftTransaction> pending = [
             SELECT Id FROM GiftTransaction
             WHERE Status = 'Paid'

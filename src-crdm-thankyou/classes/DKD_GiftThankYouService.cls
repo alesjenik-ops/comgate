@@ -74,7 +74,14 @@ public without sharing class DKD_GiftThankYouService {
             logErrors(outcomes);
             return outcomes;
         }
-        Id fromAddressId = loadFromAddressId();
+        Id fromAddressId;
+        try {
+            fromAddressId = loadFromAddressId();
+        } catch (FromAddressException e) {
+            for (Id tid : transactionIds) outcomes.add(fail(tid, e.getMessage()));
+            logErrors(outcomes);
+            return outcomes;
+        }
 
         // Merge pole ze sablony se ctou dynamicky, aby sablona sla upravovat bez zasahu do kodu
         Set<String> fields = new Set<String>{
@@ -119,7 +126,7 @@ public without sharing class DKD_GiftThankYouService {
                 mail.setPlainTextBody(mergeTokens(template.Body, gt));
                 mail.setSaveAsActivity(true);
                 mail.setUseSignature(false);
-                if (fromAddressId != null) mail.setOrgWideEmailAddressId(fromAddressId);
+                if (fromAddressId != null) mail.setOrgWideEmailAddressId(fromAddressId);  // v produkci vzdy vyplnene
                 Messaging.EmailFileAttachment attachment = new Messaging.EmailFileAttachment();
                 attachment.setFileName(fileName);
                 attachment.setBody(pdf);
@@ -216,12 +223,25 @@ public without sharing class DKD_GiftThankYouService {
         return templates.isEmpty() ? null : templates[0];
     }
 
-    // Jen OVERENA organizacni adresa - neoverena shodi odeslani. Kdyz zadna neni, posle se z adresy uzivatele.
+    // Odesila se VYHRADNE z organizacni adresy darci@darujemekrouzky.cz. Zadny fallback na adresu
+    // uzivatele - kdyz adresa chybi nebo neni overena, nic neodejde a transakce zustane To Be Sent.
+    @TestVisible private static Boolean requireOrgWideAddress = true;
+
+    public class FromAddressException extends Exception {}
+
     @TestVisible
     private static Id loadFromAddressId() {
-        for (OrgWideEmailAddress a : [SELECT Id FROM OrgWideEmailAddress WHERE Address = :FROM_ADDRESS AND IsVerified = true LIMIT 1]) return a.Id;
-        for (OrgWideEmailAddress a : [SELECT Id FROM OrgWideEmailAddress WHERE IsAllowAllProfiles = true AND IsVerified = true LIMIT 1]) return a.Id;
-        return null;
+        List<OrgWideEmailAddress> addresses = [SELECT Id, IsVerified FROM OrgWideEmailAddress WHERE Address = :FROM_ADDRESS LIMIT 1];
+        if (!addresses.isEmpty() && addresses[0].IsVerified) return addresses[0].Id;
+        if (!requireOrgWideAddress) return null;
+        throw new FromAddressException(addresses.isEmpty()
+            ? 'Organizacni adresa ' + FROM_ADDRESS + ' v orgu neexistuje. Zalozte ji v Setup > Organization-Wide Addresses.'
+            : 'Organizacni adresa ' + FROM_ADDRESS + ' neni overena. Potvrdte overovaci e-mail (Setup > Organization-Wide Addresses > Resend verification).');
+    }
+
+    // Pro dozorci job: kdyz adresa neni pripravena, nema smysl nic radit do fronty
+    public static Boolean isFromAddressReady() {
+        try { loadFromAddressId(); return true; } catch (FromAddressException e) { return false; }
     }
 
     @TestVisible

@@ -40,5 +40,6 @@ sf apex run --target-org <alias>   # DKD_GiftThankYouScheduler.scheduleEveryQuar
 
 ## Známé podmínky
 
-- Organizační adresa `darci@darujemekrouzky.cz` musí být **ověřená**, jinak se posílá z adresy uživatele.
+- Odesílá se **výhradně** z organizační adresy `darci@darujemekrouzky.cz`. Dokud není ověřená, nic neodejde: flow zapíše chybu do Error Logu, dozorčí job čeká a dary zůstávají `To Be Sent`. Po ověření je dozorčí job do 15 minut dobere.
+- Před deployem tříd je nutné zrušit naplánované joby `DKD podekovani za dar` a po něm znovu zavolat `scheduleEveryQuarterHour()`.
 - Dary vzniklé před `DKD_GiftThankYouScheduler.START` (9. 9. 2026 12:00 UTC) dozorčí job neobesílá.

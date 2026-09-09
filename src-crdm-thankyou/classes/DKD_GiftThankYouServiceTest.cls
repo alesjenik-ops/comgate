@@ -42,6 +42,8 @@ private class DKD_GiftThankYouServiceTest {
     private static void useTestTemplates() {
         DKD_GiftThankYouService.emailTemplateDevName = TEST_TEMPLATE;
         DKD_GiftThankYouService.pdfTemplateName = TEST_PDF;
+        // v testu neni overena organizacni adresa k dispozici
+        DKD_GiftThankYouService.requireOrgWideAddress = false;
     }
 
     @IsTest
@@ -181,5 +183,27 @@ private class DKD_GiftThankYouServiceTest {
         Assert.areEqual(4, [SELECT COUNT() FROM CronTrigger WHERE CronJobDetail.Name LIKE 'DKD podekovani za dar%']);
         Assert.areEqual('Sent', [SELECT AcknowledgementStatus FROM GiftTransaction WHERE Id = :paid.Id].AcknowledgementStatus);
         Assert.areNotEqual('Sent', [SELECT AcknowledgementStatus FROM GiftTransaction WHERE Id = :unpaid.Id].AcknowledgementStatus);
+    }
+
+    @IsTest
+    static void withoutVerifiedOrgWideAddressNothingIsSent() {
+        useTestTemplates();
+        DKD_GiftThankYouService.requireOrgWideAddress = true;
+        Account donor = makeDonor('darce@example.com');
+        GiftTransaction gt = makeGift(donor.Id, 500);
+
+        Test.startTest();
+        List<DKD_GiftThankYouService.Outcome> outcomes = DKD_GiftThankYouService.process(new List<Id>{ gt.Id });
+        Integer emails = Limits.getEmailInvocations();
+        Boolean ready = DKD_GiftThankYouService.isFromAddressReady();
+        Integer enqueued = DKD_GiftThankYouScheduler.enqueuePending();
+        Test.stopTest();
+
+        Assert.isFalse(outcomes[0].success);
+        Assert.isTrue(outcomes[0].message.contains(DKD_GiftThankYouService.FROM_ADDRESS), outcomes[0].message);
+        Assert.areEqual(0, emails, 'Bez organizacni adresy nesmi nic odejit');
+        Assert.isFalse(ready);
+        Assert.areEqual(0, enqueued, 'Dozorci job bez adresy nic neradi do fronty');
+        Assert.areEqual('To Be Sent', [SELECT AcknowledgementStatus FROM GiftTransaction WHERE Id = :gt.Id].AcknowledgementStatus);
     }
 }
