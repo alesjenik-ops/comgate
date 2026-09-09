@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fields>
+        <fullName>Thank_You_Donor_Name__c</fullName>
+        <description>Osloveni pro dekovny e-mail: vokativ darce, jinak jmeno a prijmeni, u firmy nazev.</description>
+        <externalId>false</externalId>
+        <formula>IF(NOT(ISBLANK(Donor.CRMforNonProfit__Vocative__pc)), Donor.CRMforNonProfit__Vocative__pc, IF(Donor.IsPersonAccount, TRIM(BLANKVALUE(Donor.FirstName, "") &amp; " " &amp; BLANKVALUE(Donor.LastName, "")), Donor.Name))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Oslovení pro poděkování</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Thank_You_Amount__c</fullName>
+        <description>Castka daru jako text s mezerou po tisicich (1 500), pro e-mail a potvrzeni.</description>
+        <externalId>false</externalId>
+        <formula>IF(OriginalAmount &gt;= 1000, TEXT(FLOOR(OriginalAmount / 1000)) &amp; " " &amp; RIGHT("000" &amp; TEXT(FLOOR(OriginalAmount) - FLOOR(OriginalAmount / 1000) * 1000), 3), TEXT(FLOOR(OriginalAmount)))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Částka daru (text)</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Transaction_Year__c</fullName>
+        <description>Rok prijeti daru pro nadpis potvrzeni o daru.</description>
+        <externalId>false</externalId>
+        <formula>TEXT(YEAR(TransactionDate))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Rok daru</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Receipt_Donor_Name__c</fullName>
+        <description>Jmeno darce na potvrzeni o daru.</description>
+        <externalId>false</externalId>
+        <formula>IF(Donor.IsPersonAccount, TRIM(BLANKVALUE(Donor.FirstName, "") &amp; " " &amp; BLANKVALUE(Donor.LastName, "")), Donor.Name)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Potvrzení – jméno dárce</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Receipt_Donor_Email__c</fullName>
+        <description>E-mail darce na potvrzeni o daru (osoba: PersonEmail, firma: e-mail primarniho kontaktu).</description>
+        <externalId>false</externalId>
+        <formula>IF(Donor.IsPersonAccount, Donor.PersonEmail, Donor.npc_bridge__PrimaryContact__r.Email)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Potvrzení – e-mail dárce</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Receipt_Donor_Address__c</fullName>
+        <description>Adresa darce na potvrzeni o daru (osoba: korespondencni, firma: fakturacni).</description>
+        <externalId>false</externalId>
+        <formula>IF(Donor.IsPersonAccount, TRIM(BLANKVALUE(Donor.PersonMailingStreet, "") &amp; ", " &amp; BLANKVALUE(Donor.PersonMailingPostalCode, "") &amp; " " &amp; BLANKVALUE(Donor.PersonMailingCity, "")), TRIM(BLANKVALUE(Donor.BillingStreet, "") &amp; ", " &amp; BLANKVALUE(Donor.BillingPostalCode, "") &amp; " " &amp; BLANKVALUE(Donor.BillingCity, "")))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Potvrzení – adresa dárce</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+</CustomObject>

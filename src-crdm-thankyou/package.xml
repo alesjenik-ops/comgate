@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <types>
+        <members>GiftTransaction.Thank_You_Donor_Name__c</members>
+        <members>GiftTransaction.Thank_You_Amount__c</members>
+        <members>GiftTransaction.Transaction_Year__c</members>
+        <members>GiftTransaction.Receipt_Donor_Name__c</members>
+        <members>GiftTransaction.Receipt_Donor_Email__c</members>
+        <members>GiftTransaction.Receipt_Donor_Address__c</members>
+        <name>CustomField</name>
+    </types>
+    <types>
+        <members>CRDM_Logo</members>
+        <members>CRDM_Signature_Sejtka</members>
+        <name>StaticResource</name>
+    </types>
+    <types>
+        <members>DKD_GiftThankYouService</members>
+        <members>DKD_GiftThankYouQueueable</members>
+        <members>DKD_GiftThankYouScheduler</members>
+        <members>DKD_GiftThankYouServiceTest</members>
+        <name>ApexClass</name>
+    </types>
+    <types>
+        <members>DKD_Thank_You_Automation</members>
+        <name>PermissionSet</name>
+    </types>
+    <version>64.0</version>
+</Package>
