@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <types>
+        <members>Payment_Reference__c</members>
+        <name>CustomObject</name>
+    </types>
+    <types>
+        <members>Platebni_Brana</members>
+        <members>Platebni_Brana/PB_Dary_Podle_Kampane_A_Stavu</members>
+        <members>Platebni_Brana/PB_Havarovane_Platby</members>
+        <members>Platebni_Brana/PB_Havarovane_Podle_Metody</members>
+        <members>Platebni_Brana/PB_Nedokoncene_Dary</members>
+        <members>Platebni_Brana/PB_Nedokoncene_Podle_Darce</members>
+        <members>Platebni_Brana/PB_Opustene_Pokusy</members>
+        <members>Platebni_Brana/PB_Pokusy_O_Platbu</members>
+        <members>Platebni_Brana/PB_Selhane_Dary</members>
+        <members>Platebni_Brana/PB_Testovaci_Udalosti</members>
+        <members>Platebni_Brana/PB_Udalosti_Po_Dnech</members>
+        <members>Platebni_Brana/PB_Udalosti_Podle_Stavu</members>
+        <members>Platebni_Brana/PB_Zaplaceno_Podle_Metody</members>
+        <members>Platebni_Brana/PB_Zaplaceno_Pres_Branu</members>
+        <name>Report</name>
+    </types>
+    <types>
+        <members>Platebni_Brana_Dashboards</members>
+        <members>Platebni_Brana_Dashboards/Platebni_Brana</members>
+        <name>Dashboard</name>
+    </types>
+    <version>64.0</version>
+</Package>

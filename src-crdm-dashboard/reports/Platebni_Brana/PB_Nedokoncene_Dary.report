@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>GiftTransaction$Name</field>
+    </columns>
+    <columns>
+        <field>GiftTransaction$TransactionDate</field>
+    </columns>
+    <columns>
+        <field>GiftTransaction$Donor</field>
+    </columns>
+    <columns>
+        <field>GiftTransaction$Campaign</field>
+    </columns>
+    <columns>
+        <field>GiftTransaction$PaymentMethod</field>
+    </columns>
+    <columns>
+        <field>GiftTransaction$Status</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>GiftTransaction$OriginalAmount</field>
+    </columns>
+    <filter>
+        <criteriaItems>
+            <column>GiftTransaction$PaymentMethod</column>
+            <operator>equals</operator>
+            <value>Credit Card,Bankovní převod</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>GiftTransaction$Status</column>
+            <operator>equals</operator>
+            <value>Unpaid</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Tabular</format>
+    <name>Nedokončené dary (Unpaid) – detail</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Gift_Transactions_NPC__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>GiftTransaction$TransactionDate</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>
