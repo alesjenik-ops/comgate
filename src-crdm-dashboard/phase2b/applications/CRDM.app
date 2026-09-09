@@ -2,10 +2,12 @@
 <CustomApplication xmlns="http://soap.sforce.com/2006/04/metadata">
     <actionOverrides>
         <actionName>View</actionName>
+        <comment>Action override created by Lightning App Builder during activation.</comment>
         <content>Home_Platebni_Brana</content>
         <formFactor>Large</formFactor>
-        <pageOrSobjectType>standard-home</pageOrSobjectType>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
         <type>Flexipage</type>
+        <pageOrSobjectType>standard-home</pageOrSobjectType>
     </actionOverrides>
     <brand>
         <headerColor>#0070D2</headerColor>
