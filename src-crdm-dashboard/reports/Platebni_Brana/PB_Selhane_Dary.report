@@ -4,9 +4,6 @@
         <field>GiftTransaction$Name</field>
     </columns>
     <columns>
-        <field>GiftTransaction$TransactionDate</field>
-    </columns>
-    <columns>
         <field>GiftTransaction$Donor</field>
     </columns>
     <columns>
@@ -35,7 +32,12 @@
         </criteriaItems>
         <language>en_US</language>
     </filter>
-    <format>Tabular</format>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>GiftTransaction$TransactionDate</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
     <name>Selhané dary (Failed)</name>
     <params>
         <name>co</name>
