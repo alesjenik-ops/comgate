@@ -66,6 +66,18 @@
     color: var(--c-deep);
 }
 
+/* ---------- popup: text a sipka pod tlacitky ---------- */
+.extras {
+    margin-top: 1.25rem;
+}
+.extras__note {
+    margin: 0 0 1rem;
+    font-size: 0.9375rem;
+    line-height: 1.5;
+    text-align: center;
+    color: var(--c-text);
+}
+
 /* ---------- prepinace a cipy ---------- */
 .toggles {
     display: grid;

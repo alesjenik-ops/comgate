@@ -79,7 +79,37 @@
             <property name="thankYouPageUrl"
                       type="String"
                       label="URL dekovaci stranky"
-                      description="Kam se darce presmeruje po uspesne platbe v Comgate. Kdyz zustane prazdne, zobrazi se podekovani primo ve formulari."/>
+                      description="Kam se darce presmeruje po uspesne platbe v Comgate. Widget k ni prida vsechny parametry ze sve URL (napr. campaignId, krouzek, utm_*) a k tomu amount a frequency. Kdyz zustane prazdne, zobrazi se podekovani primo ve formulari."/>
+            <property name="personalizeByUrl"
+                      type="Boolean"
+                      label="Personalizovat podle parametru v URL"
+                      default="false"
+                      description="Zapne widget 3: podle parametru ?krouzek=hudba (sport, umeni, oddil, tabor) se meni nadpis, podnadpis, text pod tlacitky a ikona sipky. Bez parametru se widget chova jako obycejny."/>
+            <property name="krouzekParam"
+                      type="String"
+                      label="Nazev parametru v URL"
+                      default="krouzek"
+                      description="Ktery parametr v URL nese variantu, vychozi krouzek."/>
+            <property name="krouzekVariants"
+                      type="String"
+                      label="Varianty krouzku"
+                      default="hudba=hudební kroužek|noty;sport=sportovní kroužek|mic;umeni=výtvarný kroužek|paleta;oddil=oddíl|stan;tabor=tábor|stan"
+                      description="Seznam variant oddeleny strednikem: hodnota v URL=text, ktery se dosadi za {krouzek}|ikona sipky (noty, mic, paleta, stan). Text je ve 4. pade, aby sedel do vet."/>
+            <property name="personalHeadline"
+                      type="String"
+                      label="Personalizovany nadpis"
+                      default="Darujte dětem {krouzek} jedním kliknutím"
+                      description="Nadpis pro rezim landing, {krouzek} se nahradi textem varianty."/>
+            <property name="personalSubheadline"
+                      type="String"
+                      label="Personalizovany podnadpis"
+                      default="Zvolte částku a proměňte ji v {krouzek} pro konkrétní dítě. Vaše vybraná částka zajistí:"
+                      description="Podnadpis pro rezim landing, {krouzek} se nahradi textem varianty."/>
+            <property name="personalNote"
+                      type="String"
+                      label="Personalizovany text pod tlacitky"
+                      default="Váš dar půjde na {krouzek} pro dítě, jehož rodiče si ho nemohou dovolit."
+                      description="Text pod tlacitky v rezimu popup (mobil), {krouzek} se nahradi textem varianty."/>
         </targetConfig>
     </targetConfigs>
 </LightningComponentBundle>

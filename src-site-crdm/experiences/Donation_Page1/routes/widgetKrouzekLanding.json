@@ -1,0 +1,12 @@
+{
+  "activeViewId": "06b3942d-1ca1-4e65-ba4d-1ea6bd711e80",
+  "appPageId": "df0c588e-3c17-4db5-ad0a-2ec94644d54d",
+  "configurationTags": [],
+  "devName": "widgetKrouzekLanding__c",
+  "id": "6b417137-a96d-4814-879c-372d640075ad",
+  "label": "Widget krouzek landing",
+  "pageAccess": "UseParent",
+  "routeType": "custom-widgetKrouzekLanding",
+  "type": "route",
+  "urlPrefix": "widget-krouzek-landing"
+}

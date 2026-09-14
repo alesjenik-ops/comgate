@@ -12,8 +12,8 @@
         <!-- Levy sloupec je jen v landing rezimu; v popupu zustava samotna karta -->
         <template lwc:if={isLanding}>
             <div class="intro">
-                <h2 class="intro__headline">{headline}</h2>
-                <p class="intro__sub">{subheadline}</p>
+                <h2 class="intro__headline">{headlineText}</h2>
+                <p class="intro__sub">{subheadlineText}</p>
                 <template lwc:if={showArrowBlock}>
                     <c-donation-arrow variant={arrowVariant}></c-donation-arrow>
                 </template>
@@ -64,6 +64,17 @@
                 </template>
 
                 <button type="button" class="cta" onclick={handleNext}>{ctaLabel}</button>
+
+                <template lwc:if={showPopupExtras}>
+                    <div class="extras">
+                        <template lwc:if={personalNoteText}>
+                            <p class="extras__note">{personalNoteText}</p>
+                        </template>
+                        <template lwc:if={showArrowBlock}>
+                            <c-donation-arrow variant={arrowVariant}></c-donation-arrow>
+                        </template>
+                    </div>
+                </template>
             </template>
 
             <!-- ===== krok 2: osobni udaje ===== -->

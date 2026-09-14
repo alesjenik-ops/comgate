@@ -33,6 +33,20 @@ const SPINNER_TEXTS = {
     redirecting: 'Přesměrováváme na platební bránu…'
 };
 
+// Parametry, ktere si pridava Comgate nebo widget sam - na dekovaci stranku se neprenaseji
+const INTERNAL_URL_PARAMS = ['status', 'id', 'refId'];
+// Zaloha parametru pro pripad, ze se navrat z brany nacte v hlavnim okne (ne v iframe)
+const TRACKING_STORAGE_KEY = 'crdmDonationWidgetTracking';
+const SF_ID_PATTERN = /^[a-zA-Z0-9]{15}([a-zA-Z0-9]{3})?$/;
+
+// Ikona v konfiguraci variant krouzku -> klic v katalogu sipek (donationArrow)
+const KROUZEK_ICON_ARROWS = {
+    noty: 'Oddil ci tabor (noty)',
+    mic: 'Oddil ci tabor (mic)',
+    paleta: 'Oddil ci tabor (paleta)',
+    stan: 'Oddil ci tabor (stan)'
+};
+
 const STEP = {
     AMOUNT: 'amount',
     DETAILS: 'details',
@@ -80,6 +94,15 @@ export default class DonationWidget extends LightningElement {
     // Prazdna hodnota nechá darce na formulari a zobrazi podekovani primo v nem
     @api thankYouPageUrl = '';
 
+    // Personalizace podle parametru v URL (widget 3): ?krouzek=hudba meni texty i sipku
+    @api personalizeByUrl = false;
+    @api krouzekParam = 'krouzek';
+    // hodnota parametru=text do vety|ikona sipky; polozky oddelene strednikem
+    @api krouzekVariants = 'hudba=hudební kroužek|noty;sport=sportovní kroužek|mic;umeni=výtvarný kroužek|paleta;oddil=oddíl|stan;tabor=tábor|stan';
+    @api personalHeadline = 'Darujte dětem {krouzek} jedním kliknutím';
+    @api personalSubheadline = 'Zvolte částku a proměňte ji v {krouzek} pro konkrétní dítě. Vaše vybraná částka zajistí:';
+    @api personalNote = 'Váš dar půjde na {krouzek} pro dítě, jehož rodiče si ho nemohou dovolit.';
+
     /* ================= stav ================= */
 
     step = STEP.AMOUNT;
@@ -111,6 +134,12 @@ export default class DonationWidget extends LightningElement {
     paymentReferenceId = '';
     bankAccountDetails = {};
 
+    // Parametry z puvodni URL (campaignId=jedenklik-..., krouzek=hudba, utm_*), jdou dal na dekovaci stranku
+    trackingParams = {};
+    // Vybrana varianta krouzku, kdyz je personalizace zapnuta a parametr sedi na katalog
+    krouzek = null;
+    _onMessage = null;
+
     /* ================= lifecycle ================= */
 
     connectedCallback() {
@@ -128,16 +157,13 @@ export default class DonationWidget extends LightningElement {
         const donorId = this.getUrlParameter('donorId');
 
         if (donorId) this.donor = { ...this.donor, Id: donorId };
-        if (urlCampaignId) this.campaignId = urlCampaignId;
-
-        const freq = URL_FREQUENCY_ALIASES[String(urlFrequency || this.defaultFrequency).toLowerCase()];
-        this.paymentWrapper = {
-            ...this.paymentWrapper,
-            donationType: freq === FREQ.MONTHLY && this.allowMonthly ? FREQ.MONTHLY : FREQ.ONEOFF,
-            redirectURL: location.protocol + '//' + location.host + location.pathname
-        };
+        // Jen skutecne ID kampane prebiji nastaveni stranky. Jina hodnota (napr. campaignId=jedenklik-landing-desktop)
+        // je jen znacka zdroje - zustane v trackingParams a odejde na dekovaci stranku, kampan se nemeni.
+        if (urlCampaignId && SF_ID_PATTERN.test(urlCampaignId)) this.campaignId = urlCampaignId;
 
         if (status === 'success') {
+            // Navrat z brany v hlavnim okne - puvodni parametry uz v URL nejsou, vezmeme zalohu
+            this.trackingParams = this.readStoredTracking();
             this.step = STEP.DONE;
             if (!this.redirectToThankYouPage()) {
                 this.loadFieldSets();
@@ -145,8 +171,137 @@ export default class DonationWidget extends LightningElement {
             return;
         }
 
+        this.trackingParams = this.collectTrackingParams();
+        this.storeTracking();
+        this.resolveKrouzek();
+
+        const freq = URL_FREQUENCY_ALIASES[String(urlFrequency || this.defaultFrequency).toLowerCase()];
+        this.paymentWrapper = {
+            ...this.paymentWrapper,
+            donationType: freq === FREQ.MONTHLY && this.allowMonthly ? FREQ.MONTHLY : FREQ.ONEOFF,
+            redirectURL: location.protocol + '//' + location.host + location.pathname,
+            // Zdroj se uklada s platbou do Payment Reference (JSON), Apex wrapper neznama pole ignoruje
+            source: this.trackingQueryString() || null
+        };
+
+        // Brana bezi v iframe; po zaplaceni se v nem nacte tato stranka se status=success a posle zpravu sem
+        this._onMessage = (event) => this.handleGatewayMessage(event);
+        window.addEventListener('message', this._onMessage);
+
         this.applyDefaultAmount(urlAmount);
         this.loadFieldSets();
+    }
+
+    disconnectedCallback() {
+        if (this._onMessage) window.removeEventListener('message', this._onMessage);
+    }
+
+    handleGatewayMessage(event) {
+        if (!event.data || event.data.id !== 'onSuccessPage') return;
+        // Navratova stranka brany je na stejnem originu jako widget, cizi zpravy ignorujeme
+        if (event.origin && event.origin !== window.location.origin) return;
+        this.spinner = false;
+        this.spinnerMessage = '';
+        this.paymentUrl = null;
+        this.step = STEP.DONE;
+        this.redirectToThankYouPage();
+    }
+
+    /* ================= sledovani zdroje ================= */
+
+    collectTrackingParams() {
+        const out = {};
+        new URLSearchParams(window.location.search).forEach((value, key) => {
+            if (INTERNAL_URL_PARAMS.includes(key)) return;
+            if (value === null || value === '') return;
+            out[key] = value;
+        });
+        return out;
+    }
+
+    trackingQueryString() {
+        return new URLSearchParams(this.trackingParams).toString();
+    }
+
+    storeTracking() {
+        try {
+            window.sessionStorage.setItem(TRACKING_STORAGE_KEY, JSON.stringify(this.trackingParams));
+        } catch (error) {
+            // Storage muze byt v iframe tretich stran blokovana, zaloha je jen bonus
+        }
+    }
+
+    readStoredTracking() {
+        try {
+            const raw = window.sessionStorage.getItem(TRACKING_STORAGE_KEY);
+            const parsed = raw ? JSON.parse(raw) : {};
+            return parsed && typeof parsed === 'object' ? parsed : {};
+        } catch (error) {
+            return {};
+        }
+    }
+
+    // Dekovaci URL + puvodni parametry + skutecna castka a frekvence daru
+    buildThankYouUrl(base) {
+        let url;
+        try {
+            url = new URL(base, window.location.href);
+        } catch (error) {
+            return base;
+        }
+        Object.keys(this.trackingParams).forEach((key) => {
+            if (!url.searchParams.has(key)) url.searchParams.set(key, this.trackingParams[key]);
+        });
+        const amount = this.paymentWrapper.donationValue;
+        if (amount != null && amount !== '') {
+            url.searchParams.set('amount', String(amount));
+            url.searchParams.set('frequency', this.isMonthly ? 'monthly' : 'oneoff');
+        }
+        return url.toString();
+    }
+
+    /* ================= personalizace podle krouzku ================= */
+
+    parseKrouzekVariants() {
+        const map = {};
+        String(this.krouzekVariants || '')
+            .split(';')
+            .map((item) => item.trim())
+            .filter((item) => item.includes('='))
+            .forEach((item) => {
+                const eq = item.indexOf('=');
+                const key = item.slice(0, eq).trim().toLowerCase();
+                const [label, icon] = item.slice(eq + 1).split('|').map((x) => x.trim());
+                if (!key || !label) return;
+                map[key] = { label, arrow: KROUZEK_ICON_ARROWS[(icon || '').toLowerCase()] || '' };
+            });
+        return map;
+    }
+
+    resolveKrouzek() {
+        this.krouzek = null;
+        if (!this.personalizeByUrl) return;
+        const raw = String(this.getUrlParameter(this.krouzekParam || 'krouzek') || '').trim().toLowerCase();
+        if (!raw) return;
+        const variant = this.parseKrouzekVariants()[raw];
+        if (variant) this.krouzek = { key: raw, ...variant };
+    }
+
+    fillKrouzek(template) {
+        if (!this.krouzek) return template;
+        return String(template || '').replace(/\{krouzek\}/g, this.krouzek.label);
+    }
+
+    get headlineText() {
+        return this.krouzek && this.personalHeadline ? this.fillKrouzek(this.personalHeadline) : this.headline;
+    }
+
+    get subheadlineText() {
+        return this.krouzek && this.personalSubheadline ? this.fillKrouzek(this.personalSubheadline) : this.subheadline;
+    }
+
+    get personalNoteText() {
+        return this.krouzek && this.personalNote ? this.fillKrouzek(this.personalNote) : '';
     }
 
     /* ================= nacteni ciselniku ================= */
@@ -261,6 +416,8 @@ export default class DonationWidget extends LightningElement {
 
     get arrowVariant() {
         if (!this.showArrow) return '';
+        // Personalizovany widget: jedna sipka pro vsechny castky, s ikonou daneho krouzku
+        if (this.krouzek && this.krouzek.arrow) return this.krouzek.arrow;
         if (this.isCustomSelected) return this.arrowVariantCustom;
         const index = this.activeAmounts.indexOf(this.selectedAmount);
         return [this.arrowVariant1, this.arrowVariant2, this.arrowVariant3][index] || '';
@@ -268,6 +425,11 @@ export default class DonationWidget extends LightningElement {
 
     get showArrowBlock() {
         return this.showArrow && !!this.arrowVariant;
+    }
+
+    // V popupu (mobil) neni levy sloupec, sipka a text jdou pod tlacitka
+    get showPopupExtras() {
+        return !this.isLanding && (this.showArrowBlock || !!this.personalNoteText);
     }
 
     /* ================= gettery: kroky a popisky ================= */
@@ -548,8 +710,9 @@ export default class DonationWidget extends LightningElement {
 
     // Vraci true, kdyz se opravdu presmerovava - volajici pak nemusi stavet krok podekovani
     redirectToThankYouPage() {
-        const url = (this.thankYouPageUrl || '').trim();
-        if (!url) return false;
+        const base = (this.thankYouPageUrl || '').trim();
+        if (!base) return false;
+        const url = this.buildThankYouUrl(base);
         try {
             // Ven z iframe platebni brany, jinak by se prekreslil jen jeho obsah
             window.top.location.href = url;

@@ -1,0 +1,100 @@
+{
+  "appPageId": "df0c588e-3c17-4db5-ad0a-2ec94644d54d",
+  "componentName": "siteforce:dynamicLayout",
+  "dataProviders": [],
+  "id": "7aabc8d0-5998-4849-92e0-18b9fd77d5de",
+  "label": "Widget krouzek popup",
+  "regions": [
+    {
+      "components": [
+        {
+          "componentAttributes": {
+            "background": "background: rgba(0,0,0,0)",
+            "backgroundOverlay": "rgba(0,0,0,0.5)",
+            "contentAreaWidth": 100,
+            "sectionConfig": {
+              "UUID": "9625021a-8d66-4a68-8931-70377fa19c3c",
+              "columns": [
+                {
+                  "UUID": "0b5c7cfd-1b45-4b63-a947-4743a4d6f84b",
+                  "columnKey": "1",
+                  "columnName": "Column 1",
+                  "columnWidth": "12",
+                  "seedComponents": []
+                }
+              ]
+            },
+            "sectionHeight": 300
+          },
+          "componentName": "forceCommunity:section",
+          "id": "9625021a-8d66-4a68-8931-70377fa19c3c",
+          "regions": [
+            {
+              "components": [
+                {
+                  "componentAttributes": {
+                    "allowMonthly": true,
+                    "amountsMonthly": "500,1000,1500",
+                    "amountsOneOff": "500,1000,1500",
+                    "campaignId": "701Te00000gDlc7IAC",
+                    "defaultFrequency": "oneoff",
+                    "showArrow": true,
+                    "thankYouPageUrl": "https://www.darujemekrouzky.cz/dekujeme/?widget=krouzek-popup",
+                    "widgetMode": "popup",
+                    "personalizeByUrl": true,
+                    "krouzekParam": "krouzek",
+                    "krouzekVariants": "hudba=hudební kroužek|noty;sport=sportovní kroužek|mic;umeni=výtvarný kroužek|paleta;oddil=oddíl|stan;tabor=tábor|stan",
+                    "personalHeadline": "Darujte dětem {krouzek} jedním kliknutím",
+                    "personalSubheadline": "Zvolte částku a proměňte ji v {krouzek} pro konkrétní dítě. Vaše vybraná částka zajistí:",
+                    "personalNote": "Váš dar půjde na {krouzek} pro dítě, jehož rodiče si ho nemohou dovolit.",
+                    "arrowVariant1": "Zadna sipka",
+                    "arrowVariant2": "Zadna sipka",
+                    "arrowVariant3": "Zadna sipka",
+                    "arrowVariantCustom": "Zadna sipka"
+                  },
+                  "componentName": "c:donationWidget",
+                  "id": "fb08e212-8def-439c-8226-ad70813da1f4",
+                  "renderPriority": "NEUTRAL",
+                  "renditionMap": {},
+                  "type": "component"
+                }
+              ],
+              "id": "0b5c7cfd-1b45-4b63-a947-4743a4d6f84b",
+              "regionLabel": "Column 1",
+              "regionName": "1",
+              "renditionMap": {},
+              "type": "region"
+            }
+          ],
+          "renderPriority": "NEUTRAL",
+          "renditionMap": {},
+          "type": "component"
+        }
+      ],
+      "id": "6066937a-e545-4e1c-90d7-d9e410f42dd7",
+      "regionName": "content",
+      "type": "region"
+    },
+    {
+      "components": [
+        {
+          "componentAttributes": {
+            "customHeadTags": "",
+            "description": "",
+            "title": "Widget krouzek popup"
+          },
+          "componentName": "forceCommunity:seoAssistant",
+          "id": "a9e72f61-588d-4829-9214-04e8ad91af12",
+          "renditionMap": {},
+          "type": "component"
+        }
+      ],
+      "id": "4ed80ae0-f3ba-44bf-a89c-4420ec044cbf",
+      "regionName": "sfdcHiddenRegion",
+      "type": "region"
+    }
+  ],
+  "themeLayoutType": "Inner",
+  "type": "view",
+  "viewType": "custom-widgetKrouzekPopup"
+}

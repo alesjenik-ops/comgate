@@ -39,7 +39,7 @@
             "headline" : "Změňte život dětem jedním kliknutím",
             "showArrow" : true,
             "subheadline" : "Zvolte částku a proměňte ji v konkrétní podporu dětí. Vaše vybraná částka zajistí pro děti toto:",
-            "thankYouPageUrl" : "https://darci.darujemekrouzky.cz/s/dekujeme",
+            "thankYouPageUrl" : "https://www.darujemekrouzky.cz/dekujeme/?widget=landing",
             "widgetMode" : "landing"
           },
           "componentName" : "c:donationWidget",

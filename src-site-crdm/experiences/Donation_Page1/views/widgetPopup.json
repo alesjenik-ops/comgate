@@ -33,7 +33,7 @@
             "campaignId" : "701Te00000gDlc7IAC",
             "defaultFrequency" : "oneoff",
             "showArrow" : false,
-            "thankYouPageUrl" : "https://darci.darujemekrouzky.cz/s/dekujeme",
+            "thankYouPageUrl" : "https://www.darujemekrouzky.cz/dekujeme/?widget=popup",
             "widgetMode" : "popup"
           },
           "componentName" : "c:donationWidget",

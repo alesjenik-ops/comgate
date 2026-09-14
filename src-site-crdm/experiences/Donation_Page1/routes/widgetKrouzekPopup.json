@@ -1,0 +1,12 @@
+{
+  "activeViewId": "7aabc8d0-5998-4849-92e0-18b9fd77d5de",
+  "appPageId": "df0c588e-3c17-4db5-ad0a-2ec94644d54d",
+  "configurationTags": [],
+  "devName": "widgetKrouzekPopup__c",
+  "id": "14875d51-93cb-4fd8-a7ed-5da6678377dd",
+  "label": "Widget krouzek popup",
+  "pageAccess": "UseParent",
+  "routeType": "custom-widgetKrouzekPopup",
+  "type": "route",
+  "urlPrefix": "widget-krouzek-popup"
+}

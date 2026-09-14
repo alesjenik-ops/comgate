@@ -25,6 +25,8 @@ Site `Donation_Page1` bezi na `https://darci.darujemekrouzky.cz/s/`.
 | `widgetLanding` | `/s/widget-landing` | Widget 2 - landing page, castky 300/1500/3000, se sipkou |
 | `widgetDarci` | `/s/widget-darci` | Widget 3 - darci.darujemekrouzky.cz, castky 500/1000/1500 |
 | `dekujeme` | `/s/dekujeme` | Dekovaci stranka, kam Comgate presmeruje po zaplaceni |
+| `widgetKrouzekLanding` | `/s/widget-krouzek-landing` | Widget 3 (desktop) - personalizovany podle `?krouzek=` |
+| `widgetKrouzekPopup` | `/s/widget-krouzek-popup` | Widget 3 (mobil) - personalizovany podle `?krouzek=` |
 
 ## Odliseni v reportech
 
@@ -32,6 +34,52 @@ Widgety se v reportech rozlisuji **kampani**. Vsechny tri stranky maji zatim
 nastavenou stejnou kampan `701Te00000gDlc7IAC` (Darujeme krouzky detem) - je potreba
 kazde priradit vlastni. Meni se v Experience Builderu ve vlastnosti *ID kampane*,
 bez nasazovani.
+
+## Parametry v URL a jejich predani na dekovaci stranku
+
+Widget si pri nacteni zapamatuje **vsechny parametry ze sve URL** (krome `status`, `id`
+a `refId`, ktere pridava Comgate) a po uspesne platbe je **prida k URL dekovaci stranky**
+spolu s `amount` (skutecna castka) a `frequency` (`oneoff` / `monthly`). Parametry,
+ktere uz dekovaci URL obsahuje (napr. `?widget=landing`), zustavaji.
+
+Priklad: `/s/widget-landing?campaignId=jedenklik-landing-desktop&utm_source=fb`
+-> po zaplaceni `https://www.darujemekrouzky.cz/dekujeme/?widget=landing&campaignId=jedenklik-landing-desktop&utm_source=fb&amount=1500&frequency=oneoff`.
+
+Ty same parametry se ukladaji i do `Payment_Reference__c.JSON_Payment_Wrapper__c`
+(pole `source`), takze se daji dohledat i v CRM.
+
+`campaignId` v URL prebiji kampan ze stranky **jen kdyz je to skutecne Salesforce ID**
+(15/18 znaku). Jina hodnota (`jedenklik-landing-desktop`) je jen znacka zdroje: kampan
+zustane ta ze stranky a hodnota jde dal na dekovaci stranku. Drive takova hodnota
+rozbila nacteni kampane a dar zustal bez kampane.
+
+Widget take **posloucha zpravu `onSuccessPage`** z iframe platebni brany (posila ji
+stranka nactena v iframe po navratu z Comgate) a teprve na ni presmeruje hlavni okno na
+dekovaci stranku. Bez toho darce po zaplaceni zustal koukat do prazdneho iframe.
+
+## Personalizace podle krouzku (widget 3)
+
+Vlastnost *Personalizovat podle parametru v URL* zapne cteni parametru `?krouzek=`.
+Varianty jsou ve vlastnosti *Varianty krouzku* ve tvaru
+`hodnota=text ve 4. pade|ikona;...`, vychozi:
+
+| `?krouzek=` | Text za `{krouzek}` | Ikona sipky |
+| --- | --- | --- |
+| `hudba` | hudební kroužek | noty (tyrkysova) |
+| `sport` | sportovní kroužek | mic (ruzova) |
+| `umeni` | výtvarný kroužek | paleta (fialova) |
+| `oddil` | oddíl | stan (modrofialova) |
+| `tabor` | tábor | stan (modrofialova) |
+
+Kdyz parametr sedi na variantu, widget pouzije *Personalizovany nadpis / podnadpis*
+(landing) nebo *Personalizovany text pod tlacitky* (popup), v obou `{krouzek}` nahradi
+textem varianty, a misto sipek podle castky ukaze jednu sipku s ikonou varianty
+(texty sipek "Kompletni podpora pro 1 dite na pololeti na oddil ci tabor" z Figmy).
+Bez parametru nebo s neznamou hodnotou se widget chova jako obycejny.
+
+Sipka se v rezimu popup vykresluje pod tlacitkem - to je ten "barevny pruh dole" z
+mobilni verze navrhu. Na strance `widgetKrouzekPopup` je proto *Zobrazit sipku* zapnute
+a vsechny sipky podle castky nastavene na *Zadna sipka*, aby se bez parametru nic neukazalo.
 
 ## Sipky
 
