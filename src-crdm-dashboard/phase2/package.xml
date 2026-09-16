@@ -4,9 +4,5 @@
         <members>Home_Platebni_Brana</members>
         <name>FlexiPage</name>
     </types>
-    <types>
-        <members>CRDM</members>
-        <name>CustomApplication</name>
-    </types>
     <version>64.0</version>
 </Package>
