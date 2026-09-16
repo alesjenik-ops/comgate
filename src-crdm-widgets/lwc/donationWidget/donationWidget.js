@@ -102,6 +102,12 @@ export default class DonationWidget extends LightningElement {
     @api personalHeadline = 'Darujte dětem {krouzek} jedním kliknutím';
     @api personalSubheadline = 'Zvolte částku a proměňte ji v {krouzek} pro konkrétní dítě. Vaše vybraná částka zajistí:';
     @api personalNote = 'Váš dar půjde na {krouzek} pro dítě, jehož rodiče si ho nemohou dovolit.';
+    // Text v sipce personalizovaneho widgetu; {krouzek} = text varianty, \n = zalomeni radku
+    @api personalArrowText = 'Kompletní podpora pro 1 dítě\\nna pololetí na {krouzek}';
+
+    // Zeme predvyplnena v adrese (hodnota z ciselniku Account.Country__c) a jak se ma v nabidce zobrazit
+    @api defaultCountry = 'Czech Republic';
+    @api defaultCountryLabel = 'Česká republika';
 
     /* ================= stav ================= */
 
@@ -118,6 +124,7 @@ export default class DonationWidget extends LightningElement {
     isPersonAccount = true;
     donor = { sobjectType: 'Account' };
     contactPerson = { sobjectType: 'Contact' };
+    _countrySynced = false;
 
     selectedAmount = '';
     customAmount = '';
@@ -156,6 +163,7 @@ export default class DonationWidget extends LightningElement {
         const urlAmount = this.getUrlParameter('amount');
         const donorId = this.getUrlParameter('donorId');
 
+        this.donor = this.withDefaultCountry(this.donor);
         if (donorId) this.donor = { ...this.donor, Id: donorId };
         // Jen skutecne ID kampane prebiji nastaveni stranky. Jina hodnota (napr. campaignId=jedenklik-landing-desktop)
         // je jen znacka zdroje - zustane v trackingParams a odejde na dekovaci stranku, kampan se nemeni.
@@ -304,6 +312,12 @@ export default class DonationWidget extends LightningElement {
         return this.krouzek && this.personalNote ? this.fillKrouzek(this.personalNote) : '';
     }
 
+    // Prebiji text z katalogu sipek, aby v personalizovanem widgetu sedel na variantu (ne "oddil ci tabor" pro vsechny)
+    get arrowText() {
+        if (!this.krouzek || !this.krouzek.arrow || !this.personalArrowText) return '';
+        return this.fillKrouzek(this.personalArrowText).replace(/\\n/g, '\n');
+    }
+
     /* ================= nacteni ciselniku ================= */
 
     loadFieldSets() {
@@ -316,7 +330,7 @@ export default class DonationWidget extends LightningElement {
         })
             .then((result) => {
                 const body = JSON.parse(result);
-                if (body.donor) this.donor = { sobjectType: 'Account', ...body.donor };
+                if (body.donor) this.donor = this.withDefaultCountry({ sobjectType: 'Account', ...body.donor });
                 this.campaigns = body.campaigns || [];
                 this.countryOptions = body.countryOptions || [];
                 if (!this.campaignId && this.campaigns.length) this.campaignId = this.campaigns[0].Id;
@@ -515,20 +529,51 @@ export default class DonationWidget extends LightningElement {
     }
 
     get countryOptionList() {
-        return (this.countryOptions || []).map((o, i) => ({
-            key: `c${i}`,
-            label: o.label || o,
-            value: o.value || o
-        }));
+        const selected = this.selectedCountry;
+        const defaultValue = (this.defaultCountry || '').trim();
+        const defaultLabel = (this.defaultCountryLabel || '').trim();
+        return (this.countryOptions || []).map((o, i) => {
+            const value = o.value || o;
+            return {
+                key: `c${i}`,
+                label: value === defaultValue && defaultLabel ? defaultLabel : o.label || o,
+                value,
+                selected: value === selected
+            };
+        });
     }
 
     /* ================= formular ================= */
 
     handlePersonTypeChange(event) {
         this.isPersonAccount = event.currentTarget.dataset.value === 'person';
-        this.donor = { sobjectType: 'Account' };
+        this.donor = this.withDefaultCountry({ sobjectType: 'Account' });
         this.contactPerson = { sobjectType: 'Contact' };
         this.errorMessage = '';
+    }
+
+    /* ================= zeme ================= */
+
+    // Fyzicka osoba ma zemi v PersonMailingCountry, firma v BillingCountry; obe predvyplnime
+    withDefaultCountry(donor) {
+        const country = (this.defaultCountry || '').trim();
+        if (!country) return donor;
+        const out = { ...donor };
+        if (!out.PersonMailingCountry) out.PersonMailingCountry = country;
+        if (!out.BillingCountry) out.BillingCountry = country;
+        return out;
+    }
+
+    get selectedCountry() {
+        return (this.isPersonAccount ? this.donor.PersonMailingCountry : this.donor.BillingCountry) || '';
+    }
+
+    // Nativni <select> si po prekresleni nedrzi vybranou hodnotu spolehlive, tak ji po renderu dorovname
+    renderedCallback() {
+        const wanted = this.selectedCountry;
+        this.template.querySelectorAll('select[data-country]').forEach((el) => {
+            if (wanted && el.value !== wanted) el.value = wanted;
+        });
     }
 
     handleFieldChange(event) {

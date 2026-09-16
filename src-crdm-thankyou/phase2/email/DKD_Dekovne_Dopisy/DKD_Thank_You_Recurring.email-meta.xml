@@ -6,9 +6,7 @@
     <name>DKD Děkovný dopis - pravidelný dar</name>
     <style>none</style>
     <subject>Děkujeme, že v tom jedete s námi</subject>
-    <textOnly>Dobrý den, {!GiftTransaction.Thank_You_Donor_Name__c},
-
-děkujeme, že jste se rozhodli pravidelně podporovat projekt Darujeme kroužky dětem částkou {!GiftTransaction.Thank_You_Amount__c} Kč. Moc si Vaší podpory vážíme.
+    <textOnly>Děkujeme, že jste se rozhodli pravidelně podporovat projekt Darujeme kroužky dětem částkou {!GiftTransaction.Thank_You_Amount__c} Kč. Moc si Vaší podpory vážíme.
 
 Váš dar využijeme na příspěvky na kroužky pro děti, kterým jejich životní nebo rodinná situace znesnadňuje přístup k volnočasovým aktivitám. Svým pravidelným darem přispíváte na náklady spojené se sportem, hudbou, tvořením, oddílovými a dalšími volnočasovými aktivitami, a pomáháte tak dětem věnovat se tomu, co je baví.
 

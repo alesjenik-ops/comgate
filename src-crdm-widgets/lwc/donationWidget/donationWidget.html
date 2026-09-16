@@ -15,7 +15,7 @@
                 <h2 class="intro__headline">{headlineText}</h2>
                 <p class="intro__sub">{subheadlineText}</p>
                 <template lwc:if={showArrowBlock}>
-                    <c-donation-arrow variant={arrowVariant}></c-donation-arrow>
+                    <c-donation-arrow variant={arrowVariant} override-text={arrowText}></c-donation-arrow>
                 </template>
             </div>
         </template>
@@ -71,7 +71,7 @@
                             <p class="extras__note">{personalNoteText}</p>
                         </template>
                         <template lwc:if={showArrowBlock}>
-                            <c-donation-arrow variant={arrowVariant}></c-donation-arrow>
+                            <c-donation-arrow variant={arrowVariant} override-text={arrowText}></c-donation-arrow>
                         </template>
                     </div>
                 </template>
@@ -130,10 +130,10 @@
                         </div>
                         <div class="field">
                             <label>Země <span class="req">*</span></label>
-                            <select class="f-input" data-obj="donor" data-field="PersonMailingCountry" onchange={handleFieldChange}>
+                            <select class="f-input" data-obj="donor" data-field="PersonMailingCountry" data-country="true" onchange={handleFieldChange}>
                                 <option value=""></option>
                                 <template for:each={countryOptionList} for:item="c">
-                                    <option key={c.key} value={c.value}>{c.label}</option>
+                                    <option key={c.key} value={c.value} selected={c.selected}>{c.label}</option>
                                 </template>
                             </select>
                         </div>
@@ -188,6 +188,15 @@
                         <div class="field field--half">
                             <label>PSČ <span class="req">*</span></label>
                             <input class="f-input" type="text" data-obj="donor" data-field="BillingPostalCode" oninput={handleFieldChange} />
+                        </div>
+                        <div class="field">
+                            <label>Země <span class="req">*</span></label>
+                            <select class="f-input" data-obj="donor" data-field="BillingCountry" data-country="true" onchange={handleFieldChange}>
+                                <option value=""></option>
+                                <template for:each={countryOptionList} for:item="c">
+                                    <option key={c.key} value={c.value} selected={c.selected}>{c.label}</option>
+                                </template>
+                            </select>
                         </div>
                     </div>
                 </template>

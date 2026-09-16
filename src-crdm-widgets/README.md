@@ -77,9 +77,22 @@ textem varianty, a misto sipek podle castky ukaze jednu sipku s ikonou varianty
 (texty sipek "Kompletni podpora pro 1 dite na pololeti na oddil ci tabor" z Figmy).
 Bez parametru nebo s neznamou hodnotou se widget chova jako obycejny.
 
+Text v sipce personalizovaneho widgetu je vlastnost *Personalizovany text sipky*
+(vychozi `Kompletní podpora pro 1 dítě\nna pololetí na {krouzek}`), `{krouzek}` se nahradi
+textem varianty a `\n` zalomi radek. Diky tomu sipka nerika u vsech variant "na oddil ci tabor",
+ale "na hudební kroužek", "na výtvarný kroužek" atd. Prazdna vlastnost = text z katalogu sipek.
+
 Sipka se v rezimu popup vykresluje pod tlacitkem - to je ten "barevny pruh dole" z
 mobilni verze navrhu. Na strance `widgetKrouzekPopup` je proto *Zobrazit sipku* zapnute
 a vsechny sipky podle castky nastavene na *Zadna sipka*, aby se bez parametru nic neukazalo.
+
+## Predvyplnena zeme
+
+Pole *Zeme* je predvyplnene hodnotou z vlastnosti *Vychozi zeme* (`Czech Republic`, musi to
+byt hodnota z ciselniku `Account.Country__c`, ze ktereho Apex nabidku plni) a darci se ukaze
+jako *Popisek vychozi zeme* (`Česká republika`). Ulozena hodnota zustava `Czech Republic`.
+Plati pro fyzickou osobu (`PersonMailingCountry`) i firmu (`BillingCountry`) - firemni
+vetev formulare dostala pole Zeme nove, drive zemi vubec nesbirala.
 
 ## Sipky
 

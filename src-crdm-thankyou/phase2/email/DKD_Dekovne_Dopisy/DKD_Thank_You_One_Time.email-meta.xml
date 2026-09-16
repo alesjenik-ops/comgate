@@ -6,9 +6,7 @@
     <name>DKD Děkovný dopis - jednorázový dar</name>
     <style>none</style>
     <subject>Děkujeme za váš dar</subject>
-    <textOnly>Dobrý den, {!GiftTransaction.Thank_You_Donor_Name__c},
-
-děkujeme za Váš dar ve výši {!GiftTransaction.Thank_You_Amount__c} Kč pro projekt Darujeme kroužky dětem. Moc si Vaší podpory vážíme.
+    <textOnly>Děkujeme za Váš dar ve výši {!GiftTransaction.Thank_You_Amount__c} Kč pro projekt Darujeme kroužky dětem. Moc si Vaší podpory vážíme.
 
 Váš dar využijeme na příspěvky na kroužky pro děti, kterým jejich životní nebo rodinná situace znesnadňuje přístup k volnočasovým aktivitám. Svým darem přispějete na náklady spojené se sportem, hudbou, tvořením, oddílovými a dalšími volnočasovými aktivitami, a pomůžete tak dětem věnovat se tomu, co je baví.
 
