@@ -92,14 +92,6 @@
 
                 <template lwc:if={isPersonAccount}>
                     <div class="fields">
-                        <div class="field">
-                            <label>Chcete potvrzení o daru? <span class="req">*</span></label>
-                            <select class="f-input" data-obj="donor" data-field="Receive_One_Time_POD__c" onchange={handleFieldChange}>
-                                <option value=""></option>
-                                <option value="Ano">Ano</option>
-                                <option value="Ne">Ne</option>
-                            </select>
-                        </div>
                         <div class="field field--half">
                             <label>Křestní jméno <span class="req">*</span></label>
                             <input class="f-input" type="text" data-obj="donor" data-field="FirstName" oninput={handleFieldChange} />
