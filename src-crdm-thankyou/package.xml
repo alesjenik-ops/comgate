@@ -10,6 +10,18 @@
         <name>CustomField</name>
     </types>
     <types>
+        <members>DKD_Thank_You_Requested__e</members>
+        <name>CustomObject</name>
+    </types>
+    <types>
+        <members>DKD_ThankYouRequestedTrigger</members>
+        <name>ApexTrigger</name>
+    </types>
+    <types>
+        <members>DKD_ThankYouRequested_Admin</members>
+        <name>PlatformEventSubscriberConfig</name>
+    </types>
+    <types>
         <members>CRDM_Logo</members>
         <members>CRDM_Signature_Sejtka</members>
         <name>StaticResource</name>

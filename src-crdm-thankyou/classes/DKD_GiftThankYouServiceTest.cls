@@ -129,19 +129,37 @@ private class DKD_GiftThankYouServiceTest {
     }
 
     @IsTest
-    static void invocableEnqueuesAndQueueableProcesses() {
+    static void invocablePublishesEventTriggerEnqueuesAndQueueableProcesses() {
         useTestTemplates();
         Account donor = makeDonor('darce@example.com');
         GiftTransaction gt = makeGift(donor.Id, 500);
         DKD_GiftThankYouService.Request req = new DKD_GiftThankYouService.Request();
         req.giftTransactionId = gt.Id;
+        DKD_GiftThankYouService.Request duplicate = new DKD_GiftThankYouService.Request();
+        duplicate.giftTransactionId = gt.Id;
 
         Test.startTest();
-        DKD_GiftThankYouService.enqueue(new List<DKD_GiftThankYouService.Request>{ req });
+        DKD_GiftThankYouService.enqueue(new List<DKD_GiftThankYouService.Request>{ req, duplicate, null });
         DKD_GiftThankYouService.enqueue(new List<DKD_GiftThankYouService.Request>());
+        // Doruci event triggeru DKD_ThankYouRequestedTrigger, ten zaradi Queueable, stopTest ho spusti
+        Test.getEventBus().deliver();
         Test.stopTest();
 
         Assert.areEqual('Sent', [SELECT AcknowledgementStatus FROM GiftTransaction WHERE Id = :gt.Id].AcknowledgementStatus);
+        Assert.areEqual(1, [SELECT COUNT() FROM ContentDocumentLink WHERE LinkedEntityId = :gt.Id], 'Duplicitni pozadavek nesmi vytvorit druhe potvrzeni');
+    }
+
+    @IsTest
+    static void eventHandlerIgnoresInvalidAndForeignIds() {
+        Test.startTest();
+        DKD_GiftThankYouService.handleRequestedEvents(new List<DKD_Thank_You_Requested__e>{
+            new DKD_Thank_You_Requested__e(Gift_Transaction_Id__c = 'nesmysl'),
+            new DKD_Thank_You_Requested__e(Gift_Transaction_Id__c = UserInfo.getUserId()),
+            new DKD_Thank_You_Requested__e(),
+            null
+        });
+        Assert.areEqual(0, Limits.getQueueableJobs(), 'Bez platneho Id transakce se nic neradi do fronty');
+        Test.stopTest();
     }
 
     @IsTest
@@ -189,6 +207,8 @@ private class DKD_GiftThankYouServiceTest {
     static void withoutVerifiedOrgWideAddressNothingIsSent() {
         useTestTemplates();
         DKD_GiftThankYouService.requireOrgWideAddress = true;
+        // Skutecna darci@ uz je v orgu overena, test proto miri na adresu, ktera neexistuje
+        DKD_GiftThankYouService.fromAddress = 'neexistujici-adresa@example.com';
         Account donor = makeDonor('darce@example.com');
         GiftTransaction gt = makeGift(donor.Id, 500);
 
@@ -200,7 +220,7 @@ private class DKD_GiftThankYouServiceTest {
         Test.stopTest();
 
         Assert.isFalse(outcomes[0].success);
-        Assert.isTrue(outcomes[0].message.contains(DKD_GiftThankYouService.FROM_ADDRESS), outcomes[0].message);
+        Assert.isTrue(outcomes[0].message.contains('neexistujici-adresa@example.com'), outcomes[0].message);
         Assert.areEqual(0, emails, 'Bez organizacni adresy nesmi nic odejit');
         Assert.isFalse(ready);
         Assert.areEqual(0, enqueued, 'Dozorci job bez adresy nic neradi do fronty');

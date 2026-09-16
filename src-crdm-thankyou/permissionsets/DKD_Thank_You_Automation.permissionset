@@ -5,7 +5,7 @@
     <classAccesses><apexClass>DKD_GiftThankYouService</apexClass><enabled>true</enabled></classAccesses>
     <classAccesses><apexClass>npc_bridge__GiftConfirmationMergeService</apexClass><enabled>true</enabled></classAccesses>
     <classAccesses><apexClass>npc_bridge__GiftConfirmationPdfController</apexClass><enabled>true</enabled></classAccesses>
-    <description>Prava potrebna k automatickemu odeslani podekovani s potvrzenim o daru (VF stranka PDF, tridy, pole na Gift Transaction). Prirazuje se guest userovi donation site, ktery zapisuje platby z Comgate.</description>
+    <description>Automaticke podekovani s potvrzenim o daru. Guest user site: Create na event DKD_Thank_You_Requested__e a trida z flow. Spravce (trigger eventu, dozorci job): pole na Gift Transaction a tridy balicku.</description>
     <fieldPermissions><editable>false</editable><field>GiftTransaction.Receipt_Donor_Address__c</field><readable>true</readable></fieldPermissions>
     <fieldPermissions><editable>false</editable><field>GiftTransaction.Receipt_Donor_Email__c</field><readable>true</readable></fieldPermissions>
     <fieldPermissions><editable>false</editable><field>GiftTransaction.Receipt_Donor_Name__c</field><readable>true</readable></fieldPermissions>
@@ -14,4 +14,13 @@
     <fieldPermissions><editable>false</editable><field>GiftTransaction.Transaction_Year__c</field><readable>true</readable></fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>
     <label>DKD – automatické poděkování za dar</label>
+    <objectPermissions>
+        <allowCreate>true</allowCreate>
+        <allowDelete>false</allowDelete>
+        <allowEdit>false</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>false</modifyAllRecords>
+        <object>DKD_Thank_You_Requested__e</object>
+        <viewAllRecords>false</viewAllRecords>
+    </objectPermissions>
 </PermissionSet>

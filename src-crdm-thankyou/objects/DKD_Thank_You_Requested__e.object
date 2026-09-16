@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Pozadavek na dekovny e-mail s potvrzenim o daru. Publikuje ho flow Gift_Transaction_Thank_You_Email (typicky v kontextu guest usera site po webhooku z Comgate). Trigger DKD_ThankYouRequestedTrigger bezi podle PlatformEventSubscriberConfig jako spravce, ktery ma prava e-mail odeslat.</description>
+    <eventType>HighVolume</eventType>
+    <fields>
+        <fullName>Gift_Transaction_Id__c</fullName>
+        <description>Id zaplacene GiftTransaction, za kterou se ma podekovat.</description>
+        <label>Gift Transaction Id</label>
+        <length>18</length>
+        <required>false</required>
+        <type>Text</type>
+    </fields>
+    <label>DKD poděkování za dar – požadavek</label>
+    <pluralLabel>DKD poděkování za dar – požadavky</pluralLabel>
+    <publishBehavior>PublishAfterCommit</publishBehavior>
+</CustomObject>

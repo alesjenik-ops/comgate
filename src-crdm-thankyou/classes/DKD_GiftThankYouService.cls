@@ -2,8 +2,12 @@
  * Dekovny e-mail s potvrzenim o daru za jednorazovy zaplaceny dar.
  *
  * Volano z record-triggered flow Gift_Transaction_Thank_You_Email pres invocable metodu.
- * Prace bezi v Queueable (DKD_GiftThankYouQueueable), protoze generovani PDF je callout
- * a nesmi probehnout v trigger kontextu ani po DML.
+ * Flow bezi v kontextu uzivatele, ktery platbu zapsal - u Comgate webhooku je to guest user
+ * site, ktery nema prava na pole, VF stranku ani odeslani e-mailu. Invocable metoda proto jen
+ * publikuje platform event DKD_Thank_You_Requested__e; jeho trigger bezi podle
+ * PlatformEventSubscriberConfig jako spravce a teprve ten zaradi praci do Queueable
+ * (DKD_GiftThankYouQueueable), protoze generovani PDF je callout a nesmi probehnout
+ * v trigger kontextu ani po DML. E-mail tak odchazi behem nekolika sekund po platbe.
  *
  * Co se stane pro kazdou transakci:
  *  1. PDF potvrzeni z npc_bridge__PDF_Template__c pres VF stranku balicku GiftConfirmationPDF
@@ -42,16 +46,36 @@ public without sharing class DKD_GiftThankYouService {
     }
 
     @InvocableMethod(label='DKD: Poslat podekovani s potvrzenim o daru'
-        description='Vygeneruje PDF potvrzeni o daru, posle dekovny e-mail darci a ulozi ho jako EmailMessage. Bezi asynchronne.'
+        description='Publikuje platform event DKD_Thank_You_Requested__e. Jeho trigger bezi jako spravce, vygeneruje PDF potvrzeni, posle dekovny e-mail a ulozi ho jako EmailMessage. Bezi asynchronne, behem nekolika sekund.'
         category='Gift Transaction')
     public static void enqueue(List<Request> requests) {
-        Set<Id> ids = new Set<Id>();
+        Set<Id> seen = new Set<Id>();
+        List<DKD_Thank_You_Requested__e> events = new List<DKD_Thank_You_Requested__e>();
         for (Request r : requests) {
-            if (r != null && r.giftTransactionId != null) ids.add(r.giftTransactionId);
+            if (r == null || r.giftTransactionId == null || !seen.add(r.giftTransactionId)) continue;
+            events.add(new DKD_Thank_You_Requested__e(Gift_Transaction_Id__c = String.valueOf(r.giftTransactionId)));
         }
-        if (!ids.isEmpty()) {
-            System.enqueueJob(new DKD_GiftThankYouQueueable(new List<Id>(ids)));
+        if (events.isEmpty()) return;
+        // Kdyz publikace selze, dar zustava To Be Sent a do 15 minut ho dobere dozorci job
+        for (Database.SaveResult sr : EventBus.publish(events)) {
+            if (!sr.isSuccess()) System.debug(LoggingLevel.ERROR, 'DKD podekovani: event se nepodarilo publikovat: ' + sr.getErrors());
         }
+    }
+
+    // Vola trigger DKD_ThankYouRequestedTrigger. Bezi pod uzivatelem z PlatformEventSubscriberConfig
+    // (spravce), takze Queueable, ktery odsud vznikne, ma prava na pole, VF stranku i odeslani e-mailu.
+    public static void handleRequestedEvents(List<DKD_Thank_You_Requested__e> events) {
+        Set<Id> ids = new Set<Id>();
+        for (DKD_Thank_You_Requested__e e : events) {
+            if (e == null || String.isBlank(e.Gift_Transaction_Id__c)) continue;
+            try {
+                Id tid = Id.valueOf(e.Gift_Transaction_Id__c);
+                if (tid.getSobjectType() == GiftTransaction.SObjectType) ids.add(tid);
+            } catch (Exception ex) {
+                System.debug(LoggingLevel.WARN, 'DKD podekovani: neplatne Id v eventu: ' + e.Gift_Transaction_Id__c);
+            }
+        }
+        if (!ids.isEmpty()) System.enqueueJob(new DKD_GiftThankYouQueueable(new List<Id>(ids)));
     }
 
     public static List<Outcome> process(List<Id> transactionIds) {
@@ -226,17 +250,19 @@ public without sharing class DKD_GiftThankYouService {
     // Odesila se VYHRADNE z organizacni adresy darci@darujemekrouzky.cz. Zadny fallback na adresu
     // uzivatele - kdyz adresa chybi nebo neni overena, nic neodejde a transakce zustane To Be Sent.
     @TestVisible private static Boolean requireOrgWideAddress = true;
+    // Testy si sem daji neexistujici adresu, aby nezavisely na tom, jestli je darci@ v orgu overena
+    @TestVisible private static String fromAddress = FROM_ADDRESS;
 
     public class FromAddressException extends Exception {}
 
     @TestVisible
     private static Id loadFromAddressId() {
-        List<OrgWideEmailAddress> addresses = [SELECT Id, IsVerified FROM OrgWideEmailAddress WHERE Address = :FROM_ADDRESS LIMIT 1];
+        List<OrgWideEmailAddress> addresses = [SELECT Id, IsVerified FROM OrgWideEmailAddress WHERE Address = :fromAddress LIMIT 1];
         if (!addresses.isEmpty() && addresses[0].IsVerified) return addresses[0].Id;
         if (!requireOrgWideAddress) return null;
         throw new FromAddressException(addresses.isEmpty()
-            ? 'Organizacni adresa ' + FROM_ADDRESS + ' v orgu neexistuje. Zalozte ji v Setup > Organization-Wide Addresses.'
-            : 'Organizacni adresa ' + FROM_ADDRESS + ' neni overena. Potvrdte overovaci e-mail (Setup > Organization-Wide Addresses > Resend verification).');
+            ? 'Organizacni adresa ' + fromAddress + ' v orgu neexistuje. Zalozte ji v Setup > Organization-Wide Addresses.'
+            : 'Organizacni adresa ' + fromAddress + ' neni overena. Potvrdte overovaci e-mail (Setup > Organization-Wide Addresses > Resend verification).');
     }
 
     // Pro dozorci job: kdyz adresa neni pripravena, nema smysl nic radit do fronty
