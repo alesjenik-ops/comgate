@@ -11,6 +11,7 @@ Ondreje Sejtky z 4. 9. 2026. Nasazuje se jako **unmanaged metadata primo do CRDM
 | `donationWidget` | Konfigurovatelny darcovsky formular. Jedna komponenta obsluhuje vsechny tri widgety ze zadani, lisi se jen nastavenim na strance. |
 | `donationArrow` | Barevny sipkovy pruh s ikonou a textem, ktery se meni podle zvolene castky. |
 | `donationThankYou` | Dekovaci sekce po uspesne platbe, obsah prevzaty z darujemekrouzky.cz/dekujeme/. |
+| `donationGateway` | Responzivni iframe Comgate (`allow="payment"`). Sdilena `comgatePaymentForm` ma iframe napevno 504 px posunuty o -250 px, v karte na mobilu pretekal. |
 | `DonationWidgetIcons` | Static resource se 14 line-art ikonami pro sipky (export z Figmy). |
 | `donationFonts` | Sdileny modul, ktery do stranky vstrikne `@font-face` pro Fira Sans a Source Sans 3. Volaji ho `donationWidget` i `donationThankYou`, protoze theme site fonty nenacita. |
 | `DonationPageFonts` | Static resource s fonty: Fira Sans 400/500/700/800 (puvodni) + Source Sans 3 400/500/600/700 (doplneno), vzdy latin + latin-ext woff2. |

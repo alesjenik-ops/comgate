@@ -1,0 +1,18 @@
+.gateway {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.gateway__frame {
+    display: block;
+    width: 100%;
+    max-width: 504px;
+    height: 900px;
+    border: 0;
+    background: #ffffff;
+}
+@media (max-width: 480px) {
+    .gateway__frame {
+        height: 760px;
+    }
+}

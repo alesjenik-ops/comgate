@@ -221,7 +221,7 @@
                 <button type="button" class="back" onclick={handleBack}>&larr; Zpět</button>
                 <template lwc:if={paymentUrl}>
                     <div class="gateway">
-                        <c-comgate-payment-form payment-url={paymentUrl}></c-comgate-payment-form>
+                        <c-donation-gateway payment-url={paymentUrl}></c-donation-gateway>
                     </div>
                 </template>
             </template>
