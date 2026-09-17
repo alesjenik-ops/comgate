@@ -76,7 +76,7 @@
             <label>Pravidelný dar</label>
         </rules>
     </decisions>
-    <description>Poděkování dárci po zaplacení daru. Bezi asynchronne az po commitu, takze jeho selhani nikdy neshodi zapis platby z Comgate webhooku. Jednorazovy i pravidelny dar vola tutez invocable metodu DKD_GiftThankYouService; ta jen publikuje platform event a vlastni odeslani bezi pod spravcem. Rozliseni typu daru, vyber sablony i kontrola prvni zaplacene platby zavazku jsou v Apexu. Dary importovane z Darujme se vynechavaji.</description>
+    <description>Poděkování dárci po zaplacení daru. Běží asynchronně až po commitu, takže jeho selhání nikdy neshodí zápis platby z Comgate webhooku. Jednorázový i pravidelný dar volá tutéž invocable metodu DKD_GiftThankYouService; ta jen publikuje platform event a vlastní odeslání běží pod správcem. Rozlišení typu daru, výběr šablony i kontrola první zaplacené platby závazku jsou v Apexu. Dary importované z Darujme se vynechávají.</description>
     <environments>Default</environments>
     <interviewLabel>Gift Transaction Thank You Email {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Gift Transaction Thank You Email</label>

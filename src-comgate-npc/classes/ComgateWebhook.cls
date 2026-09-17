@@ -52,21 +52,23 @@ global without sharing class ComgateWebhook {
             processingError = e.getTypeName() + ' na radku ' + e.getLineNumber() + ': ' + e.getMessage();
         }
 
-        savePaymentLog(processingStatus, processingError);
+        Boolean recorded = savePaymentLog(processingStatus, processingError);
         if (processingStatus != STATUS_PROCESSED) {
             logError('Report ' + eventWrapper.transId + ' skoncil jako ' + processingStatus + '. ' + processingError);
         }
 
-        // Vzdy 200, kdyz je report zaznamenany v Payment_Log__c. HTTP 500 Comgate po tretim pokusu
-        // vypne hlaseni na cely den, a to pro VSECHNY darce, ne jen pro tuhle platbu. Zaznam se stavem
-        // jinym nez Processed je signal k prehrani reportu, ne k tomu, aby ho Comgate posilal znovu.
-        respond(resp, 200, '[accepted]');
+        // 200 jen kdyz report skutecne zustal v Payment_Log__c. HTTP 500 Comgate po tretim pokusu
+        // vypne hlaseni na cely den, a to pro VSECHNY darce, ne jen pro tuhle platbu - proto se vraci
+        // i kdyz se dary nezapsaly. Zaznam se stavem jinym nez Processed je signal k prehrani reportu.
+        // Kdyz se nepodarilo zapsat ani log, neni co dohledat a 500 je na miste: at to Comgate zkusi znovu.
+        respond(resp, recorded ? 200 : 500, recorded ? '[accepted]' : '[not recorded]');
     }
 
     // Staticke stavy prezivaji v ramci jedne transakce - pri opakovanem volani (testy) je nutne je vycistit
     private static void reset() {
         giftTransactionForUpdate.clear();
         giftCommitmentForUpdate.clear();
+        eventWrapper = null;
         paymentStatusWrapper = null;
         foundGiftTransaction = null;
         foundGiftCommitment = null;
@@ -137,15 +139,33 @@ global without sharing class ComgateWebhook {
 
     // Log vznika VZDY, i kdyz se dary nepodarilo zapsat nebo se stav neoveril - jinak by po
     // navratu 200 nezustala po platbe v orgu zadna stopa a nemel by ji kdo dohledat.
-    private static void savePaymentLog(String processingStatus, String processingError) {
+    private static Boolean savePaymentLog(String processingStatus, String processingError) {
         try {
-            Payment_Log__c paymentLog = eventWrapper.getPaymentLog(foundGiftTransaction, foundGiftCommitment, foundPaymentReference);
-            paymentLog.Processing_Status__c = processingStatus;
-            paymentLog.Processing_Error__c = processingError == null ? null : processingError.abbreviate(32000);
-            insert paymentLog;
+            insert stampLog(eventWrapper.getPaymentLog(foundGiftTransaction, foundGiftCommitment, foundPaymentReference),
+                    processingStatus, processingError);
+            return true;
         } catch (Exception e) {
-            logError('Payment_Log__c se nepodarilo ulozit: ' + e.getMessage());
+            // Nejcastejsi pricina je lookup na zaznam, ktery v orgu neni (smazany nebo cizi refId)
+            logError('Payment_Log__c se nepodarilo ulozit s vazbami: ' + e.getMessage());
         }
+        try {
+            // Druhy pokus bez vazeb - po platbe ma zustat aspon transId, castka a stav
+            Payment_Log__c bare = eventWrapper.getPaymentLog(null, null, null);
+            bare.Gift_Transaction__c = null;
+            bare.Gift_Commitment__c = null;
+            bare.Payment_Reference__c = null;
+            insert stampLog(bare, processingStatus, processingError);
+            return true;
+        } catch (Exception e) {
+            logError('Payment_Log__c se nepodarilo ulozit ani bez vazeb: ' + e.getMessage());
+            return false;
+        }
+    }
+
+    private static Payment_Log__c stampLog(Payment_Log__c paymentLog, String processingStatus, String processingError) {
+        paymentLog.Processing_Status__c = processingStatus;
+        paymentLog.Processing_Error__c = processingError == null ? null : processingError.abbreviate(32000);
+        return paymentLog;
     }
 
     private static void logError(String message) {
