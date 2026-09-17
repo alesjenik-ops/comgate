@@ -6,7 +6,7 @@
 
 | Složka | Obsah |
 | --- | --- |
-| `reports/Platebni_Brana/` | 13 reportů nad `Payment_Reference__c` (pokusy o platbu), `Payment_Log__c` (události z Comgate) a `GiftTransaction` (dary z brány). |
+| `reports/Platebni_Brana/` | 18 reportů nad `Payment_Reference__c` (pokusy o platbu), `Payment_Log__c` (události z Comgate) a `GiftTransaction` (dary z brány). |
 | `dashboards/Platebni_Brana_Dashboards/Platebni_Brana.dashboard` | Dashboard „Platební brána Comgate“, 3 sloupce, running user `crdm@crmproneziskovky.cz`. |
 | `objects/Payment_Reference__c.object` | Objekt se zapnutým *Allow Reports* – bez toho nad ním reporty nejdou. |
 | `phase2/flexipages/Home_Platebni_Brana.flexipage` | Home page s embedovaným dashboardem, odvozená z `Home_Page_Default`. |
@@ -34,6 +34,24 @@ Setup → Lightning App Builder → *Home – Platební brána* → Activation �
 
 Jestli je aktivace hotová, se z CLI ověřit nedá (objekt `FlexiPageAssignment` org
 nenabízí), je potřeba se podívat do Setupu.
+
+## Přehled darů a hlídání poděkování
+
+Pět reportů nad report typem `Gift_Transaction__c` (ten na rozdíl od
+`Gift_Transactions_NPC__c` nabízí `AcknowledgementStatus` i `GiftCommitment`).
+Všechny filtrují jen dary z brány, tedy `PaymentMethod` = *Credit Card* nebo
+*Bankovní převod*; importy z Darujme jsou mimo.
+
+| Report | Komponenta | Co ukazuje |
+| --- | --- | --- |
+| `PB_Bez_Podekovani` | metrika vlevo | Zaplacené dary, které nemají `AcknowledgementStatus` = *Sent*. Hlídá výpadky automatiky – **má být 0**, prokliknutím se dostanete na seznam. |
+| `PB_Dary_Podle_Stavu` | donut vlevo | Všechny dary z brány podle stavu (Paid / Unpaid / Failed). |
+| `PB_Dary_Podle_Metody_A_Stavu` | sloupcový graf uprostřed | Matice metoda × stav – kolik karet a převodů skončilo zaplacením a kolik ne. |
+| `PB_Pravidelne_Dary` | metrika vpravo | Zaplacené dary navázané na závazek (pravidelné). |
+| `PB_Jednorazove_Dary` | metrika vpravo | Zaplacené dary bez závazku (jednorázové). |
+
+Pravidelné a jednorázové se rozlišují filtrem na prázdný/neprázdný `GiftCommitment`,
+ne novým polem – žádné pole se kvůli dashboardu nezakládalo.
 
 ## Poznámky k datům
 

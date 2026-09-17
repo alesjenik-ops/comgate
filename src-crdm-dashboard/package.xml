@@ -19,6 +19,11 @@
         <members>Platebni_Brana/PB_Udalosti_Podle_Stavu</members>
         <members>Platebni_Brana/PB_Zaplaceno_Podle_Metody</members>
         <members>Platebni_Brana/PB_Zaplaceno_Pres_Branu</members>
+        <members>Platebni_Brana/PB_Bez_Podekovani</members>
+        <members>Platebni_Brana/PB_Dary_Podle_Stavu</members>
+        <members>Platebni_Brana/PB_Dary_Podle_Metody_A_Stavu</members>
+        <members>Platebni_Brana/PB_Pravidelne_Dary</members>
+        <members>Platebni_Brana/PB_Jednorazove_Dary</members>
         <name>Report</name>
     </types>
     <types>
