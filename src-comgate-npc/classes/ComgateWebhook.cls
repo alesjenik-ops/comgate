@@ -10,64 +10,161 @@ global without sharing class ComgateWebhook {
     private static GiftCommitment foundGiftCommitment;
     private static Payment_Reference__c foundPaymentReference;
 
+    private static final String STATUS_PROCESSED = 'Processed';
+    private static final String STATUS_FAILED = 'Failed';
+    private static final String STATUS_UNVERIFIED = 'Unverified';
+
     @HttpPost
     global static void doPost() {
-        List<Payment_Log__c> logs = new List<Payment_Log__c>();
+        reset();
+        RestResponse resp = RestContext.response;
         RestRequest req = RestContext.request;
-        System.debug(req.requestBody);
-        System.debug(req.requestBody.toString());
+        String rawBody = req != null && req.requestBody != null ? req.requestBody.toString() : null;
 
-        eventWrapper = (ComgateWebhookEventWrapper) JSON.deserialize(req.requestBody.toString(), ComgateWebhookEventWrapper.class);
-        paymentStatusWrapper = getPaymentStatus(eventWrapper);
-        Boolean isStatusValid = verifyStatus(eventWrapper, paymentStatusWrapper);
+        try {
+            eventWrapper = (ComgateWebhookEventWrapper) JSON.deserialize(rawBody, ComgateWebhookEventWrapper.class);
+        } catch (Exception e) {
+            // Telo nejde precist, nema se k cemu zalogovat platbu - jedina cesta, kdy nevracime 200
+            logError('Telo requestu nejde precist jako Comgate report: ' + e.getMessage());
+            respond(resp, 400, '[rejected]');
+            return;
+        }
+        // Telo requestu se zamerne neloguje cele - jsou v nem osobni udaje darce a pole secret
+        System.debug('Comgate report ' + eventWrapper.transId + ', status ' + eventWrapper.status);
 
-        if(isStatusValid){
-            getRelatedObjects(eventWrapper.refId);
+        String processingStatus = STATUS_PROCESSED;
+        String processingError = null;
+        try {
+            paymentStatusWrapper = getPaymentStatus(eventWrapper);
+            if (verifyStatus(eventWrapper, paymentStatusWrapper)) {
+                getRelatedObjects(eventWrapper.refId);
+                applyStatus();
+                processingError = saveRecords();
+                if (processingError != null) processingStatus = STATUS_FAILED;
+            } else {
+                // Comgate status API nepotvrdilo stav z payloadu - zamerne nic nemenime, ale report zaznamename
+                processingStatus = STATUS_UNVERIFIED;
+                processingError = 'Status z payloadu (' + eventWrapper.status + ') neodpovida stavu z Comgate status API ('
+                        + (paymentStatusWrapper == null ? 'bez odpovedi' : paymentStatusWrapper.status) + ').';
+            }
+        } catch (Exception e) {
+            processingStatus = STATUS_FAILED;
+            processingError = e.getTypeName() + ' na radku ' + e.getLineNumber() + ': ' + e.getMessage();
+        }
 
-            switch on eventWrapper.status{
-                when 'PAID'{
-                    if(foundGiftTransaction != null) handlePaidGiftTransaction(foundGiftTransaction.Id);
-                    if(foundGiftCommitment != null) handlePaidRecurring(foundGiftCommitment.Id);
-                    if(foundPaymentReference != null){
-                        if(foundPaymentReference.Gift_Transaction__c != null){
-                            handlePaidGiftTransaction(foundPaymentReference.Gift_Transaction__c);
-                        } else {
-                            handlePaidRecurring(foundPaymentReference.Gift_Commitment__c);
-                        }
-                    }
-                }
-                when 'CANCELLED'{
-                    if(foundGiftTransaction != null) handleCancelledGiftTransaction(foundGiftTransaction.Id);
-                    if(foundGiftCommitment != null) handleCancelledRecurring(foundGiftCommitment.Id);
-                    if(foundPaymentReference != null){
-                        if(foundPaymentReference.Gift_Transaction__c != null){
-                            handleCancelledGiftTransaction(foundPaymentReference.Gift_Transaction__c);
-                        } else {
-                            handleCancelledRecurring(foundPaymentReference.Gift_Commitment__c);
-                        }
-                    }
-                }
-                when 'AUTHORIZED'{
-                    if(foundGiftTransaction != null) handleAuthorizedGiftTransaction(foundGiftTransaction.Id);
-                    if(foundGiftCommitment != null) handleAuthorizedRecurring(foundGiftCommitment.Id);
-                    if(foundPaymentReference != null){
-                        if(foundPaymentReference.Gift_Transaction__c != null){
-                            handleAuthorizedGiftTransaction(foundPaymentReference.Gift_Transaction__c);
-                        } else {
-                            handleAuthorizedRecurring(foundPaymentReference.Gift_Commitment__c);
-                        }
+        savePaymentLog(processingStatus, processingError);
+        if (processingStatus != STATUS_PROCESSED) {
+            logError('Report ' + eventWrapper.transId + ' skoncil jako ' + processingStatus + '. ' + processingError);
+        }
+
+        // Vzdy 200, kdyz je report zaznamenany v Payment_Log__c. HTTP 500 Comgate po tretim pokusu
+        // vypne hlaseni na cely den, a to pro VSECHNY darce, ne jen pro tuhle platbu. Zaznam se stavem
+        // jinym nez Processed je signal k prehrani reportu, ne k tomu, aby ho Comgate posilal znovu.
+        respond(resp, 200, '[accepted]');
+    }
+
+    // Staticke stavy prezivaji v ramci jedne transakce - pri opakovanem volani (testy) je nutne je vycistit
+    private static void reset() {
+        giftTransactionForUpdate.clear();
+        giftCommitmentForUpdate.clear();
+        paymentStatusWrapper = null;
+        foundGiftTransaction = null;
+        foundGiftCommitment = null;
+        foundPaymentReference = null;
+    }
+
+    private static void applyStatus() {
+        switch on eventWrapper.status{
+            when 'PAID'{
+                if(foundGiftTransaction != null) handlePaidGiftTransaction(foundGiftTransaction.Id);
+                if(foundGiftCommitment != null) handlePaidRecurring(foundGiftCommitment.Id);
+                if(foundPaymentReference != null){
+                    if(foundPaymentReference.Gift_Transaction__c != null){
+                        handlePaidGiftTransaction(foundPaymentReference.Gift_Transaction__c);
+                    } else {
+                        handlePaidRecurring(foundPaymentReference.Gift_Commitment__c);
                     }
                 }
             }
-            logs.add(eventWrapper.getPaymentLog(foundGiftTransaction, foundGiftCommitment, foundPaymentReference));
+            when 'CANCELLED'{
+                if(foundGiftTransaction != null) handleCancelledGiftTransaction(foundGiftTransaction.Id);
+                if(foundGiftCommitment != null) handleCancelledRecurring(foundGiftCommitment.Id);
+                if(foundPaymentReference != null){
+                    if(foundPaymentReference.Gift_Transaction__c != null){
+                        handleCancelledGiftTransaction(foundPaymentReference.Gift_Transaction__c);
+                    } else {
+                        handleCancelledRecurring(foundPaymentReference.Gift_Commitment__c);
+                    }
+                }
+            }
+            when 'AUTHORIZED'{
+                if(foundGiftTransaction != null) handleAuthorizedGiftTransaction(foundGiftTransaction.Id);
+                if(foundGiftCommitment != null) handleAuthorizedRecurring(foundGiftCommitment.Id);
+                if(foundPaymentReference != null){
+                    if(foundPaymentReference.Gift_Transaction__c != null){
+                        handleAuthorizedGiftTransaction(foundPaymentReference.Gift_Transaction__c);
+                    } else {
+                        handleAuthorizedRecurring(foundPaymentReference.Gift_Commitment__c);
+                    }
+                }
+            }
         }
-        insert logs;
-        upsert giftTransactionForUpdate.values();
-        upsert giftCommitmentForUpdate.values();
+    }
 
-        RestResponse resp = RestContext.response;
-        resp.statusCode = 200;
-        resp.responseBody = Blob.valueOf('[accepted]');
+    // allOrNone = false: kdyz na jednom zaznamu selze automatizace (napr. record-triggered flow),
+    // nesmi to zahodit cely zapis vcetne Payment_Log__c. Chyby se vraci k zalogovani.
+    private static String saveRecords() {
+        List<String> problems = new List<String>();
+        if (!giftTransactionForUpdate.isEmpty()) {
+            problems.addAll(upsertProblems(Database.upsert(giftTransactionForUpdate.values(), false), 'GiftTransaction'));
+        }
+        if (!giftCommitmentForUpdate.isEmpty()) {
+            problems.addAll(upsertProblems(Database.upsert(giftCommitmentForUpdate.values(), false), 'GiftCommitment'));
+        }
+        return problems.isEmpty() ? null : String.join(problems, '\n');
+    }
+
+    private static List<String> upsertProblems(List<Database.UpsertResult> results, String objectName) {
+        List<String> problems = new List<String>();
+        for (Database.UpsertResult result : results) {
+            if (result.isSuccess()) continue;
+            for (Database.Error error : result.getErrors()) {
+                problems.add(objectName + ' ' + result.getId() + ': ' + error.getStatusCode() + ' - ' + error.getMessage());
+            }
+        }
+        return problems;
+    }
+
+    // Log vznika VZDY, i kdyz se dary nepodarilo zapsat nebo se stav neoveril - jinak by po
+    // navratu 200 nezustala po platbe v orgu zadna stopa a nemel by ji kdo dohledat.
+    private static void savePaymentLog(String processingStatus, String processingError) {
+        try {
+            Payment_Log__c paymentLog = eventWrapper.getPaymentLog(foundGiftTransaction, foundGiftCommitment, foundPaymentReference);
+            paymentLog.Processing_Status__c = processingStatus;
+            paymentLog.Processing_Error__c = processingError == null ? null : processingError.abbreviate(32000);
+            insert paymentLog;
+        } catch (Exception e) {
+            logError('Payment_Log__c se nepodarilo ulozit: ' + e.getMessage());
+        }
+    }
+
+    private static void logError(String message) {
+        try {
+            insert new CRMforNonProfit__Error_Log__c(
+                    CRMforNonProfit__Class_Name__c = 'ComgateWebhook',
+                    CRMforNonProfit__Error_Message__c = message == null ? null : message.abbreviate(32000),
+                    CRMforNonProfit__Record_Id__c = eventWrapper == null ? null : eventWrapper.transId,
+                    CRMforNonProfit__Keyword__c = 'Comgate webhook'
+            );
+        } catch (Exception e) {
+            System.debug(LoggingLevel.ERROR, 'Error log se nepodarilo zapsat: ' + e.getMessage());
+        }
+    }
+
+    private static void respond(RestResponse resp, Integer statusCode, String body) {
+        if (resp == null) return;
+        resp.statusCode = statusCode;
+        resp.responseBody = Blob.valueOf(body);
     }
 
     private static void getRelatedObjects(String refId){

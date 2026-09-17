@@ -43,11 +43,12 @@ public with sharing class ComgateWebhookTest {
         Assert.areEqual(1, giftTransactionAssert.Attempt_Counter__c);
         Assert.areEqual(Date.today(), giftTransactionAssert.TransactionDate);
 
-        Payment_Log__c log = [SELECT Id, Status__c, Gift_Transaction__c, Payment_Reference__c, Transaction_Id__c FROM Payment_Log__c];
+        Payment_Log__c log = [SELECT Id, Status__c, Gift_Transaction__c, Payment_Reference__c, Transaction_Id__c, Processing_Status__c FROM Payment_Log__c];
         Assert.areEqual('PAID', log.Status__c);
         Assert.areEqual(giftTransaction.Id, log.Gift_Transaction__c);
         Assert.areEqual(paymentReference.Id, log.Payment_Reference__c);
 
+        Assert.areEqual('Processed', log.Processing_Status__c);
         Assert.areEqual(200, RestContext.response.statusCode);
     }
 
@@ -192,7 +193,9 @@ public with sharing class ComgateWebhookTest {
         GiftTransaction giftTransactionAssert = [SELECT Id, Status, Status__c FROM GiftTransaction WHERE Id = :giftTransaction.Id];
         Assert.areEqual(ComgateUtil.GIFT_TRANSACTION_UNPAID, giftTransactionAssert.Status);
         Assert.isNull(giftTransactionAssert.Status__c);
-        Assert.areEqual(0, [SELECT COUNT() FROM Payment_Log__c]);
+        Payment_Log__c log = [SELECT Id, Processing_Status__c, Processing_Error__c FROM Payment_Log__c];
+        Assert.areEqual('Unverified', log.Processing_Status__c);
+        Assert.isNotNull(log.Processing_Error__c);
         Assert.areEqual(200, RestContext.response.statusCode);
     }
 
@@ -210,5 +213,66 @@ public with sharing class ComgateWebhookTest {
         Assert.isNull(log.Gift_Commitment__c);
         Assert.isNull(log.Payment_Reference__c);
         Assert.areEqual(200, RestContext.response.statusCode);
+    }
+
+    // Nerozpoznatelne telo je jedina cesta, kdy se nevraci 200 - neni co zalogovat pod platbu
+    @IsTest
+    public static void test_malformedBody_returns400(){
+        Test.startTest();
+        callWebhook('{tohle neni json');
+        Test.stopTest();
+
+        Assert.areEqual(400, RestContext.response.statusCode);
+        Assert.areEqual(0, [SELECT COUNT() FROM Payment_Log__c]);
+    }
+
+    // Jadro incidentu ze 17. 9. 2026: kdyz zapis daru selze (tehdy na record-triggered flow, ktery
+    // z guest kontextu nesmel poslat mail z organizacni adresy), nesmi to skoncit jako HTTP 500.
+    // Comgate po tretim 500 vypne hlaseni na cely den pro vsechny darce. Report musi zustat
+    // zaznamenany v Payment_Log__c se stavem Failed, aby ho slo dohledat a prehrat.
+    @IsTest
+    public static void test_processingFailure_returns200AndLogsFailure(){
+        Account donor = [SELECT Id FROM Account LIMIT 1];
+        GiftTransaction giftTransaction = ComgateTestFactory.getGiftTransaction(donor.Id, ComgateUtil.GIFT_TRANSACTION_UNPAID);
+        insert giftTransaction;
+        Id deletedId = giftTransaction.Id;
+        delete giftTransaction;
+
+        Test.setMock(HttpCalloutMock.class, new ComgateMockTest.PaymentStatusResponse('PAID'));
+
+        Test.startTest();
+        callWebhook(ComgateTestFactory.getWebhookEventJson(deletedId, 'PAID', 'CARD_CZ_COMGATE', ComgateMockTest.TRANS_ID));
+        Test.stopTest();
+
+        Assert.areEqual(200, RestContext.response.statusCode);
+        Payment_Log__c log = [SELECT Id, Processing_Status__c, Processing_Error__c, Transaction_Id__c FROM Payment_Log__c];
+        Assert.areEqual('Failed', log.Processing_Status__c);
+        Assert.isNotNull(log.Processing_Error__c);
+        Assert.areEqual(ComgateMockTest.TRANS_ID, log.Transaction_Id__c);
+    }
+
+    // Dva reporty za sebou v jedne transakci nesmi michat staticky stav prvniho do druheho
+    @IsTest
+    public static void test_twoReportsInOneTransaction_areIndependent(){
+        Account donor = [SELECT Id FROM Account LIMIT 1];
+        GiftTransaction first = ComgateTestFactory.getGiftTransaction(donor.Id, ComgateUtil.GIFT_TRANSACTION_UNPAID);
+        GiftTransaction second = ComgateTestFactory.getGiftTransaction(donor.Id, ComgateUtil.GIFT_TRANSACTION_UNPAID);
+        insert new List<GiftTransaction>{ first, second };
+
+        Test.setMock(HttpCalloutMock.class, new ComgateMockTest.PaymentStatusResponse('PAID'));
+
+        Test.startTest();
+        callWebhook(ComgateTestFactory.getWebhookEventJson(first.Id, 'PAID', 'CARD_CZ_COMGATE', ComgateMockTest.TRANS_ID));
+        callWebhook(ComgateTestFactory.getWebhookEventJson(second.Id, 'PAID', 'CARD_CZ_COMGATE', ComgateMockTest.TRANS_ID));
+        Test.stopTest();
+
+        Assert.areEqual(2, [SELECT COUNT() FROM Payment_Log__c]);
+        for (Payment_Log__c log : [SELECT Processing_Status__c FROM Payment_Log__c]) {
+            Assert.areEqual('Processed', log.Processing_Status__c);
+        }
+        List<Id> bothIds = new List<Id>{ first.Id, second.Id };
+        for (GiftTransaction gt : [SELECT Status FROM GiftTransaction WHERE Id IN :bothIds]) {
+            Assert.areEqual(ComgateUtil.GIFT_TRANSACTION_PAID, gt.Status);
+        }
     }
 }

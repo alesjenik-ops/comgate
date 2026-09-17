@@ -37,7 +37,7 @@ public with sharing class ComgateWebhookEventWrapper {
         Payment_Log__c paymentLog = new Payment_Log__c(
                 Merchant_Code__c = this.merchant,
                 Is_Test__c = this.test == 'true',
-                Amount__c = this.price / 100,
+                Amount__c = this.price == null ? null : this.price / 100,
                 Currency__c = this.curr,
                 Payment_Method__c = this.method,
                 Transaction_Id__c = this.transId,

@@ -51,6 +51,21 @@ Design atributy `receiverName`/`supportEmail` (výchozí hodnoty ČČK) nahrazuj
 12. **Footer logo** default `DonationPageFooterLogo` — odpovídá reálné NPC verzi footeru
     (`FooterLogoSimple` z Comgate orgu je k dispozici ve `src-comgate/staticresources/`).
 
+13. **Webhook nepadá na navazující automatizaci** (17. 9. 2026). `doPost` původně neměl žádný
+    `try/catch` a oba upserty byly all-or-none. Když na `GiftTransaction` selhala navěšená
+    automatizace — konkrétně record-triggered flow `Gift_Transaction_Thank_You_Email`, který
+    z guest kontextu nesměl odeslat e-mail z organizační adresy — vrátil endpoint HTTP 500
+    a rollback zahodil i `insert logs`. Po platbě tak v orgu nezůstala **žádná** stopa a Comgate
+    po třetí chybě vypnul hlášení na celý den pro všechny dárce. Nově:
+    - zpracování je v `try/catch`, upserty jedou `Database.upsert(..., false)`
+    - `Payment_Log__c` vzniká **vždy**, i když se dary nezapsaly nebo se stav neověřil, a nese
+      `Processing_Status__c` (`Processed` / `Failed` / `Unverified`) a `Processing_Error__c`
+    - vrací se **200** vždy, když je report zaznamenaný; jediná výjimka je nečitelné tělo → 400
+    - celé tělo requestu se už neloguje do debug logu (obsahuje osobní údaje dárce a pole `secret`)
+
+    **Podmínkou** téhle změny je hlídání: report nebo list view nad `Payment_Log__c` s filtrem
+    `Processing_Status__c != 'Processed'`. Bez něj je „vždy 200" jen výměna hlasité ztráty za tichou.
+
 ## Nové artefakty (nikde předtím neexistovaly)
 
 - `ComgateMonthlyCleanupBatch` (+ test) — port StripeMonthlyCleanupBatch: zavře GiftCommitment
