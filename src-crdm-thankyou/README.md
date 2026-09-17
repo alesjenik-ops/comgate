@@ -1,25 +1,35 @@
 # Poděkování za dar s potvrzením (CRDM)
 
-Automatický děkovný e-mail s PDF potvrzením o daru po každém **jednorázovém zaplaceném** daru.
+Automatický děkovný e-mail po zaplaceném daru: u **jednorázového** s PDF potvrzením o daru,
+u **pravidelného** jednou za závazek při první zaplacené platbě (bez PDF).
 Podle šablon `děkovný dopis individuální dárce jednorázový.docx` a `potvrzení o daru DKD.docx` (9/2026).
 
 ## Jak to běží
 
 1. Comgate webhook přepne `GiftTransaction.Status` na `Paid`.
-2. Flow `Gift_Transaction_Thank_You_Email` (record-triggered) → pro dar bez `GiftCommitment` a s
-   `AcknowledgementStatus != Sent` zavolá Apex `DKD_GiftThankYouService`. Flow běží jako guest user
-   site (ten zapsal platbu z webhooku) a ten nemá práva e-mail poslat, proto invocable metoda jen
-   **publikuje platform event `DKD_Thank_You_Requested__e`**. Jeho trigger `DKD_ThankYouRequestedTrigger`
-   běží díky `PlatformEventSubscriberConfig` jako správce (`crdm@crmproneziskovky.cz`) a zařadí
-   Queueable. E-mail tak odchází **během několika sekund po platbě**.
-   Pravidelné dary: při první zaplacené platbě závazku pošle e-mail `DKD_Thank_You_Recurring` bez PDF.
-   Dary s `PaymentMethod = Darujme` se vynechávají.
-3. Apex vygeneruje PDF ze šablony `npc_bridge__PDF_Template__c` „Potvrzeni o daru DKD" přes VF stránku balíčku
-   `GiftConfirmationPDF`, vyplní e-mail `DKD_Thank_You_One_Time` (merge pole `{!GiftTransaction.X}`), pošle ho
-   z organizační adresy `darci@darujemekrouzky.cz` (jen pokud je ověřená), uloží jako **EmailMessage pod kontakt
-   dárce**, PDF uloží jako soubor k transakci a nastaví `AcknowledgementStatus`/`TaxReceiptStatus = Sent`.
+2. Flow `Gift_Transaction_Thank_You_Email` (record-triggered) běží **asynchronně až po commitu**
+   (`Run Asynchronously After Transaction`), takže jeho selhání **nikdy neshodí zápis platby z webhooku**.
+   Jednorázový i pravidelný dar s `AcknowledgementStatus != Sent` volají **tutéž** invocable metodu
+   `DKD_GiftThankYouService`. Flow běží jako guest user site (ten zapsal platbu z webhooku) a ten nemá
+   práva e-mail poslat, proto invocable metoda jen **publikuje platform event
+   `DKD_Thank_You_Requested__e`**. Jeho trigger `DKD_ThankYouRequestedTrigger` běží díky
+   `PlatformEventSubscriberConfig` jako správce (`crdm@crmproneziskovky.cz`) a zařadí Queueable.
+   E-mail tak odchází **během několika sekund po platbě**. Jednorázové dary s `PaymentMethod = Darujme`
+   se vynechávají.
+3. Typ daru rozliší **Apex** podle `GiftCommitmentId` – ve flow už žádné odesílání e-mailu není:
+   - **jednorázový dar** – PDF ze šablony `npc_bridge__PDF_Template__c` „Potvrzeni o daru DKD" přes VF
+     stránku balíčku `GiftConfirmationPDF`, e-mail `DKD_Thank_You_One_Time`, PDF se uloží jako soubor
+     k transakci, nastaví se `AcknowledgementStatus` i `TaxReceiptStatus = Sent`
+   - **pravidelný dar** – jen u **první zaplacené platby závazku** (pořadí podle `TransactionDueDate`),
+     e-mail `DKD_Thank_You_Recurring` **bez PDF**, nastaví se jen `AcknowledgementStatus`
+     a `AcknowledgementDate`; `TaxReceiptStatus` zůstává. Další splátky se tiše přeskočí.
+
+   Merge pole `{!GiftTransaction.X}` se u obou šablon plní přímo z transakce, e-mail se posílá
+   z organizační adresy `darci@darujemekrouzky.cz` (jen pokud je ověřená) a ukládá se jako
+   **EmailMessage pod kontakt dárce**.
 4. Dozorčí job `DKD_GiftThankYouScheduler` (každých 15 min, běží jako admin) je pojistka: dobere dary,
    u kterých event nedorazil nebo odeslání spadlo. Stav `Sent` se zapisuje před odesláním – bez rizika duplicit.
+   **Pokrývá jen jednorázové dary** (`GiftCommitmentId = null`) – viz Známé podmínky.
 
 ## Obsah
 
@@ -47,7 +57,17 @@ sf apex run --target-org <alias>   # DKD_GiftThankYouScheduler.scheduleEveryQuar
 
 ## Známé podmínky
 
-- Odesílá se **výhradně** z organizační adresy `darci@darujemekrouzky.cz`. Dokud není ověřená, nic neodejde: flow zapíše chybu do Error Logu, dozorčí job čeká a dary zůstávají `To Be Sent`. Po ověření je dozorčí job do 15 minut dobere.
+- Odesílá se **výhradně** z organizační adresy `darci@darujemekrouzky.cz`. Dokud není ověřená, nic neodejde: Apex zapíše chybu do `CRMforNonProfit__Error_Log__c`, dozorčí job čeká a dary zůstávají `To Be Sent`. Po ověření je dozorčí job do 15 minut dobere.
+- **Z flow se e-mail neposílá a posílat nesmí.** Flow běží jako guest user site a ten nemůže použít
+  organizační adresu – akce Send Email skončí na „Org-Wide Email provided is not valid". Dokud běžela
+  synchronně, shodila tím i zápis platby z webhooku (incident 17. 9. 2026, viz
+  `src-comgate-npc/PORT_NOTES.md` bod 13). Odesílání patří výhradně do Apexu za platform eventem.
+- **Pravidelné dary nemá kdo dobrat.** Dozorčí job filtruje `GiftCommitmentId = null`, takže když
+  u pravidelného daru platform event nedorazí nebo odeslání spadne, poděkování už nikdo nepošle.
+  Řešením by bylo pole typu `Thank_You_Not_Required__c` (aby job nenabízel každou splátku znovu)
+  a rozšíření filtru – zatím **není** implementováno.
+- Šablona `DKD_Thank_You_Recurring` musí být **Active**; Apex ji hledá s `IsActive = true`, což
+  dřívější lookup ve flow nedělal.
 - Před deployem tříd je nutné zrušit naplánované joby `DKD podekovani za dar` a po něm znovu zavolat `scheduleEveryQuarterHour()`.
 - Uživatel v `PlatformEventSubscriberConfig` musí být aktivní správce s přiřazeným permission setem. Když se změní, změnit i tady a znovu nasadit.
 - `data/pdf_template.json` se POSTuje jen jednou: druhý záznam se stejným názvem by `loadPdfTemplate()` (LIMIT 1) vybíral náhodně.

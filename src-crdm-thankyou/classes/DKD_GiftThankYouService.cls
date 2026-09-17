@@ -1,5 +1,5 @@
 /**
- * Dekovny e-mail s potvrzenim o daru za jednorazovy zaplaceny dar.
+ * Dekovny e-mail darci po zaplaceni daru - jednorazoveho i pravidelneho.
  *
  * Volano z record-triggered flow Gift_Transaction_Thank_You_Email pres invocable metodu.
  * Flow bezi v kontextu uzivatele, ktery platbu zapsal - u Comgate webhooku je to guest user
@@ -9,25 +9,39 @@
  * (DKD_GiftThankYouQueueable), protoze generovani PDF je callout a nesmi probehnout
  * v trigger kontextu ani po DML. E-mail tak odchazi behem nekolika sekund po platbe.
  *
- * Co se stane pro kazdou transakci:
+ * Jednorazovy dar (GiftCommitmentId je prazdne):
  *  1. PDF potvrzeni z npc_bridge__PDF_Template__c pres VF stranku balicku GiftConfirmationPDF
  *  2. e-mail ze sablony DKD_Thank_You_One_Time, merge pole {!GiftTransaction.X} se plni primo z transakce
  *  3. odeslani z organizacni adresy, ulozeni jako EmailMessage pod kontakt darce (saveAsActivity)
  *  4. PDF se ulozi jako soubor k transakci
  *  5. AcknowledgementStatus a TaxReceiptStatus = Sent, AcknowledgementDate = dnes
+ *
+ * Pravidelny dar (GiftCommitmentId je vyplnene):
+ *  - dekuje se jen za PRVNI zaplacenou platbu zavazku, dalsi splatky se tise preskoci
+ *  - e-mail ze sablony DKD_Thank_You_Recurring, BEZ PDF prilohy
+ *  - nastavuje se jen AcknowledgementStatus a AcknowledgementDate, TaxReceiptStatus zustava
+ *
+ * Drive posilal pravidelne podekovani primo flow akci emailSimple z organizacni adresy. To
+ * z guest kontextu neprojde ("Org-Wide Email provided is not valid") a protoze akce bezela
+ * v transakci webhooku, shodila cely zapis platby. Proto obe vetve chodi touhle cestou.
+ *
  * Chyby se zapisuji do CRMforNonProfit__Error_Log__c a transakce zustava To Be Sent.
  */
 public without sharing class DKD_GiftThankYouService {
 
     public static final String EMAIL_TEMPLATE_DEV_NAME = 'DKD_Thank_You_One_Time';
+    public static final String EMAIL_TEMPLATE_RECURRING_DEV_NAME = 'DKD_Thank_You_Recurring';
     public static final String PDF_TEMPLATE_NAME = 'Potvrzeni o daru DKD';
     public static final String FROM_ADDRESS = 'darci@darujemekrouzky.cz';
     public static final String PDF_PAGE_PATH = '/apex/npc_bridge__GiftConfirmationPDF';
     public static final String STATUS_SENT = 'Sent';
+    public static final String STATUS_TO_BE_SENT = 'To Be Sent';
+    public static final String STATUS_PAID = 'Paid';
     // Callout limit je 100 na transakci, kazde PDF je jeden callout
     public static final Integer CHUNK_SIZE = 40;
 
     @TestVisible private static String emailTemplateDevName = EMAIL_TEMPLATE_DEV_NAME;
+    @TestVisible private static String recurringTemplateDevName = EMAIL_TEMPLATE_RECURRING_DEV_NAME;
     @TestVisible private static String pdfTemplateName = PDF_TEMPLATE_NAME;
     @TestVisible private static Blob pdfOverride;
 
@@ -82,12 +96,13 @@ public without sharing class DKD_GiftThankYouService {
         List<Outcome> outcomes = new List<Outcome>();
         if (transactionIds == null || transactionIds.isEmpty()) return outcomes;
 
-        EmailTemplate template = loadEmailTemplate();
+        Map<String, EmailTemplate> templates = loadEmailTemplates();
         npc_bridge__PDF_Template__c pdfTemplate = loadPdfTemplate();
-        if (template == null || pdfTemplate == null) {
-            String problem = template == null
-                ? 'Chybi aktivni e-mailova sablona ' + emailTemplateDevName
-                : 'Chybi aktivni PDF sablona ' + pdfTemplateName;
+        // Kdyz neni ani jedna sablona, nema smysl pokracovat. Chybejici PDF sablona se resi az
+        // u konkretni transakce - pravidelny dar ji nepotrebuje.
+        if (templates.isEmpty()) {
+            String problem = 'Chybi aktivni e-mailova sablona ' + emailTemplateDevName
+                + ' i ' + recurringTemplateDevName;
             for (Id tid : transactionIds) outcomes.add(fail(tid, problem));
             logErrors(outcomes);
             return outcomes;
@@ -107,17 +122,22 @@ public without sharing class DKD_GiftThankYouService {
             return outcomes;
         }
 
-        // Merge pole ze sablony se ctou dynamicky, aby sablona sla upravovat bez zasahu do kodu
+        // Merge pole se ctou dynamicky z obou sablon najednou, aby sly upravovat bez zasahu do kodu -
+        // davka muze obsahovat jednorazove i pravidelne dary a dopredu nevime, ktere sablony budou potreba
         Set<String> fields = new Set<String>{
             'Id', 'Name', 'DonorId', 'Donor.Name', 'Donor.PersonContactId', 'Donor.PersonEmail',
             'Donor.npc_bridge__PrimaryContact__c', 'Donor.npc_bridge__PrimaryContact__r.Email',
-            'AcknowledgementStatus', 'Transaction_Year__c'
+            'AcknowledgementStatus', 'Transaction_Year__c', 'GiftCommitmentId'
         };
-        fields.addAll(extractTokenFields(template.Subject + ' ' + template.HtmlValue + ' ' + template.Body));
+        for (EmailTemplate t : templates.values()) {
+            fields.addAll(extractTokenFields(t.Subject + ' ' + t.HtmlValue + ' ' + t.Body));
+        }
         List<GiftTransaction> transactions = Database.query(
             'SELECT ' + String.join(new List<String>(fields), ', ')
             + ' FROM GiftTransaction WHERE Id IN :transactionIds'
         );
+
+        Map<Id, Id> firstPaidByCommitment = loadFirstPaidByCommitment(transactions);
 
         // 1. faze: callouty (PDF) a priprava mailu - zadne DML
         List<Messaging.SingleEmailMessage> mails = new List<Messaging.SingleEmailMessage>();
@@ -133,6 +153,25 @@ public without sharing class DKD_GiftThankYouService {
                 outcomes.add(skipped);
                 continue;
             }
+            // Za pravidelny dar se dekuje jen u prvni zaplacene platby zavazku, dalsi splatky se preskoci
+            Boolean isRecurring = gt.GiftCommitmentId != null;
+            if (isRecurring && firstPaidByCommitment.get(gt.GiftCommitmentId) != gt.Id) {
+                Outcome skipped = fail(gt.Id, 'Dalsi platba zavazku, za tu se uz nedekuje.');
+                skipped.success = true;
+                outcomes.add(skipped);
+                continue;
+            }
+            String templateName = isRecurring ? recurringTemplateDevName : emailTemplateDevName;
+            EmailTemplate template = templates.get(templateName);
+            if (template == null) {
+                outcomes.add(fail(gt.Id, 'Chybi aktivni e-mailova sablona ' + templateName));
+                continue;
+            }
+            // PDF potvrzeni se priklada jen k jednorazovemu daru, pravidelny ho nepotrebuje
+            if (!isRecurring && pdfTemplate == null) {
+                outcomes.add(fail(gt.Id, 'Chybi aktivni PDF sablona ' + pdfTemplateName));
+                continue;
+            }
             Id contactId = gt.Donor.PersonContactId != null ? gt.Donor.PersonContactId : gt.Donor.npc_bridge__PrimaryContact__c;
             String email = String.isNotBlank(gt.Donor.PersonEmail) ? gt.Donor.PersonEmail : gt.Donor.npc_bridge__PrimaryContact__r?.Email;
             if (contactId == null || String.isBlank(email)) {
@@ -140,8 +179,9 @@ public without sharing class DKD_GiftThankYouService {
                 continue;
             }
             try {
-                Blob pdf = generatePdf(gt.Id, pdfTemplate.Id);
-                String fileName = 'potvrzeni-o-daru-' + (String.isBlank(gt.Transaction_Year__c) ? 'dkd' : gt.Transaction_Year__c) + '.pdf';
+                Blob pdf = isRecurring ? null : generatePdf(gt.Id, pdfTemplate.Id);
+                String fileName = isRecurring ? null
+                    : 'potvrzeni-o-daru-' + (String.isBlank(gt.Transaction_Year__c) ? 'dkd' : gt.Transaction_Year__c) + '.pdf';
 
                 Messaging.SingleEmailMessage mail = new Messaging.SingleEmailMessage();
                 mail.setTargetObjectId(contactId);
@@ -151,11 +191,13 @@ public without sharing class DKD_GiftThankYouService {
                 mail.setSaveAsActivity(true);
                 mail.setUseSignature(false);
                 if (fromAddressId != null) mail.setOrgWideEmailAddressId(fromAddressId);  // v produkci vzdy vyplnene
-                Messaging.EmailFileAttachment attachment = new Messaging.EmailFileAttachment();
-                attachment.setFileName(fileName);
-                attachment.setBody(pdf);
-                attachment.setContentType('application/pdf');
-                mail.setFileAttachments(new List<Messaging.EmailFileAttachment>{ attachment });
+                if (pdf != null) {
+                    Messaging.EmailFileAttachment attachment = new Messaging.EmailFileAttachment();
+                    attachment.setFileName(fileName);
+                    attachment.setBody(pdf);
+                    attachment.setContentType('application/pdf');
+                    mail.setFileAttachments(new List<Messaging.EmailFileAttachment>{ attachment });
+                }
 
                 mails.add(mail);
                 mailTransactions.add(gt);
@@ -175,8 +217,11 @@ public without sharing class DKD_GiftThankYouService {
         if (!mails.isEmpty()) {
             List<GiftTransaction> marks = new List<GiftTransaction>();
             for (GiftTransaction gt : mailTransactions) {
-                marks.add(new GiftTransaction(Id = gt.Id, AcknowledgementStatus = STATUS_SENT,
-                    AcknowledgementDate = Date.today(), TaxReceiptStatus = STATUS_SENT));
+                // TaxReceiptStatus se hybe jen u jednorazoveho daru - jen k nemu jde potvrzeni o daru
+                GiftTransaction mark = new GiftTransaction(Id = gt.Id, AcknowledgementStatus = STATUS_SENT,
+                    AcknowledgementDate = Date.today());
+                if (gt.GiftCommitmentId == null) mark.TaxReceiptStatus = STATUS_SENT;
+                marks.add(mark);
             }
             update marks;
 
@@ -188,16 +233,20 @@ public without sharing class DKD_GiftThankYouService {
                 if (results[i].isSuccess()) {
                     o.success = true;
                     o.message = 'Odeslano na ' + o.recipientEmail;
-                    files.add(new ContentVersion(
-                        Title = fileNames[i].removeEnd('.pdf'),
-                        PathOnClient = fileNames[i],
-                        VersionData = pdfs[i],
-                        FirstPublishLocationId = mailTransactions[i].Id
-                    ));
+                    if (pdfs[i] != null) {
+                        files.add(new ContentVersion(
+                            Title = fileNames[i].removeEnd('.pdf'),
+                            PathOnClient = fileNames[i],
+                            VersionData = pdfs[i],
+                            FirstPublishLocationId = mailTransactions[i].Id
+                        ));
+                    }
                 } else {
                     o.message = 'Odeslani e-mailu selhalo: ' + results[i].getErrors()[0].getMessage();
-                    reverts.add(new GiftTransaction(Id = mailTransactions[i].Id, AcknowledgementStatus = 'To Be Sent',
-                        AcknowledgementDate = null, TaxReceiptStatus = 'To Be Sent'));
+                    GiftTransaction revert = new GiftTransaction(Id = mailTransactions[i].Id,
+                        AcknowledgementStatus = STATUS_TO_BE_SENT, AcknowledgementDate = null);
+                    if (mailTransactions[i].GiftCommitmentId == null) revert.TaxReceiptStatus = STATUS_TO_BE_SENT;
+                    reverts.add(revert);
                 }
                 outcomes.add(o);
             }
@@ -210,6 +259,25 @@ public without sharing class DKD_GiftThankYouService {
 
         logErrors(outcomes);
         return outcomes;
+    }
+
+    // Za pravidelny dar se dekuje jen u prvni zaplacene platby zavazku. Bezi az po commitu,
+    // takze prave zpracovavana transakce uz je Paid a v dotazu se objevi. Poradi je dane
+    // TransactionDueDate, takze vysledek je stejny pri kazdem behu i pro dozorci job.
+    @TestVisible
+    private static Map<Id, Id> loadFirstPaidByCommitment(List<GiftTransaction> transactions) {
+        Set<Id> commitmentIds = new Set<Id>();
+        for (GiftTransaction gt : transactions) {
+            if (gt.GiftCommitmentId != null) commitmentIds.add(gt.GiftCommitmentId);
+        }
+        Map<Id, Id> firstPaid = new Map<Id, Id>();
+        if (commitmentIds.isEmpty()) return firstPaid;
+        for (GiftTransaction gt : [SELECT Id, GiftCommitmentId FROM GiftTransaction
+                WHERE GiftCommitmentId IN :commitmentIds AND Status = :STATUS_PAID
+                ORDER BY TransactionDueDate ASC NULLS LAST, Id ASC]) {
+            if (!firstPaid.containsKey(gt.GiftCommitmentId)) firstPaid.put(gt.GiftCommitmentId, gt.Id);
+        }
+        return firstPaid;
     }
 
     /* ================= pomocne ================= */
@@ -231,12 +299,18 @@ public without sharing class DKD_GiftThankYouService {
             + ' - priradte mu permission set DKD_Thank_You_Automation.';
     }
 
-    private static EmailTemplate loadEmailTemplate() {
-        List<EmailTemplate> templates = [
-            SELECT Id, Subject, HtmlValue, Body FROM EmailTemplate
-            WHERE DeveloperName = :emailTemplateDevName AND IsActive = true LIMIT 1
-        ];
-        return templates.isEmpty() ? null : templates[0];
+    // Obe sablony najednou: DKD_Thank_You_One_Time pro jednorazovy dar, DKD_Thank_You_Recurring
+    // pro prvni zaplacenou platbu zavazku. Klicem je DeveloperName.
+    private static Map<String, EmailTemplate> loadEmailTemplates() {
+        Set<String> names = new Set<String>{ emailTemplateDevName, recurringTemplateDevName };
+        Map<String, EmailTemplate> byName = new Map<String, EmailTemplate>();
+        for (EmailTemplate t : [
+            SELECT Id, DeveloperName, Subject, HtmlValue, Body FROM EmailTemplate
+            WHERE DeveloperName IN :names AND IsActive = true
+        ]) {
+            byName.put(t.DeveloperName, t);
+        }
+        return byName;
     }
 
     private static npc_bridge__PDF_Template__c loadPdfTemplate() {

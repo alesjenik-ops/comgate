@@ -2,6 +2,7 @@
 private class DKD_GiftThankYouServiceTest {
 
     private static final String TEST_TEMPLATE = 'DKD_Thank_You_Test_Tmp';
+    private static final String TEST_TEMPLATE_RECURRING = 'DKD_Thank_You_Rec_Tmp';
     private static final String TEST_PDF = 'DKD test PDF';
 
     @TestSetup
@@ -17,6 +18,16 @@ private class DKD_GiftThankYouServiceTest {
                 Subject = 'Dekujeme {!GiftTransaction.Thank_You_Donor_Name__c}',
                 HtmlValue = '<p>Dar {!GiftTransaction.Thank_You_Amount__c} Kc, {!GiftTransaction.Thank_You_Donor_Name__c}</p>',
                 Body = 'Dar {!GiftTransaction.Thank_You_Amount__c} Kc'
+            );
+            insert new EmailTemplate(
+                Name = 'DKD test pravidelny',
+                DeveloperName = TEST_TEMPLATE_RECURRING,
+                TemplateType = 'custom',
+                FolderId = UserInfo.getUserId(),
+                IsActive = true,
+                Subject = 'Dekujeme, ze v tom jedete s nami',
+                HtmlValue = '<p>Pravidelne {!GiftTransaction.Thank_You_Amount__c} Kc</p>',
+                Body = 'Pravidelne {!GiftTransaction.Thank_You_Amount__c} Kc'
             );
         }
         insert new npc_bridge__PDF_Template__c(
@@ -39,8 +50,25 @@ private class DKD_GiftThankYouServiceTest {
         return gt;
     }
 
+    // Jen standardni pole - trida se nasazuje samostatne, bez balicku src-comgate-npc
+    private static GiftCommitment makeCommitment(Id donorId) {
+        GiftCommitment gc = new GiftCommitment(Name = 'Test zavazek', DonorId = donorId, Status = 'Active',
+            EffectiveStartDate = Date.today().addMonths(-1));
+        insert gc;
+        return gc;
+    }
+
+    private static GiftTransaction makeRecurringGift(Id donorId, Id commitmentId, Decimal amount, Date dueDate) {
+        GiftTransaction gt = new GiftTransaction(Name = 'Test splatka', DonorId = donorId, PaymentMethod = 'Credit Card',
+            OriginalAmount = amount, Status = 'Paid', TransactionDate = dueDate, TransactionDueDate = dueDate,
+            GiftCommitmentId = commitmentId);
+        insert gt;
+        return gt;
+    }
+
     private static void useTestTemplates() {
         DKD_GiftThankYouService.emailTemplateDevName = TEST_TEMPLATE;
+        DKD_GiftThankYouService.recurringTemplateDevName = TEST_TEMPLATE_RECURRING;
         DKD_GiftThankYouService.pdfTemplateName = TEST_PDF;
         // v testu neni overena organizacni adresa k dispozici
         DKD_GiftThankYouService.requireOrgWideAddress = false;
@@ -225,5 +253,67 @@ private class DKD_GiftThankYouServiceTest {
         Assert.isFalse(ready);
         Assert.areEqual(0, enqueued, 'Dozorci job bez adresy nic neradi do fronty');
         Assert.areEqual('To Be Sent', [SELECT AcknowledgementStatus FROM GiftTransaction WHERE Id = :gt.Id].AcknowledgementStatus);
+    }
+
+    // Prvni zaplacena platba zavazku: dekovny e-mail ze sablony pro pravidelny dar, BEZ PDF potvrzeni
+    // a bez sahnuti na TaxReceiptStatus. Drive to posilal primo flow akci emailSimple z organizacni
+    // adresy, coz z guest kontextu neproslo a shodilo cely zapis platby z Comgate webhooku.
+    @IsTest
+    static void recurringFirstPaidPaymentSendsWithoutPdf() {
+        useTestTemplates();
+        Account donor = makeDonor('darce@example.com');
+        GiftCommitment commitment = makeCommitment(donor.Id);
+        GiftTransaction gt = makeRecurringGift(donor.Id, commitment.Id, 500, Date.today());
+
+        Test.startTest();
+        List<DKD_GiftThankYouService.Outcome> outcomes = DKD_GiftThankYouService.process(new List<Id>{ gt.Id });
+        Integer emails = Limits.getEmailInvocations();
+        Test.stopTest();
+
+        Assert.areEqual(1, outcomes.size());
+        Assert.isTrue(outcomes[0].success, outcomes[0].message);
+        Assert.areEqual(1, emails, 'Ma probehnout jedno odeslani');
+        GiftTransaction after = [SELECT AcknowledgementStatus, AcknowledgementDate, TaxReceiptStatus
+            FROM GiftTransaction WHERE Id = :gt.Id];
+        Assert.areEqual('Sent', after.AcknowledgementStatus);
+        Assert.areEqual(Date.today(), after.AcknowledgementDate);
+        Assert.areNotEqual('Sent', after.TaxReceiptStatus, 'K pravidelnemu daru se potvrzeni o daru neposila');
+        Assert.areEqual(0, [SELECT COUNT() FROM ContentDocumentLink WHERE LinkedEntityId = :gt.Id],
+            'K pravidelnemu daru se nepriklada PDF');
+    }
+
+    // Dalsi splatka zavazku uz podekovani nedostane
+    @IsTest
+    static void recurringLaterPaymentIsSkipped() {
+        useTestTemplates();
+        Account donor = makeDonor('darce@example.com');
+        GiftCommitment commitment = makeCommitment(donor.Id);
+        makeRecurringGift(donor.Id, commitment.Id, 500, Date.today().addMonths(-1));
+        GiftTransaction later = makeRecurringGift(donor.Id, commitment.Id, 500, Date.today());
+
+        Test.startTest();
+        List<DKD_GiftThankYouService.Outcome> outcomes = DKD_GiftThankYouService.process(new List<Id>{ later.Id });
+        Integer emails = Limits.getEmailInvocations();
+        Test.stopTest();
+
+        Assert.isTrue(outcomes[0].success, outcomes[0].message);
+        Assert.areEqual(0, emails, 'Za dalsi splatku zavazku se uz nedekuje');
+        GiftTransaction after = [SELECT AcknowledgementStatus FROM GiftTransaction WHERE Id = :later.Id];
+        Assert.areNotEqual('Sent', after.AcknowledgementStatus);
+    }
+
+    // Pravidelny dar sahne po sablone pro pravidelny dar, ne po jednorazove
+    @IsTest
+    static void recurringPicksRecurringTemplate() {
+        useTestTemplates();
+        DKD_GiftThankYouService.recurringTemplateDevName = 'Neexistujici_Pravidelna_Sablona';
+        Account donor = makeDonor('darce@example.com');
+        GiftCommitment commitment = makeCommitment(donor.Id);
+        GiftTransaction gt = makeRecurringGift(donor.Id, commitment.Id, 500, Date.today());
+
+        List<DKD_GiftThankYouService.Outcome> outcomes = DKD_GiftThankYouService.process(new List<Id>{ gt.Id });
+
+        Assert.isFalse(outcomes[0].success);
+        Assert.isTrue(outcomes[0].message.contains('Neexistujici_Pravidelna_Sablona'), outcomes[0].message);
     }
 }
