@@ -184,6 +184,20 @@
             <title>Dary podle platební metody a stavu</title>
             <useReportChart>false</useReportChart>
         </components>
+        <components>
+            <autoselectColumnsFromReport>true</autoselectColumnsFromReport>
+            <componentType>Table</componentType>
+            <drillEnabled>false</drillEnabled>
+            <drillToDetailEnabled>true</drillToDetailEnabled>
+            <groupingSortProperties/>
+            <indicatorHighColor>#54C254</indicatorHighColor>
+            <indicatorLowColor>#C25454</indicatorLowColor>
+            <indicatorMiddleColor>#C2C254</indicatorMiddleColor>
+            <maxValuesDisplayed>20</maxValuesDisplayed>
+            <report>Platebni_Brana/PB_Pravidelne_Splatky</report>
+            <sortBy>RowLabelAscending</sortBy>
+            <title>Pravidelné dary – čekající splátky</title>
+        </components>
     </middleSection>
     <rightSection>
         <columnSize>Medium</columnSize>
@@ -280,6 +294,24 @@
             <metricLabel>Jednorázové dary – zaplacené</metricLabel>
             <report>Platebni_Brana/PB_Jednorazove_Dary</report>
             <showRange>false</showRange>
+        </components>
+        <components>
+            <autoselectColumnsFromReport>true</autoselectColumnsFromReport>
+            <chartAxisRange>Auto</chartAxisRange>
+            <componentType>Donut</componentType>
+            <drillEnabled>false</drillEnabled>
+            <drillToDetailEnabled>true</drillToDetailEnabled>
+            <enableHover>true</enableHover>
+            <expandOthers>false</expandOthers>
+            <groupingSortProperties/>
+            <legendPosition>Right</legendPosition>
+            <report>Platebni_Brana/PB_Zavazky_Autorizace</report>
+            <showPercentage>false</showPercentage>
+            <showTotal>true</showTotal>
+            <showValues>true</showValues>
+            <sortBy>RowLabelAscending</sortBy>
+            <title>Závazky podle autorizace u Comgate</title>
+            <useReportChart>false</useReportChart>
         </components>
     </rightSection>
     <runningUser>crdm@crmproneziskovky.cz</runningUser>

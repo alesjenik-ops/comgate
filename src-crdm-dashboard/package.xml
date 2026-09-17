@@ -24,12 +24,18 @@
         <members>Platebni_Brana/PB_Dary_Podle_Metody_A_Stavu</members>
         <members>Platebni_Brana/PB_Pravidelne_Dary</members>
         <members>Platebni_Brana/PB_Jednorazove_Dary</members>
+        <members>Platebni_Brana/PB_Pravidelne_Splatky</members>
+        <members>Platebni_Brana/PB_Zavazky_Autorizace</members>
         <name>Report</name>
     </types>
     <types>
         <members>Platebni_Brana_Dashboards</members>
         <members>Platebni_Brana_Dashboards/Platebni_Brana</members>
         <name>Dashboard</name>
+    </types>
+    <types>
+        <members>PB_Pravidelne_Zavazky</members>
+        <name>ReportType</name>
     </types>
     <version>64.0</version>
 </Package>

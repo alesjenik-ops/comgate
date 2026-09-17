@@ -6,7 +6,7 @@
 
 | Složka | Obsah |
 | --- | --- |
-| `reports/Platebni_Brana/` | 18 reportů nad `Payment_Reference__c` (pokusy o platbu), `Payment_Log__c` (události z Comgate) a `GiftTransaction` (dary z brány). |
+| `reports/Platebni_Brana/` | 20 reportů nad `Payment_Reference__c` (pokusy o platbu), `Payment_Log__c` (události z Comgate) a `GiftTransaction` (dary z brány). |
 | `dashboards/Platebni_Brana_Dashboards/Platebni_Brana.dashboard` | Dashboard „Platební brána Comgate“, 3 sloupce, running user `crdm@crmproneziskovky.cz`. |
 | `objects/Payment_Reference__c.object` | Objekt se zapnutým *Allow Reports* – bez toho nad ním reporty nejdou. |
 | `phase2/flexipages/Home_Platebni_Brana.flexipage` | Home page s embedovaným dashboardem, odvozená z `Home_Page_Default`. |
@@ -52,6 +52,30 @@ Všechny filtrují jen dary z brány, tedy `PaymentMethod` = *Credit Card* nebo
 
 Pravidelné a jednorázové se rozlišují filtrem na prázdný/neprázdný `GiftCommitment`,
 ne novým polem – žádné pole se kvůli dashboardu nezakládalo.
+
+## Pravidelné dary a strhávání
+
+| Report | Komponenta | Co ukazuje |
+| --- | --- | --- |
+| `PB_Pravidelne_Splatky` | tabulka uprostřed | Nezaplacené splátky závazků seskupené podle data splatnosti – co a kdy se má strhnout. |
+| `PB_Zavazky_Autorizace` | donut vpravo | Aktivní závazky mimo Darujme podle `Comgate_Authorized__c`. **False = Comgate nemá souhlas a nikdy nestrhne.** |
+
+`PB_Zavazky_Autorizace` běží nad vlastním report typem `reportTypes/PB_Pravidelne_Zavazky`
+(`PB_Pravidelne_Zavazky__c`), protože standardní *Závazky dárců (NPC Analytics)* pole
+integrace Comgate nenabízí.
+
+Pole `GiftCommitment.Comgate_Authorized__c`, `Comgate_Initial_Transaction_Id__c`,
+`Comgate_Recurring__c`, `Comgate_Variable_Symbol__c` a `Payment_Method__c` neměla
+nastavenou viditelnost pro nikoho – jen pro Apex. Doplněná jsou v permission setu
+`Comgate Integration` (`src-comgate-npc/permissionsets`), jinak by je report ani
+uživatel v CRM neviděl.
+
+### Kdy se strhává
+
+`ComgateChargePaymentsBatch` běží denně v 08:00 UTC, ale splátky bere jen v den podle
+`Comgate_Settings__c.Day_Of_Charging__c` (nastaveno **10.**). Nutná podmínka je
+`GiftCommitment.Comgate_Authorized__c = true`, což nastaví webhook po první úspěšné
+platbě kartou. Závazek bez autorizace batch nikdy nevezme.
 
 ## Poznámky k datům
 
