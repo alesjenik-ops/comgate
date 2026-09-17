@@ -20,9 +20,12 @@ Podle šablon `děkovný dopis individuální dárce jednorázový.docx` a `potv
    - **jednorázový dar** – PDF ze šablony `npc_bridge__PDF_Template__c` „Potvrzeni o daru DKD" přes VF
      stránku balíčku `GiftConfirmationPDF`, e-mail `DKD_Thank_You_One_Time`, PDF se uloží jako soubor
      k transakci, nastaví se `AcknowledgementStatus` i `TaxReceiptStatus = Sent`
-   - **pravidelný dar** – jen u **první zaplacené platby závazku** (pořadí podle `TransactionDueDate`),
-     e-mail `DKD_Thank_You_Recurring` **bez PDF**, nastaví se jen `AcknowledgementStatus`
-     a `AcknowledgementDate`; `TaxReceiptStatus` zůstává. Další splátky se tiše přeskočí.
+   - **pravidelný dar** – **jednou za závazek**, e-mail `DKD_Thank_You_Recurring` **bez PDF**,
+     nastaví se jen `AcknowledgementStatus` a `AcknowledgementDate`; `TaxReceiptStatus` zůstává.
+     O přeskočení rozhoduje, jestli **některá platba závazku už má `AcknowledgementStatus = Sent`** –
+     záměrně ne pořadí splatnosti: splátky se platí i mimo pořadí (neúspěšná splátka zůstává `Unpaid`
+     a `ComgateChargePaymentsBatch` ji nabíjí později), takže podle `TransactionDueDate` by zaplacení
+     starší splátky poslalo druhé poděkování za tentýž závazek.
 
    Merge pole `{!GiftTransaction.X}` se u obou šablon plní přímo z transakce, e-mail se posílá
    z organizační adresy `darci@darujemekrouzky.cz` (jen pokud je ověřená) a ukládá se jako

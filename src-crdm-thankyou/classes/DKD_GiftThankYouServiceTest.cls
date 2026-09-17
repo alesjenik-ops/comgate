@@ -282,13 +282,14 @@ private class DKD_GiftThankYouServiceTest {
             'K pravidelnemu daru se nepriklada PDF');
     }
 
-    // Dalsi splatka zavazku uz podekovani nedostane
+    // Zavazek, za ktery uz podekovani odeslo, dalsi nedostane
     @IsTest
     static void recurringLaterPaymentIsSkipped() {
         useTestTemplates();
         Account donor = makeDonor('darce@example.com');
         GiftCommitment commitment = makeCommitment(donor.Id);
-        makeRecurringGift(donor.Id, commitment.Id, 500, Date.today().addMonths(-1));
+        GiftTransaction first = makeRecurringGift(donor.Id, commitment.Id, 500, Date.today().addMonths(-1));
+        update new GiftTransaction(Id = first.Id, AcknowledgementStatus = 'Sent');
         GiftTransaction later = makeRecurringGift(donor.Id, commitment.Id, 500, Date.today());
 
         Test.startTest();
@@ -315,5 +316,45 @@ private class DKD_GiftThankYouServiceTest {
 
         Assert.isFalse(outcomes[0].success);
         Assert.isTrue(outcomes[0].message.contains('Neexistujici_Pravidelna_Sablona'), outcomes[0].message);
+    }
+
+    // Splatky se plati i mimo poradi splatnosti: neuspesna splatka zustava Unpaid a nabiji se pozdeji.
+    // Kdyz uz zavazek podekovani dostal, zaplaceni STARSI splatky nesmi poslat druhe.
+    @IsTest
+    static void recurringOutOfOrderPaymentDoesNotThankTwice() {
+        useTestTemplates();
+        Account donor = makeDonor('darce@example.com');
+        GiftCommitment commitment = makeCommitment(donor.Id);
+        GiftTransaction later = makeRecurringGift(donor.Id, commitment.Id, 500, Date.today());
+        update new GiftTransaction(Id = later.Id, AcknowledgementStatus = 'Sent');
+        // starsi splatka podle splatnosti, ale zaplacena az ted
+        GiftTransaction earlier = makeRecurringGift(donor.Id, commitment.Id, 500, Date.today().addMonths(-1));
+
+        Test.startTest();
+        List<DKD_GiftThankYouService.Outcome> outcomes = DKD_GiftThankYouService.process(new List<Id>{ earlier.Id });
+        Integer emails = Limits.getEmailInvocations();
+        Test.stopTest();
+
+        Assert.isTrue(outcomes[0].success, outcomes[0].message);
+        Assert.areEqual(0, emails, 'Za zavazek uz podekovani odeslo, druhe se posilat nesmi');
+    }
+
+    // Dve splatky tehoz zavazku v jedne davce - podekovani odejde jen jednou
+    @IsTest
+    static void recurringTwoInstalmentsInOneBatchThankOnce() {
+        useTestTemplates();
+        Account donor = makeDonor('darce@example.com');
+        GiftCommitment commitment = makeCommitment(donor.Id);
+        GiftTransaction one = makeRecurringGift(donor.Id, commitment.Id, 500, Date.today().addMonths(-1));
+        GiftTransaction two = makeRecurringGift(donor.Id, commitment.Id, 500, Date.today());
+
+        Test.startTest();
+        List<DKD_GiftThankYouService.Outcome> outcomes =
+            DKD_GiftThankYouService.process(new List<Id>{ one.Id, two.Id });
+        Integer emails = Limits.getEmailInvocations();
+        Test.stopTest();
+
+        Assert.areEqual(2, outcomes.size());
+        Assert.areEqual(1, emails, 'Za jeden zavazek jedno podekovani, i kdyz jsou splatky v jedne davce');
     }
 }

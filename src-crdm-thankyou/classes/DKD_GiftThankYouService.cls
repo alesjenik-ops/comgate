@@ -36,7 +36,6 @@ public without sharing class DKD_GiftThankYouService {
     public static final String PDF_PAGE_PATH = '/apex/npc_bridge__GiftConfirmationPDF';
     public static final String STATUS_SENT = 'Sent';
     public static final String STATUS_TO_BE_SENT = 'To Be Sent';
-    public static final String STATUS_PAID = 'Paid';
     // Callout limit je 100 na transakci, kazde PDF je jeden callout
     public static final Integer CHUNK_SIZE = 40;
 
@@ -137,7 +136,7 @@ public without sharing class DKD_GiftThankYouService {
             + ' FROM GiftTransaction WHERE Id IN :transactionIds'
         );
 
-        Map<Id, Id> firstPaidByCommitment = loadFirstPaidByCommitment(transactions);
+        Set<Id> thankedCommitments = loadThankedCommitments(transactions);
 
         // 1. faze: callouty (PDF) a priprava mailu - zadne DML
         List<Messaging.SingleEmailMessage> mails = new List<Messaging.SingleEmailMessage>();
@@ -153,10 +152,11 @@ public without sharing class DKD_GiftThankYouService {
                 outcomes.add(skipped);
                 continue;
             }
-            // Za pravidelny dar se dekuje jen u prvni zaplacene platby zavazku, dalsi splatky se preskoci
+            // Za pravidelny dar se dekuje jednou za zavazek. add() vrati false, kdyz uz zavazek
+            // podekovani dostal - drive, nebo jinou splatkou ze stejne davky.
             Boolean isRecurring = gt.GiftCommitmentId != null;
-            if (isRecurring && firstPaidByCommitment.get(gt.GiftCommitmentId) != gt.Id) {
-                Outcome skipped = fail(gt.Id, 'Dalsi platba zavazku, za tu se uz nedekuje.');
+            if (isRecurring && !thankedCommitments.add(gt.GiftCommitmentId)) {
+                Outcome skipped = fail(gt.Id, 'Za tento zavazek uz podekovani odeslo, preskoceno.');
                 skipped.success = true;
                 outcomes.add(skipped);
                 continue;
@@ -261,23 +261,24 @@ public without sharing class DKD_GiftThankYouService {
         return outcomes;
     }
 
-    // Za pravidelny dar se dekuje jen u prvni zaplacene platby zavazku. Bezi az po commitu,
-    // takze prave zpracovavana transakce uz je Paid a v dotazu se objevi. Poradi je dane
-    // TransactionDueDate, takze vysledek je stejny pri kazdem behu i pro dozorci job.
+    // Zavazky, za ktere uz podekovani odeslo. Rozhoduje stav zavazku, NE poradi splatnosti:
+    // splatky se plati i mimo poradi - neuspesna splatka pravidelneho daru zustava Unpaid
+    // (webhook ji Failed nenastavi) a ComgateChargePaymentsBatch ji nabiji znovu. Kdyby se
+    // vybiralo podle TransactionDueDate, zaplacenim starsi splatky by se "prvni platbou" stala
+    // jina transakce a darci by odeslo druhe podekovani za tyz zavazek.
     @TestVisible
-    private static Map<Id, Id> loadFirstPaidByCommitment(List<GiftTransaction> transactions) {
+    private static Set<Id> loadThankedCommitments(List<GiftTransaction> transactions) {
         Set<Id> commitmentIds = new Set<Id>();
         for (GiftTransaction gt : transactions) {
             if (gt.GiftCommitmentId != null) commitmentIds.add(gt.GiftCommitmentId);
         }
-        Map<Id, Id> firstPaid = new Map<Id, Id>();
-        if (commitmentIds.isEmpty()) return firstPaid;
-        for (GiftTransaction gt : [SELECT Id, GiftCommitmentId FROM GiftTransaction
-                WHERE GiftCommitmentId IN :commitmentIds AND Status = :STATUS_PAID
-                ORDER BY TransactionDueDate ASC NULLS LAST, Id ASC]) {
-            if (!firstPaid.containsKey(gt.GiftCommitmentId)) firstPaid.put(gt.GiftCommitmentId, gt.Id);
+        Set<Id> thanked = new Set<Id>();
+        if (commitmentIds.isEmpty()) return thanked;
+        for (GiftTransaction gt : [SELECT GiftCommitmentId FROM GiftTransaction
+                WHERE GiftCommitmentId IN :commitmentIds AND AcknowledgementStatus = :STATUS_SENT]) {
+            thanked.add(gt.GiftCommitmentId);
         }
-        return firstPaid;
+        return thanked;
     }
 
     /* ================= pomocne ================= */
