@@ -10,6 +10,10 @@ global without sharing class ComgateWebhook {
     private static GiftCommitment foundGiftCommitment;
     private static Payment_Reference__c foundPaymentReference;
 
+    // Kdyz se neco z daru opravdu zapsalo, nesmi se vratit 500: Comgate by report prehral
+    // a handlePaidRecurring by u zavazku oznacil jako zaplacenou UZ DALSI splatku
+    private static Boolean anythingSaved = false;
+
     private static final String STATUS_PROCESSED = 'Processed';
     private static final String STATUS_FAILED = 'Failed';
     private static final String STATUS_UNVERIFIED = 'Unverified';
@@ -57,11 +61,14 @@ global without sharing class ComgateWebhook {
             logError('Report ' + eventWrapper.transId + ' skoncil jako ' + processingStatus + '. ' + processingError);
         }
 
-        // 200 jen kdyz report skutecne zustal v Payment_Log__c. HTTP 500 Comgate po tretim pokusu
-        // vypne hlaseni na cely den, a to pro VSECHNY darce, ne jen pro tuhle platbu - proto se vraci
-        // i kdyz se dary nezapsaly. Zaznam se stavem jinym nez Processed je signal k prehrani reportu.
-        // Kdyz se nepodarilo zapsat ani log, neni co dohledat a 500 je na miste: at to Comgate zkusi znovu.
-        respond(resp, recorded ? 200 : 500, recorded ? '[accepted]' : '[not recorded]');
+        // 200 vzdy, kdyz po reportu neco zustalo - bud zapsane dary, nebo aspon Payment_Log__c.
+        // HTTP 500 Comgate po tretim pokusu vypne hlaseni na cely den, a to pro VSECHNY darce,
+        // ne jen pro tuhle platbu; zaznam se stavem jinym nez Processed je signal k prehrani reportu.
+        // 500 se vraci jen kdyz se nezapsalo VUBEC NIC - tam neni co dohledat a prehrani je bezpecne,
+        // protoze zacina z ciste situace. Kdyby se vracelo 500 i po castecnem zapisu, prehrany report
+        // by u zavazku oznacil jako zaplacenou dalsi splatku a darce by byl pripsan dvakrat.
+        Boolean nothingLeft = !recorded && !anythingSaved;
+        respond(resp, nothingLeft ? 500 : 200, nothingLeft ? '[not recorded]' : '[accepted]');
     }
 
     // Staticke stavy prezivaji v ramci jedne transakce - pri opakovanem volani (testy) je nutne je vycistit
@@ -70,6 +77,7 @@ global without sharing class ComgateWebhook {
         giftCommitmentForUpdate.clear();
         eventWrapper = null;
         paymentStatusWrapper = null;
+        anythingSaved = false;
         foundGiftTransaction = null;
         foundGiftCommitment = null;
         foundPaymentReference = null;
@@ -129,7 +137,10 @@ global without sharing class ComgateWebhook {
     private static List<String> upsertProblems(List<Database.UpsertResult> results, String objectName) {
         List<String> problems = new List<String>();
         for (Database.UpsertResult result : results) {
-            if (result.isSuccess()) continue;
+            if (result.isSuccess()) {
+                anythingSaved = true;
+                continue;
+            }
             for (Database.Error error : result.getErrors()) {
                 problems.add(objectName + ' ' + result.getId() + ': ' + error.getStatusCode() + ' - ' + error.getMessage());
             }
