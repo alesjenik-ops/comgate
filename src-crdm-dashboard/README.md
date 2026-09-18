@@ -82,7 +82,9 @@ platbě kartou. Závazek bez autorizace batch nikdy nevezme.
 - Testovací platby (`Payment_Log__c.Is_Test__c`) jsou ze všech čísel vyloučené a
   zobrazené zvlášť v donutu vpravo dole.
 - Import z Darujme (`PaymentMethod = Darujme`) do brány nepatří, reporty nad
-  `GiftTransaction` filtrují jen `Credit Card` a `Bankovní převod`.
+  `GiftTransaction` filtrují jen `Credit Card` a `Bankovní převod`. Dary z Darujme mají vlastní
+  dashboard „Dary z Darujme.cz“ – viz `src-crdm-darujme`. Do tohohle dashboardu je přidat nejde:
+  má **20 komponent, což je strop** na dashboard.
 - Důvod havárie (`Status_Reason__c`) je long text, nejde seskupit – je ve sloupci
   tabulkového reportu *Havarované platby – detail s důvodem*, na který vede proklik
   z metriky.

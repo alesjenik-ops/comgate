@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>GiftCommitment$Name</field>
+    </columns>
+    <columns>
+        <field>GiftCommitment$Donor</field>
+    </columns>
+    <columns>
+        <field>GiftCommitment$EffectiveStartDate</field>
+    </columns>
+    <columns>
+        <field>GiftCommitment$Campaign</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>GiftCommitment$TotalPaidTransactionAmount</field>
+    </columns>
+    <filter>
+        <criteriaItems>
+            <column>GiftCommitment$npc_bridge__Type__c</column>
+            <operator>equals</operator>
+            <value>Darujme</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <field>GiftCommitment$Status</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Pravidelní dárci z Darujme</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>PB_Pravidelne_Zavazky__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+</Report>
