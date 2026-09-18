@@ -11,6 +11,7 @@
     </types>
     <types>
         <members>DKD_Thank_You_Requested__e</members>
+        <members>DKD_Thank_You_Settings__c</members>
         <name>CustomObject</name>
     </types>
     <types>

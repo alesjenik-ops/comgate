@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customSettingsType>Hierarchy</customSettingsType>
+    <description>Nastaveni automatickeho dekovneho e-mailu za dar (DKD_GiftThankYouService).</description>
+    <enableFeeds>false</enableFeeds>
+    <fields>
+        <fullName>Darujme_Thank_You_From__c</fullName>
+        <description>Datum daru, od ktereho posilame podekovani i za dary importovane z Darujme.cz. Prazdne = za dary z Darujme se nedekuje, protoze si darcum dekuje Darujme samo. Rozhoduje datum daru (TransactionDate), ne datum importu - historicke dary z dovozu tedy podekovani nedostanou.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Nechte prázdné, dokud dárcům děkuje Darujme.cz. Po vyplnění posíláme poděkování za dary darované od tohoto data, starší dary zůstanou bez e-mailu.</inlineHelpText>
+        <label>Poděkování za Darujme od</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <label>DKD poděkování – nastavení</label>
+    <visibility>Public</visibility>
+</CustomObject>

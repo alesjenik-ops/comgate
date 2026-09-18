@@ -25,6 +25,13 @@
  * z guest kontextu neprojde ("Org-Wide Email provided is not valid") a protoze akce bezela
  * v transakci webhooku, shodila cely zapis platby. Proto obe vetve chodi touhle cestou.
  *
+ * Dary importovane z Darujme.cz (PaymentMethod = Darujme) se rozhoduji podle nastaveni
+ * DKD_Thank_You_Settings__c.Darujme_Thank_You_From__c:
+ *  - prazdne = nedekujeme vubec, darcum dekuje Darujme samo
+ *  - vyplnene datum = dekujeme za dary darovane od toho dne, jednorazove i pravidelne
+ * Rozhoduje datum daru (TransactionDate), ne datum importu - denni synchronizace z Darujme
+ * dotahuje i nekolik dni stare dary a ty uz sve potvrzeni z Darujme dostaly.
+ *
  * Chyby se zapisuji do CRMforNonProfit__Error_Log__c a transakce zustava To Be Sent.
  */
 public without sharing class DKD_GiftThankYouService {
@@ -36,6 +43,7 @@ public without sharing class DKD_GiftThankYouService {
     public static final String PDF_PAGE_PATH = '/apex/npc_bridge__GiftConfirmationPDF';
     public static final String STATUS_SENT = 'Sent';
     public static final String STATUS_TO_BE_SENT = 'To Be Sent';
+    public static final String PAYMENT_METHOD_DARUJME = 'Darujme';
     // Callout limit je 100 na transakci, kazde PDF je jeden callout
     public static final Integer CHUNK_SIZE = 40;
 
@@ -126,7 +134,8 @@ public without sharing class DKD_GiftThankYouService {
         Set<String> fields = new Set<String>{
             'Id', 'Name', 'DonorId', 'Donor.Name', 'Donor.PersonContactId', 'Donor.PersonEmail',
             'Donor.npc_bridge__PrimaryContact__c', 'Donor.npc_bridge__PrimaryContact__r.Email',
-            'AcknowledgementStatus', 'Transaction_Year__c', 'GiftCommitmentId'
+            'AcknowledgementStatus', 'Transaction_Year__c', 'GiftCommitmentId',
+            'PaymentMethod', 'TransactionDate'
         };
         for (EmailTemplate t : templates.values()) {
             fields.addAll(extractTokenFields(t.Subject + ' ' + t.HtmlValue + ' ' + t.Body));
@@ -137,6 +146,7 @@ public without sharing class DKD_GiftThankYouService {
         );
 
         Set<Id> thankedCommitments = loadThankedCommitments(transactions);
+        Date darujmeFrom = darujmeThankYouFrom();
 
         // 1. faze: callouty (PDF) a priprava mailu - zadne DML
         List<Messaging.SingleEmailMessage> mails = new List<Messaging.SingleEmailMessage>();
@@ -148,6 +158,15 @@ public without sharing class DKD_GiftThankYouService {
         for (GiftTransaction gt : transactions) {
             if (gt.AcknowledgementStatus == STATUS_SENT) {
                 Outcome skipped = fail(gt.Id, 'Podekovani uz bylo odeslano, preskoceno.');
+                skipped.success = true;
+                outcomes.add(skipped);
+                continue;
+            }
+            // Dary z Darujme: dokud neni v nastaveni datum zapnuti, dekuje si Darujme samo a my mlcime.
+            // Stejne tak dary darovane pred timto datem - na ty uz potvrzeni z Darujme odeslo.
+            String darujmeSkip = darujmeSkipReason(gt, darujmeFrom);
+            if (darujmeSkip != null) {
+                Outcome skipped = fail(gt.Id, darujmeSkip);
                 skipped.success = true;
                 outcomes.add(skipped);
                 continue;
@@ -259,6 +278,27 @@ public without sharing class DKD_GiftThankYouService {
 
         logErrors(outcomes);
         return outcomes;
+    }
+
+    // Datum, od ktereho se dekuje i za dary importovane z Darujme.cz. Prazdne = nedekuje se.
+    // Nastavuje se v Setup > Custom Settings > DKD podekovani - nastaveni, aby sla automatika
+    // zapnout presne ve chvili, kdy si organizace vypne potvrzeni na strane Darujme.
+    public static Date darujmeThankYouFrom() {
+        DKD_Thank_You_Settings__c settings = DKD_Thank_You_Settings__c.getOrgDefaults();
+        return settings == null ? null : settings.Darujme_Thank_You_From__c;
+    }
+
+    // Duvod, proc se dar z Darujme preskakuje, nebo null kdyz se ma podekovat
+    @TestVisible
+    private static String darujmeSkipReason(GiftTransaction gt, Date darujmeFrom) {
+        if (gt.PaymentMethod != PAYMENT_METHOD_DARUJME) return null;
+        if (darujmeFrom == null) {
+            return 'Podekovani za dary z Darujme neni zapnute (DKD_Thank_You_Settings__c.Darujme_Thank_You_From__c je prazdne), preskoceno.';
+        }
+        if (gt.TransactionDate == null || gt.TransactionDate < darujmeFrom) {
+            return 'Dar z Darujme je starsi nez datum zapnuti podekovani (' + String.valueOf(darujmeFrom) + '), preskoceno.';
+        }
+        return null;
     }
 
     // Zavazky, za ktere uz podekovani odeslo. Rozhoduje stav zavazku, NE poradi splatnosti:

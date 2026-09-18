@@ -66,6 +66,29 @@ private class DKD_GiftThankYouServiceTest {
         return gt;
     }
 
+    private static GiftTransaction makeDarujmeGift(Id donorId, Decimal amount, Date transactionDate) {
+        GiftTransaction gt = new GiftTransaction(Name = 'Dar z Darujme', DonorId = donorId, PaymentMethod = 'Darujme',
+            OriginalAmount = amount, Status = 'Paid', TransactionDate = transactionDate, TransactionDueDate = transactionDate);
+        insert gt;
+        return gt;
+    }
+
+    private static GiftTransaction makeDarujmeInstalment(Id donorId, Id commitmentId, Decimal amount) {
+        GiftTransaction gt = new GiftTransaction(Name = 'Splatka z Darujme', DonorId = donorId, PaymentMethod = 'Darujme',
+            OriginalAmount = amount, Status = 'Paid', TransactionDate = Date.today(), TransactionDueDate = Date.today(),
+            GiftCommitmentId = commitmentId);
+        insert gt;
+        return gt;
+    }
+
+    // Zapnuti podekovani za dary z Darujme - v orgu se nastavuje v Setup > Custom Settings
+    private static void setDarujmeFrom(Date from) {
+        DKD_Thank_You_Settings__c settings = DKD_Thank_You_Settings__c.getOrgDefaults();
+        settings.SetupOwnerId = UserInfo.getOrganizationId();
+        settings.Darujme_Thank_You_From__c = from;
+        upsert settings;
+    }
+
     private static void useTestTemplates() {
         DKD_GiftThankYouService.emailTemplateDevName = TEST_TEMPLATE;
         DKD_GiftThankYouService.recurringTemplateDevName = TEST_TEMPLATE_RECURRING;
@@ -356,5 +379,158 @@ private class DKD_GiftThankYouServiceTest {
 
         Assert.areEqual(2, outcomes.size());
         Assert.areEqual(1, emails, 'Za jeden zavazek jedno podekovani, i kdyz jsou splatky v jedne davce');
+    }
+
+    // Dokud si darcum dekuje Darujme samo, nesmi z SF odejit nic - a nesmi to skoncit v Error Logu,
+    // preskoceni je normalni stav, ne chyba.
+    @IsTest
+    static void darujmeGiftIsSkippedUntilEnabled() {
+        useTestTemplates();
+        Account donor = makeDonor('darce@example.com');
+        GiftTransaction gt = makeDarujmeGift(donor.Id, 1000, Date.today());
+
+        Test.startTest();
+        List<DKD_GiftThankYouService.Outcome> outcomes = DKD_GiftThankYouService.process(new List<Id>{ gt.Id });
+        Integer emails = Limits.getEmailInvocations();
+        Test.stopTest();
+
+        Assert.isTrue(outcomes[0].success, outcomes[0].message);
+        Assert.areEqual(0, emails, 'Bez zapnuti se za dary z Darujme nedekuje');
+        Assert.areEqual('To Be Sent', [SELECT AcknowledgementStatus FROM GiftTransaction WHERE Id = :gt.Id].AcknowledgementStatus);
+        Assert.areEqual(0, [SELECT COUNT() FROM CRMforNonProfit__Error_Log__c WHERE CRMforNonProfit__Record_Id__c = :String.valueOf(gt.Id)],
+            'Preskoceny dar z Darujme neni chyba');
+    }
+
+    // Po zapnuti chodi dar z Darujme stejnou cestou jako dar z brany, vcetne PDF potvrzeni
+    @IsTest
+    static void darujmeGiftIsSentAfterEnabling() {
+        useTestTemplates();
+        setDarujmeFrom(Date.today().addDays(-1));
+        Account donor = makeDonor('darce@example.com');
+        GiftTransaction gt = makeDarujmeGift(donor.Id, 1000, Date.today());
+
+        Test.startTest();
+        List<DKD_GiftThankYouService.Outcome> outcomes = DKD_GiftThankYouService.process(new List<Id>{ gt.Id });
+        Integer emails = Limits.getEmailInvocations();
+        Test.stopTest();
+
+        Assert.isTrue(outcomes[0].success, outcomes[0].message);
+        Assert.areEqual(1, emails, 'Ma probehnout jedno odeslani');
+        GiftTransaction after = [SELECT AcknowledgementStatus, TaxReceiptStatus FROM GiftTransaction WHERE Id = :gt.Id];
+        Assert.areEqual('Sent', after.AcknowledgementStatus);
+        Assert.areEqual('Sent', after.TaxReceiptStatus);
+        Assert.areEqual(1, [SELECT COUNT() FROM ContentDocumentLink WHERE LinkedEntityId = :gt.Id], 'PDF ma byt ulozene u transakce');
+    }
+
+    // Denni synchronizace dotahuje i nekolik dni stare dary; za ty uz potvrzeni z Darujme odeslo,
+    // rozhoduje proto datum daru, ne datum vzniku zaznamu.
+    @IsTest
+    static void darujmeGiftOlderThanStartIsSkipped() {
+        useTestTemplates();
+        setDarujmeFrom(Date.today());
+        Account donor = makeDonor('darce@example.com');
+        GiftTransaction old = makeDarujmeGift(donor.Id, 1000, Date.today().addDays(-3));
+        GiftTransaction fresh = makeDarujmeGift(donor.Id, 1000, Date.today());
+
+        Test.startTest();
+        List<DKD_GiftThankYouService.Outcome> outcomes =
+            DKD_GiftThankYouService.process(new List<Id>{ old.Id, fresh.Id });
+        Integer emails = Limits.getEmailInvocations();
+        Test.stopTest();
+
+        Assert.areEqual(1, emails, 'Odejit ma jen dar darovany od data zapnuti');
+        Assert.areEqual('To Be Sent', [SELECT AcknowledgementStatus FROM GiftTransaction WHERE Id = :old.Id].AcknowledgementStatus);
+        Assert.areEqual('Sent', [SELECT AcknowledgementStatus FROM GiftTransaction WHERE Id = :fresh.Id].AcknowledgementStatus);
+        Assert.areEqual(2, outcomes.size());
+    }
+
+    // Stejny vypinac plati i pro pravidelne dary z Darujme - jinak by darce dostal podekovani
+    // od nas i potvrzeni z Darujme zaroven.
+    @IsTest
+    static void darujmeRecurringIsSkippedUntilEnabled() {
+        useTestTemplates();
+        Account donor = makeDonor('darce@example.com');
+        GiftCommitment commitment = makeCommitment(donor.Id);
+        GiftTransaction gt = makeDarujmeInstalment(donor.Id, commitment.Id, 500);
+
+        Test.startTest();
+        List<DKD_GiftThankYouService.Outcome> outcomes = DKD_GiftThankYouService.process(new List<Id>{ gt.Id });
+        Integer emails = Limits.getEmailInvocations();
+        Test.stopTest();
+
+        Assert.isTrue(outcomes[0].success, outcomes[0].message);
+        Assert.areEqual(0, emails, 'Bez zapnuti se nedekuje ani za pravidelny dar z Darujme');
+        Assert.areEqual('To Be Sent', [SELECT AcknowledgementStatus FROM GiftTransaction WHERE Id = :gt.Id].AcknowledgementStatus);
+    }
+
+    // Po zapnuti dostane pravidelny darce z Darujme podekovani za prvni zaplacenou splatku zavazku
+    @IsTest
+    static void darujmeRecurringIsSentAfterEnabling() {
+        useTestTemplates();
+        setDarujmeFrom(Date.today().addDays(-1));
+        Account donor = makeDonor('darce@example.com');
+        GiftCommitment commitment = makeCommitment(donor.Id);
+        GiftTransaction gt = makeDarujmeInstalment(donor.Id, commitment.Id, 500);
+
+        Test.startTest();
+        List<DKD_GiftThankYouService.Outcome> outcomes = DKD_GiftThankYouService.process(new List<Id>{ gt.Id });
+        Integer emails = Limits.getEmailInvocations();
+        Test.stopTest();
+
+        Assert.isTrue(outcomes[0].success, outcomes[0].message);
+        Assert.areEqual(1, emails, 'Po zapnuti odejde podekovani za prvni splatku zavazku');
+        GiftTransaction after = [SELECT AcknowledgementStatus, TaxReceiptStatus FROM GiftTransaction WHERE Id = :gt.Id];
+        Assert.areEqual('Sent', after.AcknowledgementStatus);
+        Assert.areNotEqual('Sent', after.TaxReceiptStatus, 'K pravidelnemu daru se potvrzeni o daru neposila');
+    }
+
+    // Dozorci job nesmi dary z Darujme dobirat, dokud neni podekovani zapnute
+    @IsTest
+    static void schedulerIgnoresDarujmeUntilEnabled() {
+        useTestTemplates();
+        Account donor = makeDonor('darce@example.com');
+        GiftTransaction gt = makeDarujmeGift(donor.Id, 700, Date.today());
+
+        Test.startTest();
+        Integer found = DKD_GiftThankYouScheduler.enqueuePending();
+        Test.stopTest();
+
+        Assert.areEqual(0, found, 'Bez zapnuti dozorci job dar z Darujme nevidi');
+        Assert.areEqual('To Be Sent', [SELECT AcknowledgementStatus FROM GiftTransaction WHERE Id = :gt.Id].AcknowledgementStatus);
+    }
+
+    // Po zapnuti dobere dozorci job i jednorazove dary z Darujme, ktere zustaly bez podekovani
+    @IsTest
+    static void schedulerPicksDarujmeAfterEnabling() {
+        useTestTemplates();
+        setDarujmeFrom(Date.today().addDays(-1));
+        Account donor = makeDonor('darce@example.com');
+        GiftTransaction fresh = makeDarujmeGift(donor.Id, 700, Date.today());
+        GiftTransaction old = makeDarujmeGift(donor.Id, 700, Date.today().addDays(-10));
+
+        Test.startTest();
+        Integer found = DKD_GiftThankYouScheduler.enqueuePending();
+        Test.stopTest();
+
+        Assert.areEqual(1, found, 'Dobrat se ma jen dar darovany od data zapnuti');
+        Assert.areEqual('Sent', [SELECT AcknowledgementStatus FROM GiftTransaction WHERE Id = :fresh.Id].AcknowledgementStatus);
+        Assert.areEqual('To Be Sent', [SELECT AcknowledgementStatus FROM GiftTransaction WHERE Id = :old.Id].AcknowledgementStatus);
+    }
+
+    // Dary z brany dozorci job bere bez ohledu na nastaveni Darujme
+    @IsTest
+    static void schedulerStillPicksGatewayGiftsWhenDarujmeEnabled() {
+        useTestTemplates();
+        setDarujmeFrom(Date.today());
+        Account donor = makeDonor('darce@example.com');
+        GiftTransaction gateway = makeGift(donor.Id, 400);
+        update new GiftTransaction(Id = gateway.Id, Status = 'Paid');
+
+        Test.startTest();
+        Integer found = DKD_GiftThankYouScheduler.enqueuePending();
+        Test.stopTest();
+
+        Assert.areEqual(1, found, 'Dar z brany ma dozorci job dobrat i se zapnutym Darujme');
+        Assert.areEqual('Sent', [SELECT AcknowledgementStatus FROM GiftTransaction WHERE Id = :gateway.Id].AcknowledgementStatus);
     }
 }

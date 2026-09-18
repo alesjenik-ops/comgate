@@ -23,10 +23,10 @@
         <label>Typ daru</label>
         <locationX>176</locationX>
         <locationY>280</locationY>
-        <defaultConnectorLabel>Už poděkováno / Darujme</defaultConnectorLabel>
+        <defaultConnectorLabel>Už poděkováno / Darujme bez zapnutí</defaultConnectorLabel>
         <rules>
             <name>Jednorazovy</name>
-            <conditionLogic>and</conditionLogic>
+            <conditionLogic>1 AND 2 AND (3 OR 4)</conditionLogic>
             <conditions>
                 <leftValueReference>$Record.GiftCommitmentId</leftValueReference>
                 <operator>IsNull</operator>
@@ -48,6 +48,13 @@
                     <stringValue>Darujme</stringValue>
                 </rightValue>
             </conditions>
+            <conditions>
+                <leftValueReference>$Setup.DKD_Thank_You_Settings__c.Darujme_Thank_You_From__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
             <connector>
                 <targetReference>Poslat_podekovani</targetReference>
             </connector>
@@ -55,7 +62,7 @@
         </rules>
         <rules>
             <name>Pravidelny</name>
-            <conditionLogic>and</conditionLogic>
+            <conditionLogic>1 AND 2 AND (3 OR 4)</conditionLogic>
             <conditions>
                 <leftValueReference>$Record.GiftCommitmentId</leftValueReference>
                 <operator>IsNull</operator>
@@ -70,13 +77,27 @@
                     <stringValue>Sent</stringValue>
                 </rightValue>
             </conditions>
+            <conditions>
+                <leftValueReference>$Record.PaymentMethod</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <stringValue>Darujme</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Setup.DKD_Thank_You_Settings__c.Darujme_Thank_You_From__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
             <connector>
                 <targetReference>Poslat_podekovani</targetReference>
             </connector>
             <label>Pravidelný dar</label>
         </rules>
     </decisions>
-    <description>Poděkování dárci po zaplacení daru. Běží asynchronně až po commitu, takže jeho selhání nikdy neshodí zápis platby z Comgate webhooku. Jednorázový i pravidelný dar volá tutéž invocable metodu DKD_GiftThankYouService; ta jen publikuje platform event a vlastní odeslání běží pod správcem. Rozlišení typu daru, výběr šablony i kontrola první zaplacené platby závazku jsou v Apexu. Dary importované z Darujme se vynechávají.</description>
+    <description>Poděkování dárci po zaplacení daru. Běží asynchronně až po commitu, takže jeho selhání nikdy neshodí zápis platby z Comgate webhooku. Jednorázový i pravidelný dar volá tutéž invocable metodu DKD_GiftThankYouService; ta jen publikuje platform event a vlastní odeslání běží pod správcem. Rozlišení typu daru, výběr šablony i kontrola první zaplacené platby závazku jsou v Apexu. Dary z Darujme projdou jen když je v nastavení DKD poděkování vyplněné datum zapnutí; datum daru pak hlídá Apex.</description>
     <environments>Default</environments>
     <interviewLabel>Gift Transaction Thank You Email {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Gift Transaction Thank You Email</label>

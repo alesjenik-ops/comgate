@@ -4,6 +4,8 @@
  * Tento job bezi jako uzivatel, ktery ho naplanoval (admin), a jednou za ctvrt hodiny
  * dobere jednorazove zaplacene dary, ktere jeste nemaji odeslane podekovani.
  * Dary vznikle pred nasazenim (START) se nechavaji byt, aby se stari darci neobesilali zpetne.
+ * U daru z Darujme.cz rozhoduje datum daru a nastaveni Darujme_Thank_You_From__c, ne START -
+ * dovoz z Darujme zaklada zaznamy az nekolik dni po daru.
  */
 public without sharing class DKD_GiftThankYouScheduler implements Schedulable {
 
@@ -21,15 +23,34 @@ public without sharing class DKD_GiftThankYouScheduler implements Schedulable {
             System.debug(LoggingLevel.WARN, 'DKD podekovani: organizacni adresa ' + DKD_GiftThankYouService.FROM_ADDRESS + ' neni pripravena, cekam.');
             return 0;
         }
-        List<GiftTransaction> pending = [
-            SELECT Id FROM GiftTransaction
-            WHERE Status = 'Paid'
-            AND GiftCommitmentId = null
-            AND AcknowledgementStatus = 'To Be Sent'
-            AND PaymentMethod != 'Darujme'
-            AND CreatedDate >= :START
-            LIMIT :BATCH_LIMIT
-        ];
+        // Dary z Darujme dobirame jen kdyz je podekovani za ne zapnute, a jen ty darovane od
+        // nastaveneho data - viz DKD_GiftThankYouService.darujmeThankYouFrom(). Prazdne nastaveni
+        // nejde svazat bindem (SOQL neporovna datum s null), proto dva tvary dotazu.
+        Date darujmeFrom = DKD_GiftThankYouService.darujmeThankYouFrom();
+        List<GiftTransaction> pending;
+        if (darujmeFrom == null) {
+            pending = [
+                SELECT Id FROM GiftTransaction
+                WHERE Status = 'Paid'
+                AND GiftCommitmentId = null
+                AND AcknowledgementStatus = 'To Be Sent'
+                AND PaymentMethod != 'Darujme'
+                AND CreatedDate >= :START
+                LIMIT :BATCH_LIMIT
+            ];
+        } else {
+            pending = [
+                SELECT Id FROM GiftTransaction
+                WHERE Status = 'Paid'
+                AND GiftCommitmentId = null
+                AND AcknowledgementStatus = 'To Be Sent'
+                AND (
+                    (PaymentMethod != 'Darujme' AND CreatedDate >= :START)
+                    OR (PaymentMethod = 'Darujme' AND TransactionDate >= :darujmeFrom)
+                )
+                LIMIT :BATCH_LIMIT
+            ];
+        }
         if (!pending.isEmpty()) {
             System.enqueueJob(new DKD_GiftThankYouQueueable(new List<Id>(new Map<Id, GiftTransaction>(pending).keySet())));
         }
