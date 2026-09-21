@@ -93,6 +93,8 @@ export default class DonationWidget extends LightningElement {
 
     // Prazdna hodnota nechá darce na formulari a zobrazi podekovani primo v nem
     @api thankYouPageUrl = '';
+    // Popisek tlacitka pod platebnimi udaji u prevodu; prazdny popisek tlacitko skryje
+    @api doneButtonLabel = 'Hotovo';
 
     // Personalizace podle parametru v URL (widget 3): ?krouzek=hudba meni texty i sipku
     @api personalizeByUrl = false;
@@ -765,6 +767,16 @@ export default class DonationWidget extends LightningElement {
             window.location.href = url;
         }
         return true;
+    }
+
+    // Tlacitko Hotovo pod QR kodem: darce uz ma platebni udaje, prevod dokonci ve sve bance
+    handleDoneClick() {
+        if (!this.redirectToThankYouPage()) this.scrollTop();
+    }
+
+    // Bez dekovaci stranky by tlacitko nemelo kam vest
+    get showDoneButton() {
+        return !!(this.doneButtonLabel || '').trim() && !!(this.thankYouPageUrl || '').trim();
     }
 
     /* ================= pomocne ================= */

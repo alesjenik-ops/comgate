@@ -80,6 +80,11 @@
                       type="String"
                       label="URL dekovaci stranky"
                       description="Kam se darce presmeruje po uspesne platbe v Comgate. Widget k ni prida vsechny parametry ze sve URL (napr. campaignId, krouzek, utm_*) a k tomu amount a frequency. Kdyz zustane prazdne, zobrazi se podekovani primo ve formulari."/>
+            <property name="doneButtonLabel"
+                      type="String"
+                      label="Popisek tlacitka po platbe prevodem"
+                      default="Hotovo"
+                      description="Tlacitko pod QR kodem a platebnimi udaji, ktere darce zmackne, az si prikaz zada v bance. Vede na dekovaci stranku. Prazdny popisek tlacitko skryje; bez vyplnene URL dekovaci stranky se nezobrazi take."/>
             <property name="personalizeByUrl"
                       type="Boolean"
                       label="Personalizovat podle parametru v URL"

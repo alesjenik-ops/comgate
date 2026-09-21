@@ -175,6 +175,10 @@
     background: var(--c-deep);
 }
 
+.cta--done {
+    margin-top: 1.5rem;
+}
+
 .back {
     appearance: none;
     border: none;

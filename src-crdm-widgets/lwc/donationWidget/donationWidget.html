@@ -244,6 +244,10 @@
                         support-email={supportEmail}>
                     </c-payment-details-page>
                 </template>
+
+                <template lwc:if={showDoneButton}>
+                    <button type="button" class="cta cta--done" onclick={handleDoneClick}>{doneButtonLabel}</button>
+                </template>
             </template>
         </div>
     </div>

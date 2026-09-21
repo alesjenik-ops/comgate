@@ -87,6 +87,17 @@ Sipka se v rezimu popup vykresluje pod tlacitkem - to je ten "barevny pruh dole"
 mobilni verze navrhu. Na strance `widgetKrouzekPopup` je proto *Zobrazit sipku* zapnute
 a vsechny sipky podle castky nastavene na *Zadna sipka*, aby se bez parametru nic neukazalo.
 
+## Tlacitko Hotovo u platby prevodem
+
+Kdyz darce zvoli bankovni prevod, widget mu v poslednim kroku ukaze QR kod a platebni
+udaje (komponenta `c-payment-details-page`). Pod nimi je tlacitko **Hotovo**, ktere
+darce zmackne, az si prikaz zada ve sve bance, a ktere ho posle na dekovaci stranku -
+stejnou cestou jako po platbe kartou, tedy vcetne parametru z URL, castky a frekvence.
+
+Popisek se meni vlastnosti *Popisek tlacitka po platbe prevodem*. Prazdny popisek
+tlacitko skryje. Bez vyplnene *URL dekovaci stranky* se tlacitko nezobrazi take,
+protoze by nemelo kam vest.
+
 ## Predvyplnena zeme
 
 Pole *Zeme* je predvyplnene hodnotou z vlastnosti *Vychozi zeme* (`Czech Republic`, musi to
