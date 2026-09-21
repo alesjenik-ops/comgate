@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>GiftTransaction$Name</field>
+    </columns>
+    <columns>
+        <field>GiftTransaction$Donor</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>GiftTransaction$CurrentAmount</field>
+    </columns>
+    <columns>
+        <field>GiftTransaction$Status</field>
+    </columns>
+    <description>Dary bez stavu Paid v aktuálním roce podle měsíce splatnosti a platební metody. Datum platby u nich není vyplněné, proto splatnost.</description>
+    <filter>
+        <criteriaItems>
+            <column>GiftTransaction$Status</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value>Paid</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Matrix</format>
+    <groupingsAcross>
+        <field>GiftTransaction$PaymentMethod</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsAcross>
+    <groupingsDown>
+        <dateGranularity>Month</dateGranularity>
+        <field>GiftTransaction$TransactionDueDate</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Nezaplacené dary dle metody a měsíce</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Gift_Transaction__c</reportType>
+    <scope>organization</scope>
+    <showDetails>false</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>GiftTransaction$TransactionDueDate</dateColumn>
+        <interval>INTERVAL_CURRENT</interval>
+    </timeFrameFilter>
+</Report>

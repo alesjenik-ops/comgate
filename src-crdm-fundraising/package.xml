@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <types>
+        <members>NSK_Fundraising_Reports/Dary_po_mesicich_dle_metody</members>
+        <members>NSK_Fundraising_Reports/Nezaplacene_dary_dle_metody</members>
+        <name>Report</name>
+    </types>
+    <types>
+        <members>NSK_Dashboards/Fundraising_Dashboard</members>
+        <name>Dashboard</name>
+    </types>
+    <version>64.0</version>
+</Package>
