@@ -68,6 +68,25 @@ sf project deploy start --metadata-dir src-crdm-analytics --target-org <alias>
 ```
 
 Složka je samostatně nasaditelná: obsahuje i reporty, které se neměnily, ale na
-které dashboardy odkazují. Zbytek složky *NPC Analytics* v orgu (reporty nad
-Donor Gift Summary a Outreach Summary) tu schválně není – na žádném dashboardu
-už nevisí a je na rozhodnutí, jestli se smažou.
+které dashboardy odkazují.
+
+## Smazané reporty
+
+Devět reportů nad prázdnými NPC rollupy už v orgu není – nevisely na žádném
+dashboardu a jejich zdroj nemá ani jeden záznam:
+
+| Report | Report typ |
+| --- | --- |
+| Top dárci (Donor Gift Summary) | `Donor_Gift_Summary_NPC__c` |
+| Dárci podle úrovně (Giving Level) | `Donor_Gift_Summary_NPC__c` |
+| Dárci bez daru déle než rok (recency) | `Donor_Gift_Summary_NPC__c` |
+| Meziroční srovnání darů (3 roky) | `Donor_Gift_Summary_NPC__c` |
+| RFM segmentace dárců | `Donor_Gift_Summary_NPC__c` |
+| Soft credity dárců | `Donor_Gift_Summary_NPC__c` |
+| Výkon kampaní (Outreach Summary) | `Outreach_Summary_NPC__c` |
+| Výkon podle source kódu | `Outreach_Summary_NPC__c` |
+| Kampaně: jednorázové vs. pravidelné | `Outreach_Summary_NPC__c` |
+
+Smazáno deployem s `destructiveChangesPost.xml`. Ve složce *NPC Analytics*
+zůstalo 19 reportů, všechny nad analytikou fpack, `GiftTransaction` nebo
+`GiftCommitment`.
