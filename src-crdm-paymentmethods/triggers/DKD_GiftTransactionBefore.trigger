@@ -1,12 +1,18 @@
 /**
- * Drzi GiftTransaction.PaymentMethod v jednotnem tvaru "kanal - metoda".
+ * Srovnava dar jeste pred zapisem, i kdyz ho zaklada managed balicek npc_bridge,
+ * kam jinak nevidime - proto trigger, ne uprava integracniho kodu.
  *
- * Bezi i nad zapisy z managed balicku npc_bridge (Darujme, parovani FIO), kam
- * jinak nevidime - proto trigger, ne uprava integracniho kodu.
- * Na update se pocita jen tehdy, kdyz se zmenila vstupni data, aby nestoupal
- * pocet SOQL dotazu pri bezne editaci daru.
+ * 1. DKD_PaymentMethodMapper drzi PaymentMethod v jednotnem tvaru "kanal - metoda".
+ * 2. DKD_GiftTransactionDates doplni TransactionDate u nezaplacenych prevodu,
+ *    bez ktereho je parovani bankovnich vypisu nenajde.
+ *
+ * Poradi je zavazne: datum se rozhoduje podle uz srovnane platebni metody.
+ *
+ * Na update se platebni metoda pocita jen tehdy, kdyz se zmenila vstupni data,
+ * aby pri bezne editaci daru nestoupal pocet SOQL dotazu. Datum zadny dotaz
+ * nepotrebuje, takze projde vzdy.
  */
-trigger DKD_GiftTransactionPaymentMethod on GiftTransaction (before insert, before update) {
+trigger DKD_GiftTransactionBefore on GiftTransaction (before insert, before update) {
 
     List<GiftTransaction> toProcess = new List<GiftTransaction>();
 
@@ -26,4 +32,5 @@ trigger DKD_GiftTransactionPaymentMethod on GiftTransaction (before insert, befo
     }
 
     DKD_PaymentMethodMapper.apply(toProcess);
+    DKD_GiftTransactionDates.apply(Trigger.new);
 }

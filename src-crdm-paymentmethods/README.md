@@ -30,8 +30,8 @@ prefix vybere kanál, seskupení ukáže metody.
 ## Co to dělá
 
 `DKD_PaymentMethodMapper` je jediné místo, kde se hodnota rozhoduje.
-Trigger `DKD_GiftTransactionPaymentMethod` (before insert, before update) ji
-volá na každý dar.
+Trigger `DKD_GiftTransactionBefore` (before insert, before update) ji volá na
+každý dar – a hned po ní ještě `DKD_GiftTransactionDates`, viz níže.
 
 Kanál se pozná podle zdroje, ne podle toho, co v poli je:
 
@@ -60,12 +60,50 @@ nedají ani zavolat, ani obejít. Trigger je jediné místo, kam na jejich zápi
 dosáhneme. Comgate integrace se tím pádem nemusela měnit vůbec – webhook dál
 zapisuje surovou hodnotu do `Payment_Method__c` a trigger si ji přečte.
 
+## Očekávané datum platby u převodů
+
+`DKD_GiftTransactionDates` doplní nezaplacenému daru `TransactionDate` podle
+splatnosti, pokud je platební metoda **převod** (`Comgate - Převod`,
+`Bankovní převod`, `Bank Transfer`).
+
+Zní to jako nesmysl – datum přijetí peněz na daru, který ještě nikdo nezaplatil.
+Je to ale jediné pole, na které se dívá párování bankovních výpisů v balíčku
+(`FpackTransactionPairingQueueable`, řádky 112–114):
+
+```apex
+Status = 'Unpaid' AND
+TransactionDate >= :minOppDate AND
+TransactionDate <= :maxOppDate AND
+DonorId IN :accountIds
+```
+
+Darovací formulář plní jen `TransactionDueDate`, `TransactionDate` nechává
+prázdné. Prázdné datum téhle podmínce nikdy nevyhoví, takže párování dar
+z formuláře neuvidí a místo označení za zaplacený **založí druhý**. Takhle
+vzniklo deset duplicitních darů za 16 800 Kč – stejný dárce, stejná částka,
+jednou Unpaid z formuláře a podruhé Paid z výpisu.
+
+Dokud dar není zaplacený, je to prostě očekávané datum platby. Jakmile platba
+dorazí, přepíše ho párování skutečným datem z výpisu
+(`FpackTransactionPairingQueueable` ř. 174) nebo Comgate webhook
+(`ComgateWebhook` ř. 242).
+
+U karet se datum neplní – ty vyřídí webhook během několika minut a párování
+výpisů do nich nemá co sahat.
+
+Historické dary dožene `DKD_GiftTransactionDates.backfill()`; je idempotentní.
+
 ## Nasazení
 
 ```bash
 sf project deploy start --metadata-dir src-crdm-paymentmethods --target-org <alias> \
-  --test-level RunSpecifiedTests --tests DKD_PaymentMethodMapperTest
+  --test-level RunSpecifiedTests --tests DKD_PaymentMethodMapperTest \
+  --tests DKD_GiftTransactionDatesTest
 ```
+
+Složka obsahuje i `destructiveChangesPost.xml`, který maže starý trigger
+`DKD_GiftTransactionPaymentMethod` – přejmenoval se na `DKD_GiftTransactionBefore`,
+protože kromě platební metody řeší i datum.
 
 Číselník `PaymentMethodType` je standardní value set – v manifestu musí být
 vyjmenovaný jménem, wildcard retrieve ho nevrátí a pod objektem `GiftTransaction`
