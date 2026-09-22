@@ -1,18 +1,26 @@
 /**
- * Srovnava dar jeste pred zapisem, i kdyz ho zaklada managed balicek npc_bridge,
- * kam jinak nevidime - proto trigger, ne uprava integracniho kodu.
+ * Jedine misto, kde se dar srovnava pri zapisu - plati i pro zapisy managed balicku
+ * npc_bridge, kam jinak nevidime, a proto je to trigger, ne uprava integracniho kodu.
  *
  * 1. DKD_PaymentMethodMapper drzi PaymentMethod v jednotnem tvaru "kanal - metoda".
  * 2. DKD_GiftTransactionDates doplni TransactionDate u nezaplacenych prevodu,
  *    bez ktereho je parovani bankovnich vypisu nenajde.
+ * 3. DKD_AccountBlacklist zahodi dary z protiuctu, ktere v NNOSettings nejsou
+ *    darci (zuctovani Comgate, vyplaty z Darujme pres Nadaci VIA).
  *
  * Poradi je zavazne: datum se rozhoduje podle uz srovnane platebni metody.
+ * Blacklist bezi az after insert - before insert zapis zrusit neumi.
  *
  * Na update se platebni metoda pocita jen tehdy, kdyz se zmenila vstupni data,
  * aby pri bezne editaci daru nestoupal pocet SOQL dotazu. Datum zadny dotaz
  * nepotrebuje, takze projde vzdy.
  */
-trigger DKD_GiftTransactionBefore on GiftTransaction (before insert, before update) {
+trigger DKD_GiftTransactionRules on GiftTransaction (before insert, before update, after insert) {
+
+    if (Trigger.isAfter) {
+        DKD_AccountBlacklist.discardPairedGifts(Trigger.new);
+        return;
+    }
 
     List<GiftTransaction> toProcess = new List<GiftTransaction>();
 

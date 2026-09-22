@@ -30,8 +30,8 @@ prefix vybere kanál, seskupení ukáže metody.
 ## Co to dělá
 
 `DKD_PaymentMethodMapper` je jediné místo, kde se hodnota rozhoduje.
-Trigger `DKD_GiftTransactionBefore` (before insert, before update) ji volá na
-každý dar – a hned po ní ještě `DKD_GiftTransactionDates`, viz níže.
+Trigger `DKD_GiftTransactionRules` ji volá na každý dar – a vedle ní ještě
+`DKD_GiftTransactionDates` a `DKD_AccountBlacklist`, viz níže.
 
 Kanál se pozná podle zdroje, ne podle toho, co v poli je:
 
@@ -93,6 +93,38 @@ výpisů do nich nemá co sahat.
 
 Historické dary dožene `DKD_GiftTransactionDates.backfill()`; je idempotentní.
 
+## Blacklist protiúčtů
+
+Na účet u FIO chodí i platby, které nejsou dary: **zúčtování platební brány
+Comgate** a **výplaty z Darujme.cz přes Nadaci VIA**. Párování je připsalo
+záložnímu účtu *Default* a udělalo z nich dary – peníze se tím počítaly dvakrát,
+protože jednotlivé karetní a Darujme dary už v CRM jsou.
+
+Seznam účtů, ze kterých se dary nezakládají, drží standardní pole
+`CRMforNonProfit__NNOSettings__c.Account_Num_Blacklist__c` (*NNO Settings →
+Account Num. Blacklist*). Čísla účtů se oddělují novým řádkem, čárkou nebo
+středníkem, s kódem banky i bez něj. Aktuálně:
+
+```
+2107358917/2700   Comgate a.s.
+2198370339/0800   Nadace VIA
+```
+
+**Samotné nastavení párování nezastaví.** `FpackTransactionPairingQueueable`
+i `EntityPairing` v balíčku `npc_bridge` čtou z NNO Settings jen tři výchozí
+lookupy (`DefaultContact`, `DefaultAccount`, `DefaultCampaign`) a blacklist
+ignorují. Dar proto vznikne a `DKD_AccountBlacklist` ho hned zahodí – běží
+v `after insert`, protože `before insert` zápis zrušit neumí a `addError` by
+shodil celý `upsert` dávky v balíčku.
+
+Bankovní transakce v `CRMforNonProfit__Transaction__c` zůstává, jen z ní není dar.
+
+Dary, které vznikly dřív, než se blacklist zavedl, dožene
+`DKD_AccountBlacklist.discardExisting()`; je idempotentní.
+
+Kandidát na doplnění: `133070299/2010` (Česká rada dětí a mládeže) – vlastní
+převod 20 000 Kč mezi účty organizace.
+
 ## Nasazení
 
 ```bash
@@ -102,8 +134,9 @@ sf project deploy start --metadata-dir src-crdm-paymentmethods --target-org <ali
 ```
 
 Složka obsahuje i `destructiveChangesPost.xml`, který maže starý trigger
-`DKD_GiftTransactionPaymentMethod` – přejmenoval se na `DKD_GiftTransactionBefore`,
-protože kromě platební metody řeší i datum.
+`DKD_GiftTransactionBefore`. Trigger se jmenuje `DKD_GiftTransactionRules`,
+protože kromě platební metody řeší i datum a blacklist – a už neběží jen
+v `before` kontextu.
 
 Číselník `PaymentMethodType` je standardní value set – v manifestu musí být
 vyjmenovaný jménem, wildcard retrieve ho nevrátí a pod objektem `GiftTransaction`
