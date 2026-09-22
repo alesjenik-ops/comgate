@@ -19,8 +19,8 @@
     <filter>
         <criteriaItems>
             <column>GiftTransaction$PaymentMethod</column>
-            <operator>equals</operator>
-            <value>Darujme</value>
+            <operator>startsWith</operator>
+            <value>Darujme -</value>
         </criteriaItems>
         <criteriaItems>
             <column>GiftTransaction$Status</column>

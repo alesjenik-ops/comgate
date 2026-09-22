@@ -4,7 +4,7 @@
     <backgroundFadeDirection>Diagonal</backgroundFadeDirection>
     <backgroundStartColor>#FFFFFF</backgroundStartColor>
     <dashboardType>SpecifiedUser</dashboardType>
-    <description>Dary importované z Darujme.cz (PaymentMethod = Darujme): kolik jich přišlo a kdy, podle kampaně, jednorázové vs. pravidelné, pravidelní dárci a hlídání darů bez poděkování. Dary z platební brány Comgate jsou na samostatném dashboardu Platební brána Comgate.</description>
+    <description>Dary importované z Darujme.cz (platební metoda začíná na "Darujme - "): kolik jich přišlo a kdy, podle kampaně, jednorázové vs. pravidelné, pravidelní dárci a hlídání darů bez poděkování. Platby přes Comgate mají vlastní dashboard.</description>
     <isGridLayout>false</isGridLayout>
     <leftSection>
         <columnSize>Medium</columnSize>
@@ -70,7 +70,7 @@
             <maxValuesDisplayed>20</maxValuesDisplayed>
             <report>Darujme/DJ_Posledni_Dary</report>
             <sortBy>RowLabelDescending</sortBy>
-            <title>Poslední dary z Darujme (podle data daru)</title>
+            <title>Poslední dary z Darujme (dle data daru)</title>
         </components>
         <components>
             <autoselectColumnsFromReport>true</autoselectColumnsFromReport>
@@ -132,7 +132,7 @@
             <showTotal>true</showTotal>
             <showValues>true</showValues>
             <sortBy>RowLabelAscending</sortBy>
-            <title>Pravidelní dárci z Darujme podle stavu závazku</title>
+            <title>Pravidelní dárci podle stavu závazku</title>
             <useReportChart>false</useReportChart>
         </components>
     </rightSection>

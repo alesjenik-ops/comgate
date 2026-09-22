@@ -16,8 +16,8 @@
     <filter>
         <criteriaItems>
             <column>GiftTransaction$PaymentMethod</column>
-            <operator>equals</operator>
-            <value>Credit Card,Bankovní převod</value>
+            <operator>startsWith</operator>
+            <value>Comgate -</value>
         </criteriaItems>
         <criteriaItems>
             <column>GiftTransaction$Status</column>

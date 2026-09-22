@@ -34,7 +34,7 @@ public without sharing class DKD_GiftThankYouScheduler implements Schedulable {
                 WHERE Status = 'Paid'
                 AND GiftCommitmentId = null
                 AND AcknowledgementStatus = 'To Be Sent'
-                AND PaymentMethod != 'Darujme'
+                AND (NOT PaymentMethod LIKE 'Darujme%')
                 AND CreatedDate >= :START
                 LIMIT :BATCH_LIMIT
             ];
@@ -45,8 +45,8 @@ public without sharing class DKD_GiftThankYouScheduler implements Schedulable {
                 AND GiftCommitmentId = null
                 AND AcknowledgementStatus = 'To Be Sent'
                 AND (
-                    (PaymentMethod != 'Darujme' AND CreatedDate >= :START)
-                    OR (PaymentMethod = 'Darujme' AND TransactionDate >= :darujmeFrom)
+                    ((NOT PaymentMethod LIKE 'Darujme%') AND CreatedDate >= :START)
+                    OR (PaymentMethod LIKE 'Darujme%' AND TransactionDate >= :darujmeFrom)
                 )
                 LIMIT :BATCH_LIMIT
             ];

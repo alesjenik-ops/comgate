@@ -3,8 +3,8 @@
     <actionCalls>
         <name>Poslat_podekovani</name>
         <label>Poslat poděkování</label>
-        <locationX>176</locationX>
-        <locationY>400</locationY>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
         <actionName>DKD_GiftThankYouService</actionName>
         <actionType>apex</actionType>
         <flowTransactionModel>CurrentTransaction</flowTransactionModel>
@@ -15,18 +15,18 @@
             </value>
         </inputParameters>
         <nameSegment>DKD_GiftThankYouService</nameSegment>
-        <versionSegment>1</versionSegment>
     </actionCalls>
     <apiVersion>64.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
     <decisions>
         <name>Typ_daru</name>
         <label>Typ daru</label>
-        <locationX>176</locationX>
-        <locationY>280</locationY>
-        <defaultConnectorLabel>Už poděkováno / Darujme bez zapnutí</defaultConnectorLabel>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnectorLabel>Už poděkováno / Darujme</defaultConnectorLabel>
         <rules>
             <name>Jednorazovy</name>
-            <conditionLogic>1 AND 2 AND (3 OR 4)</conditionLogic>
+            <conditionLogic>and</conditionLogic>
             <conditions>
                 <leftValueReference>$Record.GiftCommitmentId</leftValueReference>
                 <operator>IsNull</operator>
@@ -46,13 +46,6 @@
                 <operator>EqualTo</operator>
                 <rightValue>
                     <booleanValue>true</booleanValue>
-                </rightValue>
-            </conditions>
-            <conditions>
-                <leftValueReference>$Setup.DKD_Thank_You_Settings__c.Darujme_Thank_You_From__c</leftValueReference>
-                <operator>IsNull</operator>
-                <rightValue>
-                    <booleanValue>false</booleanValue>
                 </rightValue>
             </conditions>
             <connector>
@@ -62,7 +55,7 @@
         </rules>
         <rules>
             <name>Pravidelny</name>
-            <conditionLogic>1 AND 2 AND (3 OR 4)</conditionLogic>
+            <conditionLogic>and</conditionLogic>
             <conditions>
                 <leftValueReference>$Record.GiftCommitmentId</leftValueReference>
                 <operator>IsNull</operator>
@@ -77,27 +70,13 @@
                     <stringValue>Sent</stringValue>
                 </rightValue>
             </conditions>
-            <conditions>
-                <leftValueReference>Neni_Darujme</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <booleanValue>true</booleanValue>
-                </rightValue>
-            </conditions>
-            <conditions>
-                <leftValueReference>$Setup.DKD_Thank_You_Settings__c.Darujme_Thank_You_From__c</leftValueReference>
-                <operator>IsNull</operator>
-                <rightValue>
-                    <booleanValue>false</booleanValue>
-                </rightValue>
-            </conditions>
             <connector>
                 <targetReference>Poslat_podekovani</targetReference>
             </connector>
             <label>Pravidelný dar</label>
         </rules>
     </decisions>
-    <description>Poděkování dárci po zaplacení daru. Běží asynchronně až po commitu, takže jeho selhání nikdy neshodí zápis platby z Comgate webhooku. Jednorázový i pravidelný dar volá tutéž invocable metodu DKD_GiftThankYouService; ta jen publikuje platform event a vlastní odeslání běží pod správcem. Rozlišení typu daru, výběr šablony i kontrola první zaplacené platby závazku jsou v Apexu. Dary z Darujme projdou jen když je v nastavení DKD poděkování vyplněné datum zapnutí; datum daru pak hlídá Apex.</description>
+    <description>Poděkování dárci po zaplacení daru. Běží asynchronně až po commitu, takže jeho selhání nikdy neshodí zápis platby z Comgate webhooku. Jednorázový i pravidelný dar volá tutéž invocable metodu DKD_GiftThankYouService; ta jen publikuje platform event a vlastní odeslání běží pod správcem. Rozlišení typu daru, výběr šablony i kontrola první zaplacené platby závazku jsou v Apexu. Dary importované z Darujme se vynechávají - poznají se podle platební metody začínající na „Darujme“.</description>
     <environments>Default</environments>
     <formulas>
         <name>Neni_Darujme</name>
@@ -126,7 +105,7 @@
     </processMetadataValues>
     <processType>AutoLaunchedFlow</processType>
     <start>
-        <locationX>50</locationX>
+        <locationX>0</locationX>
         <locationY>0</locationY>
         <doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria>
         <filterLogic>and</filterLogic>

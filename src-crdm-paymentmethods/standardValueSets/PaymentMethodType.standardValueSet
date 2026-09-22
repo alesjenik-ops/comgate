@@ -71,4 +71,64 @@
         <default>false</default>
         <label>Bank Transfer</label>
     </standardValue>
+    <standardValue>
+        <fullName>Comgate - Karta</fullName>
+        <default>false</default>
+        <label>Comgate - Karta</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Comgate - Bankovní tlačítko</fullName>
+        <default>false</default>
+        <label>Comgate - Bankovní tlačítko</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Comgate - Apple Pay</fullName>
+        <default>false</default>
+        <label>Comgate - Apple Pay</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Comgate - Google Pay</fullName>
+        <default>false</default>
+        <label>Comgate - Google Pay</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Comgate - Převod</fullName>
+        <default>false</default>
+        <label>Comgate - Převod</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Comgate - PayPal</fullName>
+        <default>false</default>
+        <label>Comgate - PayPal</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Comgate - Ostatní</fullName>
+        <default>false</default>
+        <label>Comgate - Ostatní</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Darujme - Karta</fullName>
+        <default>false</default>
+        <label>Darujme - Karta</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Darujme - Bankovní tlačítko</fullName>
+        <default>false</default>
+        <label>Darujme - Bankovní tlačítko</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Darujme - Převod</fullName>
+        <default>false</default>
+        <label>Darujme - Převod</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Darujme - Trvalý příkaz</fullName>
+        <default>false</default>
+        <label>Darujme - Trvalý příkaz</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Darujme - Ostatní</fullName>
+        <default>false</default>
+        <label>Darujme - Ostatní</label>
+    </standardValue>
 </StandardValueSet>

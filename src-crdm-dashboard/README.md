@@ -39,8 +39,8 @@ nenabízí), je potřeba se podívat do Setupu.
 
 Pět reportů nad report typem `Gift_Transaction__c` (ten na rozdíl od
 `Gift_Transactions_NPC__c` nabízí `AcknowledgementStatus` i `GiftCommitment`).
-Všechny filtrují jen dary z brány, tedy `PaymentMethod` = *Credit Card* nebo
-*Bankovní převod*; importy z Darujme jsou mimo.
+Všechny filtrují jen dary z brány, tedy `PaymentMethod` začínající na *Comgate -*;
+importy z Darujme jsou mimo.
 
 | Report | Komponenta | Co ukazuje |
 | --- | --- | --- |
@@ -81,8 +81,8 @@ platbě kartou. Závazek bez autorizace batch nikdy nevezme.
 
 - Testovací platby (`Payment_Log__c.Is_Test__c`) jsou ze všech čísel vyloučené a
   zobrazené zvlášť v donutu vpravo dole.
-- Import z Darujme (`PaymentMethod = Darujme`) do brány nepatří, reporty nad
-  `GiftTransaction` filtrují jen `Credit Card` a `Bankovní převod`. Dary z Darujme mají vlastní
+- Import z Darujme (`PaymentMethod` začíná na *Darujme -*) do brány nepatří, reporty nad
+  `GiftTransaction` filtrují jen `Comgate -`. Dary z Darujme mají vlastní
   dashboard „Dary z Darujme.cz“ – viz `src-crdm-darujme`. Do tohohle dashboardu je přidat nejde:
   má **20 komponent, což je strop** na dashboard.
 - Důvod havárie (`Status_Reason__c`) je long text, nejde seskupit – je ve sloupci

@@ -2,7 +2,7 @@
 
 Čistě OOTB reporting (žádné LWC ani Apex) nad dary, které do orgu přitečou z Darujme.cz.
 Vznikl proto, že dary z Darujme v dashboardu **Platební brána Comgate** vidět nejsou a ani být
-nemají: tamní reporty filtrují jen `PaymentMethod` = *Credit Card* a *Bankovní převod* a dashboard
+nemají: tamní reporty filtrují jen `PaymentMethod` začínající na *Comgate -* a dashboard
 je navíc plný – 20 komponent je strop, další se do něj nevejde.
 
 ## Odkud se dary z Darujme berou

@@ -25,7 +25,7 @@
  * z guest kontextu neprojde ("Org-Wide Email provided is not valid") a protoze akce bezela
  * v transakci webhooku, shodila cely zapis platby. Proto obe vetve chodi touhle cestou.
  *
- * Dary importovane z Darujme.cz (PaymentMethod = Darujme) se rozhoduji podle nastaveni
+ * Dary importovane z Darujme.cz (PaymentMethod zacina na 'Darujme') se rozhoduji podle nastaveni
  * DKD_Thank_You_Settings__c.Darujme_Thank_You_From__c:
  *  - prazdne = nedekujeme vubec, darcum dekuje Darujme samo
  *  - vyplnene datum = dekujeme za dary darovane od toho dne, jednorazove i pravidelne
@@ -43,7 +43,8 @@ public without sharing class DKD_GiftThankYouService {
     public static final String PDF_PAGE_PATH = '/apex/npc_bridge__GiftConfirmationPDF';
     public static final String STATUS_SENT = 'Sent';
     public static final String STATUS_TO_BE_SENT = 'To Be Sent';
-    public static final String PAYMENT_METHOD_DARUJME = 'Darujme';
+    // Dary z Darujme nesou 'Darujme - <metoda>'; starsi zaznamy jeste jen 'Darujme'.
+    public static final String PAYMENT_METHOD_DARUJME_PREFIX = 'Darujme';
     // Callout limit je 100 na transakci, kazde PDF je jeden callout
     public static final Integer CHUNK_SIZE = 40;
 
@@ -291,7 +292,7 @@ public without sharing class DKD_GiftThankYouService {
     // Duvod, proc se dar z Darujme preskakuje, nebo null kdyz se ma podekovat
     @TestVisible
     private static String darujmeSkipReason(GiftTransaction gt, Date darujmeFrom) {
-        if (gt.PaymentMethod != PAYMENT_METHOD_DARUJME) return null;
+        if (gt.PaymentMethod == null || !gt.PaymentMethod.startsWith(PAYMENT_METHOD_DARUJME_PREFIX)) return null;
         if (darujmeFrom == null) {
             return 'Podekovani za dary z Darujme neni zapnute (DKD_Thank_You_Settings__c.Darujme_Thank_You_From__c je prazdne), preskoceno.';
         }
