@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <aggregates>
+        <calculatedFormula>Account.fpnpc_analytics__OneOff_Donation_Amount__c:SUM+Account.fpnpc_analytics__Regular_Donation_Amount_Total__c:SUM</calculatedFormula>
+        <datatype>currency</datatype>
+        <developerName>FORMULA1</developerName>
+        <downGroupingContext>ACCOUNT.NAME</downGroupingContext>
+        <isActive>true</isActive>
+        <masterLabel>Celkem darováno</masterLabel>
+        <scale>0</scale>
+    </aggregates>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Account.fpnpc_analytics__OneOff_Donation_Amount__c</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Account.fpnpc_analytics__Regular_Donation_Amount_Total__c</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Account.fpnpc_analytics__Total_Donations_This_Year__c</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Maximum</aggregateTypes>
+        <field>Account.fpnpc_analytics__Best_Donation_Single__c</field>
+    </columns>
+    <columns>
+        <field>Account.fpnpc_analytics__Donor_Scenario_Analytics__c</field>
+    </columns>
+    <description>Žebříček dárců podle celkového objemu z analytiky fpack: jednorázové plus pravidelné dary. Nahrazuje report nad Donor Gift Summary, který v tomhle orgu nikdy neměl data.</description>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>ACCOUNT.NAME</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Top dárci (fpack analytics)</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>AccountList</reportType>
+    <scope>organization</scope>
+    <showDetails>false</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>CREATED_DATE</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

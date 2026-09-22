@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <buckets>
+        <bucketType>picklist</bucketType>
+        <developerName>BucketField_DonorFrequencyHist</developerName>
+        <masterLabel>Frekvence dárce</masterLabel>
+        <nullTreatment>n</nullTreatment>
+        <sourceColumnName>fpnpc_analytics__Donor_History__c$fpnpc_analytics__Donor_Scenario__c</sourceColumnName>
+        <useOther>false</useOther>
+        <values>
+            <sourceValues>
+                <sourceValue>Regular - New</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Regular - Upgraded</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Regular - Restarted</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Regular - Reactivated</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Regular - Active</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Regular - To Restart</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Regular - Lapsed</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Regular - Lapsed to One-Off</sourceValue>
+            </sourceValues>
+            <value>Pravidelní</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>One-Off - New</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>One-Off - Active</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>One-Off - Reactivated</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>One-Off - Lapsed</sourceValue>
+            </sourceValues>
+            <value>Jednorázoví</value>
+        </values>
+    </buckets>
+    <columns>
+        <field>fpnpc_analytics__Donor_History__c$Name</field>
+    </columns>
+    <description>Počet jednorázových a pravidelných dárců za KAŽDÝ kalendářní rok — to snapshot na Accountu neumí. Zdrojem je Donor History, kde je scénář uložen za každý rok. Rok je první seskupení, frekvence druhé. Bez sumarizovaného sloupce, aby graf kreslil počty.</description>
+    <filter>
+        <criteriaItems>
+            <column>fpnpc_analytics__Donor_History__c$fpnpc_analytics__Donor_Scenario__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value></value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>fpnpc_analytics__Donor_History__c$fpnpc_analytics__Donor_Scenario__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value>Non - Donor</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Year</dateGranularity>
+        <field>fpnpc_analytics__Donor_History__c$fpnpc_analytics__Date_Applied__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>BucketField_DonorFrequencyHist</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Počet dárců po letech podle frekvence</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Donor_History_NPC__c</reportType>
+    <scope>organization</scope>
+    <showDetails>false</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>fpnpc_analytics__Donor_History__c$fpnpc_analytics__Date_Applied__c</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

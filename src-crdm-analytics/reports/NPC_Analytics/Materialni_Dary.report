@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>GiftTransaction$Name</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>GiftTransaction$OriginalAmount</field>
+    </columns>
+    <description>Materiální (in-kind) dary po kalendářních letech: objem a počet. Materiální dar je definován způsobem platby In-Kind, stejně jako ho bere analytika balíčku. Rozpad podle darovací smlouvy chybí — pole Gift Agreement zatím není v nasazeném balíčku.</description>
+    <filter>
+        <criteriaItems>
+            <column>GiftTransaction$Status</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Paid</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>GiftTransaction$PaymentMethod</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>In-Kind</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Year</dateGranularity>
+        <field>GiftTransaction$TransactionDate</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Materiální dary (objem a počet)</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Gift_Transactions_NPC__c</reportType>
+    <scope>organization</scope>
+    <showDetails>false</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>GiftTransaction$TransactionDate</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

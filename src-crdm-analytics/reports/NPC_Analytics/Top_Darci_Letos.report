@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Account.fpnpc_analytics__Total_Donations_This_Year__c</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Account.fpnpc_analytics__Total_Donations_Last_Year__c</field>
+    </columns>
+    <columns>
+        <field>Account.fpnpc_analytics__Donor_Scenario_Analytics__c</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Maximum</aggregateTypes>
+        <field>Account.fpnpc_analytics__Best_Donation_Single__c</field>
+    </columns>
+    <columns>
+        <field>Account.fpnpc_analytics__Best_Donation_Date__c</field>
+    </columns>
+    <description>Žebříček dárců podle letošního objemu darů, s loňským objemem a nejvyšším jednotlivým darem. Seskupuje podle JMÉNA Accountu — jmenovci splynou do jednoho řádku a částky se sečtou; AccountList jinou úroveň seskupení nenabízí.</description>
+    <filter>
+        <criteriaItems>
+            <column>Account.fpnpc_analytics__Total_Donations_This_Year__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>greaterThan</operator>
+            <value>CZK 0</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>ACCOUNT.NAME</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Top dárci letos</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>AccountList</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>CREATED_DATE</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

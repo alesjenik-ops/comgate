@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>fpnpc_analytics__Donor_History__c$fpnpc_analytics__Grand_Total__c</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>fpnpc_analytics__Donor_History__c$fpnpc_analytics__Total_Financial_Donations_Amount__c</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>fpnpc_analytics__Donor_History__c$fpnpc_analytics__Total_In_Kind_Donations_Amount__c</field>
+    </columns>
+    <description>Objem darů podle úrovně dárcovství z analytiky fpack (Donor History). Úroveň drží pole Donor Level na ročním snapshotu dárce. Nahrazuje report nad Donor Gift Summary a jeho Giving Level.</description>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>fpnpc_analytics__Donor_History__c$fpnpc_analytics__Donor_Level__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Objem darů podle úrovně (fpack)</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Donor_History_NPC__c</reportType>
+    <scope>organization</scope>
+    <showDetails>false</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>fpnpc_analytics__Donor_History__c$fpnpc_analytics__Date_Applied__c</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

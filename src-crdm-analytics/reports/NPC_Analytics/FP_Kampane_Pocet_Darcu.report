@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <aggregates>
+        <calculatedFormula>Campaign.fpnpc_analytics__Total_Donors_One_Off_All__c:SUM+Campaign.fpnpc_analytics__Total_Donors_Regular_All__c:SUM</calculatedFormula>
+        <datatype>number</datatype>
+        <developerName>FORMULA1</developerName>
+        <downGroupingContext>Campaign$Name</downGroupingContext>
+        <isActive>true</isActive>
+        <masterLabel>Dárců celkem</masterLabel>
+        <scale>0</scale>
+    </aggregates>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Campaign$fpnpc_analytics__Total_Donors_One_Off_All__c</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Campaign$fpnpc_analytics__Total_Donors_Regular_All__c</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Campaign$fpnpc_analytics__Total_Donations_Count_One_Off_All__c</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Campaign$fpnpc_analytics__Total_Donations_Count_Regular_All__c</field>
+    </columns>
+    <description>Kolik dárců kampaň přivedla, jednorázových i pravidelných, podle analytiky fpack. Nahrazuje report nad Outreach Summary, který v tomhle orgu nikdy neměl data.</description>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>Campaign$Name</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Kampaně podle počtu dárců (fpack)</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Campaigns_NPC__c</reportType>
+    <scope>organization</scope>
+    <showDetails>false</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>Campaign$StartDate</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <types>
+        <members>NPC_Analytics_Dashboards/NPC_Provozni_Dashboard</members>
+        <members>NPC_Analytics_Dashboards/NPC_Vyrocni_Zprava_Dashboard</members>
+        <name>Dashboard</name>
+    </types>
+    <types>
+        <members>NPC_Analytics/Aktivni_Zavazky_Hodnota</members>
+        <members>NPC_Analytics/Darci_Podle_Scenare</members>
+        <members>NPC_Analytics/FP_Darci_K_Reaktivaci</members>
+        <members>NPC_Analytics/FP_Kampane_Pocet_Darcu</members>
+        <members>NPC_Analytics/FP_Top_Darci</members>
+        <members>NPC_Analytics/FP_Uroven_Darcovstvi</members>
+        <members>NPC_Analytics/Financni_Dary</members>
+        <members>NPC_Analytics/Materialni_Dary</members>
+        <members>NPC_Analytics/Objem_Daru_Rocne</members>
+        <members>NPC_Analytics/Pocet_Darcu_Frekvence</members>
+        <members>NPC_Analytics/Pocet_Darcu_Frekvence_Po_Letech</members>
+        <members>NPC_Analytics/Top_Darci_Letos</members>
+        <members>NPC_Analytics/Transakce_Mesicne_Letos</members>
+        <members>NPC_Analytics/Vykon_Kampani_Hierarchie</members>
+        <members>NPC_Analytics/Zavazky_Podle_RD_Status</members>
+        <members>NPC_Analytics/Zavazky_Podle_Roku_Zahajeni</members>
+        <name>Report</name>
+    </types>
+    <version>64.0</version>
+</Package>

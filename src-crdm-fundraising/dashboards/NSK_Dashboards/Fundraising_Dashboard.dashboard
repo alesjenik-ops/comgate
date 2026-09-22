@@ -65,9 +65,8 @@
                 <autoselectColumnsFromReport>false</autoselectColumnsFromReport>
                 <chartAxisRange>Auto</chartAxisRange>
                 <chartSummary>
-                    <aggregate>Sum</aggregate>
                     <axisBinding>y</axisBinding>
-                    <column>DonorGiftSummary$TotalGiftsAmount</column>
+                    <column>FORMULA1</column>
                 </chartSummary>
                 <componentType>Bar</componentType>
                 <displayUnits>Auto</displayUnits>
@@ -75,7 +74,7 @@
                 <drillToDetailEnabled>false</drillToDetailEnabled>
                 <enableHover>false</enableHover>
                 <expandOthers>false</expandOthers>
-                <groupingColumn>DonorGiftSummary$Donor</groupingColumn>
+                <groupingColumn>ACCOUNT.NAME</groupingColumn>
                 <groupingSortProperties/>
                 <header>Top dárci (celkem darováno)</header>
                 <maxValuesDisplayed>10</maxValuesDisplayed>

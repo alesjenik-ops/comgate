@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>GiftTransaction$Name</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>GiftTransaction$OriginalAmount</field>
+    </columns>
+    <description>Hlavní tabulka výroční zprávy: objem a počet zaplacených darů za každý kalendářní rok, s rozpadem na jednorázové a pravidelné. Populace je široká — všechny zaplacené dary bez whitelistu typů a bez vyloučení agregačního Accountu, proto vychází výš.</description>
+    <filter>
+        <criteriaItems>
+            <column>GiftTransaction$Status</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Paid</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Year</dateGranularity>
+        <field>GiftTransaction$TransactionDate</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>GiftTransaction$fpnpc_analytics__One_Off_Regular__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Roční objem darů</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Gift_Transactions_NPC__c</reportType>
+    <scope>organization</scope>
+    <showDetails>false</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>GiftTransaction$TransactionDate</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

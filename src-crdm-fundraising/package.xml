@@ -3,6 +3,7 @@
     <types>
         <members>NSK_Fundraising_Reports/Dary_po_mesicich_dle_metody</members>
         <members>NSK_Fundraising_Reports/Nezaplacene_dary_dle_metody</members>
+        <members>NSK_Fundraising_Reports/Top_darci</members>
         <name>Report</name>
     </types>
     <types>

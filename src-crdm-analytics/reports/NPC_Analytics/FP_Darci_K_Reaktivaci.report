@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Account.fpnpc_analytics__Total_Donations_Last_Year__c</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Account.fpnpc_analytics__Total_Donations_Two_Years_Ago__c</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Account.fpnpc_analytics__Last_Donation_Amount__c</field>
+    </columns>
+    <columns>
+        <field>Account.fpnpc_analytics__Last_Recurring_Donation_Date__c</field>
+    </columns>
+    <columns>
+        <field>Account.fpnpc_analytics__Donor_Scenario_Analytics__c</field>
+    </columns>
+    <description>Dárci, které analytika fpack označila za vyhaslé nebo k restartu — tedy ti, na které má smysl cílit reaktivaci. Nahrazuje report nad Donor Gift Summary, který stejnou skupinu hledal přes Days Since Last Gift.</description>
+    <filter>
+        <criteriaItems>
+            <column>Account.fpnpc_analytics__Donor_Scenario_Analytics__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Regular - Lapsed,Regular - To Restart,Regular - Lapsed to One-Off,One-Off - Lapsed</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>ACCOUNT.NAME</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Dárci k reaktivaci (fpack analytics)</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>AccountList</reportType>
+    <scope>organization</scope>
+    <showDetails>false</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>CREATED_DATE</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

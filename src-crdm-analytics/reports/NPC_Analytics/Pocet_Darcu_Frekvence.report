@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <buckets>
+        <bucketType>picklist</bucketType>
+        <developerName>BucketField_DonorFrequency</developerName>
+        <masterLabel>Frekvence dárce</masterLabel>
+        <nullTreatment>n</nullTreatment>
+        <sourceColumnName>Account.fpnpc_analytics__Donor_Scenario_Analytics__c</sourceColumnName>
+        <useOther>false</useOther>
+        <values>
+            <sourceValues>
+                <sourceValue>Regular - New</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Regular - Upgraded</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Regular - Restarted</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Regular - Reactivated</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Regular - Active</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Regular - To Restart</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Regular - Lapsed</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>Regular - Lapsed to One-Off</sourceValue>
+            </sourceValues>
+            <value>Pravidelní</value>
+        </values>
+        <values>
+            <sourceValues>
+                <sourceValue>One-Off - New</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>One-Off - Active</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>One-Off - Reactivated</sourceValue>
+            </sourceValues>
+            <sourceValues>
+                <sourceValue>One-Off - Lapsed</sourceValue>
+            </sourceValues>
+            <value>Jednorázoví</value>
+        </values>
+    </buckets>
+    <columns>
+        <field>ACCOUNT.NAME</field>
+    </columns>
+    <description>Počet dárců rozdělený bucketem na pravidelné a jednorázové podle aktuálního scénáře na Accountu. Záměrně bez sumarizovaného sloupce, aby graf kreslil počet záznamů, ne peníze. Pro počty po letech použijte Počet dárců po letech nad Donor History.</description>
+    <filter>
+        <criteriaItems>
+            <column>Account.fpnpc_analytics__Donor_Scenario_Analytics__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value></value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Account.fpnpc_analytics__Donor_Scenario_Analytics__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value>Non - Donor</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>BucketField_DonorFrequency</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Počet dárců — jednorázoví vs. pravidelní</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>AccountList</reportType>
+    <scope>organization</scope>
+    <showDetails>false</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>CREATED_DATE</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>
