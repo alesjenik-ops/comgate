@@ -14,8 +14,8 @@ Podle šablon `děkovný dopis individuální dárce jednorázový.docx` a `potv
    práva e-mail poslat, proto invocable metoda jen **publikuje platform event
    `DKD_Thank_You_Requested__e`**. Jeho trigger `DKD_ThankYouRequestedTrigger` běží díky
    `PlatformEventSubscriberConfig` jako správce (`crdm@crmproneziskovky.cz`) a zařadí Queueable.
-   E-mail tak odchází **během několika sekund po platbě**. Dary importované z Darujme.cz
-   projdou jen tehdy, když je zapnuté poděkování za Darujme – viz níže.
+   E-mail tak odchází **během několika sekund po platbě**. Projdou **všechny** jednorázové
+   dary bez ohledu na kanál, tedy i dary importované z Darujme.cz.
 3. Typ daru rozliší **Apex** podle `GiftCommitmentId` – ve flow už žádné odesílání e-mailu není:
    - **jednorázový dar** – PDF ze šablony `npc_bridge__PDF_Template__c` „Potvrzeni o daru DKD" přes VF
      stránku balíčku `GiftConfirmationPDF`, e-mail `DKD_Thank_You_One_Time`, PDF se uloží jako soubor
@@ -32,37 +32,27 @@ Podle šablon `děkovný dopis individuální dárce jednorázový.docx` a `potv
    **EmailMessage pod kontakt dárce**.
 4. Dozorčí job `DKD_GiftThankYouScheduler` (každých 15 min, běží jako admin) je pojistka: dobere dary,
    u kterých event nedorazil nebo odeslání spadlo. Stav `Sent` se zapisuje před odesláním – bez rizika duplicit.
-   **Pokrývá jen jednorázové dary** (`GiftCommitmentId = null`) – viz Známé podmínky.
+   **Pokrývá jen jednorázové dary** (`GiftCommitmentId = null`) – u pravidelných by neměl co dodat,
+   za závazek se děkuje jen jednou a hlídá to Apex. Viz Známé podmínky.
 
 ## Dary z Darujme.cz
 
-Dary z Darujme.cz (`PaymentMethod = Darujme`, zakládá je párovací job balíčku `npc_bridge`)
-se řídí jedním přepínačem: custom setting **DKD poděkování – nastavení**
-(`DKD_Thank_You_Settings__c`), pole **Poděkování za Darujme od**
-(`Darujme_Thank_You_From__c`).
+Děkuje se za ně **stejně jako za každý jiný dar**: jednorázový dostane e-mail s PDF potvrzením,
+pravidelný jednou za závazek bez PDF. Žádný přepínač ani výjimka podle kanálu.
 
-| Hodnota | Co se děje |
-| --- | --- |
-| prázdné (výchozí) | Za dary z Darujme se **neděkuje** – dárcům píše Darujme.cz samo. Platí pro jednorázové i pravidelné. |
-| datum | Děkujeme za dary **darované od toho dne**, jednorázové s PDF potvrzením, pravidelné jednou za závazek. Starší dary zůstávají bez e-mailu. |
+Dřív byly dary z Darujme z děkování vyňaté – dárcům psalo Darujme.cz samo. Z flow i z dozorčího
+jobu je ta podmínka pryč (9/2026).
 
-Rozhoduje **datum daru** (`TransactionDate`), ne datum vzniku záznamu: denní synchronizace
-z Darujme dotahuje i několik dní staré dary a na ty už potvrzení z Darujme odešlo. Kdyby
-rozhodovalo datum importu, rozeslali bychom druhé poděkování k darům, které už poděkované jsou.
+Historické dary tím obeslané nejsou: flow reaguje jen na **přechod** do `Paid`
+(`doesRequireRecordChangedToMeetCriteria`), takže 585 starších darů z Darujme se stavem
+*To Be Sent* zůstává v klidu. Dozorčí job dobírá jen dary vzniklé po `DKD_GiftThankYouScheduler.START`
+(9. 9. 2026), což jsou dnes čtyři.
 
-Přepínač hlídají tři místa, aby se nedalo obejít: podmínka ve flow (`$Setup`), `DKD_GiftThankYouService`
-při vlastním zpracování a dotaz dozorčího jobu.
-
-### Zapnutí
-
-Pořadí je podstatné, jinak dárce dostane dva e-maily, nebo žádný:
-
-1. Domluvit s organizací den, kdy si **vypne potvrzení na straně Darujme.cz**.
-2. Tentýž den vyplnit `Darujme_Thank_You_From__c` v Setup → Custom Settings → *DKD poděkování –
-   nastavení* → Manage → New/Edit (org default).
-3. Zkontrolovat report `DJ_Bez_Podekovani` (`src-crdm-darujme`) – po zapnutí má klesat k nule.
-
-Vypnutí je stejně snadné: pole vyprázdnit. Dary, které v mezidobí přišly, už poděkování mít budou.
+> **Pozor při nasazení fáze 2.** Soubory `phase2/` a `DKD_GiftThankYouService` v téhle složce
+> ještě obsahují starý přepínač `DKD_Thank_You_Settings__c.Darujme_Thank_You_From__c`, který
+> za dary z Darujme děkovat **zakazuje**, dokud není vyplněné datum. To je v přímém rozporu
+> s pravidlem výše. Před nasazením fáze 2 se ten přepínač musí odstranit (`darujmeSkipReason`,
+> `darujmeThankYouFrom` a testy, které je pokrývají), jinak se výjimka pro Darujme tiše vrátí.
 
 ## Obsah
 
@@ -106,7 +96,4 @@ sf apex run --target-org <alias>   # DKD_GiftThankYouScheduler.scheduleEveryQuar
 - Uživatel v `PlatformEventSubscriberConfig` musí být aktivní správce s přiřazeným permission setem. Když se změní, změnit i tady a znovu nasadit.
 - `data/pdf_template.json` se POSTuje jen jednou: druhý záznam se stejným názvem by `loadPdfTemplate()` (LIMIT 1) vybíral náhodně.
 - Dary vzniklé před `DKD_GiftThankYouScheduler.START` (9. 9. 2026 12:00 UTC) dozorčí job neobesílá.
-  U darů z Darujme platí místo toho datum z `Darujme_Thank_You_From__c` – import je zakládá až
-  několik dní po daru, takže `CreatedDate` by je pustil i zpětně.
-- Custom setting se v orgu nasazením **nevyplní** (hodnoty custom settings nejsou metadata).
-  Po deployi je pole prázdné, tedy za dary z Darujme se neděkuje – zapíná se ručně, viz výše.
+  Drží to zpětné rozesílání na uzdě i u darů z Darujme, které import zakládá několik dní po daru.

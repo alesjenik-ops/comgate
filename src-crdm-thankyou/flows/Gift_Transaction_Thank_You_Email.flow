@@ -23,7 +23,7 @@
         <label>Typ daru</label>
         <locationX>0</locationX>
         <locationY>0</locationY>
-        <defaultConnectorLabel>Už poděkováno / Darujme</defaultConnectorLabel>
+        <defaultConnectorLabel>Už poděkováno</defaultConnectorLabel>
         <rules>
             <name>Jednorazovy</name>
             <conditionLogic>and</conditionLogic>
@@ -39,13 +39,6 @@
                 <operator>NotEqualTo</operator>
                 <rightValue>
                     <stringValue>Sent</stringValue>
-                </rightValue>
-            </conditions>
-            <conditions>
-                <leftValueReference>Neni_Darujme</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <booleanValue>true</booleanValue>
                 </rightValue>
             </conditions>
             <connector>
@@ -76,13 +69,8 @@
             <label>Pravidelný dar</label>
         </rules>
     </decisions>
-    <description>Poděkování dárci po zaplacení daru. Běží asynchronně až po commitu, takže jeho selhání nikdy neshodí zápis platby z Comgate webhooku. Jednorázový i pravidelný dar volá tutéž invocable metodu DKD_GiftThankYouService; ta jen publikuje platform event a vlastní odeslání běží pod správcem. Rozlišení typu daru, výběr šablony i kontrola první zaplacené platby závazku jsou v Apexu. Dary importované z Darujme se vynechávají - poznají se podle platební metody začínající na „Darujme“.</description>
+    <description>Poděkování dárci po zaplacení daru. Běží asynchronně až po commitu, takže jeho selhání nikdy neshodí zápis platby z Comgate webhooku. Jednorázový i pravidelný dar volá tutéž invocable metodu DKD_GiftThankYouService; ta jen publikuje platform event a vlastní odeslání běží pod správcem. Rozlišení typu daru, výběr šablony i kontrola první zaplacené platby závazku jsou v Apexu. Děkuje se za každý jednorázový dar včetně darů importovaných z Darujme. U pravidelného daru jen za první zaplacenou splátku závazku - hlídá to Apex podle AcknowledgementStatus ostatních splátek téhož závazku, ne podle pořadí splatnosti.</description>
     <environments>Default</environments>
-    <formulas>
-        <name>Neni_Darujme</name>
-        <dataType>Boolean</dataType>
-        <expression>NOT(BEGINS(TEXT({!$Record.PaymentMethod}), &quot;Darujme&quot;))</expression>
-    </formulas>
     <interviewLabel>Gift Transaction Thank You Email {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Gift Transaction Thank You Email</label>
     <processMetadataValues>
