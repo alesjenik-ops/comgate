@@ -55,8 +55,9 @@ kterou při zakládání daru ještě nikdo neznal.
 
 Dary z Darujme i spárované převody z FIO zakládá **managed balíček**
 `npc_bridge`; `FpackTransactionPairingQueueable` i `DarujmeTransactionPairingQueueable`
-mají hodnotu natvrdo a obě třídy jsou `public`, ne `global`, takže se z orgu
-nedají ani zavolat, ani obejít. Trigger je jediné místo, kam na jejich zápis
+mají hodnotu natvrdo. Párování FIO je navíc `public`, ne `global`, takže se z orgu
+nedá ani zavolat, ani obejít; párování Darujme `global` je, ale platební metodu
+stejně zapisuje napevno a přepsat ji jde jen až po něm. Trigger je jediné místo, kam na jejich zápis
 dosáhneme. Comgate integrace se tím pádem nemusela měnit vůbec – webhook dál
 zapisuje surovou hodnotu do `Payment_Method__c` a trigger si ji přečte.
 
