@@ -94,6 +94,10 @@ výpisů do nich nemá co sahat.
 
 Historické dary dožene `DKD_GiftTransactionDates.backfill()`; je idempotentní.
 
+Od verze **npc_bridge 1.34** párování výpisů i Darujme hledá podle
+`TransactionDueDate` a u výpisů nejdřív podle variabilního symbolu, takže
+doplňování data už pro párování potřeba není. Neškodí a zatím zůstává.
+
 ## Blacklist protiúčtů
 
 Na účet u FIO chodí i platby, které nejsou dary: **zúčtování platební brány
@@ -111,12 +115,11 @@ středníkem, s kódem banky i bez něj. Aktuálně:
 2198370339/0800   Nadace VIA
 ```
 
-**Samotné nastavení párování nezastaví.** `FpackTransactionPairingQueueable`
-i `EntityPairing` v balíčku `npc_bridge` čtou z NNO Settings jen tři výchozí
-lookupy (`DefaultContact`, `DefaultAccount`, `DefaultCampaign`) a blacklist
-ignorují. Dar proto vznikne a `DKD_AccountBlacklist` ho hned zahodí – běží
-v `after insert`, protože `before insert` zápis zrušit neumí a `addError` by
-shodil celý `upsert` dávky v balíčku.
+Od verze **npc_bridge 1.34** blacklist uplatňuje samo párování – z platby na
+blacklistovaném protiúčtu dar vůbec nevznikne. Dřívější verze balíčku blacklist
+ignorovaly, dar založily a `DKD_AccountBlacklist` ho hned zahodil (v `after
+insert`, protože `before insert` zápis zrušit neumí a `addError` by shodil celý
+`upsert` dávky). Trigger zůstává jako pojistka a pro ruční úklid.
 
 Bankovní transakce v `CRMforNonProfit__Transaction__c` zůstává, jen z ní není dar.
 
