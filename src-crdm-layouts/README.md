@@ -43,3 +43,26 @@ flow *Daily Donor Gift Summary*, díky čemuž má přes 72 000 souhrnných záz
 ```bash
 sf project deploy start --metadata-dir src-crdm-layouts --target-org <alias>
 ```
+
+## Pole fpack analytics na kampani
+
+Balíček nabízí od každé metriky tři varianty a jejich význam je v popisu pole:
+
+| Přípona | Co počítá |
+| --- | --- |
+| bez přípony | jen tuhle kampaň |
+| `_H` | jen podřízené kampaně pod ní |
+| `_All` | tuhle kampaň **včetně celé hierarchie** |
+
+Na layoutu *Campaign Layout* zůstalo **10 polí**: šest `_All` a čtyři průměry.
+Dvanáct polí bez přípony a `_H` je pryč – `_All` je jejich součet, u plochých
+kampaní se rovná variantě bez přípony a `_H` je tam vždy nula. Hierarchii má
+v orgu jen *DKD - darujme.cz* s pěti potomky, dary přitom leží na plochých
+kampaních *DKD - home* a *DKD - Jeden klik*.
+
+Reporty na dashboardu *NPC Analytics — výroční zpráva* stojí taky na `_All`,
+takže layout i reporting ukazují totéž.
+
+Balíčkový layout *FPack Campaign* (namespace `CRMforNonProfit`) žádná pole
+z fpack analytics nemá a profil Admin ho nepoužívá – Campaign má přiřazený
+*Campaign Layout*.

@@ -197,35 +197,11 @@
         <layoutColumns>
             <layoutItems>
                 <behavior>Readonly</behavior>
-                <field>fpnpc_analytics__Total_Donations_Amount_One_Off__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>fpnpc_analytics__Total_Donors_One_Off__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Readonly</behavior>
                 <field>fpnpc_analytics__One_Off_Donor_Average_Amount__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>
-                <field>fpnpc_analytics__Total_Donations_Count_Regular__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Readonly</behavior>
                 <field>fpnpc_analytics__Regular_Average_Amount__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>fpnpc_analytics__Total_Donations_Amount_One_Off_H__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>fpnpc_analytics__Total_Donors_One_Off_H__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>fpnpc_analytics__Total_Donations_Count_Regular_H__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>
@@ -243,35 +219,11 @@
         <layoutColumns>
             <layoutItems>
                 <behavior>Readonly</behavior>
-                <field>fpnpc_analytics__Total_Donations_Count_One_Off__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Readonly</behavior>
                 <field>fpnpc_analytics__One_Off_Average_Amount__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>
-                <field>fpnpc_analytics__Total_Donations_Amount_Regular__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>fpnpc_analytics__Total_Donors_Regular__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Readonly</behavior>
                 <field>fpnpc_analytics__Regular_Donor_Average_Amount__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>fpnpc_analytics__Total_Donations_Count_One_Off_H__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>fpnpc_analytics__Total_Donations_Amount_Regular_H__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>fpnpc_analytics__Total_Donors_Regular_H__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>
