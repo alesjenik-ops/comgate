@@ -8,6 +8,7 @@
         <members>ComgateMonthlyCleanupBatch</members>
         <members>ComgateMonthlyCleanupBatchTest</members>
         <members>ComgatePaymentRequestWrapper</members>
+        <members>ComgatePaymentRequestWrapperTest</members>
         <members>ComgatePaymentResponseWrapper</members>
         <members>ComgatePaymentStatusResponseWrapper</members>
         <members>ComgateRecurringRequestWrapper</members>

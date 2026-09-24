@@ -174,6 +174,9 @@ export default class DonationWidget extends LightningElement {
         if (status === 'success') {
             // Navrat z brany v hlavnim okne - puvodni parametry uz v URL nejsou, vezmeme zalohu
             this.trackingParams = this.readStoredTracking();
+            // Apple Pay a Google Pay vraci darce mimo iframe, widget se nacte znovu a castku nezna.
+            // Castku a frekvenci proto posila navratova URL brany (ComgatePaymentRequestWrapper.url_paid).
+            this.applyReturnedDonation(urlAmount, urlFrequency);
             this.step = STEP.DONE;
             if (!this.redirectToThankYouPage()) {
                 this.loadFieldSets();
@@ -249,6 +252,14 @@ export default class DonationWidget extends LightningElement {
         } catch (error) {
             return {};
         }
+    }
+
+    // Castka a frekvence z navratove URL brany, jen pro sestaveni dekovaci URL
+    applyReturnedDonation(urlAmount, urlFrequency) {
+        const amount = String(urlAmount || '').replace(/\s/g, '').replace(',', '.');
+        if (!/^[0-9]+(\.[0-9]+)?$/.test(amount) || Number(amount) <= 0) return;
+        const freq = URL_FREQUENCY_ALIASES[String(urlFrequency || '').toLowerCase()] || FREQ.ONEOFF;
+        this.paymentWrapper = { ...this.paymentWrapper, donationValue: amount, donationType: freq };
     }
 
     // Dekovaci URL + puvodni parametry + skutecna castka a frekvence daru

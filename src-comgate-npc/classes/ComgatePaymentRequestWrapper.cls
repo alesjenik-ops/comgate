@@ -35,7 +35,7 @@ public with sharing class ComgatePaymentRequestWrapper {
 
 
     public ComgatePaymentRequestWrapper(){
-        this.test = ComgateUtil.runningInASandbox;
+        this.test = ComgateUtil.isTestPayment;
         this.method = 'ALL';
         this.lang = 'cs';
         this.enableApplePayGooglePay = true;
@@ -51,10 +51,21 @@ public with sharing class ComgatePaymentRequestWrapper {
         this.phone = donor.PersonMobilePhone;
         this.fullname = donor.Name ?? (donor.FirstName + ' ' + donor.LastName);
         this.initRecurring = paymentWrapper.donationType != 'oneoff';
-        this.url_paid = paymentWrapper.redirectURL + '?status=success&id=${id}&refId=${refId}';
+        this.url_paid = paymentWrapper.redirectURL + '?status=success&id=${id}&refId=${refId}' + donationParams(paymentWrapper);
         this.url_cancelled = paymentWrapper.redirectURL;
         this.url_pending = paymentWrapper.redirectURL;
         this.method = getPaymentMethod(paymentWrapper.paymentOption);
+    }
+
+    // Castka a frekvence pro dekovaci stranku. Apple Pay a Google Pay (*_REDIRECT) vraci darce
+    // mimo iframe widgetu, widget se nacte znovu a bez nich by castku neznal - v mereni by chybela.
+    @TestVisible
+    private static String donationParams(DonationPagePaymentWrapper paymentWrapper){
+        String params = '&frequency=' + (paymentWrapper.donationType != 'oneoff' ? 'monthly' : 'oneoff');
+        if(paymentWrapper.donationValue != null){
+            params += '&amount=' + paymentWrapper.donationValue.stripTrailingZeros().toPlainString();
+        }
+        return params;
     }
 
     private static String getPaymentMethod(String paymentOption){
