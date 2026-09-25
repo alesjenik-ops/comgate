@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <types>
+        <members>fpnpc_analytics__Gift_Type_Settings.ACH</members>
+        <members>fpnpc_analytics__Gift_Type_Settings.Asset</members>
+        <members>fpnpc_analytics__Gift_Type_Settings.Bank_Transfer</members>
+        <members>fpnpc_analytics__Gift_Type_Settings.Bankovni_prevod</members>
+        <members>fpnpc_analytics__Gift_Type_Settings.Cash</members>
+        <members>fpnpc_analytics__Gift_Type_Settings.Check</members>
+        <members>fpnpc_analytics__Gift_Type_Settings.Comgate_Apple_Pay</members>
+        <members>fpnpc_analytics__Gift_Type_Settings.Comgate_Bankovni_tlacitko</members>
+        <members>fpnpc_analytics__Gift_Type_Settings.Comgate_Google_Pay</members>
+        <members>fpnpc_analytics__Gift_Type_Settings.Comgate_Karta</members>
+        <members>fpnpc_analytics__Gift_Type_Settings.Comgate_Ostatni</members>
+        <members>fpnpc_analytics__Gift_Type_Settings.Comgate_PayPal</members>
+        <members>fpnpc_analytics__Gift_Type_Settings.Comgate_Prevod</members>
+        <members>fpnpc_analytics__Gift_Type_Settings.Credit_Card</members>
+        <members>fpnpc_analytics__Gift_Type_Settings.Cryptocurrency</members>
+        <members>fpnpc_analytics__Gift_Type_Settings.Darujme</members>
+        <members>fpnpc_analytics__Gift_Type_Settings.Darujme_Bankovni_tlacitko</members>
+        <members>fpnpc_analytics__Gift_Type_Settings.Darujme_Karta</members>
+        <members>fpnpc_analytics__Gift_Type_Settings.Darujme_Ostatni</members>
+        <members>fpnpc_analytics__Gift_Type_Settings.Darujme_Prevod</members>
+        <members>fpnpc_analytics__Gift_Type_Settings.Darujme_Trvaly_prikaz</members>
+        <members>fpnpc_analytics__Gift_Type_Settings.In_Kind</members>
+        <members>fpnpc_analytics__Gift_Type_Settings.PayPal</members>
+        <members>fpnpc_analytics__Gift_Type_Settings.Stock</members>
+        <members>fpnpc_analytics__Gift_Type_Settings.Unknown</members>
+        <members>fpnpc_analytics__Gift_Type_Settings.Venmo</members>
+        <name>CustomMetadata</name>
+    </types>
+    <version>64.0</version>
+</Package>

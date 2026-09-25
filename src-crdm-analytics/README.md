@@ -53,13 +53,14 @@ fpnpc_analytics__Donor_History__c          0 zaznamu
 ```
 
 Bez záznamu v `Gift_Type_Settings__mdt` nemá balíček namapovaný žádný typ daru na
-pole v Donor History, takže nespočítá nic. Doplnit je **nemůžeme** – všechna pole
-obou custom metadata typů mají `createable: false` i `updateable: false`
-(`fieldManageability = DeveloperControlled`), takže je smí naplnit jen dodavatel
-balíčku, ne subscriber.
+pole v Donor History, takže nespočítá nic. Záznamy s platebními metodami CRDM
+jsou ve složce `src-crdm-analytics-config` – po jejím nasazení a prvním běhu
+pipeline se dlaždice naplní samy, nic se nemusí předělávat.
 
-Dokud to dodavatel nedodá, jsou dlaždice prázdné – ale prázdné ze správného
-zdroje. Jakmile konfigurace dorazí, naplní se samy, nic se nemusí předělávat.
+Dřívější závěr, že záznamy smí naplnit jen dodavatel balíčku, neplatil:
+`DeveloperControlled` zamyká jen záznamy dodané balíčkem a `UNKNOWN_EXCEPTION`
+při pokusu byl nejspíš gack z chybějícího `xmlns:xsd`. Rozbor je v README
+`src-crdm-analytics-config`.
 
 ## Nasazení
 

@@ -11,25 +11,12 @@ Souhrn z Data Processing Engine pryč, místo něj pole balíčku fpack Analytic
 
 *Outreach Summary* nikde na stránkách nebyl, objekt v orgu nemá jediný záznam.
 
-## Pozor: pole jsou zatím prázdná
+## Plnění polí
 
-Balíček **FundraisingPack Analytics 1.3.0.1** je nainstalovaný a jeho denní dávky
-běží bez chyby, ale nic nepočítají:
-
-- `fpnpc_analytics__Gift_Type_Settings__mdt` – **0 záznamů**, přitom určuje, který
-  typ daru se počítá do finančních darů. Pole `Donor_History_Field__c` má
-  `fieldManageability = DeveloperControlled`, takže do něj zákaznický org **nesmí
-  zapisovat** (ověřeno: záznam bez hodnot se nasadí, se zadanou hodnotou skončí
-  `UNKNOWN_EXCEPTION`).
-- `fpnpc_analytics__Donor_Level__mdt` – 0 záznamů, stejné omezení.
-- `fpnpc_analytics__Donor_History__c` – 0 záznamů.
-
-Ověřeno i to, že problém není jinde: `DonorStatsCalculator.computeUpdates()` vrátí
-pro dárce se 45 zaplacenými dary nula aktualizací, `DonorHistoryBackfillBatch.runBatch()`
-doběhne bez chyby a nevytvoří nic, a doplnění chybějící `GiftTransactionDesignation`
-na výsledek nemá vliv.
-
-**Dokud dodavatel balíčku nedoplní Gift Type Settings, zůstanou pole na stránkách prázdná.**
+Dlouho byla pole prázdná: balíček počítá jen dary s platební metodou ve whitelistu
+`fpnpc_analytics__Gift_Type_Settings__mdt` a ten byl v CRDM prázdný. Whitelist
+s hodnotami CRDM je ve složce `src-crdm-analytics-config` – bez jejího nasazení
+zůstanou pole na stránkách prázdná. Detail a kontrolní dotazy jsou v jejím README.
 
 ## Alternativa, kdyby se čekání protáhlo
 
@@ -44,7 +31,38 @@ flow *Daily Donor Gift Summary*, díky čemuž má přes 72 000 souhrnných záz
 sf project deploy start --metadata-dir src-crdm-layouts --target-org <alias>
 ```
 
-## Pole fpack analytics na kampani
+## Stránka kampaně (*Campaign Layout*)
+
+Na layoutu zůstala jen pole, která se v CRDM plní.
+
+| Sekce | Pole | Kdo je plní |
+| --- | --- | --- |
+| Campaign Information | vlastník, název, nadřazená kampaň, typ, začátek, aktivní, stav, měna, konec | uživatel |
+| Description Information | popis | uživatel |
+| Analytika dárců (fpack) | 10 polí – vlevo jednorázové, vpravo pravidelné dary | noční pipeline fpack analytics |
+| Campaign Statistics | počet kontaktů, počet odpovědí | Salesforce z členů kampaně |
+| System Information | vytvořil, naposledy změnil | Salesforce |
+
+Pryč jsou statistiky leadů a příležitostí (NPC dary nejsou `Opportunity`, čísla
+byla vždy nulová), plánovací pole (`NumberSent`, `ExpectedResponse`,
+`ExpectedRevenue`, `BudgetedCost`, `ActualCost`), prázdné sekce *Additional
+Information* a *Other Information* a sekce *Custom Links* – obě classic odkazy,
+*Campaign Influence* navíc stojí na příležitostech. Z related listu hierarchie
+kampaní zmizely sloupce leadů, příležitostí a nákladů, ze seznamu členů kampaně
+titul, firma a rozdělené jméno.
+
+**Tlačítka.** Layout má vlastní `platformActionList`, takže pořadí akcí
+v Lightningu určuje on: **Send Email** první, pak Edit, Clone, Change Owner,
+Delete, Log a Call, New Task a New Event. Akce, které v seznamu nejsou (třeba
+*Send Bulk SMS* z `npc_bridge`), se na kampani přestanou ukazovat – případně je
+doplň v *Salesforce Mobile and Lightning Experience Actions*.
+
+**Related listy** v pořadí: hierarchie kampaní, **Gift Transactions** (dárce,
+částka, datum, platební metoda, stav – nejnovější nahoře), **Gift Commitments**
+(dárce, stav, očekávaná částka, začátek), členové kampaně, aktivity, historie
+aktivit, přílohy.
+
+### Varianty polí fpack analytics
 
 Balíček nabízí od každé metriky tři varianty a jejich význam je v popisu pole:
 
