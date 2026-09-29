@@ -109,7 +109,7 @@ public without sharing class DonationPageController {
 
         DonationPagePaymentWrapper paymentWrapper = (DonationPagePaymentWrapper) JSON.deserialize(paymentWrapperString, DonationPagePaymentWrapper.class);
 
-        Bank_Account__c bankAccount = campaign?.Bank_Account__r ?? [SELECT Id, Bank_Account_Number__c, IBAN__c FROM Bank_Account__c WHERE Default__c = TRUE];
+        Bank_Account__c bankAccount = campaign?.Bank_Account__r ?? getDefaultBankAccount();
 
         processDonor(donor, con, isPersonAccount);
         Id donationRecordId = prepareDonationRecord(donor, paymentWrapper, campaignId, bankAccount);
@@ -121,6 +121,13 @@ public without sharing class DonationPageController {
                 'variableNumber' => comgateVar,
                 'qrPayload' => getQrPayload(paymentWrapper, comgateVar, bankAccount)
         };
+    }
+
+    //Missing default record must not break the bank transfer page - the placeholders below signal the misconfiguration
+    private static Bank_Account__c getDefaultBankAccount(){
+        List<Bank_Account__c> bankAccounts = [SELECT Id, Bank_Account_Number__c, IBAN__c
+                FROM Bank_Account__c WHERE Default__c = TRUE ORDER BY CreatedDate ASC LIMIT 1];
+        return bankAccounts.isEmpty() ? new Bank_Account__c() : bankAccounts[0];
     }
 
     //https://developer.mastercard.com/mastercard-checkout-solutions/documentation/use-cases/sqr/generate-qr-codes/
@@ -161,6 +168,7 @@ public without sharing class DonationPageController {
     private static Account processDonor(Account donor, Contact con, Boolean isPersonAccount){
         List<Account> donors;
         if(!isPersonAccount){
+            donor = withoutPersonFields(donor);
             donors = [SELECT Id, PersonContactId
             FROM Account WHERE CRMforNonProfit__ICO__c = :donor.CRMforNonProfit__ICO__c ORDER BY CreatedDate ASC LIMIT 1];
             if(!donors.isEmpty()) {
@@ -181,11 +189,11 @@ public without sharing class DonationPageController {
                 donor.PersonLeadSource = 'Donation Page';
                 donor.RecordTypeId = ComgateUtil.getPersonAccountRecordTypeId;
             }
-            Database.insert(donor, getDmlOptions());
+            requireSaved(Database.insert(donor, getDmlOptions()));
             System.debug(donor);
         } else {
             donor = stripNullValues(donor);
-            Database.update(donor, getDmlOptions());
+            requireSaved(Database.update(donor, getDmlOptions()));
         }
 
         if(!isPersonAccount && con.AccountId == null) {
@@ -194,6 +202,29 @@ public without sharing class DonationPageController {
         }
 
         return donor;
+    }
+
+    // Formular posila i u firmy pole osobniho uctu (predvyplnena zeme). Firemni Account je odmitne
+    // a bez darce nevznikne dar - platba by prosla naprazdno.
+    @TestVisible
+    private static Account withoutPersonFields(Account donor){
+        Map<String, Object> fields = new Map<String, Object>(donor.getPopulatedFieldsAsMap());
+        Boolean removed = false;
+        for(String field : new List<String>(fields.keySet())){
+            if(field.startsWithIgnoreCase('Person') || field.endsWithIgnoreCase('__pc')){
+                fields.remove(field);
+                removed = true;
+            }
+        }
+        return removed ? (Account) JSON.deserialize(JSON.serialize(fields), Account.class) : donor;
+    }
+
+    // DMLOptions bez OptAllOrNone chybu nevyhodi - neulozeny darce musi platbu zastavit, ne ji nechat projit bez daru
+    private static void requireSaved(Database.SaveResult result){
+        if(result.isSuccess()) return;
+        List<String> messages = new List<String>();
+        for(Database.Error error : result.getErrors()) messages.add(error.getMessage());
+        throw new DonationPageControllerException('Údaje dárce se nepodařilo uložit: ' + String.join(messages, '; '));
     }
 
     private static Database.DMLOptions getDmlOptions(){

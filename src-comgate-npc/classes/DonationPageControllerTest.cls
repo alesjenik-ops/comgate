@@ -110,6 +110,46 @@ public with sharing class DonationPageControllerTest {
         System.assertEquals(1, [SELECT COUNT() FROM Contact WHERE AccountId =: donorAssert.Id]);
     }
 
+    //Widget predvyplnuje zemi i do poli osobniho uctu - firma se musi zalozit i tak
+    @IsTest
+    public static void test_getReferenceId_businessAccount_withPersonCountry(){
+        Map<String, Object> donorJson = new Map<String, Object>{
+            'sobjectType' => 'Account',
+            'Name' => 'Test Firma s.r.o.',
+            'CRMforNonProfit__ICO__c' => '87654321',
+            'BillingCountry' => 'Czech Republic',
+            'PersonMailingCountry' => 'Czech Republic'
+        };
+        Contact con = ComgateTestFactory.getContact();
+
+        Test.startTest();
+        String returnJSON = DonationPageController.getReferenceId(
+            JSON.serialize(donorJson), JSON.serialize(con), null, JSON.serialize(new DonationPagePaymentWrapper()), false
+        );
+        Test.stopTest();
+
+        Map<String, Object> returnMap = (Map<String, Object>) JSON.deserializeUntyped(returnJSON);
+        Account donorAssert = [SELECT Id, BillingCountry FROM Account WHERE Name = 'Test Firma s.r.o.'];
+        System.assertEquals(donorAssert.Id, returnMap.get('shopperReference'));
+        System.assertEquals(donorAssert.Id, [SELECT Account__c FROM Payment_Reference__c].Account__c,
+            'Bez darce na referenci nevznikne dar');
+        System.assertEquals(1, [SELECT COUNT() FROM Contact WHERE AccountId =: donorAssert.Id]);
+    }
+
+    @IsTest
+    public static void test_withoutPersonFields(){
+        Account donor = (Account) JSON.deserialize(
+            '{"Name":"Firma","BillingCity":"Praha","PersonMailingCountry":"Czech Republic"}', Account.class);
+
+        Account cleaned = DonationPageController.withoutPersonFields(donor);
+
+        System.assertEquals('Firma', cleaned.Name);
+        System.assertEquals('Praha', cleaned.BillingCity);
+        System.assertEquals(false, cleaned.getPopulatedFieldsAsMap().containsKey('PersonMailingCountry'));
+        Account business = new Account(Name = 'Bez osobnich poli');
+        System.assert(DonationPageController.withoutPersonFields(business) === business);
+    }
+
     @IsTest
     public static void test_getReferenceId_honeypot(){
         Account donor = ComgateTestFactory.getDonor();
@@ -262,5 +302,51 @@ public with sharing class DonationPageControllerTest {
         System.assertEquals('19-2000145399/0800', returnMap.get('bankAccountNumber'));
         System.assertEquals('CZ6508000000192000145399', returnMap.get('iban'));
         System.assert(((String) returnMap.get('qrPayload')).startsWith('SPD*1.0*ACC:CZ6508000000192000145399'));
+    }
+
+    //Campaign without its own bank account falls back to the Bank_Account__c flagged as Default__c
+    @IsTest
+    public static void test_justCreateRecords_defaultBankAccount(){
+        insert new Bank_Account__c(IBAN__c = 'CZ1920100000002602488698',
+                Bank_Account_Number__c = '2602488698/2010', Default__c = true);
+
+        Campaign cam = ComgateTestFactory.getCampaign();
+        insert cam;
+
+        Account donor = [SELECT Id, FirstName, LastName, PersonEmail FROM Account LIMIT 1];
+        DonationPagePaymentWrapper paymentWrapper = ComgateTestFactory.getPaymentWrapper('oneoff', 500, 'bankTransfer', null);
+        Contact con = ComgateTestFactory.getContact();
+
+        Test.startTest();
+        Map<String, Object> returnMap = DonationPageController.justCreateRecords(JSON.serialize(donor),
+                JSON.serialize(con), cam.Id, JSON.serialize(paymentWrapper), true);
+        Test.stopTest();
+
+        Assert.areEqual('2602488698/2010', returnMap.get('bankAccountNumber'), 'Default bank account should be used');
+        Assert.areEqual('CZ1920100000002602488698', returnMap.get('iban'), 'Default IBAN should be used');
+        Assert.isTrue(((String) returnMap.get('qrPayload')).startsWith('SPD*1.0*ACC:CZ1920100000002602488698'),
+                'QR payload should be built from the default IBAN');
+    }
+
+    //No default record at all must not throw - the page shows placeholders instead of erroring out
+    @IsTest
+    public static void test_justCreateRecords_noBankAccount(){
+        Campaign cam = ComgateTestFactory.getCampaign();
+        insert cam;
+
+        Account donor = [SELECT Id, FirstName, LastName, PersonEmail FROM Account LIMIT 1];
+        DonationPagePaymentWrapper paymentWrapper = ComgateTestFactory.getPaymentWrapper('oneoff', 500, 'bankTransfer', null);
+        Contact con = ComgateTestFactory.getContact();
+
+        Test.startTest();
+        Map<String, Object> returnMap = DonationPageController.justCreateRecords(JSON.serialize(donor),
+                JSON.serialize(con), cam.Id, JSON.serialize(paymentWrapper), true);
+        Test.stopTest();
+
+        Assert.areEqual('XXX-XXXXXXXX/XXX', returnMap.get('bankAccountNumber'),
+                'Missing default account should fall back to the placeholder, not throw');
+        Assert.areEqual('XXX-XXXXXXXX/XXX', returnMap.get('iban'),
+                'Missing default account should fall back to the placeholder, not throw');
+        Assert.isNotNull(returnMap.get('variableNumber'), 'Variable symbol should still be returned');
     }
 }
