@@ -29,7 +29,16 @@ Podle šablon `děkovný dopis individuální dárce jednorázový.docx` a `potv
 
    Merge pole `{!GiftTransaction.X}` se u obou šablon plní přímo z transakce, e-mail se posílá
    z organizační adresy `darci@darujemekrouzky.cz` (jen pokud je ověřená) a ukládá se jako
-   **EmailMessage pod kontakt dárce**.
+   **EmailMessage pod kontakt dárce a zároveň u daru** (`setWhatId`).
+
+   PDF se **uloží k daru před odesláním** a e-mail ho přikládá odkazem na uložený soubor
+   (`setEntityAttachments`). Jen tak Salesforce uloží přílohu i u e-mailu v CRM – obyčejnou
+   přílohu (`EmailFileAttachment`) odešle, ale v kopii e-mailu ji nenechá. Když se soubor uložit
+   nepodaří, e-mail odejde s obyčejnou přílohou; když selže odeslání, uložené PDF se smaže.
+
+   E-maily odeslané do 30. 9. 2026 přílohu u sebe nemají a Salesforce ji k odeslanému e-mailu
+   dodat nedovolí (ani změnit jeho `RelatedToId`). Jejich aktivity (Task) jsou zpětně navázané
+   na dar, takže u daru je vidět e-mail i PDF vedle sebe.
 4. Dozorčí job `DKD_GiftThankYouScheduler` (každých 15 min, běží jako admin) je pojistka: dobere dary,
    u kterých event nedorazil nebo odeslání spadlo. Stav `Sent` se zapisuje před odesláním – bez rizika duplicit.
    **Pokrývá jen jednorázové dary** (`GiftCommitmentId = null`) – u pravidelných by neměl co dodat,

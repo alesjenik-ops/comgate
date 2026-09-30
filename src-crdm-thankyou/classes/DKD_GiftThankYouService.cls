@@ -25,13 +25,6 @@
  * z guest kontextu neprojde ("Org-Wide Email provided is not valid") a protoze akce bezela
  * v transakci webhooku, shodila cely zapis platby. Proto obe vetve chodi touhle cestou.
  *
- * Dary importovane z Darujme.cz (PaymentMethod zacina na 'Darujme') se rozhoduji podle nastaveni
- * DKD_Thank_You_Settings__c.Darujme_Thank_You_From__c:
- *  - prazdne = nedekujeme vubec, darcum dekuje Darujme samo
- *  - vyplnene datum = dekujeme za dary darovane od toho dne, jednorazove i pravidelne
- * Rozhoduje datum daru (TransactionDate), ne datum importu - denni synchronizace z Darujme
- * dotahuje i nekolik dni stare dary a ty uz sve potvrzeni z Darujme dostaly.
- *
  * Chyby se zapisuji do CRMforNonProfit__Error_Log__c a transakce zustava To Be Sent.
  */
 public without sharing class DKD_GiftThankYouService {
@@ -43,8 +36,6 @@ public without sharing class DKD_GiftThankYouService {
     public static final String PDF_PAGE_PATH = '/apex/npc_bridge__GiftConfirmationPDF';
     public static final String STATUS_SENT = 'Sent';
     public static final String STATUS_TO_BE_SENT = 'To Be Sent';
-    // Dary z Darujme nesou 'Darujme - <metoda>'; starsi zaznamy jeste jen 'Darujme'.
-    public static final String PAYMENT_METHOD_DARUJME_PREFIX = 'Darujme';
     // Callout limit je 100 na transakci, kazde PDF je jeden callout
     public static final Integer CHUNK_SIZE = 40;
 
@@ -135,8 +126,7 @@ public without sharing class DKD_GiftThankYouService {
         Set<String> fields = new Set<String>{
             'Id', 'Name', 'DonorId', 'Donor.Name', 'Donor.PersonContactId', 'Donor.PersonEmail',
             'Donor.npc_bridge__PrimaryContact__c', 'Donor.npc_bridge__PrimaryContact__r.Email',
-            'AcknowledgementStatus', 'Transaction_Year__c', 'GiftCommitmentId',
-            'PaymentMethod', 'TransactionDate'
+            'AcknowledgementStatus', 'Transaction_Year__c', 'GiftCommitmentId'
         };
         for (EmailTemplate t : templates.values()) {
             fields.addAll(extractTokenFields(t.Subject + ' ' + t.HtmlValue + ' ' + t.Body));
@@ -147,7 +137,6 @@ public without sharing class DKD_GiftThankYouService {
         );
 
         Set<Id> thankedCommitments = loadThankedCommitments(transactions);
-        Date darujmeFrom = darujmeThankYouFrom();
 
         // 1. faze: callouty (PDF) a priprava mailu - zadne DML
         List<Messaging.SingleEmailMessage> mails = new List<Messaging.SingleEmailMessage>();
@@ -159,15 +148,6 @@ public without sharing class DKD_GiftThankYouService {
         for (GiftTransaction gt : transactions) {
             if (gt.AcknowledgementStatus == STATUS_SENT) {
                 Outcome skipped = fail(gt.Id, 'Podekovani uz bylo odeslano, preskoceno.');
-                skipped.success = true;
-                outcomes.add(skipped);
-                continue;
-            }
-            // Dary z Darujme: dokud neni v nastaveni datum zapnuti, dekuje si Darujme samo a my mlcime.
-            // Stejne tak dary darovane pred timto datem - na ty uz potvrzeni z Darujme odeslo.
-            String darujmeSkip = darujmeSkipReason(gt, darujmeFrom);
-            if (darujmeSkip != null) {
-                Outcome skipped = fail(gt.Id, darujmeSkip);
                 skipped.success = true;
                 outcomes.add(skipped);
                 continue;
@@ -209,15 +189,10 @@ public without sharing class DKD_GiftThankYouService {
                 mail.setHtmlBody(mergeTokens(template.HtmlValue, gt));
                 mail.setPlainTextBody(mergeTokens(template.Body, gt));
                 mail.setSaveAsActivity(true);
+                // e-mail se v CRM ukaze i u daru, nejen u kontaktu
+                mail.setWhatId(gt.Id);
                 mail.setUseSignature(false);
                 if (fromAddressId != null) mail.setOrgWideEmailAddressId(fromAddressId);  // v produkci vzdy vyplnene
-                if (pdf != null) {
-                    Messaging.EmailFileAttachment attachment = new Messaging.EmailFileAttachment();
-                    attachment.setFileName(fileName);
-                    attachment.setBody(pdf);
-                    attachment.setContentType('application/pdf');
-                    mail.setFileAttachments(new List<Messaging.EmailFileAttachment>{ attachment });
-                }
 
                 mails.add(mail);
                 mailTransactions.add(gt);
@@ -245,23 +220,51 @@ public without sharing class DKD_GiftThankYouService {
             }
             update marks;
 
+            // PDF se ulozi k transakci PRED odeslanim a e-mail ho prilozi odkazem na ulozeny soubor.
+            // Salesforce pak prilohu ulozi i u e-mailu v CRM - obycejnou prilohu (EmailFileAttachment)
+            // odesle, ale v kopii e-mailu ji neuchova.
+            Map<Integer, ContentVersion> fileByMail = new Map<Integer, ContentVersion>();
+            for (Integer i = 0; i < mails.size(); i++) {
+                if (pdfs[i] == null) continue;
+                fileByMail.put(i, new ContentVersion(
+                    Title = fileNames[i].removeEnd('.pdf'),
+                    PathOnClient = fileNames[i],
+                    VersionData = pdfs[i],
+                    FirstPublishLocationId = mailTransactions[i].Id
+                ));
+            }
+            Boolean filesStored = false;
+            if (!fileByMail.isEmpty()) {
+                try {
+                    insert fileByMail.values();
+                    filesStored = true;
+                } catch (Exception e) {
+                    // soubor se neulozil - potvrzeni musi odejit aspon jako obycejna priloha
+                    System.debug(LoggingLevel.WARN, 'PDF se nepodarilo ulozit k transakci: ' + e.getMessage());
+                }
+            }
+            for (Integer i : fileByMail.keySet()) {
+                if (filesStored) {
+                    mails[i].setEntityAttachments(new List<String>{ fileByMail.get(i).Id });
+                } else {
+                    Messaging.EmailFileAttachment attachment = new Messaging.EmailFileAttachment();
+                    attachment.setFileName(fileNames[i]);
+                    attachment.setBody(pdfs[i]);
+                    attachment.setContentType('application/pdf');
+                    mails[i].setFileAttachments(new List<Messaging.EmailFileAttachment>{ attachment });
+                }
+            }
+
             List<Messaging.SendEmailResult> results = Messaging.sendEmail(mails, false);
             List<GiftTransaction> reverts = new List<GiftTransaction>();
-            List<ContentVersion> files = new List<ContentVersion>();
+            Set<Id> unsentFiles = new Set<Id>();
             for (Integer i = 0; i < results.size(); i++) {
                 Outcome o = mailOutcomes[i];
                 if (results[i].isSuccess()) {
                     o.success = true;
                     o.message = 'Odeslano na ' + o.recipientEmail;
-                    if (pdfs[i] != null) {
-                        files.add(new ContentVersion(
-                            Title = fileNames[i].removeEnd('.pdf'),
-                            PathOnClient = fileNames[i],
-                            VersionData = pdfs[i],
-                            FirstPublishLocationId = mailTransactions[i].Id
-                        ));
-                    }
                 } else {
+                    if (filesStored && fileByMail.containsKey(i)) unsentFiles.add(fileByMail.get(i).Id);
                     o.message = 'Odeslani e-mailu selhalo: ' + results[i].getErrors()[0].getMessage();
                     GiftTransaction revert = new GiftTransaction(Id = mailTransactions[i].Id,
                         AcknowledgementStatus = STATUS_TO_BE_SENT, AcknowledgementDate = null);
@@ -271,35 +274,18 @@ public without sharing class DKD_GiftThankYouService {
                 outcomes.add(o);
             }
             if (!reverts.isEmpty()) update reverts;
-            // Soubor je bonus - kdyz se neulozi (napr. prava guest usera), e-mail uz odesel a stav je Sent
-            if (!files.isEmpty()) {
-                try { insert files; } catch (Exception e) { System.debug(LoggingLevel.WARN, 'PDF se nepodarilo ulozit k transakci: ' + e.getMessage()); }
+            // neodeslane potvrzeni nesmi zustat u transakce - pri dalsim pokusu vznikne nove
+            if (!unsentFiles.isEmpty()) {
+                List<ContentDocument> docs = new List<ContentDocument>();
+                for (ContentVersion cv : [SELECT ContentDocumentId FROM ContentVersion WHERE Id IN :unsentFiles]) {
+                    docs.add(new ContentDocument(Id = cv.ContentDocumentId));
+                }
+                delete docs;
             }
         }
 
         logErrors(outcomes);
         return outcomes;
-    }
-
-    // Datum, od ktereho se dekuje i za dary importovane z Darujme.cz. Prazdne = nedekuje se.
-    // Nastavuje se v Setup > Custom Settings > DKD podekovani - nastaveni, aby sla automatika
-    // zapnout presne ve chvili, kdy si organizace vypne potvrzeni na strane Darujme.
-    public static Date darujmeThankYouFrom() {
-        DKD_Thank_You_Settings__c settings = DKD_Thank_You_Settings__c.getOrgDefaults();
-        return settings == null ? null : settings.Darujme_Thank_You_From__c;
-    }
-
-    // Duvod, proc se dar z Darujme preskakuje, nebo null kdyz se ma podekovat
-    @TestVisible
-    private static String darujmeSkipReason(GiftTransaction gt, Date darujmeFrom) {
-        if (gt.PaymentMethod == null || !gt.PaymentMethod.startsWith(PAYMENT_METHOD_DARUJME_PREFIX)) return null;
-        if (darujmeFrom == null) {
-            return 'Podekovani za dary z Darujme neni zapnute (DKD_Thank_You_Settings__c.Darujme_Thank_You_From__c je prazdne), preskoceno.';
-        }
-        if (gt.TransactionDate == null || gt.TransactionDate < darujmeFrom) {
-            return 'Dar z Darujme je starsi nez datum zapnuti podekovani (' + String.valueOf(darujmeFrom) + '), preskoceno.';
-        }
-        return null;
     }
 
     // Zavazky, za ktere uz podekovani odeslo. Rozhoduje stav zavazku, NE poradi splatnosti:
