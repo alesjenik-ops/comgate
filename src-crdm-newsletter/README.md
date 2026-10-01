@@ -18,7 +18,7 @@ Předmět „Podívejte se, co se díky vám daří“, ve dvou podobách se ste
   **Soubory ani jejich veřejné odkazy nemažte** – obrázky by zmizely i z už odeslaných e-mailů.
 - `content/newsletter-dkd-jeden-klik-2026-10.html` – celé HTML šablony, jak je v CRM;
   `content/build_newsletter_html.py` ho generuje (texty, barvy, odkazy).
-- Lightning šablona a soubor `…-builder-html-blok.html` jsou starší verze z obrázků.
+- Obě šablony (HTML i Lightning) mají stejné HTML. Soubor `…-builder-html-blok.html` je starší verze z obrázků.
 - `content/newsletter-dkd-jeden-klik-2026-10-builder-html-blok.html` – totéž bez hlavičky
   a s kratšími styly (8 066 znaků) pro komponentu **HTML** v drag-and-drop builderu.
 
