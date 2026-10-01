@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Pristup do drag-and-drop builderu e-mailovych sablon (Access Drag-and-Drop Content Builder). Standardni profily toto opravneni zmenit nedovoli.</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>DKD Email Builder</label>
+    <userPermissions>
+        <enabled>true</enabled>
+        <name>AccessContentBuilder</name>
+    </userPermissions>
+</PermissionSet>

@@ -84,3 +84,11 @@ takže layout i reporting ukazují totéž.
 Balíčkový layout *FPack Campaign* (namespace `CRMforNonProfit`) žádná pole
 z fpack analytics nemá a profil Admin ho nepoužívá – Campaign má přiřazený
 *Campaign Layout*.
+
+## Akce na kampani
+
+`Campaign Layout` má vlastní pořadí akcí. První je **Send Email** (`SendListEmailAction`,
+hromadný e-mail členům kampaně), pak New Contact a New Opportunity. Horní panel stránky
+kampaně ukazuje tři tlačítka a ostatní schovává do rozbalovací nabídky. Bez vlastního pořadí
+se Send Email zobrazoval až na 12. místě.
+
