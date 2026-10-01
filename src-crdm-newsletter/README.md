@@ -9,10 +9,16 @@ Předmět „Podívejte se, co se díky vám daří“, ve dvou podobách se ste
   (Setup → Classic Email Templates). Tuhle verzi používat pro rozesílku.
 - **Newsletter DKD – Jeden klik (10/2026)** – Lightning šablona ve složce **Newslettery**.
 
-- 17 obrázků je v Souborech jako `newsletter-dkd-jeden-klik-NN-*` s veřejným odkazem
-  (Content Delivery). HTML na ně odkazuje přes `…/sfc/dist/version/download/…`.
+- HTML šablona má **texty jako HTML s CSS**, ne jako obrázky. Obrázky jsou jen čtyři:
+  logo, koláž fotek kampaně, mapa krajů a koláč aktivit (legenda je text). Rozvržení je
+  tabulkové s inline styly (Outlook, Gmail), šířka 640 px, na mobilu se sloupce skládají
+  pod sebe. Písmo Fira Sans, kde ho klient nemá, Segoe UI / Arial.
+- Obrázky jsou v Souborech jako `newsletter-dkd-jeden-klik-*` s veřejným odkazem
+  (Content Delivery), HTML na ně odkazuje přes `…/sfc/dist/version/download/…`.
   **Soubory ani jejich veřejné odkazy nemažte** – obrázky by zmizely i z už odeslaných e-mailů.
-- `content/newsletter-dkd-jeden-klik-2026-10.html` – celé HTML šablony, jak je v CRM.
+- `content/newsletter-dkd-jeden-klik-2026-10.html` – celé HTML šablony, jak je v CRM;
+  `content/build_newsletter_html.py` ho generuje (texty, barvy, odkazy).
+- Lightning šablona a soubor `…-builder-html-blok.html` jsou starší verze z obrázků.
 - `content/newsletter-dkd-jeden-klik-2026-10-builder-html-blok.html` – totéž bez hlavičky
   a s kratšími styly (8 066 znaků) pro komponentu **HTML** v drag-and-drop builderu.
 
