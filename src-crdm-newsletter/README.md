@@ -2,8 +2,12 @@
 
 ## Newsletter „Jeden klik“ (10/2026)
 
-Lightning šablona **Newsletter DKD – Jeden klik (10/2026)** ve složce **Newslettery**
-(veřejná), předmět „Podívejte se, co se díky vám daří“.
+Předmět „Podívejte se, co se díky vám daří“, ve dvou podobách se stejným obsahem:
+
+- **DKD Newsletter Jeden klik 10/2026 (HTML)** – klasická HTML šablona (Custom HTML) ve složce
+  **DKD Newslettery**. HTML zůstává celé včetně hlavičky a stylů a upravuje se ve zdrojovém kódu
+  (Setup → Classic Email Templates). Tuhle verzi používat pro rozesílku.
+- **Newsletter DKD – Jeden klik (10/2026)** – Lightning šablona ve složce **Newslettery**.
 
 - 17 obrázků je v Souborech jako `newsletter-dkd-jeden-klik-NN-*` s veřejným odkazem
   (Content Delivery). HTML na ně odkazuje přes `…/sfc/dist/version/download/…`.
