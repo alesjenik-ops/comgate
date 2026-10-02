@@ -37,7 +37,7 @@ Dopis dárcům kampaně Jeden klik po prvním týdnu (355 tis. Kč, 236 dětí, 
   nadpis, perex a dlaždice s čísly jsou doplněné podle vzoru newsletteru 10/2026.
   HTML generuje `content/build_info_jeden_klik_html.py` (hlavičku, tlačítka sítí a patičku
   bere z `content/newsletter-dkd-jeden-klik-2026-10.html`) do `email/`.
-- **Reporty** ve složce „DKD kampaně“, oba typu Kontakty a účty, takže mají tlačítko
+- **Reporty** ve složce „DKD kampaně“ (nasdílená všem interním uživatelům ke čtení), oba typu Kontakty a účty, takže mají tlačítko
   **Přidat do kampaně**:
   - „Dárci Jeden klik do 1. 10. 2026“ – křížový filtr na účty s darem (kampaň, Paid, datum).
     Hodnota kampaně v křížovém filtru musí být **název** kampaně, s Id report vrací 0 řádků;
