@@ -304,6 +304,34 @@ public with sharing class DonationPageControllerTest {
         System.assert(((String) returnMap.get('qrPayload')).startsWith('SPD*1.0*ACC:CZ6508000000192000145399'));
     }
 
+    //Firma platici prevodem: dar musi dostat zalozenou firmu, ne zalozni ucet (zpusobilo to predvyplnenou zemi)
+    @IsTest
+    public static void test_justCreateRecords_businessAccount_withPersonCountry(){
+        Campaign cam = ComgateTestFactory.getCampaign();
+        insert cam;
+        Map<String, Object> donorJson = new Map<String, Object>{
+            'sobjectType' => 'Account',
+            'Name' => 'Prevod Firma s.r.o.',
+            'CRMforNonProfit__ICO__c' => '11223344',
+            'BillingCountry' => 'Czech Republic',
+            'PersonMailingCountry' => 'Czech Republic'
+        };
+        DonationPagePaymentWrapper paymentWrapper = ComgateTestFactory.getPaymentWrapper('oneoff', 3000, 'bankTransfer', null);
+        Contact con = ComgateTestFactory.getContact();
+
+        Test.startTest();
+        DonationPageController.justCreateRecords(JSON.serialize(donorJson), JSON.serialize(con), cam.Id,
+                JSON.serialize(paymentWrapper), false);
+        Test.stopTest();
+
+        Account company = [SELECT Id, npc_bridge__PrimaryContact__c FROM Account WHERE Name = 'Prevod Firma s.r.o.'];
+        GiftTransaction gift = [SELECT DonorId, OriginalAmount FROM GiftTransaction WHERE CampaignId = :cam.Id];
+        Assert.areEqual(company.Id, gift.DonorId, 'Dar z prevodu musi patrit zalozene firme');
+        Assert.areEqual(3000, gift.OriginalAmount);
+        Assert.areEqual(1, [SELECT COUNT() FROM Contact WHERE AccountId = :company.Id]);
+        Assert.isNotNull(company.npc_bridge__PrimaryContact__c, 'Primarni kontakt je adresa pro podekovani');
+    }
+
     //Campaign without its own bank account falls back to the Bank_Account__c flagged as Default__c
     @IsTest
     public static void test_justCreateRecords_defaultBankAccount(){

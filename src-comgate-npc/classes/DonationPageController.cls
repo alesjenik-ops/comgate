@@ -111,7 +111,8 @@ public without sharing class DonationPageController {
 
         Bank_Account__c bankAccount = campaign?.Bank_Account__r ?? getDefaultBankAccount();
 
-        processDonor(donor, con, isPersonAccount);
+        // processDonor u firmy vraci novy zaznam (bez poli osobniho uctu) - Id ma jen on
+        donor = processDonor(donor, con, isPersonAccount);
         Id donationRecordId = prepareDonationRecord(donor, paymentWrapper, campaignId, bankAccount);
         String comgateVar = getPaymentVariable(donationRecordId);
 

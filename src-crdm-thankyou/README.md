@@ -95,6 +95,16 @@ sf apex run --target-org <alias>   # DKD_GiftThankYouScheduler.scheduleEveryQuar
   organizační adresu – akce Send Email skončí na „Org-Wide Email provided is not valid". Dokud běžela
   synchronně, shodila tím i zápis platby z webhooku (incident 17. 9. 2026, viz
   `src-comgate-npc/PORT_NOTES.md` bod 13). Odesílání patří výhradně do Apexu za platform eventem.
+- **Dárce bez e-mailu dozorčí job vynechává** (od 2. 10. 2026). Bere jen dary, jejichž dárce má
+  `PersonEmail` nebo primární kontakt (`npc_bridge__PrimaryContact__c`) s e-mailem. Typicky jde
+  o platby z výpisu od neznámé osoby, které párování dá záložnímu účtu *Default* – dřív je job
+  zkoušel každých 15 minut a každý pokus zapsal chybu (stovky záznamů denně). Stav zůstává
+  `To Be Sent`, takže **po přeřazení daru na dárce s e-mailem odejde poděkování samo** do 15 minut.
+  Okamžitý pokus z flow při zaplacení zapíše chybu jen jednou.
+- Zbývá jeden neošetřený tvar dat: **osoba bez vlastního e-mailu, jejíž primární kontakt e-mail má**.
+  Job ji vezme, ale služba posílá na kontakt osoby (bez e-mailu), takže odeslání selže a opakuje se.
+  Formulář takové záznamy nezakládá a k 2. 10. 2026 v CRM žádný není; kdyby vznikl, služba by měla
+  brát kontakt ze stejného místa jako e-mail.
 - **Pravidelné dary nemá kdo dobrat.** Dozorčí job filtruje `GiftCommitmentId = null`, takže když
   u pravidelného daru platform event nedorazí nebo odeslání spadne, poděkování už nikdo nepošle.
   Řešením by bylo pole typu `Thank_You_Not_Required__c` (aby job nenabízel každou splátku znovu)

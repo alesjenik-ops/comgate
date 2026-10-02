@@ -231,6 +231,33 @@ private class DKD_GiftThankYouServiceTest {
         Assert.areNotEqual('Sent', [SELECT AcknowledgementStatus FROM GiftTransaction WHERE Id = :unpaid.Id].AcknowledgementStatus);
     }
 
+    // Darce bez e-mailu (typicky zalozni ucet Default) dozorci job vynechava - jinak by kazdych
+    // 15 minut zapsal dalsi chybu. Stav To Be Sent zustava, takze po preradeni na darce s e-mailem
+    // dar dobere sam.
+    @IsTest
+    static void schedulerSkipsDonorsWithoutEmail() {
+        useTestTemplates();
+        Account withEmail = makeDonor('darce@example.com');
+        Account withoutEmail = makeDonor(null);
+        GiftTransaction reachable = makeGift(withEmail.Id, 500);
+        GiftTransaction unreachable = makeGift(withoutEmail.Id, 300);
+        update new List<GiftTransaction>{
+            new GiftTransaction(Id = reachable.Id, Status = 'Paid'),
+            new GiftTransaction(Id = unreachable.Id, Status = 'Paid')
+        };
+
+        Test.startTest();
+        Integer enqueued = DKD_GiftThankYouScheduler.enqueuePending();
+        Test.stopTest();
+
+        Assert.areEqual(1, enqueued, 'Dobrat se ma jen dar darce s e-mailem');
+        Assert.areEqual('To Be Sent', [SELECT AcknowledgementStatus FROM GiftTransaction WHERE Id = :unreachable.Id].AcknowledgementStatus,
+            'Stav zustava, aby dar po doplneni darce s e-mailem dobehl sam');
+
+        update new Account(Id = withoutEmail.Id, PersonEmail = 'doplneno@example.com');
+        Assert.areEqual(1, DKD_GiftThankYouScheduler.enqueuePending(), 'Po doplneni e-mailu se dar zaradi');
+    }
+
     @IsTest
     static void withoutVerifiedOrgWideAddressNothingIsSent() {
         useTestTemplates();

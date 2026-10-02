@@ -24,12 +24,16 @@ public without sharing class DKD_GiftThankYouScheduler implements Schedulable {
             System.debug(LoggingLevel.WARN, 'DKD podekovani: organizacni adresa ' + DKD_GiftThankYouService.FROM_ADDRESS + ' neni pripravena, cekam.');
             return 0;
         }
+        // Jen darci, kam lze poslat - stejna pole jako DKD_GiftThankYouService. Dar na zaloznim uctu
+        // Default (platba z vypisu od nezname osoby) by se jinak zkousel kazdych 15 minut a kazdy pokus
+        // zapsal chybu. Stav zustava To Be Sent: jakmile dar dostane darce s e-mailem, job ho sam dobere.
         List<GiftTransaction> pending = [
             SELECT Id FROM GiftTransaction
             WHERE Status = 'Paid'
             AND GiftCommitmentId = null
             AND AcknowledgementStatus = 'To Be Sent'
             AND CreatedDate >= :START
+            AND (Donor.PersonEmail != null OR Donor.npc_bridge__PrimaryContact__r.Email != null)
             LIMIT :BATCH_LIMIT
         ];
         if (!pending.isEmpty()) {
