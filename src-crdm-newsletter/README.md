@@ -43,7 +43,9 @@ Dopis dárcům kampaně Jeden klik po prvním týdnu (355 tis. Kč, 236 dětí, 
     Hodnota kampaně v křížovém filtru musí být **název** kampaně, s Id report vrací 0 řádků;
     datum Metadata API přijme jen jako `10/1/2026`.
   - „Newsletter – odběratelé“ – kontakty se zaškrtnutým Newsletter (`CRMforNonProfit__Newsletter__c`).
-    2. 10. 2026 ho neměl zaškrtnutý nikdo, report je zatím prázdný.
+    2. 10. 2026 ho neměl zaškrtnutý nikdo; týž den byl hromadně zaškrtnut u všech osobních účtů
+    (853) kromě technických záznamů „Default“ a „Franta Anonym“ a všechny byly přidány do kampaně
+    Newsletter.
 
 ## Přístup do builderu
 
