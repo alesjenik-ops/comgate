@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns><field>FIRST_NAME</field></columns>
+    <columns><field>LAST_NAME</field></columns>
+    <columns><field>EMAIL</field></columns>
+    <columns><field>ACCOUNT.NAME</field></columns>
+    <columns><field>Contact.CRMforNonProfit__Newsletter__c</field></columns>
+    <crossFilters>
+        <criteriaItems><column>Campaign</column><operator>equals</operator><value>DKD - Jeden klik</value></criteriaItems>
+        <criteriaItems><column>Status</column><operator>equals</operator><value>Paid</value></criteriaItems>
+        <criteriaItems><column>TransactionDate</column><operator>lessOrEqual</operator><value>10/1/2026</value></criteriaItems>
+        <operation>with</operation>
+        <primaryTableColumn>ACCOUNT_ID</primaryTableColumn>
+        <relatedTable>GiftTransaction</relatedTable>
+        <relatedTableJoinColumn>Donor</relatedTableJoinColumn>
+    </crossFilters>
+    <description>Osoby, které daly zaplacený dar v kampani DKD - Jeden klik do 1. 10. 2026 včetně. Podklad pro kampaň Info Jeden Klik (tlačítko Přidat do kampaně).</description>
+    <format>Tabular</format>
+    <name>Dárci Jeden klik do 1. 10. 2026</name>
+    <params><name>co</name><value>1</value></params>
+    <reportType>ContactList</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <sortColumn>LAST_NAME</sortColumn>
+    <sortOrder>Asc</sortOrder>
+    <timeFrameFilter><dateColumn>CREATED_DATE</dateColumn><interval>INTERVAL_CUSTOM</interval></timeFrameFilter>
+</Report>

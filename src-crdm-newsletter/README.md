@@ -24,6 +24,27 @@ smazána, aby existovala jen jedna verze.
 nedovolí (`IsBuilderContent` je jen pro čtení). Builderová verze se dá udělat ručně:
 New Email Template → Edit in Builder → komponenta **HTML** (limit 10 000 znaků na komponentu).
 
+## Info Jeden klik – první týden (10/2026)
+
+Dopis dárcům kampaně Jeden klik po prvním týdnu (355 tis. Kč, 236 dětí, cca 400 čekajících).
+
+- **Kampaň** „Info Jeden Klik“ (typ Email, stavy členů Sent / Responded jako u kampaně
+  Newsletter). Členové: 397 osob, které mají v kampani **DKD - Jeden klik** zaplacený dar
+  s datem daru do 1. 10. 2026 včetně (dnešní dary 2. 10. ne). U firem je to jejich jediný
+  kontakt, který je zároveň primárním kontaktem.
+- **Šablona** Lightning „Info Jeden klik – první týden (10/2026)“ ve složce Newslettery,
+  předmět „Díky vám se kroužky dostávají k dalším dětem“. Text je z dopisu beze změny,
+  nadpis, perex a dlaždice s čísly jsou doplněné podle vzoru newsletteru 10/2026.
+  HTML generuje `content/build_info_jeden_klik_html.py` (hlavičku, tlačítka sítí a patičku
+  bere z `content/newsletter-dkd-jeden-klik-2026-10.html`) do `email/`.
+- **Reporty** ve složce „DKD kampaně“, oba typu Kontakty a účty, takže mají tlačítko
+  **Přidat do kampaně**:
+  - „Dárci Jeden klik do 1. 10. 2026“ – křížový filtr na účty s darem (kampaň, Paid, datum).
+    Hodnota kampaně v křížovém filtru musí být **název** kampaně, s Id report vrací 0 řádků;
+    datum Metadata API přijme jen jako `10/1/2026`.
+  - „Newsletter – odběratelé“ – kontakty se zaškrtnutým Newsletter (`CRMforNonProfit__Newsletter__c`).
+    2. 10. 2026 ho neměl zaškrtnutý nikdo, report je zatím prázdný.
+
 ## Přístup do builderu
 
 Oprávnění **Access Drag-and-Drop Content Builder** nejde zapnout na standardních profilech

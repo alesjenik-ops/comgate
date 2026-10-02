@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Informační dopis dárcům kampaně Jeden klik po prvním týdnu (355 tis. Kč, 236 dětí). Kampaň Info Jeden Klik. Vzor: Newsletter DKD – Jeden klik (10/2026).</description>
+    <encodingKey>UTF-8</encodingKey>
+    <name>Info Jeden klik – první týden (10/2026)</name>
+    <style>none</style>
+    <subject>Díky vám se kroužky dostávají k dalším dětem</subject>
+    <textOnly>Díky vám se kroužky dostávají k dalším dětem – informace o prvním týdnu kampaně Jeden klik. Zobrazte si e-mail ve formátu HTML.</textOnly>
+    <type>custom</type>
+    <uiType>SFX</uiType>
+</EmailTemplate>

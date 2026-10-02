@@ -4,5 +4,15 @@
         <members>DKD_Email_Builder</members>
         <name>PermissionSet</name>
     </types>
-    <version>62.0</version>
+    <types>
+        <members>DKD_Newslettery/DKD_Info_Jeden_klik_2026_10</members>
+        <name>EmailTemplate</name>
+    </types>
+    <types>
+        <members>DKD_Kampane</members>
+        <members>DKD_Kampane/Info_Jeden_Klik_Darci</members>
+        <members>DKD_Kampane/Newsletter_Odberatele</members>
+        <name>Report</name>
+    </types>
+    <version>64.0</version>
 </Package>
