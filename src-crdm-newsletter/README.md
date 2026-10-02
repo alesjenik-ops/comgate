@@ -44,8 +44,9 @@ Dopis dárcům kampaně Jeden klik po prvním týdnu (355 tis. Kč, 236 dětí, 
     datum Metadata API přijme jen jako `10/1/2026`.
   - „Newsletter – odběratelé“ – kontakty se zaškrtnutým Newsletter (`CRMforNonProfit__Newsletter__c`).
     2. 10. 2026 ho neměl zaškrtnutý nikdo; týž den byl hromadně zaškrtnut u všech osobních účtů
-    (853) kromě technických záznamů „Default“ a „Franta Anonym“ a všechny byly přidány do kampaně
-    Newsletter.
+    kromě technických záznamů „Default“ a „Franta Anonym“ a testovacích adres (test@test.cz,
+    tst@test.test, mail-tester) a u 12 firemních kontaktů (bez ukázkových dat Salesforce
+    s info@salesforce.com). Všech 862 je v kampani Newsletter.
 
 ## Přístup do builderu
 
