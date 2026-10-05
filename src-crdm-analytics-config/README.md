@@ -1,5 +1,12 @@
 # Typy darů pro fpack analytics (CRDM)
 
+**Stav:** nasazeno do CRDM 5. 10. 2026 (26 záznamů) a pipeline spuštěna ručně.
+Záložní účet *Default* (`001Te00000h2SXdIAM`) je vyřazený z počtu dárců přes
+`fpnpc_analytics__Donor_Analytics_Settings__c` (záznam `Default`).
+První běh: scénáře se rozpadly podle darů (641 *One-Off - New*, 143 *One-Off - Lapsed*,
+76 *Regular - New*…), vzniklo 1 319 záznamů Donor History a 22 automatických závazků
+(*Recurring Gift <datum>*, stav Draft). Součty kampaní sedí se zaplacenými dary.
+
 Bez téhle složky balíček **fpack analytics** (`fpnpc_analytics`) v CRDM nespočítá
 nic. Pole na kampani, na dárci i roční historie zůstávají prázdná nebo nulová.
 
