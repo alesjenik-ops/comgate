@@ -11,6 +11,25 @@ Souhrn z Data Processing Engine pryč, místo něj pole balíčku fpack Analytic
 
 *Outreach Summary* nikde na stránkách nebyl, objekt v orgu nemá jediný záznam.
 
+## Přiřazení stránek účtu
+
+Salesforce umí jako výchozí pro celý org jen **jednu** stránku na objekt; rozlišit podle
+typu záznamu jde jen v rámci aplikace a profilu.
+
+| Kde | Osobní účet | Firemní účet |
+| --- | --- | --- |
+| Výchozí pro celý org (všechny aplikace a profily) | `Account_Record_Page` | `Account_Record_Page` |
+| Aplikace CRDM, profily System Administrator a Standard User | `Account_Record_Page` | `Account_Record_Page1` |
+
+Výchozí je stránka osobního účtu, protože osobní účty jsou 98 % dárců. Firemní účet
+mimo CRDM tak dostane stránku osobního účtu – sekce *Analytika dárců (fpack)* tam je,
+jen osobní pole (e-mail, mobil, adresa osoby) zůstanou prázdná.
+
+- `objects/Account.object` obsahuje **jen** `actionOverrides` (všech 54, View změněné
+  na `Account_Record_Page`); ostatní nastavení objektu deploy nemění.
+- `applications/CRDM.app` je celá aplikace, jak byla v orgu, plus přiřazení pro profil
+  Standard User.
+
 ## Plnění polí
 
 Dlouho byla pole prázdná: balíček počítá jen dary s platební metodou ve whitelistu
