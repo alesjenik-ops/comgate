@@ -124,19 +124,25 @@
     <rightSection>
         <columnSize>Medium</columnSize>
         <components>
-            <autoselectColumnsFromReport>true</autoselectColumnsFromReport>
+            <autoselectColumnsFromReport>false</autoselectColumnsFromReport>
             <chartAxisRange>Auto</chartAxisRange>
+            <chartSummary>
+                <axisBinding>y</axisBinding>
+                <column>FORMULA1</column>
+            </chartSummary>
             <componentType>Bar</componentType>
+            <displayUnits>Auto</displayUnits>
             <drillEnabled>false</drillEnabled>
             <drillToDetailEnabled>false</drillToDetailEnabled>
             <enableHover>false</enableHover>
             <expandOthers>false</expandOthers>
+            <groupingColumn>ACCOUNT.NAME</groupingColumn>
             <groupingSortProperties/>
             <maxValuesDisplayed>10</maxValuesDisplayed>
             <report>NPC_Analytics/FP_Top_Darci</report>
             <showPercentage>false</showPercentage>
             <showPicturesOnCharts>false</showPicturesOnCharts>
-            <showValues>false</showValues>
+            <showValues>true</showValues>
             <sortBy>RowValueDescending</sortBy>
             <sortLegendValues>false</sortLegendValues>
             <title>Top 10 dárců — celkem darováno</title>
