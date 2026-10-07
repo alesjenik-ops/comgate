@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ExternalClientApplication xmlns="http://soap.sforce.com/2006/04/metadata">
+    <contactEmail>crdm@crmproneziskovky.cz</contactEmail>
+    <description>Připojení Claude (claude.ai) k Salesforce hosted MCP serverům.</description>
+    <distributionState>Local</distributionState>
+    <isProtected>false</isProtected>
+    <label>Claude MCP</label>
+</ExternalClientApplication>
