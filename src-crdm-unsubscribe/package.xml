@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <types>
+        <members>Contact.DKD_Unsubscribe_Token__c</members>
+        <members>GiftTransaction.DKD_Unsubscribe_Token__c</members>
+        <name>CustomField</name>
+    </types>
+    <types>
+        <members>DKD_UnsubscribeToken</members>
+        <members>DKD_UnsubscribeResource</members>
+        <members>DKD_UnsubscribeResourceTest</members>
+        <name>ApexClass</name>
+    </types>
+    <types>
+        <members>DKD_ContactUnsubscribeToken</members>
+        <members>DKD_AccountUnsubscribeToken</members>
+        <name>ApexTrigger</name>
+    </types>
+    <types>
+        <members>DKD_Unsubscribe_Guest</members>
+        <name>PermissionSet</name>
+    </types>
+    <types>
+        <members>Admin</members>
+        <name>Profile</name>
+    </types>
+    <version>64.0</version>
+</Package>

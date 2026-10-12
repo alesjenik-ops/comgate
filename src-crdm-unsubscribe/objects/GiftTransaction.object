@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fields>
+        <fullName>DKD_Unsubscribe_Token__c</fullName>
+        <description>Token pro odhlaseni darce - u osobniho uctu z jeho kontaktu, u firmy z primarniho kontaktu. Pro merge pole v dekovnych dopisech.</description>
+        <formula>IF(Donor.IsPersonAccount, Donor.DKD_Unsubscribe_Token__pc, Donor.npc_bridge__PrimaryContact__r.DKD_Unsubscribe_Token__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Token pro odhlášení dárce</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+</CustomObject>

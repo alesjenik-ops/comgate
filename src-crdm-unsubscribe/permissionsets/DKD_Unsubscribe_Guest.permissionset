@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <classAccesses>
+        <apexClass>DKD_UnsubscribeResource</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <description>Pro guest usera site Donation Page: pristup k odhlasovaci strance /services/apexrest/odhlaseni. Data meni trida bez sdileni, zadna objektova prava nejsou potreba.</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>DKD – odhlášení z newsletteru (guest)</label>
+</PermissionSet>

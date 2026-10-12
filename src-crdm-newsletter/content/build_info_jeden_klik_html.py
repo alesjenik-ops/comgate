@@ -13,7 +13,8 @@ s1 = h.find('LinkedIn</a>') + len('LinkedIn</a></td></tr></table></td></tr></tab
 social = h[s0:s1]
 assert 'facebook' in social and social.endswith('</table>')
 logo = re.search(r'<img src="[^"]*ids=068Te00000b0Wvc[^>]*>', h).group(0)
-tail = h[h.rfind('</table>\n</td></tr>\n</table>'):]
+# patka s odhlasenim je v newsletteru uz vlozena jako posledni radek - bere se s tail
+tail = h[h.rfind('<tr><td class="px" style="padding:20px 40px 28px 40px;'):]
 
 TITLE = 'Díky vám se kroužky dostávají k dalším dětem'
 PRE = 'Jak to vypadá po prvním týdnu kampaně Jeden klik'

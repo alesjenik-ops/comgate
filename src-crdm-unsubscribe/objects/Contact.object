@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fields>
+        <fullName>DKD_Unsubscribe_Token__c</fullName>
+        <caseSensitive>true</caseSensitive>
+        <description>Nahodny token do odhlasovaciho odkazu v e-mailech. Plni ho trigger pri zalozeni kontaktu.</description>
+        <externalId>true</externalId>
+        <inlineHelpText>Tajný kód v odkazu na odhlášení z e-mailů. Neměňte ho, jinak přestanou fungovat odkazy v už odeslaných e-mailech.</inlineHelpText>
+        <label>Token pro odhlášení</label>
+        <length>32</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+</CustomObject>
