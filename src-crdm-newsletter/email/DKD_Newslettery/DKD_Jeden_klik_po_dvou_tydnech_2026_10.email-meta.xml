@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Dopis dárcům kampaně Jeden klik po dvou týdnech (458 dětí, 333 tis. Kč za druhý týden). S odkazem na odhlášení.</description>
+    <encodingKey>UTF-8</encodingKey>
+    <name>Jeden klik – po dvou týdnech (10/2026)</name>
+    <style>none</style>
+    <subject>Díky vám jsme pomohli už 458 dětem</subject>
+    <textOnly>Díky vám jsme pomohli už 458 dětem – výsledky po dvou týdnech kampaně Jeden klik. Zobrazte si e-mail ve formátu HTML.
+
+Odhlášení z newsletteru: https://darci.darujemekrouzky.cz/services/apexrest/odhlaseni?t={{{Recipient.DKD_Unsubscribe_Token__c}}}</textOnly>
+    <type>custom</type>
+    <uiType>SFX</uiType>
+</EmailTemplate>
