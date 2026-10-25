@@ -1,0 +1,14 @@
+{
+  "type": "sfdc_cms__themeLayout",
+  "title": "DKD prázdný layout",
+  "contentBody": {
+    "component": {
+      "attributes": {},
+      "children": [],
+      "definition": "c:dkdThemeLayout",
+      "id": "cb8ae8ee-85a0-4055-8a21-b05a2dd31e59",
+      "type": "component"
+    }
+  },
+  "urlName": "dkd-prazdny-layout"
+}

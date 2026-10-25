@@ -6,6 +6,7 @@
         <members>donationThankYou</members>
         <members>donationFonts</members>
         <members>donationGateway</members>
+        <members>donationEmbed</members>
         <name>LightningComponentBundle</name>
     </types>
     <types>

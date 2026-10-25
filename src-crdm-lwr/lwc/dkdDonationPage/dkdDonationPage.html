@@ -1,0 +1,121 @@
+<template lwc:render-mode="light">
+    <div class="dkd-layout" style={layoutStyle}>
+        <!-- ===== hlavicka (DonationPageHeader) ===== -->
+        <div>
+            <div class="dkd-header slds-col slds-size_1-of-1 slider slds-is-relative header" style={headerStyle}>
+                <div class="slds-is-relative background-image" style={headerBackgroundStyle}>
+                    <div class="header-inner container">
+                        <a class="company-icon" href={logoHref} target="_blank">
+                            <img alt="Darujeme kroužky dětem" src={logoUrl} />
+                        </a>
+                        <div class="slds-is-absolute image-text">
+                            <div class="title-text" style={headerTitleStyle}>{headerTitle}</div>
+                            <div class="subtitle-text" style={headerSubTitleStyle}>{headerSubTitle}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== obsah: formular a popis kampane ===== -->
+        <div class="content">
+            <div class="donation-form">
+                <div class="form-wrapper">
+                    <c-dkd-donation-form
+                        campaign-id={campaignId}
+                        form-header-label={formHeaderLabel}
+                        form-header-sub-label={formHeaderSubLabel}
+                        donation-type-one-off={donationTypeOneOff}
+                        donation-type-monthly={donationTypeMonthly}
+                        donation-type-yearly={donationTypeYearly}
+                        default-donation-type={defaultDonationType}
+                        amounts-one-off={amountsOneOff}
+                        amounts-monthly={amountsMonthly}
+                        amounts-yearly={amountsYearly}
+                        field-set-selection={fieldSetSelection}
+                        payment-card={paymentCard}
+                        payment-bank-transfer={paymentBankTransfer}
+                        default-payment-option={defaultPaymentOption}
+                        thank-you-label={thankYouLabel}
+                        thank-you-page-url={thankYouPageUrl}
+                        disabled-campaign-selection={disabledCampaignSelection}
+                        receiver-name={receiverName}
+                        support-email={supportEmail}
+                        oncampaignchange={handleCampaignChange}>
+                    </c-dkd-donation-form>
+                </div>
+            </div>
+
+            <div class="form-text container">
+                <div>
+                    <template lwc:if={hasCampaignDetail}>
+                        <div class="campaign-detail">
+                            <div class="slds-rich-text-editor__output">
+                                <span class="dkd-campaign-detail-html"></span>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== paticka (DonationPageFooter) ===== -->
+        <div>
+            <footer class="dkd-footer footer slds-p-top_xx-large section_radius-top">
+                <div class="section_container slds-p-horizontal_medium">
+                    <div class="footer_content">
+                        <div class="footer_content-item">
+                            <ul class="footer-menu">
+                                <li class="footer-menu_item">
+                                    <a href="https://darujemekrouzky.cz/" class="footer-menu_link"><span class="footer-menu_link-text">O projektu</span></a>
+                                </li>
+                                <li class="footer-menu_item">
+                                    <a href="https://crdm.cz/" class="footer-menu_link"><span class="footer-menu_link-text">Česká rada dětí a mládeže</span></a>
+                                </li>
+                                <li class="footer-menu_item">
+                                    <a href={termsUrl} class="footer-menu_link"><span class="footer-menu_link-text">Všeobecné obchodní podmínky</span></a>
+                                </li>
+                                <li class="footer-menu_item">
+                                    <a href={privacyUrl} class="footer-menu_link"><span class="footer-menu_link-text">Ochrana osobních údajů</span></a>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="footer_content-item">
+                            <a class="footer_logo-link" href={footerLogoHref} title="Darujeme kroužky dětem">
+                                <div class="footer_logo-img" style={footerLogoStyle}></div>
+                            </a>
+                        </div>
+
+                        <div class="contact-info">
+                            <div class="contact-info_item">
+                                <div class="contact-info_title">Kontakt</div>
+                                <ul class="contact-info_list">
+                                    <li class="contact-info_list-item"><a href="mailto:info@darujemekrouzky.cz">info@darujemekrouzky.cz</a></li>
+                                    <li class="contact-info_list-item"><a href="tel:+420773772202">+420&nbsp;773&nbsp;772&nbsp;202</a></li>
+                                </ul>
+                            </div>
+
+                            <div class="contact-info_item"></div>
+
+                            <div class="contact-info_item">
+                                <div class="contact-info_title">Provozovatel</div>
+                                <ul class="contact-info_list">
+                                    <li class="contact-info_list-item">Česká rada dětí a mládeže</li>
+                                    <li class="contact-info_list-item">Senovážné náměstí 977/24, 110&nbsp;00 Praha&nbsp;1</li>
+                                    <li class="contact-info_list-item">IČ: 68379439</li>
+                                </ul>
+                            </div>
+
+                            <div class="slds-size_1-of-1 slds-p-top_medium footer-icons">
+                                <a href="https://darujemekrouzky.cz/" target="_blank" class="slds-m-right_xx-small icon">
+                                    <img src={emailIcon} alt="" />
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+</template>

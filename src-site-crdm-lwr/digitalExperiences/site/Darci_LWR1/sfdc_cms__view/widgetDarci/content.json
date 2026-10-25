@@ -1,0 +1,59 @@
+{
+  "type": "sfdc_cms__view",
+  "title": "Widget dárci",
+  "contentBody": {
+    "component": {
+      "children": [
+        {
+          "children": [
+            {
+              "attributes": {
+                "allowMonthly": true,
+                "amountsMonthly": "500,1000,1500",
+                "amountsOneOff": "500,1000,1500",
+                "campaignId": "701Te00000gDlc7IAC",
+                "defaultFrequency": "oneoff",
+                "showArrow": false,
+                "thankYouPageUrl": "https://czechcouncilofchildrenandyouth.my.site.com/darci/dekujeme",
+                "widgetMode": "popup"
+              },
+              "definition": "c:donationWidget",
+              "id": "1b005532-fe30-41df-a521-7d044a4d5b53",
+              "type": "component"
+            }
+          ],
+          "id": "5fd8945d-0f59-45c4-8c18-169896d7245f",
+          "name": "content",
+          "title": "Content",
+          "type": "region"
+        },
+        {
+          "children": [
+            {
+              "attributes": {
+                "customHeadTags": "",
+                "description": "",
+                "pageTitle": "Widget dárci",
+                "recordId": "{!recordId}"
+              },
+              "definition": "community_builder:seoAssistant",
+              "id": "d35f27c8-b716-4356-9d9f-1603b3cf500a",
+              "type": "component"
+            }
+          ],
+          "id": "5d5531f1-c617-4158-80ca-521f133ff9ee",
+          "name": "sfdcHiddenRegion",
+          "title": "sfdcHiddenRegion",
+          "type": "region"
+        }
+      ],
+      "definition": "community_layout:sldsFlexibleLayout",
+      "id": "f9c3542a-90ef-4abe-8bb3-0e04d290e94b",
+      "type": "component"
+    },
+    "dataProviders": [],
+    "themeLayoutType": "Inner",
+    "viewType": "custom-widget-darci"
+  },
+  "urlName": "widget-darci"
+}

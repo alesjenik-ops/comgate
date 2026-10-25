@@ -1,0 +1,52 @@
+{
+  "type": "sfdc_cms__view",
+  "title": "Ochrana osobních údajů",
+  "contentBody": {
+    "component": {
+      "children": [
+        {
+          "children": [
+            {
+              "attributes": {
+                "document": "privacy"
+              },
+              "definition": "c:donationPageLegal",
+              "id": "85ac3b5b-8898-4eb8-a5cc-1b1b77ed03a8",
+              "type": "component"
+            }
+          ],
+          "id": "b5dbc7d4-1fc7-4987-8483-9e194d3678aa",
+          "name": "content",
+          "title": "Content",
+          "type": "region"
+        },
+        {
+          "children": [
+            {
+              "attributes": {
+                "customHeadTags": "",
+                "description": "",
+                "pageTitle": "Ochrana osobních údajů",
+                "recordId": "{!recordId}"
+              },
+              "definition": "community_builder:seoAssistant",
+              "id": "e7f1cf9a-f67b-441d-85f0-96640e4abcdb",
+              "type": "component"
+            }
+          ],
+          "id": "5fe4f594-acc4-4a66-8a74-3fe9f60eb65f",
+          "name": "sfdcHiddenRegion",
+          "title": "sfdcHiddenRegion",
+          "type": "region"
+        }
+      ],
+      "definition": "community_layout:sldsFlexibleLayout",
+      "id": "1fa45298-a429-4845-8546-1454d7eb2673",
+      "type": "component"
+    },
+    "dataProviders": [],
+    "themeLayoutType": "Inner",
+    "viewType": "custom-ochrana-osobnich-udaju"
+  },
+  "urlName": "ochrana-osobnich-udaju"
+}

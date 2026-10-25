@@ -1,0 +1,1021 @@
+/* LWR tema barvi odkazy pres a:link:not(...) s vyssi specificitou - prebijeme jeho promenne */
+.dkd-footer {
+    --dxp-c-link-text-color: #fff;
+    --dxp-c-link-text-color-hover: #fff;
+}
+
+/* Prevzato z Aura komponent stare community (Donation_Page1), .THIS nahrazeno korenovou tridou. */
+
+/* ===== layout ===== */
+.dkd-layout {
+    /*max-width: 78.75rem;*/
+    margin: auto;
+    font: 400 14px/1.714 'Fira Sans', sans-serif;
+    color: #362031;
+    background-image: var(--dkd-bg-image);
+    background-position-x: left;
+    --brand-color: #362031;
+    --redColor: #fa95c2;
+    --redColorDim: #f76fae;
+    --greenColor: #75d4e6;
+}
+
+@media only screen and (max-width: 1679px) and (min-width:1051px) {
+    .dkd-layout {
+        font-size:.77778vw
+    }
+}
+
+@media only screen and (max-width: 1050px) and (min-width:861px) {
+    .dkd-layout {
+        font-size:1.2381vw
+    }
+}
+
+@media only screen and (max-width: 860px) and (min-width:641px) {
+    .dkd-layout {
+        font-size:1.51163vw
+    }
+}
+
+@media only screen and (max-width: 640px) {
+    .dkd-layout {
+        font-size:3.73333vw
+    }
+}
+
+.dkd-layout .button-ripple{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.dkd-layout .h1,.dkd-layout h1 {
+    font: 800 60px/1 'Fira Sans',sans-serif;
+    letter-spacing: .033em;
+    color: var(--brand-color);
+}
+
+@media only screen and (max-width: 1679px) and (min-width:1051px) {
+    .dkd-layout .h1,.dkd-layout h1 {
+        font-size:3.33333vw
+    }
+}
+
+@media only screen and (max-width: 1050px) {
+    .dkd-layout .h1,.dkd-layout h1 {
+        line-height:1.16
+    }
+}
+
+@media only screen and (max-width: 1050px) and (min-width:861px) {
+    .dkd-layout .h1,.dkd-layout h1 {
+        font-size:3.42857vw
+    }
+}
+
+@media only screen and (max-width: 860px) and (min-width:641px) {
+    .dkd-layout .h1,.dkd-layout h1 {
+        font-size:4.18605vw
+    }
+}
+
+@media only screen and (max-width: 640px) {
+    .dkd-layout .h1,.dkd-layout h1 {
+        font-size:9.6vw
+    }
+}
+
+.dkd-layout .h2,.dkd-layout h2 {
+    font: 700 48px/1.25 'Fira Sans',sans-serif
+}
+
+@media only screen and (max-width: 1679px) and (min-width:1051px) {
+    .dkd-layout .h2,.dkd-layout h2 {
+        font-size:2.66667vw
+    }
+}
+
+@media only screen and (max-width: 1050px) {
+    .dkd-layout .h2,.dkd-layout h2 {
+        line-height:1.2
+    }
+}
+
+@media only screen and (max-width: 1050px) and (min-width:861px) {
+    .dkd-layout .h2,.dkd-layout h2 {
+        font-size:2.85714vw
+    }
+}
+
+@media only screen and (max-width: 860px) and (min-width:641px) {
+    .dkd-layout .h2,.dkd-layout h2 {
+        font-size:3.48837vw
+    }
+}
+
+@media only screen and (max-width: 640px) {
+    .dkd-layout .h2,.dkd-layout h2 {
+        font-size:8vw
+    }
+}
+
+.dkd-layout .h3,.dkd-layout h3 {
+    font: 700 36px/1.33 'Fira Sans',sans-serif
+}
+
+@media only screen and (max-width: 1679px) and (min-width:1051px) {
+    .dkd-layout .h3,.dkd-layout h3 {
+        font-size:2vw
+    }
+}
+
+@media only screen and (max-width: 1050px) and (min-width:861px) {
+    .dkd-layout .h3,.dkd-layout h3 {
+        font-size:2.28571vw
+    }
+}
+
+@media only screen and (max-width: 860px) and (min-width:641px) {
+    .dkd-layout .h3,.dkd-layout h3 {
+        font-size:2.7907vw
+    }
+}
+
+@media only screen and (max-width: 640px) {
+    .dkd-layout .h3,.dkd-layout h3 {
+        font-size:6.4vw
+    }
+}
+
+
+.dkd-layout .content{
+    /*background: #e4e3df;*/
+    max-width: 1680px;
+    display: flex;
+    align-items: flex-start;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.dkd-layout .form-text{
+     padding-right: 100px;
+     padding-bottom: 250px;
+     padding-top: 64px;
+     width: -webkit-fill-available;
+}
+
+.dkd-layout .donation-form{
+    margin-right: 56px;
+    margin-bottom: 50px;
+}
+
+.dkd-layout .form-wrapper{
+    width: 550px;
+}
+
+/* 1680-1920px: bez tohoto pravidla plati max-width 1680px a box formulare
+   je temer nalepeny na kraj okna (napr. pri sirce 1713px zbyva ~16px) */
+@media only screen and (max-width: 1920px) and (min-width:1680px) {
+    .dkd-layout .content {
+        max-width:90%;
+    }
+}
+
+@media only screen and (max-width: 1679px) and (min-width:1051px) {
+    .dkd-layout .content {
+        max-width:90%;
+    }
+
+    .dkd-layout .form-text{
+        padding-right:5.55556vw;
+        padding-top:3.33333vw;
+        padding-bottom: 13.88889vw;
+    }
+    
+    .dkd-layout .donation-form{
+        margin-right: 2.91667vw;
+        margin-bottom: 2.77778vw;
+    }
+    
+    .dkd-layout .form-wrapper{
+        width:30.55556vw;
+    }
+}
+
+@media only screen and (max-width: 1050px) {
+    .dkd-layout .content {
+        max-width:100%
+    }
+}
+
+@media only screen and (max-width: 1050px) and (min-width:861px) {
+    .dkd-layout .content {
+    }
+    
+            
+    .dkd-layout .form-text{
+        padding-top: 55px;
+        padding-right:3.80952vw;
+    }
+    
+    .dkd-layout .donation-form{
+        margin-right: 3vw;
+        margin-bottom: 3.80952vw;
+    }
+    
+    .dkd-layout .form-wrapper{
+        width:38.09524vw;
+    }
+}
+
+@media only screen and (max-width: 860px) and (min-width:641px) {
+    .dkd-layout .content {
+        margin: unset;
+        display:flex;
+        flex-direction: column;
+    }
+    
+                
+    .dkd-layout .form-text{
+        width:100%;
+        float: none;
+        padding-right:3.48837vw;
+        padding-top:9.30233vw;
+        padding-bottom: 11.62791vw;
+    }
+    
+    .dkd-layout .donation-form{
+        width: 100%;
+        margin: auto;
+        position: relative !important;
+        padding: 0 17.44186vw 0 17.44186vw;
+
+    }
+    
+    .dkd-layout .form-wrapper{
+        width:100%;
+    }
+    
+}
+
+@media only screen and (max-width: 640px) {
+    .dkd-layout .content {
+        display:flex;
+        flex-direction: column;
+    }
+    
+                
+    .dkd-layout .form-text{
+        width:100%;
+        float: none;
+        padding-right:5.33333vw;
+        padding-top:16vw;
+        padding-bottom: 26.66667vw;
+    }
+    
+    .dkd-layout .donation-form{
+        width: 100%;
+        margin-top: 4vw;
+        margin-right: 4vw;
+        margin-bottom: 4vw;
+        position: relative !important;
+    }
+    
+    .dkd-layout .form-wrapper{
+        width:100%;
+        padding: 0 4vw 0 4vw;
+    }
+}
+
+
+@media only screen and (max-width: 860px) {
+    .dkd-layout .content{
+        /*flex-direction: column-reverse;*/
+    }
+    
+    .dkd-layout .form-wrapper{
+        margin-left: unset !important; 
+        margin-right: unset !important; 
+        margin-top: unset !important; 
+    }
+}
+
+.dkd-layout .container {
+    padding-right: 100px;
+    padding-left: 100px
+}
+
+@media only screen and (max-width: 1679px) and (min-width:1051px) {
+    .dkd-layout .container {
+        padding-right:5.55556vw;
+        padding-left: 5.55556vw
+    }
+}
+
+@media only screen and (max-width: 1440px) and (min-width:1371px) {
+    .dkd-layout .container {
+        padding-right:5.55556vw;
+        padding-left: 5.55556vw
+    }
+}
+
+@media only screen and (max-width: 1370px) and (min-width:1051px) {
+    .dkd-layout .container {
+        padding-right:4.37956vw;
+        padding-left: 4.37956vw
+    }
+}
+
+@media only screen and (max-width: 1050px) and (min-width:861px) {
+    .dkd-layout .container {
+        padding-right:3.80952vw;
+        padding-left: 3.80952vw
+    }
+}
+
+@media only screen and (max-width: 860px) and (min-width:641px) {
+    .dkd-layout .container {
+        padding-right:3.48837vw;
+        padding-left: 3.48837vw
+    }
+}
+
+@media only screen and (max-width: 640px) {
+    .dkd-layout .container {
+        padding-right:5.33333vw;
+        padding-left: 5.33333vw
+    }
+}
+
+.dkd-layout .donation-form{
+    top: 0px;
+    margin-top: 64px;
+    position: sticky;
+    transition-timing-function: cubic-bezier(.455,.03,.515,.955);
+    transition-duration: .35s;
+    transition-property: transform,border-radius;
+}
+
+@media only screen and (max-width: 1679px) and (min-width:1051px) {
+    .dkd-layout .donation-form {
+        margin-top: 3.33333vw;
+    }
+}
+
+@media only screen and (max-width: 1050px) and (min-width:861px) {
+    .dkd-layout .donation-form {
+        margin-top: 4vw;
+    }
+}
+
+@media only screen and (max-width: 860px) and (min-width:641px) {
+    .dkd-layout .donation-form {
+        margin-top: 4vw;
+    }
+}
+
+@media only screen and (max-width: 860px) {
+    .dkd-layout .donation-form {
+        position: relative!important;
+        top: auto!important;
+    }
+}
+
+@media only screen and (max-width: 640px) {
+    .dkd-layout .donation-form {
+        margin-top: 4vw;
+        margin-bottom: 4vw;
+    }
+}
+
+.dkd-layout .donate-button {
+    cursor: pointer;
+    position: fixed;
+    right: 40px;
+    bottom: 145px;
+    z-index: -100;
+    text-transform: uppercase;
+    width: 320px;
+    text-align: center;
+    border-radius: 30px;
+    box-shadow: 0 10px 24px rgba(54,32,49,.28);
+    transition-duration: .35s;
+    transition-timing-function: cubic-bezier(.455,.03,.515,.955);
+    transition-property: height,background-color,transform,opacity,display;
+    opacity: 0;
+    transform: translate3d(0,150%,0);
+}
+
+.dkd-layout .donate-button.show{
+    opacity: 1 !important;
+    z-index: 10;
+}
+
+.dkd-layout .donate-button button{
+    border: unset;
+    cursor: pointer;
+}
+
+@media only screen and (max-width: 1679px) and (min-width:1051px) {
+    .dkd-layout .donate-button {
+        right:2.22222vw;
+        bottom: 8.22222vw;
+        width: 17.77778vw;
+        box-shadow: 0 1.11111vw 1.11111vw rgba(54,32,49,.28)
+    }
+}
+
+@media only screen and (max-width: 1050px) and (min-width:861px) {
+    .dkd-layout .donate-button {
+        right:2.38095vw;
+        bottom: 9.38095vw;
+        width: 23.80952vw;
+        box-shadow: 0 1.42857vw 1.42857vw rgba(54,32,49,.28)
+    }
+}
+
+@media only screen and (max-width: 860px) and (min-width:641px) {
+    .dkd-layout .donate-button {
+        right:2.90698vw;
+        bottom: 11.90698vw;
+        width: 29.06977vw;
+        box-shadow: 0 1.74419vw 1.74419vw rgba(54,32,49,.28)
+    }
+}
+
+@media only screen and (max-width: 640px) {
+    .dkd-layout .donate-button {
+        right:4vw;
+        bottom: 33.66667vw;
+        left: 4vw;
+        width: auto;
+        padding: 3.46667vw 0 0 0;
+        text-transform: inherit
+    }
+}
+
+.dkd-layout .brand-button{
+    padding: 21px 30px;
+    border-radius: 4px;
+    font-weight: 700;
+    line-height: 1.4;
+    font-size: 20px;
+    color: #fff;
+    word-break: break-word;
+    transition: background-color .3s cubic-bezier(.455,.03,.515,.955);
+
+}
+
+@media only screen and (max-width: 1679px) and (min-width:1051px) {
+    .dkd-layout .brand-button {
+        padding:1.16667vw 1.66667vw;
+        border-radius: .22222vw;
+        font-size:1.11111vw;
+    }
+}
+
+@media only screen and (max-width: 1050px) and (min-width:861px) {
+    .dkd-layout .brand-button {
+        padding:1.2381vw 2.85714vw;
+        border-radius: .47619vw;
+        font-size:1.52381vw;
+    }
+}
+
+@media only screen and (max-width: 860px) and (min-width:641px) {
+    .dkd-layout .brand-button {
+        padding:1.51163vw 1.74419vw;
+        border-radius: .5814vw;
+        font-size:1.86047vw;
+    }
+}
+
+@media only screen and (max-width: 640px) {
+    .dkd-layout .brand-button {
+        padding:4.8vw 4vw;
+        border-radius: 1.33333vw;
+        font-size:4.26667vw;
+    }
+}
+
+
+.dkd-layout .brand-button-default{
+    background-color: var(--redColor);
+}
+.dkd-layout .brand-button-default:hover{
+    background-color: var(--redColorDim);
+}
+
+.dkd-layout .donate-button .brand-button{
+    background-color: var(--redColor);
+    color: #362031;
+    border-radius: 30px;
+    font-weight: 800;
+    letter-spacing: .1em;
+    font-size: 15px;
+    padding: 16px 30px;
+}
+.dkd-layout .donate-button .brand-button:hover{
+    background-color: var(--redColorDim);
+}
+
+.dkd-layout .brand-button-green{
+    background-color: var(--greenColor);
+}
+
+.dkd-layout .description{
+    padding: 40px 40px 40px 50px;
+    border: 2px solid #362031;
+    border-radius: 30px;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 2;
+}
+
+@media only screen and (max-width: 1679px) and (min-width:1051px) {
+    .dkd-layout .description {
+        padding:2.22222vw 2.22222vw 2.22222vw 2.77778vw;
+        border-width: .11111vw;
+        border-radius: 1.66667vw;
+        font-size: 1vw
+    }
+}
+
+@media only screen and (max-width: 1050px) {
+    .dkd-layout .description {
+        line-height:1.75
+    }
+}
+
+@media only screen and (max-width: 1050px) and (min-width:861px) {
+    .dkd-layout .description {
+        padding:3.33333vw;
+        border-radius: 1.90476vw;
+        font-size: 1.52381vw
+    }
+}
+
+@media only screen and (max-width: 860px) and (min-width:641px) {
+    .dkd-layout .description {
+        padding:4.06977vw;
+        border-radius: 2.32558vw;
+        font-size: 1.86047vw
+    }
+}
+
+@media only screen and (max-width: 640px) {
+    .dkd-layout .description {
+        padding:9.33333vw;
+        border-radius: 5.33333vw;
+        font-size: 4.26667vw
+    }
+}
+
+.dkd-layout p {
+    font-size: 20px;
+    line-height: 1.8
+}
+
+@media only screen and (max-width: 1679px) and (min-width:1051px) {
+    .dkd-layout p {
+        font-size: 1.11111vw
+    }
+}
+
+@media only screen and (max-width: 1050px) and (min-width:861px) {
+    .dkd-layout p {
+        font-size: 1.71429vw
+    }
+}
+
+@media only screen and (max-width: 860px) and (min-width:641px) {
+    .dkd-layout p {
+        font-size: 2.09302vw
+    }
+}
+
+@media only screen and (max-width: 640px) {
+    .dkd-layout p {
+        font-size: 4.8vw
+    }
+}
+
+/* DKD: textovy sloupec bez vnitrniho odsazeni - stejny okraj jako formular, sirsi box */
+.dkd-layout .form-text.container{
+    padding-left: 0;
+    padding-right: 0;
+}
+
+@media only screen and (max-width: 860px) {
+    .dkd-layout .form-text.container{
+        padding-left: 3.5vw;
+        padding-right: 3.5vw;
+    }
+}
+/* ===== header ===== */
+.dkd-header .company-icon{
+    float: right;
+    padding-top: 30px;
+}
+
+.dkd-header .company-icon>img{
+    max-height: 100px;
+    transition: max-height .35s cubic-bezier(.455,.03,.515,.955),opacity .35s cubic-bezier(.455,.03,.515,.955);
+    will-change: opacity;
+}
+
+@media only screen and (min-width: 1921px) {
+    .dkd-header .company-icon>img {
+        max-height:5.55556vw
+    }
+}
+
+@media only screen and (max-width: 1679px) and (min-width:1051px) {
+    .dkd-header .company-icon>img {
+        max-height:5.55556vw
+    }
+}
+
+@media only screen and (max-width: 1050px) and (min-width:861px) {
+    .dkd-header .company-icon>img {
+        max-height:7.61905vw
+    }
+}
+
+@media only screen and (max-width: 860px) and (min-width:641px) {
+    .dkd-header .company-icon>img {
+        max-height:7.55814vw
+    }
+}
+
+@media only screen and (max-width: 640px) {
+    .dkd-header .company-icon>img {
+        max-height:17.33333vw
+    }
+}
+
+.dkd-header .image-text{
+    color: #f3f0eb;
+    padding: 0;
+    position: absolute;
+    left: 6%;
+    bottom: 44px;
+    max-width: 60%;
+    text-align: left;
+    font-weight: 400;
+    line-height: 1.2;
+}
+
+.dkd-header .title-text{
+    font-size: 52px;
+    font-weight: 800;
+    line-height: 1.05;
+    color: #fa95c2;
+    padding-bottom: 12px;
+}
+.dkd-header .subtitle-text{
+    font-size: 19px;
+    width: auto;
+    float: none;
+    padding: 0;
+    line-height: 1.5;
+    box-shadow: none;
+    text-shadow: none;
+    border-radius: 0;
+    background: none;
+    opacity: .92;
+}
+
+@media only screen and (max-width: 1050px) and (min-width:861px) {
+    .dkd-header .image-text{
+         max-width: 50%;
+    }
+}
+
+@media only screen and (max-width: 860px) {
+    .dkd-header .image-text{
+        display: none;
+    }
+}
+
+
+.dkd-header.header{
+    height: 560px;
+}
+
+@media only screen and (min-width: 1921px) {
+    .dkd-header.header {
+        height:29.16667vw
+    }
+}
+
+@media only screen and (max-width: 1679px) and (min-width:1051px) {
+    .dkd-header.header {
+        height:31.5vw
+    }
+}
+
+@media only screen and (max-width: 1050px) and (min-width:861px) {
+    .dkd-header.header {
+        height:42.85714vw
+    }
+}
+
+@media only screen and (max-width: 860px) and (min-width:641px) {
+    .dkd-header.header {
+        height:40.69767vw
+    }
+}
+
+@media only screen and (max-width: 640px) {
+    .dkd-header.header {
+        height:70vw
+    }
+}
+
+.dkd-header .header-image{
+    width: 100%;
+    object-fit: contain;
+    min-height: 125px;
+}
+
+.dkd-header .background-image{
+    height: 100%;
+    width: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.dkd-header .container{
+    padding-right: 100px;
+    padding-left: 100px;
+}
+
+@media only screen and (min-width: 1921px) {
+    .dkd-header .container {
+        padding-right:5.55556vw;
+        padding-left: 5.55556vw
+    }
+}
+
+@media only screen and (max-width: 1679px) and (min-width:1051px) {
+    .dkd-header .container {
+        padding-right:5.55556vw;
+        padding-left: 5.55556vw
+    }
+}
+
+@media only screen and (max-width: 1440px) and (min-width:1371px) {
+    .dkd-header .container {
+        padding-right:5.55556vw;
+        padding-left: 5.55556vw
+    }
+}
+
+@media only screen and (max-width: 1370px) and (min-width:1051px) {
+    .dkd-header .container {
+        padding-right:4.37956vw;
+        padding-left: 4.37956vw
+    }
+}
+
+@media only screen and (max-width: 1050px) and (min-width:861px) {
+    .dkd-header .container {
+        padding-right:3.80952vw;
+        padding-left: 3.80952vw
+    }
+}
+
+@media only screen and (max-width: 860px) and (min-width:641px) {
+    .dkd-header .container {
+        padding-right:3.48837vw;
+        padding-left: 3.48837vw
+    }
+}
+
+@media only screen and (max-width: 640px) {
+    .dkd-header .container {
+        padding-right:5.33333vw;
+        padding-left: 5.33333vw
+    }
+}
+/* ===== footer ===== */
+.dkd-footer{
+    background: #362031;
+    padding-top: 10px;
+    margin-top: 40px;
+}
+
+.dkd-footer.footer{
+    color: white;
+    padding-bottom: 30px;
+}
+
+.dkd-footer a, .dkd-footer a:hover{
+    color: white;
+}
+
+@media only screen and (max-width: 768px) {
+    .dkd-footer.footer{
+        padding-bottom: 150px;
+    }
+}
+
+.dkd-footer.section_radius-top{
+    border-radius: 22px 22px 0 0;
+}
+
+.dkd-footer .section_container{
+    max-width: 1680px;
+    margin: 0 auto;
+    padding-top: 50px;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+@media only screen and (min-width: 1921px) {
+    .dkd-footer .section_container{
+        max-width: 90%;
+    }
+}
+
+@media only screen and (max-width: 1679px) and (min-width: 1051px) {
+    .dkd-footer .section_container{
+        max-width: 90%;
+    }
+}
+
+@media only screen and (max-width: 1050px) {
+    .dkd-footer .section_container{
+        max-width: 100%;
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+}
+
+.dkd-footer .footer_content {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-flow: column;
+    -ms-flex-flow: column;
+    flex-flow: column;
+}
+
+@media only screen and (min-width: 992px) {
+    .dkd-footer .footer_content {
+        -webkit-box-align: start;
+        -webkit-align-items: flex-start;
+        -ms-flex-align: start;
+        align-items: flex-start;
+        -webkit-box-pack: justify;
+        -webkit-justify-content: space-between;
+        -ms-flex-pack: justify;
+        justify-content: space-between;
+        -webkit-box-orient: horizontal;
+        -webkit-box-direction: normal;
+        -webkit-flex-flow: row;
+        -ms-flex-flow: row;
+        flex-flow: row;
+    }
+}
+
+.dkd-footer .footer_logo-img {
+    display: block;
+    width: 250px;
+    height: 72px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+
+@media only screen and (max-width: 991px) {
+    .dkd-footer .footer_logo-img {
+       align-content: center;
+       align-items: center;
+       margin: auto;
+    }
+}
+
+.dkd-footer .footer_logo-link {
+    margin-bottom: 15px;
+    display: block;
+}
+
+@media only screen and (max-width: 991px) {
+    .dkd-footer .footer_logo-link {
+        margin-bottom: 30px;
+        text-align: center;
+    }
+}
+
+.dkd-footer .footer-menu {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+
+.dkd-footer .footer-menu_item{
+    text-align: left;
+    margin-bottom: 0;
+    padding: 0.5em 0 0 0;
+}
+
+@media only screen and (max-width: 768px) {
+    .dkd-footer .footer-menu_item {
+        text-align: center;
+    }
+}
+
+.dkd-footer .footer-menu_link{
+    font-size: 14px;
+    color: #fff;
+    text-decoration: none;
+}
+
+@media only screen and (min-width: 768px) {
+    .dkd-footer .footer-menu_link {
+        font-size: 16px;
+    }
+}
+
+.dkd-footer .footer-menu_link:hover{
+    color: white;
+    text-decoration: underline;
+}
+
+.dkd-footer.footer .contact-info{
+    color: white;
+    text-align: center;
+}
+
+@media only screen and (min-width: 768px) {
+    .dkd-footer.footer .contact-info {
+        text-align: left;
+        -webkit-columns: 2;
+        -moz-columns: 2;
+        column-count: 2;
+    }
+}
+
+.dkd-footer .contact-info_item{
+    margin-bottom: 12px;
+    -webkit-column-break-inside: avoid;
+    -moz-column-break-inside: avoid;
+    break-inside: avoid;
+}
+
+.dkd-footer.footer .contact-info_title{
+    font-size: 12px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    font-weight: 800;
+    color: #fa95c2;
+}
+
+@media only screen and (min-width: 768px) {
+    .dkd-footer.footer .contact-info_title {
+        font-size: 14px;
+    }
+}
+
+.dkd-footer .contact-info_list{
+    margin-top: 7px;
+}
+
+.dkd-footer.footer .contact-info_list-item{
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+@media only screen and (min-width: 768px) {
+    .dkd-footer.footer .contact-info_list-item {
+        font-size: 16px;
+    }
+}
+
+.dkd-footer .footer-icons .icon{
+    height: 32px;
+    width: 32px;
+    background-color: #fa95c2;
+    border-radius: 8px;
+    display: inline-block;
+}
+
+.dkd-footer .footer-icons .icon img{
+    height: 32px;
+    width: 32px;
+}
+/* ===== campaign detail ===== */
+.campaign-detail{
+    background: transparent;
+    padding: 0;
+}

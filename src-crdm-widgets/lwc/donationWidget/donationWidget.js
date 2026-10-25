@@ -1,5 +1,6 @@
 import { LightningElement, api } from 'lwc';
 import { injectDonationFonts } from 'c/donationFonts';
+import { navigateTop, shouldRedirectToGateway, startHeightReporting } from 'c/donationEmbed';
 import getFieldSetWrapper from '@salesforce/apex/DonationPageController.getFieldSetWrapper';
 import getReferenceId from '@salesforce/apex/DonationPageController.getReferenceId';
 import createComgatePayment from '@salesforce/apex/DonationPageController.createComgatePayment';
@@ -111,6 +112,9 @@ export default class DonationWidget extends LightningElement {
     @api defaultCountry = 'Czech Republic';
     @api defaultCountryLabel = 'Česká republika';
 
+    // auto = brana v iframe, v in-app prohlizecich (Instagram, Facebook...) v hlavnim okne kvuli 3D Secure
+    @api gatewayMode = 'auto';
+
     /* ================= stav ================= */
 
     step = STEP.AMOUNT;
@@ -148,6 +152,7 @@ export default class DonationWidget extends LightningElement {
     // Vybrana varianta krouzku, kdyz je personalizace zapnuta a parametr sedi na katalog
     krouzek = null;
     _onMessage = null;
+    _stopHeight = null;
 
     /* ================= lifecycle ================= */
 
@@ -207,6 +212,7 @@ export default class DonationWidget extends LightningElement {
 
     disconnectedCallback() {
         if (this._onMessage) window.removeEventListener('message', this._onMessage);
+        if (this._stopHeight) this._stopHeight();
     }
 
     handleGatewayMessage(event) {
@@ -583,6 +589,8 @@ export default class DonationWidget extends LightningElement {
 
     // Nativni <select> si po prekresleni nedrzi vybranou hodnotu spolehlive, tak ji po renderu dorovname
     renderedCallback() {
+        // Vlozeni pres iframe: hostitel podle vysky nastavi iframe, takze nevznikne scrollbar
+        if (!this._stopHeight) this._stopHeight = startHeightReporting(this.template.querySelector('div'));
         const wanted = this.selectedCountry;
         this.template.querySelectorAll('select[data-country]').forEach((el) => {
             if (wanted && el.value !== wanted) el.value = wanted;
@@ -713,6 +721,12 @@ export default class DonationWidget extends LightningElement {
                     return;
                 }
 
+                if (shouldRedirectToGateway(this.gatewayMode)) {
+                    // Brana v hlavnim okne; navrat (status=success) dokonci widget nacteny znovu
+                    this.spinnerMessage = 'redirecting';
+                    navigateTop(result);
+                    return;
+                }
                 this.paymentUrl = result;
                 window.setTimeout(() => {
                     this.spinner = false;
@@ -771,12 +785,8 @@ export default class DonationWidget extends LightningElement {
         const base = (this.thankYouPageUrl || '').trim();
         if (!base) return false;
         const url = this.buildThankYouUrl(base);
-        try {
-            // Ven z iframe platebni brany, jinak by se prekreslil jen jeho obsah
-            window.top.location.href = url;
-        } catch (error) {
-            window.location.href = url;
-        }
+        // Ven z iframe platebni brany i z iframe hostitelskeho webu
+        navigateTop(url);
         return true;
     }
 

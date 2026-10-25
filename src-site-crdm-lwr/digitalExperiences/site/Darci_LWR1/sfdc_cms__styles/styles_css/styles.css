@@ -1,0 +1,20 @@
+/*
+ * Your global styles here
+ */
+html,
+body {
+    height: 100%;
+}
+
+html {
+    background: white;
+}
+
+body {
+    margin: 0;
+}
+
+/* Pruhledne pozadi, aby widget v iframe splynul s hostitelskym webem */
+html, body {
+    background: transparent;
+}

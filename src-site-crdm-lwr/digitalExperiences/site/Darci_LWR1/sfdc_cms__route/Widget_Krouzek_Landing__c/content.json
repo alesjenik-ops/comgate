@@ -1,0 +1,12 @@
+{
+  "type": "sfdc_cms__route",
+  "title": "Widget kroužek landing",
+  "contentBody": {
+    "activeViewId": "widgetKrouzekLanding",
+    "configurationTags": [],
+    "pageAccess": "UseParent",
+    "routeType": "custom-widget-krouzek-landing",
+    "urlPrefix": "widget-krouzek-landing"
+  },
+  "urlName": "widget-krouzek-landing"
+}

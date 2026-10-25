@@ -1,0 +1,1755 @@
+/* Prevzato z Aura komponent stare community (Donation_Page1), .THIS nahrazeno korenovou tridou. */
+/**
+ * Created by LukášGregora on 07/06/2021.
+ */
+ 
+ .dkd-form {
+     --redColor: #fa95c2;
+     --greenColor: #75d4e6;
+     color: #222;
+     cursor: auto;
+     font-family: "Fira Sans",Helvetica,Arial,sans-serif;
+     font-style: normal;
+     font-weight: normal;
+     line-height: 1.5;
+}
+
+.dkd-form .hidden, .dkd-form.hidden{
+    display:none;
+}
+
+.dkd-form.custom-spinner::after{
+    position: fixed;
+    width: 100%;
+    text-align: center;
+    top: calc(50% + 3em);
+    font-weight: 500;
+    font-size: 1rem;
+}
+
+.dkd-form.custom-spinner.loading::after{
+    content: 'Načítání...';
+}
+
+.dkd-form.custom-spinner.processing::after{
+    content: 'Zpracování...';
+}
+
+.dkd-form.custom-spinner.redirecting::after{
+    content: 'Počkejte na přesměrování na platební bránu';
+}
+
+.dkd-form.custom-spinner{
+    position: fixed !important;
+}
+
+.dkd-form .donate-title {
+    max-width: 100%;
+    margin-bottom: 20px;
+    line-height: 1.16;
+    word-break: break-word
+}
+
+@media only screen and (min-width: 1921px) {
+    .dkd-form .donate-title {
+        margin-bottom:1.11111vw
+    }
+}
+
+@media only screen and (max-width: 1679px) and (min-width:1051px) {
+    .dkd-form .donate-title {
+        margin-bottom:1.11111vw
+    }
+}
+
+@media only screen and (max-width: 1050px) {
+    .dkd-form .donate-title {
+        line-height:1.25;
+        margin-bottom: 1.90476vw
+    }
+}
+
+@media only screen and (max-width: 860px) and (min-width:641px) {
+    .dkd-form .donate-title {
+        margin-bottom:2.32558vw
+    }
+}
+
+@media only screen and (max-width: 640px) {
+    .dkd-form .donate-title {
+        margin-bottom:5.33333vw
+    }
+}
+
+.dkd-form .donate-subtitle{
+    margin-bottom: 30px;
+}
+
+@media only screen and (min-width: 1921px) {
+    .dkd-form .donate-subtitle {
+        margin-bottom:1.66667vw
+    }
+}
+
+@media only screen and (max-width: 1679px) and (min-width:1051px) {
+    .dkd-form .donate-subtitle {
+        margin-bottom:1.66667vw
+    }
+}
+
+@media only screen and (max-width: 1050px) {
+    .dkd-form .donate-subtitle {
+        margin-bottom:2.38095vw
+    }
+}
+
+@media only screen and (max-width: 860px) and (min-width:641px) {
+    .dkd-form .donate-subtitle {
+        margin-bottom:2.90698vw
+    }
+}
+
+@media only screen and (max-width: 640px) {
+    .dkd-form .donate-subtitle {
+        margin-bottom:6.66667vw
+    }
+}
+
+
+.dkd-form .donate-field-title{
+    margin-bottom: 20px;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 1.5;
+    text-align: center;
+}
+
+@media only screen and (min-width: 1921px) {
+    .dkd-form .donate-field-title {
+        margin-bottom:1.11111vw;
+        font-size: .88889vw
+    }
+}
+
+@media only screen and (max-width: 1679px) and (min-width:1051px) {
+    .dkd-form .donate-field-title {
+        margin-bottom:1.11111vw;
+        font-size: .88889vw
+    }
+}
+
+@media only screen and (max-width: 1050px) and (min-width:861px) {
+    .dkd-form .donate-field-title {
+        margin-bottom:1.42857vw;
+        font-size: 1.42857vw
+    }
+}
+
+@media only screen and (max-width: 860px) and (min-width:641px) {
+    .dkd-form .donate-field-title {
+        margin-bottom:1.74419vw;
+        font-size: 1.74419vw
+    }
+}
+
+@media only screen and (max-width: 640px) {
+    .dkd-form .donate-field-title {
+        margin-bottom:4vw;
+        font-size: 4vw
+    }
+}
+
+.dkd-form .amount-input input, .dkd-form .amount-input input::placeholder{
+    font-size: 100px;
+    display: block;
+    max-width: 100%;
+    width: 100%;
+    background: none;
+    outline: none;
+    padding: 0;
+    font-weight: 800;
+    line-height: 1;
+    color: #362031;
+    text-align: right;
+}
+
+.dkd-form .amount-input:not(.slds-has-error) input{
+    border: none;
+}
+
+.dkd-form .amount-input input:focus{
+    border: unset;
+    box-shadow: unset;
+}
+
+.dkd-form .amount-input input::placeholder{
+    -webkit-appearance: none;
+    appearance: none;
+    color: #f3f0eb
+}
+
+@media only screen and (min-width: 1921px) {
+    .dkd-form .amount-input input, .dkd-form .amount-input input::placeholder {
+        font-size:5.55556vw
+    }
+}
+
+@media only screen and (max-width: 1679px) and (min-width:1051px) {
+    .dkd-form .amount-input input, .dkd-form .amount-input input::placeholder {
+        font-size:5.55556vw
+    }
+}
+
+@media only screen and (max-width: 1440px) and (min-width:1371px) {
+    .dkd-form .amount-input input, .dkd-form .amount-input input::placeholder {
+        font-size:5.96181vw
+    }
+}
+
+@media only screen and (max-width: 1370px) and (min-width:1051px) {
+    .dkd-form .amount-input input, .dkd-form .amount-input input::placeholder {
+        font-size:5.9562vw
+    }
+}
+
+@media only screen and (max-width: 1050px) and (min-width:861px) {
+    .dkd-form .amount-input input, .dkd-form .amount-input input::placeholder {
+        font-size:7.20476vw
+    }
+}
+
+@media only screen and (max-width: 860px) and (min-width:641px) {
+    .dkd-form .amount-input input, .dkd-form .amount-input input::placeholder {
+        font-size:10.72384vw
+    }
+}
+
+@media only screen and (max-width: 640px) {
+    .dkd-form .amount-input input, .dkd-form .amount-input input::placeholder {
+        font-size:17.22667vw
+    }
+}
+
+.dkd-form .amount-input-currency select{
+    z-index: 2;
+    border-color: transparent;
+    border-radius: 30px;
+    box-shadow: 0 5px 10px rgb(100 117 62 / 8%);
+    font-size: 16px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-transform: inherit;
+    height: 100%;
+    padding-left: 18px;
+    font-weight: 600;
+    font-family: "Fira Sans",sans-serif;
+    color: black;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+@media only screen and (min-width: 1921px) {
+    .dkd-form .amount-input-currency select {
+        border-radius:1.66667vw;
+        box-shadow: 0 .27778vw .55556vw rgba(100,117,62,.08);
+        font-size: .88889vw;
+        padding-top: .55556vw;
+        padding-bottom: .55556vw
+    }
+}
+
+@media only screen and (max-width: 1679px) and (min-width:1051px) {
+    .dkd-form .amount-input-currency select {
+        border-radius:1.66667vw;
+        box-shadow: 0 .27778vw .55556vw rgba(100,117,62,.08);
+        font-size: .88889vw;
+        padding-top: .55556vw;
+        padding-bottom: .55556vw
+    }
+}
+
+@media only screen and (max-width: 1050px) and (min-width:861px) {
+    .dkd-form .amount-input-currency select {
+        border-radius:2.85714vw;
+        box-shadow: 0 .47619vw .95238vw rgba(100,117,62,.08);
+        font-size: 1.33333vw;
+        padding-top: .66667vw;
+        padding-bottom: .66667vw
+    }
+}
+
+@media only screen and (max-width: 860px) and (min-width:641px) {
+    .dkd-form .amount-input-currency select {
+        border-radius:3.48837vw;
+        box-shadow: 0 .5814vw 1.16279vw rgba(100,117,62,.08);
+        font-size: 1.62791vw;
+        padding-top: .81395vw;
+        padding-bottom: .81395vw
+    }
+}
+
+@media only screen and (max-width: 640px) {
+    .dkd-form .amount-input-currency select {
+        border-radius:8vw;
+        box-shadow: 0 1.33333vw 2.66667vw rgba(100,117,62,.08);
+        font-size: 3.73333vw;
+        padding-top: 1.86667vw;
+        padding-bottom: 1.86667vw
+    }
+}
+
+
+.dkd-form .amount-input-currency .slds-form-element__label{
+    display: none;
+}
+
+.dkd-form .amount-input-currency .slds-select_container::before{
+    border: unset;
+    top: unset;
+}
+
+.dkd-form .amount-input-currency .slds-select_container::after{
+    border-style: solid !important;
+    height: 0.65em;
+    transform: rotate(135deg);
+    width: 0.65em;
+    top: 35%;
+    bottom: unset;
+    border-top: 0.25em solid black;
+    border-right: 0.25em solid black;
+    border-left: transparent;
+    border-bottom: transparent;
+    right: 15px;
+}
+.dkd-form .amount-input-currency.hide-arrow .slds-select_container::after{
+    display: none;
+}
+
+@media only screen and (max-width: 640px) {
+    .dkd-form .amount-input-currency .slds-select_container::after{
+        height: 0.4em;
+        width: 0.4em;
+        border-top: 0.15em solid black;
+        border-right: 0.15em solid black;
+    }
+}
+
+
+
+.dkd-form .select-group{
+    margin-bottom: 40px;
+}
+
+@media only screen and (min-width: 1921px) {
+    .dkd-form .select-group {
+        margin-bottom:2.22222vw
+    }
+}
+
+@media only screen and (max-width: 1679px) and (min-width:1051px) {
+    .dkd-form .select-group {
+        margin-bottom:2.22222vw
+    }
+}
+
+@media only screen and (max-width: 1050px) and (min-width:861px) {
+    .dkd-form .select-group {
+        margin-bottom:2.85714vw
+    }
+}
+
+@media only screen and (max-width: 860px) and (min-width:641px) {
+    .dkd-form .select-group {
+        margin-bottom:3.48837vw
+    }
+}
+
+@media only screen and (max-width: 640px) {
+    .dkd-form .select-group {
+        margin-bottom:8vw
+    }
+}
+
+.dkd-form .step-back-button{
+    position: relative;
+    display: block;
+    margin-top: -1.11111vw;
+    padding-left: 2.22222vw;
+    margin-bottom: 3vw;
+    font-weight: 500;
+    font-size: .88889vw;
+    line-height: 1.5;
+    color: #362031;
+    cursor: pointer;
+}
+
+@media only screen and (min-width: 1921px) {
+    .dkd-form .step-back-button {
+        padding-left:2.22222vw;
+        margin-top: -1.11111vw;
+        margin-bottom: 3vw;
+        font-size: .88889vw
+    }
+}
+
+@media only screen and (max-width: 1679px) and (min-width:1051px) {
+    .dkd-form .step-back-button {
+        padding-left:2.22222vw;
+        margin-top: -1.11111vw;
+        margin-bottom: 3vw;
+        font-size: .88889vw
+    }
+}
+
+@media only screen and (max-width: 1050px) and (min-width:861px) {
+    .dkd-form .step-back-button {
+        padding-left:3.80952vw;
+        margin-top: -1.90476vw;
+        margin-bottom: 3.33333vw;
+        font-size: 1.42857vw
+    }
+}
+
+@media only screen and (max-width: 860px) and (min-width:641px) {
+    .dkd-form .step-back-button {
+        padding-left:4.65116vw;
+        margin-top: -1.16279vw;
+        margin-bottom: 4.06977vw;
+        font-size: 1.74419vw
+    }
+}
+
+@media only screen and (max-width: 640px) {
+    .dkd-form .step-back-button {
+        padding-left:10.66667vw;
+        margin-top: -2.66667vw;
+        margin-bottom: 9.33333vw;
+        font-size: 4vw
+    }
+}
+
+.dkd-form .chevron-left{
+    transition: right .35s cubic-bezier(.4,0,0,1);
+    position: relative;
+    right: 10px;
+}
+
+.dkd-form .chevron-left svg{
+    fill: #362031;
+    color: #362031;
+}
+
+.dkd-form .step-back-button:hover .chevron-left{
+    right: 15px;
+}
+
+.dkd-form h1 {
+    font: 800 60px/1 'Fira Sans',sans-serif;
+    letter-spacing: .033em
+}
+
+@media only screen and (min-width: 1921px) {
+    .dkd-form h1  {
+        font-size:3.33333vw
+    }
+}
+
+@media only screen and (max-width: 1679px) and (min-width:1051px) {
+    .dkd-form h1  {
+        font-size:3.33333vw
+    }
+}
+
+@media only screen and (max-width: 1050px) {
+    .dkd-form h1  {
+        line-height:1.16
+    }
+}
+
+@media only screen and (max-width: 1050px) and (min-width:861px) {
+    .dkd-form h1  {
+        font-size:3.42857vw
+    }
+}
+
+@media only screen and (max-width: 860px) and (min-width:641px) {
+    .dkd-form h1  {
+        font-size:4.18605vw
+    }
+}
+
+@media only screen and (max-width: 640px) {
+    .dkd-form h1  {
+        font-size:9.6vw
+    }
+}
+
+.dkd-form h2 {
+    font: 700 48px/1.25 'Fira Sans',sans-serif
+}
+
+@media only screen and (min-width: 1921px) {
+    .dkd-form h2 {
+        font-size:2.66667vw
+    }
+}
+
+@media only screen and (max-width: 1679px) and (min-width:1051px) {
+    .dkd-form h2 {
+        font-size:2.66667vw
+    }
+}
+
+@media only screen and (max-width: 1050px) {
+    .dkd-form h2 {
+        line-height:1.2
+    }
+}
+
+@media only screen and (max-width: 1050px) and (min-width:861px) {
+    .dkd-form h2 {
+        font-size:2.85714vw
+    }
+}
+
+@media only screen and (max-width: 860px) and (min-width:641px) {
+    .dkd-form h2 {
+        font-size:3.48837vw
+    }
+}
+
+@media only screen and (max-width: 640px) {
+    .dkd-form h2 {
+        font-size:8vw
+    }
+}
+
+
+.dkd-form h3{
+    font: 700 36px/1.33 'Fira Sans',sans-serif;
+}
+
+@media only screen and (min-width: 1921px) {
+    .dkd-form h3 {
+        font-size:2vw
+    }
+}
+
+@media only screen and (max-width: 1679px) and (min-width:1051px) {
+    .dkd-form h3 {
+        font-size:2vw
+    }
+}
+
+@media only screen and (max-width: 1050px) and (min-width:861px) {
+    .dkd-form h3 {
+        font-size:2.28571vw
+    }
+}
+
+@media only screen and (max-width: 860px) and (min-width:641px) {
+    .dkd-form h3 {
+        font-size:2.7907vw
+    }
+}
+
+@media only screen and (max-width: 640px) {
+    .dkd-form h3 {
+        font-size:6.4vw
+    }
+}
+
+
+.dkd-form .brand-input .slds-form-element__label{
+    font-size: 14px;
+    font-weight: 500;
+    color: #362031;
+    margin-bottom: 10px;
+}
+
+@media only screen and (min-width: 1921px) {
+    .dkd-form .brand-input .slds-form-element__label {
+        margin-bottom:.55556vw;
+        font-size:.77778vw;
+    }
+}
+
+@media only screen and (max-width: 1679px) and (min-width:1051px) {
+    .dkd-form .brand-input .slds-form-element__label {
+        margin-bottom:.55556vw;
+        font-size:.77778vw;
+    }
+}
+
+@media only screen and (max-width: 1050px) and (min-width:861px) {
+    .dkd-form .brand-input .slds-form-element__label {
+        margin-bottom:.95238vw;
+        font-size:1.2381vw;
+    }
+}
+
+@media only screen and (max-width: 860px) and (min-width:641px) {
+    .dkd-form .brand-input .slds-form-element__label {
+        margin-bottom:1.16279vw;
+        font-size:1.51163vw;
+    }
+}
+
+@media only screen and (max-width: 640px) {
+    .dkd-form .brand-input .slds-form-element__label {
+        margin-bottom:2.66667vw;
+        font-size:3.73333vw;
+    }
+}
+
+.dkd-form .statement-text{
+    color: #6b5a65;
+}
+
+.dkd-form .dkd-input .slds-checkbox_faux{
+    cursor: pointer;
+    border-color: #9b8f97;
+}
+
+.dkd-form .dkd-input .slds-checkbox_faux:hover{
+    border-color: #362031;
+}
+
+
+.dkd-form .donate-button-expand{
+    cursor: pointer;
+    position: relative;
+    z-index: 1;
+    padding: 14px;
+    background-color: #fa95c2;
+    border-radius: 16px;
+    overflow: hidden;
+    font-weight: 800;
+    font-size: 15px;
+    letter-spacing: .12em;
+    line-height: 1.25;
+    color: #362031;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.dkd-form .donate-button-expand.expanded {
+    border-radius: 16px 16px 0 0;
+}
+
+@media only screen and (max-width: 640px) {
+    .dkd-form .donate-button-expand {
+        padding:3.5vw;
+        font-size:4vw;
+    }
+}
+
+@media only screen and (max-width: 860px) {
+    .dkd-form .form-container-1.hidden,  
+    .dkd-form .form-container-2.hidden{
+        display: none;
+    }
+}
+
+.dkd-form .button-opener.down{
+    height: 0.4em;
+    width: 0.4em;
+    border-top: 0.15em solid #362031;
+    border-right: 0.15em solid #362031;
+    transform: rotate(-45deg);
+    transition: transform  .35s cubic-bezier(.4,0,0,1);
+
+}
+
+.dkd-form .button-opener.up{
+    height: 0.4em;
+    width: 0.4em;
+    border-top: 0.15em solid #362031;
+    border-right: 0.15em solid #362031;
+    transform: rotate(-225deg);
+    transition: transform  .35s cubic-bezier(.4,0,0,1);
+
+}
+
+.dkd-form .form-inner-content{
+    
+}
+
+@media only screen and (max-width: 860px) and (min-width:641px) {
+    .dkd-form .form-inner-content {
+        max-width:70%;
+        margin-left: auto;
+        margin-right: auto
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+ .dkd-form p{
+     font-family: inherit;
+     font-size: 1rem;
+     font-weight: normal;
+     line-height: 1.6;
+     margin-bottom: 1.25rem;
+     text-rendering: optimizeLegibility;
+ }
+ 
+ .dkd-form .custom-href{
+     text-decoration: underline;
+     color: var(--brand-color);
+ }
+ 
+
+.dkd-form.form .border-form-container{
+    z-index: 1;
+    position: relative;
+    border-radius: 16px;
+    box-shadow: 0 14px 40px rgba(54,32,49,.12);
+}
+
+.dkd-form.form .brand-button{
+    background-color: #362031;
+    color: #fff;
+    border-radius: 12px;
+    font-weight: 800;
+    letter-spacing: .05em;
+    font-size: 15px;
+    padding: 16px 24px;
+}
+.dkd-form.form .brand-button:hover{
+    background-color: #4f3549;
+}
+
+.dkd-form .form-container-1,
+.dkd-form .form-container-2{
+    padding: 40px 36px;
+    border-radius: 0 0 16px 16px;
+    background: #fff;
+    z-index: 9000;
+    position: relative;
+    transition-timing-function: cubic-bezier(.455,.03,.515,.955);
+    transition-duration: .35s;
+    transition-property: transform,border-radius;
+}
+
+@media only screen and (min-width: 1921px) {
+    .dkd-form .form-container-1,
+    .dkd-form .form-container-2{
+        padding:2.08333vw 1.875vw;
+    }
+}
+
+@media only screen and (max-width: 1679px) and (min-width:1051px) {
+    .dkd-form .form-container-1,
+    .dkd-form .form-container-2{
+        padding:2.38095vw 2.14286vw;
+    }
+}
+
+@media only screen and (max-width: 1050px) and (min-width:861px) {
+    .dkd-form .form-container-1,
+    .dkd-form .form-container-2{
+        padding:3.80952vw 2.85714vw;
+    }
+}
+
+@media only screen and (max-width: 860px) and (min-width:641px) {
+    .dkd-form .form-container-1,
+    .dkd-form .form-container-2{
+        padding:4.65116vw 2.32558vw;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+    }
+}
+
+@media only screen and (max-width: 640px) {
+    .dkd-form .form-container-1,
+    .dkd-form .form-container-2{
+        padding:10.66667vw 5.33333vw;
+        border-top-right-radius: 0;
+        border-top-left-radius: 0
+    }
+}
+
+.dkd-form.form .slds-required{
+    /*display: none;*/
+    float: right;
+}
+
+.dkd-form .label-hidden .slds-form-element__label{
+    display: none;
+}
+
+.dkd-form.form .payment-method-box{
+    background-color: #fff;
+    padding: 20px;
+    width: 100%;
+    flex-basis: auto;
+    margin-bottom: 0;
+}
+
+.dkd-form.form .overlay-title{
+    color: #EC1F27;
+    text-decoration: underline;
+}
+
+.dkd-form.form .overlay-title:hover{
+    color: #f76fae;
+    cursor: pointer;
+}
+
+.dkd-form.form .overlay-text{
+    font-size: 0.8rem;
+}
+
+.dkd-form .white-font{
+    color: white;
+}
+
+.dkd-form .custom-radio-group .slds-radio_button__label{
+    position: relative;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    user-select: none;
+    outline: none;
+    font-weight: 700;
+    line-height: 1.2;
+    transition: color .35s cubic-bezier(.455,.03,.515,.955);
+    border-radius: 0.38095vw;
+    background: white !important;
+    color: #9b8f97 !important;
+    margin: 0 5px;
+}
+
+.dkd-form .custom-radio-group.standard .slds-radio_button__label{
+    height: 60px;
+    font-size: 16px;
+}
+
+.dkd-form .custom-radio-group.donation-amount .slds-radio_button__label{
+    height: 80px;
+    font-size: 30px;
+}
+
+.dkd-form .custom-radio-group.account-type .slds-radio_button__label{
+    height: 40px;
+    font-size: 20px;
+}
+
+@media only screen and (min-width: 1921px) {
+    .dkd-form .custom-radio-group.donation-amount .slds-radio_button__label {
+        font-size:1.66667vw;
+        height:4.44444vw;
+    }
+
+    .dkd-form .custom-radio-group.account-type .slds-radio_button__label {
+        font-size:1.11111vw;
+        height:2.22222vw;
+    }
+
+    .dkd-form .custom-radio-group.standard .slds-radio_button__label {
+        font-size:.88889vw;
+        height:3.33333vw;
+    }
+}
+
+@media only screen and (max-width: 1679px) and (min-width:1051px) {
+    .dkd-form .custom-radio-group.donation-amount .slds-radio_button__label {
+        font-size:1.5vw;
+        height:4.44444vw;
+    }
+
+    .dkd-form .custom-radio-group.account-type .slds-radio_button__label {
+        font-size:1vw;
+        height:2.22222vw;
+    }
+
+    .dkd-form .custom-radio-group.standard .slds-radio_button__label {
+        font-size:.88889vw;
+        height:3.33333vw;
+    }
+}
+
+
+@media only screen and (max-width: 1050px) and (min-width:861px) {
+    .dkd-form .custom-radio-group.donation-amount .slds-radio_button__label {
+        font-size:1.8vw;
+        line-height:1.25;
+        height:5.71429vw;
+    }
+
+    .dkd-form .custom-radio-group.account-type .slds-radio_button__label {
+        font-size:1.2vw;
+        line-height:1.25;
+        height:2.85714vw;
+    }
+
+    .dkd-form .custom-radio-group.standard .slds-radio_button__label {
+        font-size:1.33333vw;
+        line-height:1.25;
+        height:4.7619vw;
+    }
+}
+
+@media only screen and (max-width: 860px) and (min-width:641px) {
+    .dkd-form .custom-radio-group.donation-amount .slds-radio_button__label {
+        font-size:2.7907vw;
+        line-height:1.25;
+        height:6.97674vw;
+    }
+
+    .dkd-form .custom-radio-group.account-type .slds-radio_button__label {
+        font-size:1.86047vw;
+        line-height:1.25;
+        height:3.48837vw;
+    }
+
+    .dkd-form .custom-radio-group.standard .slds-radio_button__label {
+        font-size:1.62791vw;
+        line-height:1.25;
+        height:5.81395vw;
+    }
+}
+
+@media only screen and (max-width: 640px) {
+    .dkd-form .custom-radio-group.donation-amount .slds-radio_button__label {
+        font-size:4.8vw;
+        line-height:1.25;
+        height:16vw;
+    }
+
+    .dkd-form .custom-radio-group.account-type .slds-radio_button__label {
+        font-size:3.2vw;
+        line-height:1.25;
+        height:8vw;
+    }
+
+    .dkd-form .custom-radio-group.standard .slds-radio_button__label {
+        font-size:3.73333vw;
+        line-height:1.25;
+        height:13.33333vw;
+    }
+}
+
+
+.dkd-form .custom-radio-group fieldset>legend{
+    color: white;
+    padding-bottom: 10px;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.dkd-form .custom-radio-group .slds-radio_button__label:hover,
+.dkd-form .custom-radio-group .slds-radio_button input:checked + .slds-radio_button__label{
+    color: black !important;
+}
+
+.dkd-form .custom-radio-group .slds-radio_button:first-child .slds-radio_button__label {
+    margin-left: unset;
+}
+
+.dkd-form .custom-radio-group .slds-radio_button:last-child .slds-radio_button__label {
+    margin-left: right;
+}
+
+
+@media only screen and (min-width: 1921px) {
+    .dkd-form .custom-radio-group .slds-radio_button__label {
+        border-radius:.22222vw;
+        margin:0 .27778vw;
+    }
+}
+
+@media only screen and (max-width: 1679px) and (min-width:1051px) {
+    .dkd-form .custom-radio-group .slds-radio_button__label {
+        border-radius:.22222vw;
+        margin:0 .27778vw;
+    }
+}
+
+@media only screen and (max-width: 1050px) and (min-width:861px) {
+    .dkd-form .custom-radio-group .slds-radio_button__label {
+        border-radius:.38095vw;
+        margin:0.47619vw;
+    }
+}
+
+@media only screen and (max-width: 860px) and (min-width:641px) {
+    .dkd-form .custom-radio-group .slds-radio_button__label {
+        border-radius:.46512vw;
+        margin:0 .5814vw;
+    }
+}
+
+@media only screen and (max-width: 640px) {
+    .dkd-form .custom-radio-group .slds-radio_button__label {
+        border-radius:1.06667vw;
+        margin:0 1.33333vw;
+    }
+}
+
+.dkd-form .custom-radio-group .slds-radio_button__label::after{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: 1px solid transparent;
+    border-radius: 0.22222vw;
+    transition: border .35s cubic-bezier(.455,.03,.515,.955);
+}
+
+.dkd-form .custom-radio-group .slds-radio_button input:checked + .slds-radio_button__label::after{
+    border-color: #362031;
+}
+
+@media only screen and (min-width: 1921px) {
+    .dkd-form .custom-radio-group .slds-radio_button__label::after {
+        border-width:.05556vw
+    }
+}
+
+@media only screen and (max-width: 1679px) and (min-width:1051px) {
+    .dkd-form .custom-radio-group .slds-radio_button__label::after {
+        border-width:.05556vw
+    }
+}
+
+@media only screen and (max-width: 1050px) and (min-width:861px) {
+    .dkd-form .custom-radio-group .slds-radio_button__label::after {
+        border-radius:.38095vw
+    }
+}
+
+@media only screen and (max-width: 860px) and (min-width:641px) {
+    .dkd-form .custom-radio-group .slds-radio_button__label::after {
+        border-radius:.46512vw
+    }
+}
+
+@media only screen and (max-width: 640px) {
+    .dkd-form .custom-radio-group .slds-radio_button__label::after {
+        border-width:.26667vw;
+        border-radius: 1.06667vw
+    }
+}
+
+.dkd-form .custom-radio-group .slds-radio_button__label::before{
+    content: "";
+    position: absolute;
+    z-index: 1;
+    display: block;
+    border-radius: 50%;
+    background-repeat: no-repeat;
+    background-color: #362031;
+    background-position: 50%;
+    background-image: var(--dkd-icon-check);
+    transition: transform .35s cubic-bezier(.455,.03,.515,.955),opacity .35s cubic-bezier(.455,.03,.515,.955);
+    opacity: 0;
+    transform: scale(.4);
+}
+
+.dkd-form .custom-radio-group .slds-radio_button input:checked + .slds-radio_button__label::before{
+    opacity: 1;
+    transform: scale(1);
+}
+
+@media only screen and (min-width: 1680px) {
+    .dkd-form .custom-radio-group .slds-radio_button__label::before {
+        top:-.5vw;
+        right: .27778vw;
+        width: 1vw;
+        height: 1vw;
+        background-size: .38889vw
+    }
+}
+
+@media only screen and (max-width: 1679px) and (min-width:1051px) {
+    .dkd-form .custom-radio-group .slds-radio_button__label::before {
+        top:-.5vw;
+        right: .27778vw;
+        width: 1vw;
+        height: 1vw;
+        background-size: .38889vw
+    }
+}
+
+@media only screen and (max-width: 1050px) and (min-width:861px) {
+    .dkd-form .custom-radio-group .slds-radio_button__label::before {
+        top:-.85714vw;
+        right: .47619vw;
+        width: 1.71429vw;
+        height: 1.71429vw;
+        background-size: .66667vw
+    }
+}
+
+@media only screen and (max-width: 860px) and (min-width:641px) {
+   .dkd-form .custom-radio-group .slds-radio_button__label::before {
+        top:-1.04651vw;
+        right: .5814vw;
+        width: 2.09302vw;
+        height: 2.09302vw;
+        background-size: .81395vw
+    }
+}
+
+@media only screen and (max-width: 640px) {
+    .dkd-form .custom-radio-group .slds-radio_button__label::before {
+        top:-2.4vw;
+        right: 1.33333vw;
+        width: 4.8vw;
+        height: 4.8vw;
+        background-size: 1.86667vw
+    }
+}
+
+.dkd-form .custom-radio-group .slds-radio_button-group, 
+.dkd-form .custom-radio-group label.slds-radio_button__label{
+    border: unset;
+    border-radius: unset;
+    width: inherit;
+}
+
+.dkd-form .custom-radio-group .slds-radio_button [type=radio]+.slds-radio_button__label:hover{
+    opacity: 0.9;
+    
+}
+
+.dkd-form .custom-radio-group .slds-radio_button__label>span {
+    padding: 0 10px 0 10px;
+}
+
+@media only screen and (max-width: 480px) {
+    .dkd-form .custom-radio-group .slds-radio_button__label>span {
+        padding: 0 3px 0 3px;
+    }
+}
+
+
+
+.dkd-form .custom-radio-group .slds-radio_button-group{
+    display: flex;  
+}
+
+.dkd-form .custom-radio-group .slds-radio_button-group>span{
+    border: 1px solid transparent;
+}
+
+
+.dkd-form .donationAmountRadio .slds-radio_faux{
+    padding: unset !important;
+}
+
+.dkd-form .custom-radio-group .slds-button.slds-radio_button{
+    display: flex !important;
+    width: 100%;
+}
+
+.dkd-form .slds-radio_button+.slds-radio_button{
+    border-left: unset;
+    margin: unset;
+}
+
+
+.dkd-form .required-text{
+    /*line-height: 2rem;*/
+    color: #b4b4b4;
+}
+
+
+/* BULLET RADIO GROUP - START */
+.dkd-form .custom-bullet-radio-group {
+    display: flex;
+    flex-direction: column;
+    margin: 40px 0 30px
+}
+
+.dkd-form .custom-bullet-radio-group .slds-form-element__label{
+    position: relative;
+    padding-left: 10px;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 1.66;
+    color: #9b8f97;
+    transition: color .35s cubic-bezier(.4,0,0,1);
+    cursor: pointer;
+}
+
+.dkd-form .custom-bullet-radio-group .slds-radio{
+    position: relative;
+    flex-direction: column;
+    cursor: pointer;
+    margin: 10px 0;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    outline: none;
+}
+
+.dkd-form .custom-bullet-radio-group .slds-radio::first-child{
+    margin-top: 0;
+}
+
+.dkd-form .custom-bullet-radio-group .slds-radio::last-child{
+    margin-top: 0;
+}
+
+.dkd-form .custom-bullet-radio-group .slds-radio__label .slds-radio_faux{
+    width: 26px;
+    height: 26px;
+}
+
+.dkd-form .custom-bullet-radio-group .slds-radio__label .slds-radio_faux::after{
+    width: 10px;
+    height: 10px;
+    opacity: 0;
+}
+
+.dkd-form .custom-bullet-radio-group .slds-radio [type=radio]:checked+.slds-radio__label .slds-radio_faux:after{
+    opacity: 1;
+}
+
+
+@media only screen and (min-width: 1921px) {
+    .dkd-form .custom-bullet-radio-group {
+        margin:2.22222vw 0 1.66667vw
+    }
+    
+    .dkd-form .custom-bullet-radio-group .slds-form-element__label{
+        padding-left:0.58889vw;
+        font-size: 1vw;
+    }
+    
+    .dkd-form .custom-bullet-radio-group .slds-radio{
+        margin:.55556vw 0;
+    }
+    
+    .dkd-form .custom-bullet-radio-group .slds-radio__label .slds-radio_faux{
+        width:1.44444vw;
+        height: 1.44444vw;
+        border-width: .05556vw;
+    }
+    
+    .dkd-form .custom-bullet-radio-group .slds-radio__label .slds-radio_faux::after{
+        width: .55556vw !important;
+        height: .55556vw !important;
+    }
+
+}
+
+@media only screen and (max-width: 1679px) and (min-width:1051px) {
+    .dkd-form .custom-bullet-radio-group {
+        margin:2.22222vw 0 1.66667vw
+    }
+    
+    .dkd-form .custom-bullet-radio-group .slds-form-element__label{
+        padding-left:0.58889vw;
+        font-size: 1vw;
+    }
+    
+    .dkd-form .custom-bullet-radio-group .slds-radio{
+        margin:.55556vw 0;
+    }
+    
+    .dkd-form .custom-bullet-radio-group .slds-radio__label .slds-radio_faux{
+        width:1.44444vw;
+        height: 1.44444vw;
+        border-width: .05556vw;
+    }
+    
+    .dkd-form .custom-bullet-radio-group .slds-radio__label .slds-radio_faux::after{
+        width: .55556vw !important;
+        height: .55556vw !important;
+    }
+}
+
+@media only screen and (max-width: 1050px) and (min-width:861px) {
+    .dkd-form .custom-bullet-radio-group {
+        margin:3.80952vw 0 2.85714vw
+    }
+    
+    .dkd-form .custom-bullet-radio-group .slds-form-element__label{
+        padding-left:0.70952vw;
+        font-size: 1.33333vw;
+        line-height:1.714;
+    }
+    
+    .dkd-form .custom-bullet-radio-group .slds-radio{
+        margin:.95238vw 0;
+    }
+    
+    .dkd-form .custom-bullet-radio-group .slds-radio__label .slds-radio_faux{
+        width:2.28571vw;
+        height: 2.28571vw;
+    }
+    
+    .dkd-form .custom-bullet-radio-group .slds-radio__label .slds-radio_faux::after{
+        width: .95238vw !important;
+        height: .95238vw !important;
+    }
+}
+
+@media only screen and (max-width: 860px) and (min-width:641px) {
+    .dkd-form .custom-bullet-radio-group {
+        margin:4.65116vw 0 3.48837vw
+    }
+    
+    .dkd-form .custom-bullet-radio-group .slds-form-element__label{
+        padding-left:0.85116vw;
+        font-size: 1.62791vw;
+        line-height:1.714;
+    }
+    
+    .dkd-form .custom-bullet-radio-group .slds-radio{
+        margin:1.16279vw 0;
+    }
+    
+    .dkd-form .custom-bullet-radio-group .slds-radio__label .slds-radio_faux{
+        width:2.7907vw;
+        height: 2.7907vw;
+    }
+    
+    .dkd-form .custom-bullet-radio-group .slds-radio__label .slds-radio_faux::after{
+        width: 1.16279vw !important;
+        height: 1.16279vw !important;
+    }
+}
+
+@media only screen and (max-width: 640px) {
+    .dkd-form .custom-bullet-radio-group {
+        margin:10.66667vw 0 8vw
+    }
+    
+    .dkd-form .custom-bullet-radio-group .slds-form-element__label{
+        padding-left:2.66667vw;
+        font-size: 3.73333vw;
+        line-height:1.714;
+    }
+    
+    .dkd-form .custom-bullet-radio-group .slds-radio{
+        margin:2.66667vw 0;
+    }
+    
+    .dkd-form .custom-bullet-radio-group .slds-radio__label .slds-radio_faux{
+        width:6.4vw;
+        height: 6.4vw;
+        border-width: .26667vw;
+    }
+    
+    .dkd-form .custom-bullet-radio-group .slds-radio__label .slds-radio_faux::after{
+        width: 2.66667vw !important;
+        height: 2.66667vw !important;
+    }
+}
+/* BULLET RADIO GROUP - END */
+
+
+
+.dkd-form .custom-checkbox{
+    min-width: unset;
+}
+
+
+/* INPUT STYLING */
+.dkd-form input, .dkd-form .brand-input select{
+    font-weight: 500;
+    background-color: #fff;
+    resize: none;
+    outline: none;
+    box-shadow: unset;
+    padding: 12px 22px;
+    --slds-c-input-color-border: transparent;
+    --slds-c-select-color-border: transparent;
+    line-height: inherit;
+    height: 100%;
+    max-height: 25.11628vw;
+}
+
+@media only screen and (min-width: 1921px) {
+    .dkd-form input, .dkd-form .brand-input select {
+        max-height:12vw;
+    }
+}
+
+@media only screen and (max-width: 1679px) and (min-width:1051px) {
+    .dkd-form input, .dkd-form .brand-input select {
+        max-height:12vw;
+    }
+}
+
+@media only screen and (max-width: 1050px) and (min-width:861px) {
+    .dkd-form input, .dkd-form .brand-input select {
+        max-height:20.57143vw;
+    }
+}
+
+@media only screen and (max-width: 860px) and (min-width:641px) {
+    .dkd-form input, .dkd-form .brand-input select {
+        max-height:25.11628vw;
+    }
+}
+
+@media only screen and (max-width: 640px) {
+    .dkd-form input, .dkd-form .brand-input select {
+        max-height:57.6vw;
+    }
+}
+
+
+.dkd-form .brand-input input:hover,
+.dkd-form .brand-input select:hover{
+    box-shadow: 0 10px 20px rgb(43 55 51 / 5%);
+}
+.dkd-form .brand-input input:focus,
+.dkd-form .brand-input select:focus{
+    border: 2px solid #362031 !important;
+}
+
+.dkd-form .brand-input input .slds-has-error,
+.dkd-form .brand-input select .slds-has-error{
+    --slds-c-input-color-border: red;
+}
+
+
+@media only screen and (min-width: 1921px) {
+    .dkd-form .brand-input input,
+    .dkd-form .brand-input select{
+        padding:.77778vw 1.11111vw;
+        border-width: .05556vw;
+        border-radius: .22222vw;
+    }
+    
+    .dkd-form .brand-input input:hover,
+    .dkd-form .brand-input select:hover {
+        box-shadow:0 .55556vw 1.11111vw rgba(43,55,51,.05);
+    }
+}
+
+@media only screen and (max-width: 1679px) and (min-width:1051px) {
+    .dkd-form .brand-input input,
+    .dkd-form .brand-input select{
+        padding:.77778vw 1.11111vw;
+        border-width: .05556vw;
+        border-radius: .22222vw;
+    }
+        
+    .dkd-form .brand-input input:hover,
+    .dkd-form .brand-input select:hover {
+        box-shadow:0 .55556vw 1.11111vw rgba(43,55,51,.05);
+    }
+}
+
+@media only screen and (max-width: 1050px) and (min-width:861px) {
+    .dkd-form .brand-input input,
+    .dkd-form .brand-input select{
+        padding:.95238vw 1.42857vw;
+        border-radius: .38095vw;
+    }
+        
+    .dkd-form .brand-input input:hover,
+    .dkd-form .brand-input select:hover {
+        box-shadow:0 .95238vw 1.90476vw rgba(43,55,51,.05);
+    }
+}
+
+@media only screen and (max-width: 860px) and (min-width:641px) {
+    .dkd-form .brand-input input,
+    .dkd-form .brand-input select{
+        padding:1.16279vw 1.74419vw;
+        border-radius: .46512vw;
+    }
+        
+    .dkd-form .brand-input input:hover,
+    .dkd-form .brand-input select:hover {
+
+        box-shadow:0 1.16279vw 2.32558vw rgba(43,55,51,.05);
+    }
+}
+
+@media only screen and (max-width: 640px) {
+    .dkd-form .brand-input input,
+    .dkd-form .brand-input select{
+        padding:2.66667vw 4vw;
+        border-width: .26667vw;
+        border-radius: 1.06667vw;
+    }
+        
+    .dkd-form .brand-input input:hover,
+    .dkd-form .brand-input select:hover {
+        box-shadow:0 2.66667vw 5.33333vw rgba(43,55,51,.05)
+    }
+}
+
+
+
+
+.dkd-form .brand-input input:active, 
+.dkd-form .brand-input input:focus,
+.dkd-form .brand-input select:active, 
+.dkd-form .brand-input select:focus{
+    box-shadow: var(--sds-c-input-shadow-focus, 0 0 3px var(--brand-color));
+    border-color: unset;
+}
+
+
+
+.dkd-form .dkd-input:not(.show-errors).slds-has-error .slds-form-element__help,
+.dkd-form .brand-input.slds-has-error .slds-form-element__help{
+    display: none;
+}
+
+.dkd-form .dkd-input.euro-symbol input{
+    padding-left: 46px;
+}
+
+.dkd-form .dkd-input.euro-symbol div.slds-form-element__control:before{
+    width: 20px;
+    content: "€";
+    position: absolute;
+    top: 21px;
+    font-family: "Fira Sans",Helvetica,Arial,sans-serif;
+    font-size: 1rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+    padding-left: 27px;
+}
+
+.dkd-form .brand-input select:required:invalid, 
+.dkd-form .brand-input select:optional:invalid  {
+    color: #c0c0c0;
+    font-family: "Fira Sans",Helvetica,Arial,sans-serif;
+    font-weight: 300 !important;
+    padding-left: 25px;
+}
+
+
+.dkd-form .brand-input option[value=""][disabled]{
+    display: none;
+}
+
+.dkd-form .brand-input option {
+    color: black;
+    font-size: 1.25rem;
+    font-family: "Fira Sans",Helvetica,Arial,sans-serif;
+}
+
+.dkd-form .privacy-agreement{
+    position: absolute;
+    font-size: 0px;
+    opacity: 0;
+}
+/* ===== DKD design overrides (vzor formulare) ===== */
+
+.dkd-form .donate-title{
+    font-size: 26px;
+    margin-bottom: 8px !important;
+}
+
+.dkd-form .donate-subtitle{
+    color: #6b5a65;
+    font-size: 15px;
+    margin-bottom: 10px !important;
+}
+
+.dkd-form .donate-field-title{
+    font-size: 15px;
+    margin-bottom: 5px !important;
+}
+
+/* kompaktnejsi karta a mezery podle vzoru */
+.dkd-form .form-container-1,
+.dkd-form .form-container-2{
+    padding: 26px 26px 28px;
+}
+
+.dkd-form .custom-radio-group{
+    padding-top: 6px !important;
+    padding-bottom: 4px !important;
+}
+
+.dkd-form .form-container-1 .slds-p-top_x-large{
+    padding-top: 10px !important;
+}
+
+.dkd-form .select-group{
+    margin-top: 2px;
+}
+
+.dkd-form .amount-input .slds-form-element__control{
+    line-height: 1;
+}
+
+.dkd-form .amount-input{
+    margin-bottom: 0 !important;
+}
+
+/* vsechna pole formulare maji ramecek podle designu */
+.dkd-form input.slds-input,
+.dkd-form select.slds-select,
+.dkd-form textarea.slds-textarea{
+    border: 2px solid #e4e3df;
+    border-radius: 10px;
+    background: #fff;
+    color: #362031;
+    font-family: 'Fira Sans', Helvetica, Arial, sans-serif;
+    box-shadow: none;
+}
+
+.dkd-form input.slds-input:focus,
+.dkd-form select.slds-select:focus,
+.dkd-form textarea.slds-textarea:focus{
+    border-color: #362031;
+    box-shadow: none;
+}
+
+.dkd-form input, .dkd-form select, .dkd-form textarea, .dkd-form button{
+    font-family: 'Fira Sans', Helvetica, Arial, sans-serif;
+}
+
+/* castka: velke cislo vpravo, cara pres cely radek pod castkou i menou */
+.dkd-form .amount-input input{
+    border: none;
+    border-radius: 0;
+    background: transparent;
+    text-align: right;
+    font-weight: 800;
+    color: #362031;
+    font-size: 56px;
+    padding-bottom: 2px;
+}
+
+
+@media only screen and (max-width: 640px) {
+    .dkd-form .amount-input input{
+        font-size: 13vw;
+    }
+}
+
+/* radio skupiny = mrizka stejne sirokych obrysovych tlacitek */
+.dkd-form .custom-radio-group .slds-radio_button-group{
+    display: flex !important;
+    width: 100% !important;
+    gap: 8px !important;
+    border: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
+}
+
+.dkd-form .custom-radio-group .slds-radio_button{
+    flex: 1 1 0 !important;
+    display: flex !important;
+    border: none !important;
+    background: transparent !important;
+}
+
+.dkd-form .custom-radio-group .slds-radio_button__label{
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 100% !important;
+    margin: 0 !important;
+    border: 2px solid #362031 !important;
+    border-radius: 10px !important;
+    background: #fff !important;
+    color: #362031 !important;
+    transition: background-color .2s ease, color .2s ease;
+}
+
+.dkd-form .custom-radio-group .slds-radio_button__label .slds-radio_faux{
+    padding: 0 !important;
+    background: transparent !important;
+    color: inherit !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+.dkd-form .custom-radio-group .slds-radio_button__label:hover{
+    color: #362031 !important;
+    background: #f3f0eb !important;
+}
+
+.dkd-form .custom-radio-group .slds-radio_button input:checked + .slds-radio_button__label{
+    background: #362031 !important;
+    color: #fff !important;
+    border-color: #362031 !important;
+}
+
+.dkd-form .custom-radio-group .slds-radio_button input:checked + .slds-radio_button__label .slds-radio_faux{
+    background: transparent !important;
+    color: #fff !important;
+}
+
+/* zadny prouzek ani odznacek na vybrane volbe */
+.dkd-form .custom-radio-group .slds-radio_button__label::after{
+    display: none !important;
+}
+
+.dkd-form .custom-radio-group .slds-radio_button__label::before{
+    display: none !important;
+}
+
+/* velikosti tlacitek podle vzoru */
+.dkd-form .custom-radio-group.donation-amount .slds-radio_button__label{
+    height: 46px !important;
+    font-size: 15px !important;
+    font-weight: 700 !important;
+}
+
+.dkd-form .custom-radio-group.standard .slds-radio_button__label{
+    height: 46px !important;
+    font-size: 15px !important;
+    font-weight: 700 !important;
+}
+
+.dkd-form .custom-radio-group.account-type .slds-radio_button__label{
+    height: 44px !important;
+    font-size: 15px !important;
+    font-weight: 700 !important;
+}
+
+@media only screen and (max-width: 640px) {
+    .dkd-form .custom-radio-group.donation-amount .slds-radio_button__label{
+        height: 12vw !important;
+        font-size: 4vw !important;
+    }
+    .dkd-form .custom-radio-group .slds-radio_button-group{
+        flex-wrap: wrap !important;
+    }
+    .dkd-form .custom-radio-group .slds-radio_button{
+        flex: 1 1 45% !important;
+    }
+}
+/* Nativni select se na mobilu ve flexu smrstil a orizl text Kc, CZK - Aura combobox si drzel sirku obsahu */
+.dkd-form .amount-input-currency {
+    flex: none;
+}
+.dkd-form .amount-input-currency select {
+    width: auto;
+    padding-right: 18px;
+}

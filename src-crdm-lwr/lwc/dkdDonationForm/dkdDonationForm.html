@@ -1,0 +1,374 @@
+<template lwc:render-mode="light">
+    <div class="dkd-form-host" style={rootStyle}>
+        <template lwc:if={showSpinner}>
+            <div class={spinnerClass}>
+                <div role="status" class="slds-spinner slds-spinner_medium slds-spinner_brand">
+                    <span class="slds-assistive-text">Načítání</span>
+                    <div class="slds-spinner__dot-a"></div>
+                    <div class="slds-spinner__dot-b"></div>
+                </div>
+            </div>
+        </template>
+
+        <div class="dkd-form slds-col slds-size_1-of-1 slds-is-relative form">
+            <div class="border-form-container slds-is-relative">
+                <div class={expanderClass} onclick={handleDonationExpander}>
+                    <div class="slds-align_absolute-center slds-col_bump-right">DAROVAT</div>
+                    <div class={openerClass}></div>
+                </div>
+
+                <template lwc:if={errorMessage}>
+                    <div class="slds-notify slds-notify_alert slds-alert_error slds-m-bottom_small" role="alert">{errorMessage}</div>
+                </template>
+
+                <!-- ===== Krok 1: castka a frekvence ===== -->
+                <template lwc:if={isFirst}>
+                    <div class={containerClass}>
+                        <h3 class="slds-col slds-size_1-of-1 slds-text-align_center donate-title">{headerLabel}</h3>
+                        <div class="slds-col slds-size_1-of-1 slds-text-align_center donate-subtitle">{formHeaderSubLabel}</div>
+
+                        <div class="form-inner-content slds-grid slds-wrap slds-col slds-size_1-of-1">
+                            <div class="slds-col slds-size_1-of-1 slds-text-align_center donate-field-title">Vyberte výši daru:</div>
+                            <div class="slds-col slds-size_1-of-1 slds-grid slds-grid_overflow">
+                                <div class={amountWrapperClass}>
+                                    <div class="slds-form-element">
+                                        <label class="slds-form-element__label slds-assistive-text">Donation Amount</label>
+                                        <div class="slds-form-element__control slds-grow">
+                                            <input type="number" class="slds-input" placeholder="0" min="15" step="1" required
+                                                   value={amountValue} disabled={amountDisabled} oninput={handleAmountInput} />
+                                        </div>
+                                        <template lwc:if={amountError}>
+                                            <div class="slds-form-element__help">{amountError}</div>
+                                        </template>
+                                    </div>
+                                </div>
+                                <div class="amount-input-currency hide-arrow slds-p-left_x-small slds-is-relative">
+                                    <div class="slds-form-element">
+                                        <label class="slds-form-element__label slds-assistive-text">Currencies</label>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-select_container">
+                                                <select class="slds-select" disabled>
+                                                    <option value="CZK">Kč, CZK</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="select-group slds-grid slds-wrap slds-size_1-of-1">
+                                <div class="custom-radio-group donation-amount donationAmountRadio slds-col slds-size_1-of-1 slds-p-bottom_medium slds-p-top_large">
+                                    <fieldset class="slds-form-element">
+                                        <legend class="slds-form-element__legend slds-form-element__label slds-assistive-text">S ČÁSTKOU:</legend>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-radio_button-group">
+                                                <template for:each={amountOptions} for:item="opt">
+                                                    <span key={opt.key} class="slds-button slds-radio_button">
+                                                        <input type="radio" name="selectDonationAmount" id={opt.id} value={opt.value} checked={opt.checked}
+                                                               data-value={opt.value} onchange={handleAmountOption} />
+                                                        <label class="slds-radio_button__label" for={opt.id}>
+                                                            <span class="slds-radio_faux">{opt.label}</span>
+                                                        </label>
+                                                    </span>
+                                                </template>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                            </div>
+
+                            <div class="select-group slds-grid slds-wrap slds-size_1-of-1">
+                                <div class="slds-col slds-size_1-of-1 slds-text-align_center donate-field-title">Jak často chcete darovat?</div>
+                                <div class="custom-radio-group donation-amount slds-col slds-size_1-of-1 slds-p-bottom_small">
+                                    <fieldset class="slds-form-element">
+                                        <legend class="slds-form-element__legend slds-form-element__label slds-assistive-text">Jak často chcete darovat:</legend>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-radio_button-group">
+                                                <template for:each={donationTypeOptions} for:item="opt">
+                                                    <span key={opt.key} class="slds-button slds-radio_button">
+                                                        <input type="radio" name="selectDonationTypeOption" id={opt.id} value={opt.value} checked={opt.checked}
+                                                               data-value={opt.value} onchange={handleDonationType} />
+                                                        <label class="slds-radio_button__label" for={opt.id}>
+                                                            <span class="slds-radio_faux">{opt.label}</span>
+                                                        </label>
+                                                    </span>
+                                                </template>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                            </div>
+
+                            <template lwc:if={showCampaignSelection}>
+                                <div class="select-group slds-grid slds-wrap slds-size_1-of-1">
+                                    <div class="slds-col slds-size_1-of-1 slds-text-align_center donate-field-title">Kampaň:</div>
+                                    <div class={campaignSelectClass}>
+                                        <div class="slds-form-element">
+                                            <label class="slds-form-element__label slds-assistive-text">Campaign Selection</label>
+                                            <div class="slds-form-element__control">
+                                                <div class="slds-select_container">
+                                                    <select class="slds-select" onchange={handleCampaignChange}>
+                                                        <template for:each={campaignOptions} for:item="c">
+                                                            <option key={c.value} value={c.value} selected={c.selected}>{c.label}</option>
+                                                        </template>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </template>
+
+                            <div class="slds-col slds-size_1-of-1 slds-grid slds-wrap slds-p-top_x-large">
+                                <button class="slds-button brand-button brand-button-default slds-size_1-of-1" onclick={handleDonate}>{donateLabel}</button>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+
+                <!-- ===== Krok 2: osobni udaje ===== -->
+                <template lwc:if={isDetails}>
+                    <div class={containerClass2}>
+                        <div class="step-back-button slds-col slds-grow-none" onclick={handleStepBack}>
+                            <span class="slds-icon_container chevron-left">
+                                <svg class="slds-icon slds-icon_xx-small" viewBox="0 0 52 52" aria-hidden="true"><path d="M38 7.4L18.4 26 38 44.6c.8.8.8 2 0 2.8l-2.8 2.8c-.8.8-2 .8-2.8 0L10.6 27.4c-.8-.8-.8-2 0-2.8L32.4 3.8c.8-.8 2-.8 2.8 0L38 4.6c.8.8.8 2 0 2.8z"></path></svg>
+                            </span>
+                            Zpět k výběru částky
+                        </div>
+
+                        <div class="slds-col slds-size_1-of-1">
+                            <h3 class="donate-title slds-align_absolute-center slds-text-align_center">Krok 2: Osobní údaje</h3>
+                        </div>
+
+                        <div class="form-inner-content slds-grid slds-wrap slds-col slds-size_1-of-1">
+                            <div class="slds-col slds-size_1-of-1 slds-p-bottom_small">
+                                <div class="custom-radio-group account-type slds-col slds-size_1-of-1 slds-p-bottom_small">
+                                    <fieldset class="slds-form-element">
+                                        <legend class="slds-form-element__legend slds-form-element__label slds-assistive-text">Typ dárce</legend>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-radio_button-group">
+                                                <template for:each={accountTypeOptions} for:item="opt">
+                                                    <span key={opt.key} class="slds-button slds-radio_button">
+                                                        <input type="radio" name="accountType" id={opt.id} value={opt.value} checked={opt.checked}
+                                                               data-value={opt.value} onchange={handleAccountType} />
+                                                        <label class="slds-radio_button__label" for={opt.id}>
+                                                            <span class="slds-radio_faux">{opt.label}</span>
+                                                        </label>
+                                                    </span>
+                                                </template>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                            </div>
+
+                            <div class="slds-col slds-size_1-of-1 slds-grid slds-wrap personal-information">
+                                <template lwc:if={isPersonAccount}>
+                                    <template for:each={personFields} for:item="f">
+                                        <div key={f.key} class={f.wrapperClass}>
+                                            <template lwc:if={f.isText}>
+                                                <div class="slds-form-element">
+                                                    <label class="slds-form-element__label" for={f.id}>
+                                                        <template lwc:if={f.required}><abbr class="slds-required" title="povinné">*</abbr></template>{f.label}
+                                                    </label>
+                                                    <div class="slds-form-element__control slds-grow">
+                                                        <input class="slds-input" id={f.id} type={f.inputType} step={f.step} required={f.required}
+                                                               value={f.value} data-field={f.fieldPath} oninput={handleFieldSetInput} />
+                                                    </div>
+                                                    <template lwc:if={f.error}><div class="slds-form-element__help">{f.error}</div></template>
+                                                </div>
+                                            </template>
+                                            <template lwc:if={f.isBoolean}>
+                                                <div class="slds-form-element">
+                                                    <div class="slds-form-element__control slds-grow">
+                                                        <div class="slds-checkbox">
+                                                            <template lwc:if={f.required}><abbr class="slds-required" title="povinné">*</abbr></template>
+                                                            <input type="checkbox" id={f.id} checked={f.checked} data-field={f.fieldPath} onchange={handleFieldSetInput} />
+                                                            <label class="slds-checkbox__label" for={f.id}>
+                                                                <span class="slds-checkbox_faux"></span>
+                                                                <span class="slds-form-element__label">{f.label}</span>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <template lwc:if={f.error}><div class="slds-form-element__help">{f.error}</div></template>
+                                                </div>
+                                            </template>
+                                            <template lwc:if={f.isPicklist}>
+                                                <div class="slds-form-element">
+                                                    <label class="slds-form-element__label" for={f.id}>
+                                                        <template lwc:if={f.required}><abbr class="slds-required" title="povinné">*</abbr></template>{f.label}
+                                                    </label>
+                                                    <div class="slds-form-element__control">
+                                                        <div class="slds-select_container">
+                                                            <select class="slds-select" id={f.id} required={f.required} data-field={f.fieldPath} onchange={handleFieldSetInput}>
+                                                                <option value=""></option>
+                                                                <template for:each={f.options} for:item="o">
+                                                                    <option key={o.value} value={o.value} selected={o.selected}>{o.label}</option>
+                                                                </template>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <template lwc:if={f.error}><div class="slds-form-element__help">{f.error}</div></template>
+                                                </div>
+                                            </template>
+                                        </div>
+                                    </template>
+                                </template>
+                                <template lwc:else>
+                                    <template for:each={legalFields} for:item="f">
+                                        <div key={f.key} class={f.wrapperClass}>
+                                            <div class="slds-form-element">
+                                                <label class="slds-form-element__label" for={f.id}>
+                                                    <template lwc:if={f.required}><abbr class="slds-required" title="povinné">*</abbr></template>{f.label}
+                                                </label>
+                                                <div class="slds-form-element__control slds-grow">
+                                                    <input class="slds-input" id={f.id} type={f.inputType} required={f.required} value={f.value}
+                                                           data-target={f.target} data-field={f.field} oninput={handleFieldInput} />
+                                                </div>
+                                                <template lwc:if={f.error}><div class="slds-form-element__help">{f.error}</div></template>
+                                            </div>
+                                        </div>
+                                    </template>
+
+                                    <div class="slds-col slds-size_1-of-1 slds-p-top_x-large donate-field-title">Adresa sídla</div>
+
+                                    <template for:each={legalAddressFields} for:item="f">
+                                        <div key={f.key} class={f.wrapperClass}>
+                                            <div class="slds-form-element">
+                                                <label class="slds-form-element__label" for={f.id}>
+                                                    <template lwc:if={f.required}><abbr class="slds-required" title="povinné">*</abbr></template>{f.label}
+                                                </label>
+                                                <div class="slds-form-element__control slds-grow">
+                                                    <input class="slds-input" id={f.id} type={f.inputType} required={f.required} value={f.value}
+                                                           data-target={f.target} data-field={f.field} oninput={handleFieldInput} />
+                                                </div>
+                                                <template lwc:if={f.error}><div class="slds-form-element__help">{f.error}</div></template>
+                                            </div>
+                                        </div>
+                                    </template>
+                                    <div class={countryFieldClass}>
+                                        <div class="slds-form-element">
+                                            <label class="slds-form-element__label"><abbr class="slds-required" title="povinné">*</abbr>Stát</label>
+                                            <div class="slds-form-element__control">
+                                                <div class="slds-select_container">
+                                                    <select class="slds-select" required data-target="donor" data-field="BillingCountry" onchange={handleFieldInput}>
+                                                        <option value=""></option>
+                                                        <template for:each={countrySelectOptions} for:item="o">
+                                                            <option key={o.value} value={o.value} selected={o.selected}>{o.label}</option>
+                                                        </template>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <template lwc:if={countryError}><div class="slds-form-element__help">{countryError}</div></template>
+                                        </div>
+                                    </div>
+                                </template>
+                            </div>
+
+                            <span class="slds-col slds-size_1-of-1 required-text slds-p-top_x-small">* Povinná pole</span>
+
+                            <div class="slds-grid slds-col slds-size_1-of-1 slds-p-vertical_xx-small">
+                                <span>
+                                    Výběrem komunikačního kanálu souhlasíte s tím, že vás budeme několikrát ročně informovat
+                                    o projektu Darujeme kroužky dětem a o tom, komu vaše podpora pomáhá.
+                                </span>
+                            </div>
+
+                            <div class="slds-col slds-size_1-of-1 slds-grid slds-wrap slds-p-top_x-large">
+                                <button class="slds-button brand-button brand-button-default slds-size_1-of-1" onclick={handleDonate}>Potvrzuji své osobní údaje</button>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+
+                <!-- ===== Krok 3: platebni metoda ===== -->
+                <template lwc:if={isMethod}>
+                    <div class={containerClass}>
+                        <div class="step-back-button slds-col slds-grow-none" onclick={handleStepBack}>
+                            <span class="slds-icon_container chevron-left">
+                                <svg class="slds-icon slds-icon_xx-small" viewBox="0 0 52 52" aria-hidden="true"><path d="M38 7.4L18.4 26 38 44.6c.8.8.8 2 0 2.8l-2.8 2.8c-.8.8-2 .8-2.8 0L10.6 27.4c-.8-.8-.8-2 0-2.8L32.4 3.8c.8-.8 2-.8 2.8 0L38 4.6c.8.8.8 2 0 2.8z"></path></svg>
+                            </span>
+                            Zpět k osobním údajům
+                        </div>
+
+                        <h3 class="slds-col slds-size_1-of-1 slds-text-align_center donate-title">Krok 3: Výběr platební metody</h3>
+
+                        <div class="form-inner-content slds-grid slds-wrap slds-col slds-size_1-of-1">
+                            <div class="slds-grid slds-wrap slds-size_1-of-1 slds-col slds-p-bottom_small">
+                                <div class="custom-bullet-radio-group slds-col slds-size_1-of-1">
+                                    <fieldset class="slds-form-element">
+                                        <legend class="slds-form-element__legend slds-form-element__label slds-assistive-text">Select Payment Option</legend>
+                                        <div class="slds-form-element__control">
+                                            <template for:each={paymentOptions} for:item="opt">
+                                                <span key={opt.key} class="slds-radio">
+                                                    <input type="radio" name="selectPaymentOptions" id={opt.id} value={opt.value} checked={opt.checked}
+                                                           data-value={opt.value} onchange={handlePaymentOption} />
+                                                    <label class="slds-radio__label" for={opt.id}>
+                                                        <span class="slds-radio_faux"></span>
+                                                        <span class="slds-form-element__label">{opt.label}</span>
+                                                    </label>
+                                                </span>
+                                            </template>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                            </div>
+
+                            <div class="slds-col slds-size_1-of-1 slds-grid slds-wrap">
+                                <button class="slds-button brand-button brand-button-default slds-size_1-of-1" onclick={handleDonate}>Potvrzení výběru metody</button>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+
+                <!-- ===== Krok 3: platebni brana ===== -->
+                <template lwc:if={isGateway}>
+                    <div class={containerClass}>
+                        <div class="step-back-button slds-col slds-grow-none" onclick={handleStepBack}>
+                            <span class="slds-icon_container chevron-left">
+                                <svg class="slds-icon slds-icon_xx-small" viewBox="0 0 52 52" aria-hidden="true"><path d="M38 7.4L18.4 26 38 44.6c.8.8.8 2 0 2.8l-2.8 2.8c-.8.8-2 .8-2.8 0L10.6 27.4c-.8-.8-.8-2 0-2.8L32.4 3.8c.8-.8 2-.8 2.8 0L38 4.6c.8.8.8 2 0 2.8z"></path></svg>
+                            </span>
+                            Zpět na platební metody
+                        </div>
+
+                        <h3 class="slds-col slds-size_1-of-1 slds-text-align_center donate-title">Krok 3: Platební brána</h3>
+
+                        <div class="form-inner-content slds-grid slds-wrap slds-col slds-size_1-of-1">
+                            <template lwc:if={hasPaymentUrl}>
+                                <c-comgate-payment-form payment-url={paymentUrl} style="width: 100%;"></c-comgate-payment-form>
+                            </template>
+                        </div>
+                    </div>
+                </template>
+
+                <!-- ===== Konec: podekovani nebo udaje k prevodu ===== -->
+                <template lwc:if={isLast}>
+                    <div class="slds-grid slds-wrap form-container-1">
+                        <template lwc:if={isBankTransfer}>
+                            <c-payment-details-page
+                                qr-payload={bankAccountDetails.qrPayload}
+                                receiver-name={receiverName}
+                                bank-account={bankAccountDetails.bankAccountNumber}
+                                iban={bankAccountDetails.iban}
+                                variable-symbol={bankAccountDetails.variableNumber}
+                                amount={paymentWrapper.donationValue}
+                                currency={paymentWrapper.currencyIsoCode}
+                                support-email={supportEmail}>
+                            </c-payment-details-page>
+                        </template>
+                        <template lwc:else>
+                            <h2 class="slds-p-vertical_small">{thankYouLabel}</h2>
+                            <template lwc:if={hasThankYouText}>
+                                <div class="dkd-thank-you-text"></div>
+                            </template>
+                            <template lwc:else>
+                                <p>Potvrzujeme přijetí Vašeho daru. Díky vám může další dítě chodit na kroužek. Více o projektu najdete na <a target="_blank" href="https://darujemekrouzky.cz/">darujemekrouzky.cz</a>.</p>
+                                <p>I sebemenší dar může pomoci! Budeme proto vděčni, pokud budete projekt sdílet s přáteli.</p>
+                            </template>
+                        </template>
+                    </div>
+                </template>
+            </div>
+        </div>
+    </div>
+</template>

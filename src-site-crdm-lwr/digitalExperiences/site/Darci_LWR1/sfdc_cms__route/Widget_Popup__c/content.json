@@ -1,0 +1,12 @@
+{
+  "type": "sfdc_cms__route",
+  "title": "Widget popup",
+  "contentBody": {
+    "activeViewId": "widgetPopup",
+    "configurationTags": [],
+    "pageAccess": "UseParent",
+    "routeType": "custom-widget-popup",
+    "urlPrefix": "widget-popup"
+  },
+  "urlName": "widget-popup"
+}

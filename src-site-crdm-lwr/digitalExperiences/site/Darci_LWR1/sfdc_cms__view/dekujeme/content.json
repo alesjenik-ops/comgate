@@ -1,0 +1,50 @@
+{
+  "type": "sfdc_cms__view",
+  "title": "Děkujeme",
+  "contentBody": {
+    "component": {
+      "children": [
+        {
+          "children": [
+            {
+              "attributes": {},
+              "definition": "c:donationThankYou",
+              "id": "1f84c729-b5f2-4e58-a8d5-31ba59eb079a",
+              "type": "component"
+            }
+          ],
+          "id": "1a3fe7ea-dc17-4334-9676-fb106ee6c882",
+          "name": "content",
+          "title": "Content",
+          "type": "region"
+        },
+        {
+          "children": [
+            {
+              "attributes": {
+                "customHeadTags": "",
+                "description": "",
+                "pageTitle": "Děkujeme",
+                "recordId": "{!recordId}"
+              },
+              "definition": "community_builder:seoAssistant",
+              "id": "a540a251-1fff-47e4-a592-dd5941d63f5a",
+              "type": "component"
+            }
+          ],
+          "id": "27ee9e15-cb35-4f4f-b129-91f3277638b3",
+          "name": "sfdcHiddenRegion",
+          "title": "sfdcHiddenRegion",
+          "type": "region"
+        }
+      ],
+      "definition": "community_layout:sldsFlexibleLayout",
+      "id": "d5d8b26e-0ecb-44c9-9291-c6270237c3a1",
+      "type": "component"
+    },
+    "dataProviders": [],
+    "themeLayoutType": "Inner",
+    "viewType": "custom-dekujeme"
+  },
+  "urlName": "dekujeme"
+}

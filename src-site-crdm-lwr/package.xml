@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <types><members>site/Darci_LWR1</members><name>DigitalExperienceBundle</name></types>
+    <types><members>Darci LWR</members><name>Network</name></types>
+    <version>64.0</version>
+</Package>

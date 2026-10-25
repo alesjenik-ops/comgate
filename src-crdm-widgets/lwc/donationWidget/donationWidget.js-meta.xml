@@ -76,6 +76,12 @@
                       label="Sipka pro vlastni castku"
                       datasource="Zadna sipka,1 dite / 1 mesic,1 dite / 1 mesic (Podpora),1 dite / pololeti,1 dite / skolni rok,1 dite / cely rok,3 deti / pololeti,6 deti / pololeti,12 deti / pololeti,1 dite / krouzek,Oddil ci tabor (noty),Oddil ci tabor (mic),Oddil ci tabor (paleta),Oddil ci tabor (stan),Vlastni castka,Volna varianta (cteni),Volna varianta (psani)"
                       description="Varianta sipky, kdyz si darce zvoli vlastni castku."/>
+            <property name="gatewayMode"
+                      type="String"
+                      label="Platebni brana"
+                      datasource="auto,iframe,redirect"
+                      default="auto"
+                      description="auto = brana Comgate se otevre ve widgetu, v aplikacich Instagram, Facebook a dalsich v hlavnim okne (jinak tam nefunguje 3D Secure). iframe = vzdy ve widgetu. redirect = vzdy v hlavnim okne."/>
             <property name="thankYouPageUrl"
                       type="String"
                       label="URL dekovaci stranky"

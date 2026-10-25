@@ -1,0 +1,77 @@
+{
+  "type": "sfdc_cms__view",
+  "title": "Darujte kroužky dětem",
+  "contentBody": {
+    "component": {
+      "children": [
+        {
+          "children": [
+            {
+              "attributes": {
+                "headerTitle": "Darujte kroužky dětem",
+                "headerSubTitle": "Pomáháme rodinám zaplatit volnočasové aktivity pro děti.",
+                "headerImage": "DonationPageHeaderImage",
+                "logoImage": "DonationPageHeaderLogo",
+                "logoHref": "https://darujemekrouzky.cz/",
+                "footerLogoImage": "DonationPageFooterLogo",
+                "footerLogoHref": "https://darujemekrouzky.cz/",
+                "campaignId": "701Te00000gDlc7IAC",
+                "defaultDonationType": "oneoff",
+                "defaultPaymentOption": "card",
+                "disabledCampaignSelection": true,
+                "donationTypeOneOff": true,
+                "donationTypeMonthly": true,
+                "donationTypeYearly": true,
+                "amountsOneOff": "500;1000;1500;other",
+                "amountsMonthly": "500;1000;1500;other",
+                "amountsYearly": "500;1000;1500;other",
+                "fieldSetSelection": "DonationPageFieldSet",
+                "formHeaderLabel": "Daruj kroužky pro děti",
+                "formHeaderSubLabel": "Podporujeme rodiny v ČR, které jsou v tíživé finanční situaci.",
+                "paymentCard": true,
+                "paymentBankTransfer": true,
+                "receiverName": "Česká rada dětí a mládeže",
+                "supportEmail": "info@darujemekrouzky.cz",
+                "thankYouLabel": "Děkujeme za Vaší podporu.",
+                "thankYouPageUrl": "https://www.darujemekrouzky.cz/dekujeme/"
+              },
+              "definition": "c:dkdDonationPage",
+              "id": "0a16523e-366a-4d6c-8c3f-c89ca442c38d",
+              "type": "component"
+            }
+          ],
+          "id": "f5bacb99-8b3e-4b35-925c-8554d83eaa56",
+          "name": "content",
+          "title": "Content",
+          "type": "region"
+        },
+        {
+          "children": [
+            {
+              "attributes": {
+                "customHeadTags": "",
+                "description": "",
+                "pageTitle": "Darujte kroužky dětem",
+                "recordId": "{!recordId}"
+              },
+              "definition": "community_builder:seoAssistant",
+              "id": "b3e041e0-aace-466f-bf45-3f3e815dc537",
+              "type": "component"
+            }
+          ],
+          "id": "e0a5da23-e8ce-47d0-a121-55e9eb9cc1f6",
+          "name": "sfdcHiddenRegion",
+          "title": "sfdcHiddenRegion",
+          "type": "region"
+        }
+      ],
+      "definition": "community_layout:sldsFlexibleLayout",
+      "id": "380270f2-d39d-4750-a240-c80019a57620",
+      "type": "component"
+    },
+    "dataProviders": [],
+    "themeLayoutType": "Inner",
+    "viewType": "home"
+  },
+  "urlName": "home"
+}

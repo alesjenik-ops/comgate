@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>64.0</apiVersion>
+    <isExposed>true</isExposed>
+    <masterLabel>DKD Darovací formulář (LWR)</masterLabel>
+    <description>Darovaci formular hlavni stranky - port Aura komponenty DonationPageForm pro LWR site.</description>
+    <targets>
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Default</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightningCommunity__Default">
+            <property name="campaignId" type="String" label="ID kampaně" default="" />
+            <property name="formHeaderLabel" type="String" label="Nadpis formuláře" default="Darujte kroužky dětem" />
+            <property name="formHeaderSubLabel" type="String" label="Podnadpis formuláře" default="Pomáháme rodinám zaplatit volnočasové aktivity pro děti." />
+            <property name="donationTypeOneOff" type="Boolean" label="Povolit jednorázový dar" default="true" />
+            <property name="donationTypeMonthly" type="Boolean" label="Povolit měsíční dar" default="true" />
+            <property name="donationTypeYearly" type="Boolean" label="Povolit roční dar" default="true" />
+            <property name="defaultDonationType" type="String" label="Výchozí frekvence" datasource="oneoff,recurring_monthly,recurring_yearly" default="oneoff" />
+            <property name="amountsOneOff" type="String" label="Částky – jednorázově" default="20;50;100;other" />
+            <property name="amountsMonthly" type="String" label="Částky – měsíčně" default="20;50;100;other" />
+            <property name="amountsYearly" type="String" label="Částky – ročně" default="200;500;1000;other" />
+            <property name="fieldSetSelection" type="String" label="Field set dárce" default="DonationPageFieldSet" />
+            <property name="paymentCard" type="Boolean" label="Povolit kartu" default="true" />
+            <property name="paymentBankTransfer" type="Boolean" label="Povolit převod" default="true" />
+            <property name="defaultPaymentOption" type="String" label="Výchozí platební metoda" datasource="card,banktransfer" default="card" />
+            <property name="thankYouLabel" type="String" label="Nadpis poděkování" default="Děkujeme za Vaší podporu." />
+            <property name="thankYouPageUrl" type="String" label="URL děkovací stránky" default="https://www.darujemekrouzky.cz/dekujeme/" />
+            <property name="disabledCampaignSelection" type="Boolean" label="Skrýt výběr kampaně" default="false" />
+            <property name="receiverName" type="String" label="Příjemce (převod)" default="Česká rada dětí a mládeže" />
+            <property name="supportEmail" type="String" label="E-mail podpory" default="" />
+            <property name="gatewayMode" type="String" label="Platební brána" datasource="auto,iframe,redirect" default="auto" description="auto = brána ve formuláři, v aplikacích Instagram a Facebook v hlavním okně (kvůli 3D Secure)." />
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

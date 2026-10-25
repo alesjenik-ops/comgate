@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>64.0</apiVersion>
+    <isExposed>true</isExposed>
+    <masterLabel>DKD Darovací stránka (LWR)</masterLabel>
+    <description>Hlavni darovaci stranka - hlavicka, formular, popis kampane a paticka jako stara Aura community.</description>
+    <targets>
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Default</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightningCommunity__Default">
+            <property name="headerTitle" type="String" label="Hlavička – nadpis" default="Darujte kroužky dětem" />
+            <property name="headerSubTitle" type="String" label="Hlavička – podnadpis" default="Pomáháme rodinám zaplatit volnočasové aktivity pro děti." />
+            <property name="headerTitleStyle" type="String" label="Hlavička – styl nadpisu" default="" />
+            <property name="headerSubTitleStyle" type="String" label="Hlavička – styl podnadpisu" default="" />
+            <property name="headerCss" type="String" label="Hlavička – CSS" default="" />
+            <property name="headerImage" type="String" label="Hlavička – obrázek (static resource)" default="DonationPageHeaderImage" />
+            <property name="headerImageCss" type="String" label="Hlavička – CSS obrázku" default="" />
+            <property name="logoImage" type="String" label="Logo (static resource)" default="DonationPageHeaderLogo" />
+            <property name="logoHref" type="String" label="Odkaz loga" default="https://darujemekrouzky.cz/" />
+            <property name="footerLogoImage" type="String" label="Patička – logo (static resource)" default="DonationPageFooterLogo" />
+            <property name="footerLogoHref" type="String" label="Patička – odkaz loga" default="https://darujemekrouzky.cz/" />
+            <property name="campaignId" type="String" label="ID kampaně" default="" />
+            <property name="formHeaderLabel" type="String" label="Nadpis formuláře" default="Darujte kroužky dětem" />
+            <property name="formHeaderSubLabel" type="String" label="Podnadpis formuláře" default="Pomáháme rodinám zaplatit volnočasové aktivity pro děti." />
+            <property name="donationTypeOneOff" type="Boolean" label="Povolit jednorázový dar" default="true" />
+            <property name="donationTypeMonthly" type="Boolean" label="Povolit měsíční dar" default="true" />
+            <property name="donationTypeYearly" type="Boolean" label="Povolit roční dar" default="true" />
+            <property name="defaultDonationType" type="String" label="Výchozí frekvence" datasource="oneoff,recurring_monthly,recurring_yearly" default="oneoff" />
+            <property name="amountsOneOff" type="String" label="Částky – jednorázově" default="20;50;100;other" />
+            <property name="amountsMonthly" type="String" label="Částky – měsíčně" default="20;50;100;other" />
+            <property name="amountsYearly" type="String" label="Částky – ročně" default="200;500;1000;other" />
+            <property name="fieldSetSelection" type="String" label="Field set dárce" default="DonationPageFieldSet" />
+            <property name="paymentCard" type="Boolean" label="Povolit kartu" default="true" />
+            <property name="paymentBankTransfer" type="Boolean" label="Povolit převod" default="true" />
+            <property name="defaultPaymentOption" type="String" label="Výchozí platební metoda" datasource="card,banktransfer" default="card" />
+            <property name="thankYouLabel" type="String" label="Nadpis poděkování" default="Děkujeme za Vaší podporu." />
+            <property name="thankYouPageUrl" type="String" label="URL děkovací stránky" default="https://www.darujemekrouzky.cz/dekujeme/" />
+            <property name="disabledCampaignSelection" type="Boolean" label="Skrýt výběr kampaně" default="false" />
+            <property name="receiverName" type="String" label="Příjemce (převod)" default="Česká rada dětí a mládeže" />
+            <property name="supportEmail" type="String" label="E-mail podpory" default="" />
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

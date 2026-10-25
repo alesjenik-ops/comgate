@@ -1,0 +1,12 @@
+{
+  "type": "sfdc_cms__route",
+  "title": "Ochrana osobních údajů",
+  "contentBody": {
+    "activeViewId": "ochranaOsobnichUdaju",
+    "configurationTags": [],
+    "pageAccess": "UseParent",
+    "routeType": "custom-ochrana-osobnich-udaju",
+    "urlPrefix": "ochrana-osobnich-udaju"
+  },
+  "urlName": "ochrana-osobnich-udaju"
+}

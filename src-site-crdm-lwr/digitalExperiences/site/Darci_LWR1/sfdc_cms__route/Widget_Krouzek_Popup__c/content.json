@@ -1,0 +1,12 @@
+{
+  "type": "sfdc_cms__route",
+  "title": "Widget kroužek popup",
+  "contentBody": {
+    "activeViewId": "widgetKrouzekPopup",
+    "configurationTags": [],
+    "pageAccess": "UseParent",
+    "routeType": "custom-widget-krouzek-popup",
+    "urlPrefix": "widget-krouzek-popup"
+  },
+  "urlName": "widget-krouzek-popup"
+}
