@@ -2,13 +2,20 @@
 <ExtlClntAppGlobalOauthSettings xmlns="http://soap.sforce.com/2006/04/metadata">
     <callbackUrl>https://claude.ai/api/mcp/auth_callback
 https://claude.com/api/mcp/auth_callback</callbackUrl>
+    <consumerKey>3MVG94DAZekw5HcvkIYjQfqhTZNM41gVfJV3Vp3zhMgg0vDMFxPXKxMZuRRVjqIxbemfjAcj.o25onJxnphWw</consumerKey>
     <externalClientApplication>Claude_MCP</externalClientApplication>
+    <isClientCredentialsFlowEnabled>false</isClientCredentialsFlowEnabled>
+    <isCodeCredFlowEnabled>false</isCodeCredFlowEnabled>
+    <isCodeCredPostOnly>false</isCodeCredPostOnly>
     <isConsumerSecretOptional>false</isConsumerSecretOptional>
+    <isDeviceFlowEnabled>false</isDeviceFlowEnabled>
     <isIntrospectAllTokens>false</isIntrospectAllTokens>
     <isNamedUserJwtEnabled>true</isNamedUserJwtEnabled>
     <isPkceRequired>true</isPkceRequired>
+    <isRefreshTokenRotationEnabled>true</isRefreshTokenRotationEnabled>
     <isSecretRequiredForRefreshToken>true</isSecretRequiredForRefreshToken>
     <isSecretRequiredForTokenExchange>true</isSecretRequiredForTokenExchange>
+    <isTokenExchangeEnabled>false</isTokenExchangeEnabled>
     <label>Claude MCP Global OAuth</label>
     <shouldRotateConsumerKey>false</shouldRotateConsumerKey>
     <shouldRotateConsumerSecret>false</shouldRotateConsumerSecret>

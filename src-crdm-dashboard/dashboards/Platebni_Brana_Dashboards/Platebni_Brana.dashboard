@@ -44,9 +44,9 @@
             <legendPosition>Right</legendPosition>
             <report>Platebni_Brana/PB_Udalosti_Po_Dnech</report>
             <showPercentage>false</showPercentage>
-            <showTotal>true</showTotal>
             <showValues>true</showValues>
             <sortBy>RowLabelAscending</sortBy>
+            <sortLegendValues>false</sortLegendValues>
             <title>Události brány po dnech (podle stavu)</title>
             <useReportChart>false</useReportChart>
         </components>
@@ -62,9 +62,10 @@
             <legendPosition>Right</legendPosition>
             <report>Platebni_Brana/PB_Dary_Podle_Kampane_A_Stavu</report>
             <showPercentage>false</showPercentage>
-            <showTotal>true</showTotal>
+            <showPicturesOnCharts>false</showPicturesOnCharts>
             <showValues>true</showValues>
             <sortBy>RowValueDescending</sortBy>
+            <sortLegendValues>false</sortLegendValues>
             <title>Odkud dárci přišli – kampaň × stav daru</title>
             <useReportChart>false</useReportChart>
         </components>
@@ -95,6 +96,7 @@
             <showTotal>true</showTotal>
             <showValues>true</showValues>
             <sortBy>RowLabelAscending</sortBy>
+            <sortLegendValues>false</sortLegendValues>
             <title>Dary z brány podle stavu</title>
             <useReportChart>false</useReportChart>
         </components>
@@ -142,9 +144,9 @@
             <legendPosition>Right</legendPosition>
             <report>Platebni_Brana/PB_Udalosti_Podle_Stavu</report>
             <showPercentage>false</showPercentage>
-            <showTotal>true</showTotal>
             <showValues>true</showValues>
             <sortBy>RowValueDescending</sortBy>
+            <sortLegendValues>false</sortLegendValues>
             <title>Události brány podle stavu</title>
             <useReportChart>false</useReportChart>
         </components>
@@ -163,6 +165,7 @@
             <showTotal>true</showTotal>
             <showValues>true</showValues>
             <sortBy>RowValueDescending</sortBy>
+            <sortLegendValues>false</sortLegendValues>
             <title>Zaplaceno podle platební metody</title>
             <useReportChart>false</useReportChart>
         </components>
@@ -178,9 +181,10 @@
             <legendPosition>Right</legendPosition>
             <report>Platebni_Brana/PB_Dary_Podle_Metody_A_Stavu</report>
             <showPercentage>false</showPercentage>
-            <showTotal>true</showTotal>
+            <showPicturesOnCharts>false</showPicturesOnCharts>
             <showValues>true</showValues>
             <sortBy>RowLabelAscending</sortBy>
+            <sortLegendValues>false</sortLegendValues>
             <title>Dary podle platební metody a stavu</title>
             <useReportChart>false</useReportChart>
         </components>
@@ -195,10 +199,12 @@
             <indicatorMiddleColor>#C2C254</indicatorMiddleColor>
             <maxValuesDisplayed>20</maxValuesDisplayed>
             <report>Platebni_Brana/PB_Pravidelne_Splatky</report>
+            <showPicturesOnTables>true</showPicturesOnTables>
             <sortBy>RowLabelAscending</sortBy>
             <title>Pravidelné dary – čekající splátky</title>
         </components>
     </middleSection>
+    <owner>crdm@crmproneziskovky.cz</owner>
     <rightSection>
         <columnSize>Medium</columnSize>
         <components>
@@ -236,6 +242,7 @@
             <indicatorMiddleColor>#C2C254</indicatorMiddleColor>
             <maxValuesDisplayed>20</maxValuesDisplayed>
             <report>Platebni_Brana/PB_Havarovane_Podle_Metody</report>
+            <showPicturesOnTables>true</showPicturesOnTables>
             <sortBy>RowValueDescending</sortBy>
             <title>Havarované platby podle metody</title>
         </components>
@@ -250,6 +257,7 @@
             <indicatorMiddleColor>#C2C254</indicatorMiddleColor>
             <maxValuesDisplayed>20</maxValuesDisplayed>
             <report>Platebni_Brana/PB_Nedokoncene_Podle_Darce</report>
+            <showPicturesOnTables>true</showPicturesOnTables>
             <sortBy>RowValueDescending</sortBy>
             <title>Nedokončené dary podle dárce</title>
         </components>
@@ -268,6 +276,7 @@
             <showTotal>true</showTotal>
             <showValues>true</showValues>
             <sortBy>RowLabelAscending</sortBy>
+            <sortLegendValues>false</sortLegendValues>
             <title>Testovací platby (mimo čísla výše)</title>
             <useReportChart>false</useReportChart>
         </components>
@@ -310,6 +319,7 @@
             <showTotal>true</showTotal>
             <showValues>true</showValues>
             <sortBy>RowLabelAscending</sortBy>
+            <sortLegendValues>false</sortLegendValues>
             <title>Závazky podle autorizace u Comgate</title>
             <useReportChart>false</useReportChart>
         </components>

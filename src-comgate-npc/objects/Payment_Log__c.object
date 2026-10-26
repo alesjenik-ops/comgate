@@ -207,6 +207,28 @@
         </valueSet>
     </fields>
     <fields>
+        <fullName>Gift_Commitment__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <label>Gift Commitment</label>
+        <referenceTo>GiftCommitment</referenceTo>
+        <relationshipLabel>Payment Log</relationshipLabel>
+        <relationshipName>Payment_Log</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Gift_Transaction__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <label>Gift Transaction</label>
+        <referenceTo>GiftTransaction</referenceTo>
+        <relationshipLabel>Payment Log</relationshipLabel>
+        <relationshipName>Payment_Log</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
         <fullName>Is_Test__c</fullName>
         <defaultValue>false</defaultValue>
         <label>Is Test</label>
@@ -222,17 +244,6 @@
         <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
-    </fields>
-    <fields>
-        <fullName>Gift_Transaction__c</fullName>
-        <deleteConstraint>SetNull</deleteConstraint>
-        <label>Gift Transaction</label>
-        <referenceTo>GiftTransaction</referenceTo>
-        <relationshipLabel>Payment Log</relationshipLabel>
-        <relationshipName>Payment_Log</relationshipName>
-        <required>false</required>
-        <trackTrending>false</trackTrending>
-        <type>Lookup</type>
     </fields>
     <fields>
         <fullName>Payment_Method__c</fullName>
@@ -256,15 +267,43 @@
         <type>Lookup</type>
     </fields>
     <fields>
-        <fullName>Gift_Commitment__c</fullName>
-        <deleteConstraint>SetNull</deleteConstraint>
-        <label>Gift Commitment</label>
-        <referenceTo>GiftCommitment</referenceTo>
-        <relationshipLabel>Payment Log</relationshipLabel>
-        <relationshipName>Payment_Log</relationshipName>
+        <fullName>Processing_Error__c</fullName>
+        <description>Text chyby, na ktere zpracovani reportu skoncilo. Plni ComgateWebhook.</description>
+        <inlineHelpText>Chyba, kvůli které se report nepodařilo zpracovat.</inlineHelpText>
+        <label>Chyba zpracování</label>
+        <length>32768</length>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>6</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Processing_Status__c</fullName>
+        <description>Vysledek zpracovani reportu ve webhooku. Processed = dary zapsany, Failed = zapis selhal a je potreba report prehrat, Unverified = Comgate status API nepotvrdilo stav z payloadu, takze se zamerne nic nemenilo.</description>
+        <inlineHelpText>Výsledek zpracování reportu. Vše kromě „Processed“ vyžaduje pozornost.</inlineHelpText>
+        <label>Zpracování</label>
         <required>false</required>
         <trackTrending>false</trackTrending>
-        <type>Lookup</type>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Processed</fullName>
+                    <default>false</default>
+                    <label>Processed</label>
+                </value>
+                <value>
+                    <fullName>Failed</fullName>
+                    <default>false</default>
+                    <label>Failed</label>
+                </value>
+                <value>
+                    <fullName>Unverified</fullName>
+                    <default>false</default>
+                    <label>Unverified</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
     </fields>
     <fields>
         <fullName>Status_Reason__c</fullName>
@@ -325,45 +364,6 @@
         <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
-    </fields>
-    <fields>
-        <fullName>Processing_Error__c</fullName>
-        <description>Text chyby, na ktere zpracovani reportu skoncilo. Plni ComgateWebhook.</description>
-        <inlineHelpText>Chyba, kvůli které se report nepodařilo zpracovat.</inlineHelpText>
-        <label>Chyba zpracování</label>
-        <length>32768</length>
-        <trackTrending>false</trackTrending>
-        <type>LongTextArea</type>
-        <visibleLines>6</visibleLines>
-    </fields>
-    <fields>
-        <fullName>Processing_Status__c</fullName>
-        <description>Vysledek zpracovani reportu ve webhooku. Processed = dary zapsany, Failed = zapis selhal a je potreba report prehrat, Unverified = Comgate status API nepotvrdilo stav z payloadu, takze se zamerne nic nemenilo.</description>
-        <inlineHelpText>Výsledek zpracování reportu. Vše kromě „Processed“ vyžaduje pozornost.</inlineHelpText>
-        <label>Zpracování</label>
-        <required>false</required>
-        <trackTrending>false</trackTrending>
-        <type>Picklist</type>
-        <valueSet>
-            <valueSetDefinition>
-                <sorted>false</sorted>
-                <value>
-                    <fullName>Processed</fullName>
-                    <default>false</default>
-                    <label>Processed</label>
-                </value>
-                <value>
-                    <fullName>Failed</fullName>
-                    <default>false</default>
-                    <label>Failed</label>
-                </value>
-                <value>
-                    <fullName>Unverified</fullName>
-                    <default>false</default>
-                    <label>Unverified</label>
-                </value>
-            </valueSetDefinition>
-        </valueSet>
     </fields>
     <label>Payment Log</label>
     <listViews>

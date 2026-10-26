@@ -1,5 +1,149 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <comment>Action override created by Lightning App Builder during activation.</comment>
+        <content>Gift_Transaction_Record_Page1</content>
+        <formFactor>Large</formFactor>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Flexipage</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <comment>Action override created by Lightning App Builder during activation.</comment>
+        <content>Gift_Transaction_Record_Page1</content>
+        <formFactor>Small</formFactor>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Flexipage</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <enableFeeds>false</enableFeeds>
+    <externalSharingModel>Private</externalSharingModel>
+    <fields>
+        <fullName>AcknowledgementDate</fullName>
+        <trackHistory>false</trackHistory>
+    </fields>
+    <fields>
+        <fullName>AcknowledgementStatus</fullName>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
     <fields>
         <fullName>Attempt_Counter__c</fullName>
         <externalId>false</externalId>
@@ -10,6 +154,15 @@
         <trackHistory>false</trackHistory>
         <type>Number</type>
         <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CampaignId</fullName>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>CheckDate</fullName>
+        <trackHistory>false</trackHistory>
     </fields>
     <fields>
         <fullName>Comgate_Transaction_Id__c</fullName>
@@ -30,11 +183,152 @@
         <type>AutoNumber</type>
     </fields>
     <fields>
+        <fullName>CurrencyIsoCode</fullName>
+        <trackHistory>false</trackHistory>
+    </fields>
+    <fields>
+        <fullName>CurrentAmount</fullName>
+    </fields>
+    <fields>
+        <fullName>DKD_Unsubscribe_Token__c</fullName>
+        <description>Token pro odhlaseni darce - u osobniho uctu z jeho kontaktu, u firmy z primarniho kontaktu. Pro merge pole v dekovnych dopisech.</description>
+        <externalId>false</externalId>
+        <formula>IF(Donor.IsPersonAccount, Donor.DKD_Unsubscribe_Token__pc, Donor.npc_bridge__PrimaryContact__r.DKD_Unsubscribe_Token__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Token pro odhlášení dárce</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Description</fullName>
+        <trackHistory>false</trackHistory>
+    </fields>
+    <fields>
+        <fullName>DonorCoverAmount</fullName>
+        <trackHistory>false</trackHistory>
+    </fields>
+    <fields>
+        <fullName>DonorId</fullName>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Finance_Material__c</fullName>
+        <description>Rozlišení finančního a materiálního daru. Rekonstruováno pro cílový org - v případě potřeby upravte formuli podle zdrojového orgu.</description>
+        <externalId>false</externalId>
+        <formula>IF( ISPICKVAL( GiftType , &quot;InKind&quot; ), &quot;Materiální&quot;, &quot;Finanční&quot;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Finance / Materiál</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>GatewayReference</fullName>
+        <trackHistory>false</trackHistory>
+    </fields>
+    <fields>
+        <fullName>GatewayTransactionFee</fullName>
+        <trackHistory>false</trackHistory>
+    </fields>
+    <fields>
+        <fullName>GenerationalCohort</fullName>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>GiftCommitmentId</fullName>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>GiftCommitmentScheduleId</fullName>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>GiftType</fullName>
+        <trackHistory>false</trackHistory>
+    </fields>
+    <fields>
+        <fullName>IsFullyRefunded</fullName>
+    </fields>
+    <fields>
+        <fullName>IsPaid</fullName>
+    </fields>
+    <fields>
+        <fullName>IsPartiallyRefunded</fullName>
+    </fields>
+    <fields>
+        <fullName>IsWrittenOff</fullName>
+    </fields>
+    <fields>
+        <fullName>LastGatewayErrorMessage</fullName>
+        <trackHistory>false</trackHistory>
+    </fields>
+    <fields>
+        <fullName>LastGatewayProcessedDate</fullName>
+        <trackHistory>false</trackHistory>
+    </fields>
+    <fields>
+        <fullName>LastGatewayResponseCode</fullName>
+        <trackHistory>false</trackHistory>
+    </fields>
+    <fields>
         <fullName>Last_Attempt_Date__c</fullName>
         <label>Donation Last Attempt Date</label>
         <required>false</required>
         <trackHistory>false</trackHistory>
         <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>MatchingEmployerTransactionId</fullName>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Name</fullName>
+        <trackHistory>false</trackHistory>
+    </fields>
+    <fields>
+        <fullName>NonTaxDeductibleAmount</fullName>
+        <trackHistory>false</trackHistory>
+    </fields>
+    <fields>
+        <fullName>OriginalAmount</fullName>
+        <trackHistory>false</trackHistory>
+    </fields>
+    <fields>
+        <fullName>OutreachSourceCodeId</fullName>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>OwnerId</fullName>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>PartyPhilanthropicRsrchPrflId</fullName>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>PaymentIdentifier</fullName>
+        <trackHistory>false</trackHistory>
+    </fields>
+    <fields>
+        <fullName>PaymentInstrumentId</fullName>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>PaymentMethod</fullName>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Payment_Method__c</fullName>
@@ -46,6 +340,59 @@
             <restricted>true</restricted>
             <valueSetName>Payment_Method</valueSetName>
         </valueSet>
+    </fields>
+    <fields>
+        <fullName>ProcessorReference</fullName>
+        <trackHistory>false</trackHistory>
+    </fields>
+    <fields>
+        <fullName>ProcessorTransactionFee</fullName>
+        <trackHistory>false</trackHistory>
+    </fields>
+    <fields>
+        <fullName>Receipt_Donor_Address__c</fullName>
+        <description>Adresa darce na potvrzeni o daru (osoba: korespondencni, firma: fakturacni).</description>
+        <externalId>false</externalId>
+        <formula>IF(Donor.IsPersonAccount, TRIM(BLANKVALUE(Donor.PersonMailingStreet, &quot;&quot;) &amp; &quot;, &quot; &amp; BLANKVALUE(Donor.PersonMailingPostalCode, &quot;&quot;) &amp; &quot; &quot; &amp; BLANKVALUE(Donor.PersonMailingCity, &quot;&quot;)), TRIM(BLANKVALUE(Donor.BillingStreet, &quot;&quot;) &amp; &quot;, &quot; &amp; BLANKVALUE(Donor.BillingPostalCode, &quot;&quot;) &amp; &quot; &quot; &amp; BLANKVALUE(Donor.BillingCity, &quot;&quot;)))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Potvrzení – adresa dárce</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Receipt_Donor_Email__c</fullName>
+        <description>E-mail darce na potvrzeni o daru (osoba: PersonEmail, firma: e-mail primarniho kontaktu).</description>
+        <externalId>false</externalId>
+        <formula>IF(Donor.IsPersonAccount, Donor.PersonEmail, Donor.npc_bridge__PrimaryContact__r.Email)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Potvrzení – e-mail dárce</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Receipt_Donor_Name__c</fullName>
+        <description>Jmeno darce na potvrzeni o daru.</description>
+        <externalId>false</externalId>
+        <formula>IF(Donor.IsPersonAccount, TRIM(BLANKVALUE(Donor.FirstName, &quot;&quot;) &amp; &quot; &quot; &amp; BLANKVALUE(Donor.LastName, &quot;&quot;)), Donor.Name)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Potvrzení – jméno dárce</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>RefundedAmount</fullName>
+        <trackHistory>false</trackHistory>
+    </fields>
+    <fields>
+        <fullName>Status</fullName>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
     </fields>
     <fields>
         <fullName>Status_Reason__c</fullName>
@@ -113,4 +460,335 @@
             </valueSetDefinition>
         </valueSet>
     </fields>
+    <fields>
+        <fullName>TaxDeductionAmount</fullName>
+    </fields>
+    <fields>
+        <fullName>TaxReceiptStatus</fullName>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Thank_You_Amount__c</fullName>
+        <description>Castka daru jako text s mezerou po tisicich (1 500), pro e-mail a potvrzeni.</description>
+        <externalId>false</externalId>
+        <formula>IF(OriginalAmount &gt;= 1000, TEXT(FLOOR(OriginalAmount / 1000)) &amp; &quot; &quot; &amp; RIGHT(&quot;000&quot; &amp; TEXT(FLOOR(OriginalAmount) - FLOOR(OriginalAmount / 1000) * 1000), 3), TEXT(FLOOR(OriginalAmount)))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Částka daru (text)</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Thank_You_Donor_Name__c</fullName>
+        <description>Osloveni pro dekovny e-mail: vokativ darce, jinak jmeno a prijmeni, u firmy nazev.</description>
+        <externalId>false</externalId>
+        <formula>IF(NOT(ISBLANK(Donor.CRMforNonProfit__Vocative__pc)), Donor.CRMforNonProfit__Vocative__pc, IF(Donor.IsPersonAccount, TRIM(BLANKVALUE(Donor.FirstName, &quot;&quot;) &amp; &quot; &quot; &amp; BLANKVALUE(Donor.LastName, &quot;&quot;)), Donor.Name))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Oslovení pro poděkování</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Thank_You_Email_Sent__c</fullName>
+        <defaultValue>false</defaultValue>
+        <label>Thank You Email Sent</label>
+        <trackHistory>false</trackHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>TotalTransactionFee</fullName>
+    </fields>
+    <fields>
+        <fullName>TransactionDate</fullName>
+        <trackHistory>false</trackHistory>
+    </fields>
+    <fields>
+        <fullName>TransactionDueDate</fullName>
+        <trackHistory>false</trackHistory>
+    </fields>
+    <fields>
+        <fullName>Transaction_Year__c</fullName>
+        <description>Rok prijeti daru pro nadpis potvrzeni o daru.</description>
+        <externalId>false</externalId>
+        <formula>TEXT(YEAR(TransactionDate))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Rok daru</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Upominka_1_odeslana__c</fullName>
+        <description>Datum odeslání 1. automatické upomínky nezaplaceného daru (10. den). Plní Flow Upominky_nezaplacenych_daru.</description>
+        <inlineHelpText>Kdy odešla 1. upomínka (10. den).</inlineHelpText>
+        <label>Upomínka 1 odeslána</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Upominka_2_odeslana__c</fullName>
+        <description>Datum odeslání 2. automatické upomínky nezaplaceného daru (21. den). Plní Flow Upominky_nezaplacenych_daru.</description>
+        <inlineHelpText>Kdy odešla 2. upomínka (21. den).</inlineHelpText>
+        <label>Upomínka 2 odeslána</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>fpnpc_analytics__Darujme_Transaction__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <description>Lookup to the Darujme Transaction this gift originates from. Populated by the Darujme integration when the gift transaction is created. Donor analytics propagates the parent Darujme Pledge from here to GiftCommitment.Darujme_Pledge__c.</description>
+        <inlineHelpText>The Darujme transaction this gift originates from.</inlineHelpText>
+        <label>Darujme Transaction</label>
+        <referenceTo>CRMforNonProfit__Darujme_Transaction__c</referenceTo>
+        <relationshipLabel>Gift Transactions</relationshipLabel>
+        <relationshipName>Gift_Transactions</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>fpnpc_analytics__Gift_Agreement__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Checked when a signed gift agreement exists for this gift. Many in-kind gifts have none; annual reports split volumes and counts by this flag.</description>
+        <inlineHelpText>Zaškrtněte, pokud k daru existuje darovací smlouva.</inlineHelpText>
+        <label>Gift Agreement</label>
+        <trackHistory>false</trackHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>fpnpc_analytics__Gift_Commitment__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <description>Analytics-managed link to the recurring GiftCommitment. NPC forbids editing the standard GiftCommitmentId field once a transaction is Paid, so GiftCommitmentAssignmentBatch writes the cluster assignment here instead. Analytics reads this field first and falls back to the standard GiftCommitmentId (NPC-managed links).</description>
+        <inlineHelpText>Recurring gift commitment assigned by donor analytics. Managed automatically; do not edit.</inlineHelpText>
+        <label>Gift Commitment (Analytics)</label>
+        <referenceTo>GiftCommitment</referenceTo>
+        <relationshipLabel>Gift Transactions (Analytics)</relationshipLabel>
+        <relationshipName>Analytics_Gift_Transactions</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>fpnpc_analytics__One_Off_Regular__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Ported from fpack CRMforNonProfit__Transaction__c formula (label &quot;Frekvence&quot;). Classifies the transaction as Regular when it is linked to a recurring GiftCommitment, otherwise One-Off. Uses the effective link: the analytics lookup Gift_Commitment__c first, falling back to the standard GiftCommitmentId (NPC-managed and insert-time links).</description>
+        <externalId>false</externalId>
+        <formula>IF( AND( ISBLANK( fpnpc_analytics__Gift_Commitment__c ), ISBLANK( GiftCommitmentId ) ), &quot;One-Off&quot;, &quot;Regular&quot; )</formula>
+        <inlineHelpText>Regular = the gift belongs to a recurring gift commitment; One-Off = a standalone gift.</inlineHelpText>
+        <label>Frequency</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>fpnpc_analytics__Organization__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Which brand/organization the gift belongs to. Organization 1 and Organization 2 are generic placeholder values – each org relabels them or adds its own organizations in Setup. Set by the integration or manually when the gift is created; used by annual-report analytics.</description>
+        <inlineHelpText>Značka/organizace, které dar patří.</inlineHelpText>
+        <label>Organization</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>NSK</fullName>
+                    <default>false</default>
+                    <label>NSK</label>
+                </value>
+                <value>
+                    <fullName>Smajlicek</fullName>
+                    <default>false</default>
+                    <label>Smajlíček</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>npc_bridge__Bank_Account_Name__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Bank Account Name</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>npc_bridge__Darujme_Transaction__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <label>Darujme Transaction</label>
+        <referenceTo>CRMforNonProfit__Darujme_Transaction__c</referenceTo>
+        <relationshipLabel>Gift Transactions</relationshipLabel>
+        <relationshipName>Gift_Transactions</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>npc_bridge__SourceFpackTransaction__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <label>Source Fpack Transaction</label>
+        <referenceTo>CRMforNonProfit__Transaction__c</referenceTo>
+        <relationshipLabel>Gift Transactions</relationshipLabel>
+        <relationshipName>Gift_Transactions2</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>npc_bridge__Source_Account_Number__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Source Account Number</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>npc_bridge__Specific_Symbol__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Specific Symbol</label>
+        <precision>10</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>npc_bridge__Target_Account_Number__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Target Account Number</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>npc_bridge__Variable_Symbol__c</fullName>
+        <caseSensitive>false</caseSensitive>
+        <deprecated>false</deprecated>
+        <externalId>true</externalId>
+        <label>Variable Symbol</label>
+        <length>32</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
+        <fullName>npc_ext__Donation_Receipt__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <inlineHelpText>Platné potvrzení, ve kterém je tento dar zahrnutý. Vyplňuje aplikace při vystavení potvrzení.</inlineHelpText>
+        <label>Potvrzení o daru</label>
+        <referenceTo>npc_ext__Donation_Receipt__c</referenceTo>
+        <relationshipLabel>Dary</relationshipLabel>
+        <relationshipName>Gifts</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>npc_ext__Gift_Type_Text__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Czech text of the system picklist GiftType, which cannot be translated</description>
+        <externalId>false</externalId>
+        <formula>CASE(TEXT(GiftType), &quot;Individual&quot;, &quot;Jednotlivec&quot;, &quot;Organizational&quot;, &quot;Organizace/domácnost&quot;, TEXT(GiftType))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Dar od jednotlivce, nebo od organizace či domácnosti.</inlineHelpText>
+        <label>Typ daru</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>npc_ext__Receipt_Info__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>IF(ISPICKVAL(TaxReceiptStatus, &quot;Don&apos;t Send&quot;), &quot;Neposílat&quot;,
+IF(NOT(ISBLANK(npc_ext__Donation_Receipt__c)),
+   CASE(npc_ext__Donation_Receipt__r.npc_ext__Type__c, &quot;Single&quot;, &quot;Jednotlivé &quot;, &quot;Interim&quot;, &quot;Průběžné &quot;, &quot;Annual&quot;, &quot;Roční &quot;, &quot;&quot;) &amp; npc_ext__Donation_Receipt__r.Name
+   &amp; &quot; · &quot; &amp; CASE(npc_ext__Donation_Receipt__r.npc_ext__Status__c, &quot;Ready&quot;, &quot;připraveno&quot;, &quot;Sent&quot;, &quot;odesláno&quot;, &quot;PDF_Only&quot;, &quot;PDF&quot;, &quot;Error&quot;, &quot;chyba&quot;, &quot;Replaced&quot;, &quot;nahrazeno&quot;, &quot;Cancelled&quot;, &quot;zrušeno&quot;, TEXT(npc_ext__Donation_Receipt__r.npc_ext__Status__c)),
+IF(NOT(ISBLANK(GiftCommitmentId)), &quot;Čeká na roční potvrzení&quot;, &quot;Bez potvrzení&quot;)))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Jednotlivé/Průběžné/Roční + číslo potvrzení a jeho stav; u pravidelného daru bez potvrzení „Čeká na roční potvrzení“.</inlineHelpText>
+        <label>Stav potvrzení</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>npc_ext__Receipt_Recipient__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <inlineHelpText>Vyplňte jen výjimečně, když má potvrzení za tento dar dostat někdo jiný než dárce.</inlineHelpText>
+        <label>Příjemce potvrzení</label>
+        <referenceTo>Account</referenceTo>
+        <relationshipLabel>Dary s potvrzením na tento subjekt</relationshipLabel>
+        <relationshipName>Receipt_Gifts</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <listViews>
+        <fullName>All_GiftTransactions</fullName>
+        <columns>Name</columns>
+        <columns>Donor</columns>
+        <columns>CurrentAmount</columns>
+        <columns>Status</columns>
+        <columns>PaymentMethod</columns>
+        <columns>TransactionDueDate</columns>
+        <columns>npc_bridge__Source_Account_Number__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Status</field>
+            <operation>equals</operation>
+            <value>Paid</value>
+        </filters>
+        <label>All Gift Transactions</label>
+    </listViews>
+    <searchLayouts>
+        <customTabListAdditionalFields>Donor</customTabListAdditionalFields>
+        <customTabListAdditionalFields>TransactionDate</customTabListAdditionalFields>
+        <customTabListAdditionalFields>CurrentAmount</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Status</customTabListAdditionalFields>
+        <lookupDialogsAdditionalFields>Donor</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>TransactionDate</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>CurrentAmount</lookupDialogsAdditionalFields>
+        <lookupDialogsAdditionalFields>Status</lookupDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Donor</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>TransactionDate</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>CurrentAmount</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Status</lookupPhoneDialogsAdditionalFields>
+        <searchResultsAdditionalFields>Donor</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>TransactionDate</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>CurrentAmount</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Status</searchResultsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>Private</sharingModel>
 </CustomObject>

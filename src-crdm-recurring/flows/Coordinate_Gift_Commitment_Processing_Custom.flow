@@ -99,6 +99,7 @@
             <stringValue>frops_flow__UpdateCmtmtOnTxnStatus</stringValue>
         </value>
     </constants>
+    <description>Denni uloha, ktera navazuje splatkovy kalendar na zavazek, doplnuje datum a castku dalsi platby a zaklada dalsi splatky pravidelnych daru. Kopie standardni sablony Salesforce, prevzata z orgu Czech Red Cross. Bez ni zustanou zavazky z darovaciho formulare bez navazaneho kalendare a dalsi splatka nikdy nevznikne.</description>
     <environments>Default</environments>
     <formulas>
         <description>Calculates the date that the flow runs.</description>
@@ -119,7 +120,6 @@
         <expression>DATEVALUE({!LastRunDttmForUpdateCmtmtOnTxnStatus})</expression>
     </formulas>
     <interviewLabel>Coordinate Gift Commitment Processing Custom {!$Flow.CurrentDateTime}</interviewLabel>
-    <description>Denni uloha, ktera navazuje splatkovy kalendar na zavazek, doplnuje datum a castku dalsi platby a zaklada dalsi splatky pravidelnych daru. Kopie standardni sablony Salesforce, prevzata z orgu Czech Red Cross. Bez ni zustanou zavazky z darovaciho formulare bez navazaneho kalendare a dalsi splatka nikdy nevznikne.</description>
     <label>Coordinate Gift Commitment Processing Custom</label>
     <processMetadataValues>
         <name>BuilderType</name>
@@ -214,7 +214,6 @@
         <sortField>EndTime</sortField>
         <sortOrder>Desc</sortOrder>
     </recordLookups>
-    <sourceTemplate>frops_flow__CnGiftCmtProcessing</sourceTemplate>
     <start>
         <locationX>0</locationX>
         <locationY>0</locationY>

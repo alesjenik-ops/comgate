@@ -1,12 +1,12 @@
 {
-  "type": "sfdc_cms__route",
-  "title": "Widget dárci",
-  "contentBody": {
-    "activeViewId": "widgetDarci",
-    "configurationTags": [],
-    "pageAccess": "UseParent",
-    "routeType": "custom-widget-darci",
-    "urlPrefix": "widget-darci"
+  "type" : "sfdc_cms__route",
+  "title" : "Widget dárci",
+  "contentBody" : {
+    "activeViewId" : "widgetDarci",
+    "configurationTags" : [ ],
+    "pageAccess" : "UseParent",
+    "routeType" : "custom-widget-darci",
+    "urlPrefix" : "widget-darci"
   },
-  "urlName": "widget-darci"
+  "urlName" : "widget-darci"
 }

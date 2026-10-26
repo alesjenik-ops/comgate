@@ -1,8 +1,9 @@
 {
-  "type": "sfdc_cms__site",
-  "title": "Darci LWR",
-  "contentBody": {
-    "authenticationType": "AUTHENTICATED_WITH_PUBLIC_ACCESS_ENABLED"
+  "type" : "sfdc_cms__site",
+  "title" : "Darci LWR",
+  "contentBody" : {
+    "authenticationType" : "AUTHENTICATED_WITH_PUBLIC_ACCESS_ENABLED",
+    "geoBotsAllowed" : false
   },
-  "urlName": "darci-lwr"
+  "urlName" : "darci-lwr"
 }

@@ -1,4 +1,4 @@
-import { LightningElement } from 'lwc';
+import { LightningElement, api } from 'lwc';
 import FONTS from '@salesforce/resourceUrl/DonationPageFonts';
 import HERO_IMAGE from '@salesforce/resourceUrl/DonationPageHeaderImage';
 import LOGO from '@salesforce/resourceUrl/DonationPageHeaderLogo';
@@ -15,6 +15,7 @@ const CAMPAIGN_ID = '701Te00000gDlc7IAC';
 const FIELD_SET_NAME = 'DonationPageFieldSet';
 const RECEIVER_NAME = 'Česká rada dětí a mládeže';
 const SUPPORT_EMAIL = 'info@darujemekrouzky.cz';
+const THANK_YOU_PAGE_URL = 'https://www.darujemekrouzky.cz/dekujeme/';
 const DEFAULT_DONATION_TYPE = 'oneoff';
 const DEFAULT_PAYMENT_OPTION = 'card';
 const DONATION_AMOUNTS = {
@@ -57,6 +58,9 @@ const FONT_FILES = [
 ];
 
 export default class DonationPageCommunity extends LightningElement {
+    //When filled in, a successful payment redirects the whole window here instead of showing the thank you step
+    @api thankYouPageUrl = THANK_YOU_PAGE_URL;
+
     spinner = false;
     spinnerMessage = 'loading';
     success = false;
@@ -119,6 +123,7 @@ export default class DonationPageCommunity extends LightningElement {
             this.success = true;
             this.currentStep = 'last';
             this.pushPurchaseDataLayer();
+            this.redirectToThankYouPage();
         }
         if (urlCampaignId) {
             this.campaignId = urlCampaignId;
@@ -620,7 +625,23 @@ export default class DonationPageCommunity extends LightningElement {
         if (event.data && event.data.id === 'onSuccessPage') {
             this.success = true;
             this.currentStep = 'last';
+            this.redirectToThankYouPage();
         }
+    }
+
+    // The thank you step is set up by the caller first, so it stays visible if the navigation is refused
+    redirectToThankYouPage() {
+        const url = (this.thankYouPageUrl || '').trim();
+        if (!url) {
+            return false;
+        }
+        try {
+            // Break out of the payment gateway iframe - a same-window redirect would only swap the iframe content
+            window.top.location.href = url;
+        } catch (error) {
+            window.location.href = url;
+        }
+        return true;
     }
 
     /* ================= utilities ================= */

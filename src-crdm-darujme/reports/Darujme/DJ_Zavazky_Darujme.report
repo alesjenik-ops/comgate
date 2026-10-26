@@ -19,6 +19,8 @@
     <filter>
         <criteriaItems>
             <column>GiftCommitment$npc_bridge__Type__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
             <operator>equals</operator>
             <value>Darujme</value>
         </criteriaItems>
@@ -26,6 +28,7 @@
     </filter>
     <format>Summary</format>
     <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
         <field>GiftCommitment$Status</field>
         <sortOrder>Asc</sortOrder>
     </groupingsDown>
@@ -39,4 +42,8 @@
     <showDetails>true</showDetails>
     <showGrandTotal>true</showGrandTotal>
     <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>GiftCommitment$EffectiveStartDate</dateColumn>
+        <interval>INTERVAL_CURRENT</interval>
+    </timeFrameFilter>
 </Report>

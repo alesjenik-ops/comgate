@@ -486,8 +486,24 @@
             if (event.data.id === 'onSuccessPage'){
                 component.set('v.success', true);
                 component.set('v.currentStep', 'last');
+                helper.redirectToThankYouPage(component);
             }
         })
+    },
+
+    //When thankYouPageUrl is configured the donor leaves the form entirely instead of seeing the thank you step.
+    //The in-form thank you step is set up by the caller first, so it stays visible if the navigation is refused.
+    redirectToThankYouPage : function(component){
+        const thankYouPageUrl = (component.get('v.thankYouPageUrl') || '').trim();
+        if(!thankYouPageUrl) return false;
+
+        try {
+            //Break out of the payment gateway iframe - a same-window redirect would only swap the iframe content
+            window.top.location.href = thankYouPageUrl;
+        } catch (error) {
+            window.location.href = thankYouPageUrl;
+        }
+        return true;
     },
 
     fillDefaultDonorData : function(component){

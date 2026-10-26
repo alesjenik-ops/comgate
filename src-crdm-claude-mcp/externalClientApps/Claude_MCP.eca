@@ -5,4 +5,5 @@
     <distributionState>Local</distributionState>
     <isProtected>false</isProtected>
     <label>Claude MCP</label>
+    <orgScopedExternalApp>00Dd100000EH40k:Claude_MCP</orgScopedExternalApp>
 </ExternalClientApplication>

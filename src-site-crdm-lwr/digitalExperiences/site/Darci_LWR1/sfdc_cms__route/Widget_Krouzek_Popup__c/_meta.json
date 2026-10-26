@@ -1,5 +1,5 @@
 {
-  "apiName": "Widget_Krouzek_Popup__c",
-  "type": "sfdc_cms__route",
-  "path": "routes"
+  "apiName" : "Widget_Krouzek_Popup__c",
+  "type" : "sfdc_cms__route",
+  "path" : "routes"
 }

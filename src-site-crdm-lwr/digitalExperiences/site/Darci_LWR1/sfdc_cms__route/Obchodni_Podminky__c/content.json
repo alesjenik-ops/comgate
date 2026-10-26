@@ -1,12 +1,12 @@
 {
-  "type": "sfdc_cms__route",
-  "title": "Všeobecné obchodní podmínky",
-  "contentBody": {
-    "activeViewId": "obchodniPodminky",
-    "configurationTags": [],
-    "pageAccess": "UseParent",
-    "routeType": "custom-obchodni-podminky",
-    "urlPrefix": "obchodni-podminky"
+  "type" : "sfdc_cms__route",
+  "title" : "Všeobecné obchodní podmínky",
+  "contentBody" : {
+    "activeViewId" : "obchodniPodminky",
+    "configurationTags" : [ ],
+    "pageAccess" : "UseParent",
+    "routeType" : "custom-obchodni-podminky",
+    "urlPrefix" : "obchodni-podminky"
   },
-  "urlName": "obchodni-podminky"
+  "urlName" : "obchodni-podminky"
 }

@@ -1,5 +1,5 @@
 {
-  "apiName": "Dekujeme__c",
-  "type": "sfdc_cms__route",
-  "path": "routes"
+  "apiName" : "Dekujeme__c",
+  "type" : "sfdc_cms__route",
+  "path" : "routes"
 }

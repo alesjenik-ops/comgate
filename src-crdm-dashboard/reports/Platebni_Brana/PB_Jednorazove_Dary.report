@@ -16,16 +16,22 @@
     <filter>
         <criteriaItems>
             <column>GiftTransaction$PaymentMethod</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
             <operator>startsWith</operator>
             <value>Comgate -</value>
         </criteriaItems>
         <criteriaItems>
             <column>GiftTransaction$Status</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
             <operator>equals</operator>
             <value>Paid</value>
         </criteriaItems>
         <criteriaItems>
             <column>GiftTransaction$GiftCommitment</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
             <operator>equals</operator>
             <value></value>
         </criteriaItems>

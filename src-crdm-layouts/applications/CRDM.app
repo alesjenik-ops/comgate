@@ -87,6 +87,7 @@
         <profile>Standard</profile>
     </profileActionOverrides>
     <tabs>standard-home</tabs>
+    <tabs>npc_ext__Guide</tabs>
     <tabs>standard-Account</tabs>
     <tabs>standard-GiftTransaction</tabs>
     <tabs>standard-GiftCommitment</tabs>

@@ -9,7 +9,7 @@
         <label>Token pro odhlášení</label>
         <length>32</length>
         <required>false</required>
-        <trackHistory>false</trackHistory>
+        <trackFeedHistory>false</trackFeedHistory>
         <type>Text</type>
         <unique>true</unique>
     </fields>

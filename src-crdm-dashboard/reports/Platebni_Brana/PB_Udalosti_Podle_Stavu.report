@@ -25,6 +25,8 @@
     <filter>
         <criteriaItems>
             <column>Payment_Log__c.Is_Test__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
             <operator>equals</operator>
             <value>0</value>
         </criteriaItems>

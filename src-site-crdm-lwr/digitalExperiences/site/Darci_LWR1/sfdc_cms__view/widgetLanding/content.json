@@ -1,65 +1,58 @@
 {
-  "type": "sfdc_cms__view",
-  "title": "Widget landing",
-  "contentBody": {
-    "component": {
-      "children": [
-        {
-          "children": [
-            {
-              "attributes": {
-                "allowMonthly": true,
-                "amountsMonthly": "300,1500,3000",
-                "amountsOneOff": "300,1500,3000",
-                "arrowVariant1": "1 dite / 1 mesic (Podpora)",
-                "arrowVariant2": "1 dite / pololeti",
-                "arrowVariant3": "1 dite / skolni rok",
-                "arrowVariantCustom": "1 dite / krouzek",
-                "campaignId": "701Te00000iUrbsIAC",
-                "defaultFrequency": "oneoff",
-                "headline": "Změňte život dětem jedním kliknutím",
-                "showArrow": true,
-                "subheadline": "Zvolte částku a proměňte ji v konkrétní podporu dětí. Vaše vybraná částka zajistí pro děti toto:",
-                "thankYouPageUrl": "https://www.darujemekrouzky.cz/dekujeme/?widget=landing",
-                "widgetMode": "landing"
-              },
-              "definition": "c:donationWidget",
-              "id": "8ab4cfb3-6a11-44bb-8c04-d98651426af1",
-              "type": "component"
-            }
-          ],
-          "id": "f4faa901-102b-43ef-bef7-a3e45f415412",
-          "name": "content",
-          "title": "Content",
-          "type": "region"
-        },
-        {
-          "children": [
-            {
-              "attributes": {
-                "customHeadTags": "",
-                "description": "",
-                "pageTitle": "Widget landing",
-                "recordId": "{!recordId}"
-              },
-              "definition": "community_builder:seoAssistant",
-              "id": "b9d203d9-08cc-4e9a-85cf-07e7a44ddf39",
-              "type": "component"
-            }
-          ],
-          "id": "eedb6acd-f11a-4f70-b32a-6881da4bde86",
-          "name": "sfdcHiddenRegion",
-          "title": "sfdcHiddenRegion",
-          "type": "region"
-        }
-      ],
-      "definition": "community_layout:sldsFlexibleLayout",
-      "id": "647e8f88-41ee-409d-b6a1-823197a07925",
-      "type": "component"
+  "type" : "sfdc_cms__view",
+  "title" : "Widget landing",
+  "contentBody" : {
+    "component" : {
+      "children" : [ {
+        "children" : [ {
+          "attributes" : {
+            "allowMonthly" : true,
+            "amountsMonthly" : "300,1500,3000",
+            "amountsOneOff" : "300,1500,3000",
+            "arrowVariant1" : "1 dite / 1 mesic (Podpora)",
+            "arrowVariant2" : "1 dite / pololeti",
+            "arrowVariant3" : "1 dite / skolni rok",
+            "arrowVariantCustom" : "1 dite / krouzek",
+            "campaignId" : "701Te00000iUrbsIAC",
+            "defaultFrequency" : "oneoff",
+            "headline" : "Změňte život dětem jedním kliknutím",
+            "showArrow" : true,
+            "subheadline" : "Zvolte částku a proměňte ji v konkrétní podporu dětí. Vaše vybraná částka zajistí pro děti toto:",
+            "thankYouPageUrl" : "https://www.darujemekrouzky.cz/dekujeme/?widget=landing",
+            "widgetMode" : "landing"
+          },
+          "definition" : "c:donationWidget",
+          "id" : "8ab4cfb3-6a11-44bb-8c04-d98651426af1",
+          "type" : "component"
+        } ],
+        "id" : "f4faa901-102b-43ef-bef7-a3e45f415412",
+        "name" : "content",
+        "title" : "Content",
+        "type" : "region"
+      }, {
+        "children" : [ {
+          "attributes" : {
+            "customHeadTags" : "",
+            "description" : "",
+            "pageTitle" : "Widget landing",
+            "recordId" : "{!recordId}"
+          },
+          "definition" : "community_builder:seoAssistant",
+          "id" : "b9d203d9-08cc-4e9a-85cf-07e7a44ddf39",
+          "type" : "component"
+        } ],
+        "id" : "eedb6acd-f11a-4f70-b32a-6881da4bde86",
+        "name" : "sfdcHiddenRegion",
+        "title" : "sfdcHiddenRegion",
+        "type" : "region"
+      } ],
+      "definition" : "community_layout:sldsFlexibleLayout",
+      "id" : "647e8f88-41ee-409d-b6a1-823197a07925",
+      "type" : "component"
     },
-    "dataProviders": [],
-    "themeLayoutType": "Inner",
-    "viewType": "custom-widget-landing"
+    "dataProviders" : [ ],
+    "themeLayoutType" : "Inner",
+    "viewType" : "custom-widget-landing"
   },
-  "urlName": "widget-landing"
+  "urlName" : "widget-landing"
 }

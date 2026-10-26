@@ -1,5 +1,5 @@
 {
-  "apiName": "Ochrana_Osobnich_Udaju__c",
-  "type": "sfdc_cms__route",
-  "path": "routes"
+  "apiName" : "Ochrana_Osobnich_Udaju__c",
+  "type" : "sfdc_cms__route",
+  "path" : "routes"
 }

@@ -6,6 +6,7 @@
         <developerName>FORMULA1</developerName>
         <downGroupingContext>Campaign$Name</downGroupingContext>
         <isActive>true</isActive>
+        <isCrossBlock>false</isCrossBlock>
         <masterLabel>Dárců celkem</masterLabel>
         <scale>0</scale>
     </aggregates>
@@ -33,6 +34,10 @@
         <sortOrder>Asc</sortOrder>
     </groupingsDown>
     <name>Kampaně podle počtu dárců (fpack)</name>
+    <params>
+        <name>scopeid</name>
+        <value></value>
+    </params>
     <params>
         <name>co</name>
         <value>1</value>

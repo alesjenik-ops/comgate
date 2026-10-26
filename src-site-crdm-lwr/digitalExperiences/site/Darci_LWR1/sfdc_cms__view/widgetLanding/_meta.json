@@ -1,5 +1,5 @@
 {
-  "apiName": "widgetLanding",
-  "type": "sfdc_cms__view",
-  "path": "views"
+  "apiName" : "widgetLanding",
+  "type" : "sfdc_cms__view",
+  "path" : "views"
 }

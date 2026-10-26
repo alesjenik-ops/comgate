@@ -1,52 +1,45 @@
 {
-  "type": "sfdc_cms__view",
-  "title": "Všeobecné obchodní podmínky",
-  "contentBody": {
-    "component": {
-      "children": [
-        {
-          "children": [
-            {
-              "attributes": {
-                "document": "terms"
-              },
-              "definition": "c:donationPageLegal",
-              "id": "ee4836ad-75cf-41a6-bbda-c3bbd6b2d4ce",
-              "type": "component"
-            }
-          ],
-          "id": "d65a496a-de5a-46e7-a28a-5adeac237902",
-          "name": "content",
-          "title": "Content",
-          "type": "region"
-        },
-        {
-          "children": [
-            {
-              "attributes": {
-                "customHeadTags": "",
-                "description": "",
-                "pageTitle": "Všeobecné obchodní podmínky",
-                "recordId": "{!recordId}"
-              },
-              "definition": "community_builder:seoAssistant",
-              "id": "3faede04-50c7-42be-add4-d18be5a38931",
-              "type": "component"
-            }
-          ],
-          "id": "f09f50bd-42a8-46b3-a185-c535a4628436",
-          "name": "sfdcHiddenRegion",
-          "title": "sfdcHiddenRegion",
-          "type": "region"
-        }
-      ],
-      "definition": "community_layout:sldsFlexibleLayout",
-      "id": "d8c300e0-221c-4b18-a989-596a2fc15cd5",
-      "type": "component"
+  "type" : "sfdc_cms__view",
+  "title" : "Všeobecné obchodní podmínky",
+  "contentBody" : {
+    "component" : {
+      "children" : [ {
+        "children" : [ {
+          "attributes" : {
+            "document" : "terms"
+          },
+          "definition" : "c:donationPageLegal",
+          "id" : "ee4836ad-75cf-41a6-bbda-c3bbd6b2d4ce",
+          "type" : "component"
+        } ],
+        "id" : "d65a496a-de5a-46e7-a28a-5adeac237902",
+        "name" : "content",
+        "title" : "Content",
+        "type" : "region"
+      }, {
+        "children" : [ {
+          "attributes" : {
+            "customHeadTags" : "",
+            "description" : "",
+            "pageTitle" : "Všeobecné obchodní podmínky",
+            "recordId" : "{!recordId}"
+          },
+          "definition" : "community_builder:seoAssistant",
+          "id" : "3faede04-50c7-42be-add4-d18be5a38931",
+          "type" : "component"
+        } ],
+        "id" : "f09f50bd-42a8-46b3-a185-c535a4628436",
+        "name" : "sfdcHiddenRegion",
+        "title" : "sfdcHiddenRegion",
+        "type" : "region"
+      } ],
+      "definition" : "community_layout:sldsFlexibleLayout",
+      "id" : "d8c300e0-221c-4b18-a989-596a2fc15cd5",
+      "type" : "component"
     },
-    "dataProviders": [],
-    "themeLayoutType": "Inner",
-    "viewType": "custom-obchodni-podminky"
+    "dataProviders" : [ ],
+    "themeLayoutType" : "Inner",
+    "viewType" : "custom-obchodni-podminky"
   },
-  "urlName": "obchodni-podminky"
+  "urlName" : "obchodni-podminky"
 }

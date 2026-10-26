@@ -1,12 +1,12 @@
 {
-  "type": "sfdc_cms__route",
-  "title": "Widget landing",
-  "contentBody": {
-    "activeViewId": "widgetLanding",
-    "configurationTags": [],
-    "pageAccess": "UseParent",
-    "routeType": "custom-widget-landing",
-    "urlPrefix": "widget-landing"
+  "type" : "sfdc_cms__route",
+  "title" : "Widget landing",
+  "contentBody" : {
+    "activeViewId" : "widgetLanding",
+    "configurationTags" : [ ],
+    "pageAccess" : "UseParent",
+    "routeType" : "custom-widget-landing",
+    "urlPrefix" : "widget-landing"
   },
-  "urlName": "widget-landing"
+  "urlName" : "widget-landing"
 }

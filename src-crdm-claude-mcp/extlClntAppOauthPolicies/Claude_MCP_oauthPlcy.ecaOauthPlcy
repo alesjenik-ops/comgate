@@ -3,7 +3,10 @@
     <externalClientApplication>Claude_MCP</externalClientApplication>
     <ipRelaxationPolicyType>Bypass</ipRelaxationPolicyType>
     <isClientCredentialsFlowEnabled>false</isClientCredentialsFlowEnabled>
+    <isGuestCodeCredFlowEnabled>false</isGuestCodeCredFlowEnabled>
+    <isTokenExchangeFlowEnabled>false</isTokenExchangeFlowEnabled>
     <label>Claude MCP OAuth Policies</label>
     <permittedUsersPolicyType>AllSelfAuthorized</permittedUsersPolicyType>
     <refreshTokenPolicyType>Infinite</refreshTokenPolicyType>
+    <requiredSessionLevel>STANDARD</requiredSessionLevel>
 </ExtlClntAppOauthConfigurablePolicies>

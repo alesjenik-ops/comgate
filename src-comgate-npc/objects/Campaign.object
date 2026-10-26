@@ -1,5 +1,178 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>AddCampaign</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>AddCampaign</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>AddCampaign</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>AdvancedSetup</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>AdvancedSetup</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>AdvancedSetup</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <comment>Action override created by Lightning App Builder during activation.</comment>
+        <content>Campaign_Record_Page</content>
+        <formFactor>Small</formFactor>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Flexipage</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <comment>Action override created by Lightning App Builder during activation.</comment>
+        <content>Campaign_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Flexipage</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <externalSharingModel>Private</externalSharingModel>
+    <fields>
+        <fullName>ActualCost</fullName>
+    </fields>
+    <fields>
+        <fullName>AmountAllOpportunities</fullName>
+    </fields>
+    <fields>
+        <fullName>AmountWonOpportunities</fullName>
+    </fields>
     <fields>
         <fullName>Bank_Account__c</fullName>
         <deleteConstraint>SetNull</deleteConstraint>
@@ -8,6 +181,205 @@
         <relationshipLabel>Campaigns</relationshipLabel>
         <relationshipName>Campaigns</relationshipName>
         <required>false</required>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>BudgetedCost</fullName>
+    </fields>
+    <fields>
+        <fullName>CRMforNonProfit__Darujme_cz_Custom_ID__c</fullName>
+        <businessStatus>Hidden</businessStatus>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Darujme.cz Custom ID (obsolete)</label>
+        <length>255</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CRMforNonProfit__Darujme_cz_Project_ID__c</fullName>
+        <businessStatus>Hidden</businessStatus>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Darujme.cz Project ID (obsolete)</label>
+        <length>255</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CRMforNonProfit__Darujme_cz_Promotion_ID__c</fullName>
+        <deprecated>false</deprecated>
+        <description>ID promotion z Darujme.cz. Slouží k párování kampaně na promotion a k deduplikaci při synchronizaci projektů a promotions.</description>
+        <externalId>false</externalId>
+        <label>Darujme.cz Promotion ID</label>
+        <length>255</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CRMforNonProfit__Default_Transaction_Type__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Transakce automaticky zakládané k této kampani převezmou tento typ transakce.</description>
+        <label>Default Transaction Type</label>
+        <required>false</required>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>peněžní dar</fullName>
+                    <default>true</default>
+                    <label>peněžní dar</label>
+                </value>
+                <value>
+                    <fullName>nepeněžní dar</fullName>
+                    <default>false</default>
+                    <label>nepeněžní dar</label>
+                </value>
+                <value>
+                    <fullName>členský příspěvek</fullName>
+                    <default>false</default>
+                    <label>členský příspěvek</label>
+                </value>
+                <value>
+                    <fullName>dotace/grant</fullName>
+                    <default>false</default>
+                    <label>dotace/grant</label>
+                </value>
+                <value>
+                    <fullName>protiplnění</fullName>
+                    <default>false</default>
+                    <label>protiplnění</label>
+                </value>
+                <value>
+                    <fullName>ostatní</fullName>
+                    <default>false</default>
+                    <label>ostatní</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>CRMforNonProfit__Email_Template__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <label>Email Template</label>
+        <referenceTo>CRMforNonProfit__Email_Template__c</referenceTo>
+        <relationshipLabel>Campaigns</relationshipLabel>
+        <relationshipName>Campaigns</relationshipName>
+        <required>false</required>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>CRMforNonProfit__Nove_Project_Darujme_ID__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Project Darujme ID</label>
+        <length>255</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CRMforNonProfit__Payment_Reference__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Payment Reference</label>
+        <length>255</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CRMforNonProfit__PosledniCisloClenaKampane__c</fullName>
+        <defaultValue>0</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>PosledniCisloClenaKampane</label>
+        <precision>6</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CRMforNonProfit__Specific_Symbol__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Specific Symbol</label>
+        <length>255</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CRMforNonProfit__TLF_Type__c</fullName>
+        <deprecated>false</deprecated>
+        <label>TLF Type</label>
+        <required>false</required>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Welcome</fullName>
+                    <default>false</default>
+                    <label>Welcome</label>
+                </value>
+                <value>
+                    <fullName>Save</fullName>
+                    <default>false</default>
+                    <label>Save</label>
+                </value>
+                <value>
+                    <fullName>Up-Sell</fullName>
+                    <default>false</default>
+                    <label>Up-Sell</label>
+                </value>
+                <value>
+                    <fullName>Acquisition</fullName>
+                    <default>false</default>
+                    <label>Acquisition</label>
+                </value>
+                <value>
+                    <fullName>Reactivation</fullName>
+                    <default>false</default>
+                    <label>Reactivation</label>
+                </value>
+                <value>
+                    <fullName>Cross-Sell</fullName>
+                    <default>false</default>
+                    <label>Cross-Sell</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>CRMforNonProfit__Transactions_Total__c</fullName>
+        <deprecated>false</deprecated>
+        <label>Transactions Total</label>
+        <summarizedField>CRMforNonProfit__Transaction__c.CRMforNonProfit__Transaction_Amount__c</summarizedField>
+        <summaryForeignKey>CRMforNonProfit__Transaction__c.CRMforNonProfit__Campaign__c</summaryForeignKey>
+        <summaryOperation>sum</summaryOperation>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>CRMforNonProfit__Variable_No__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Variable No.</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CampaignMemberRecordTypeId</fullName>
         <type>Lookup</type>
     </fields>
     <fields>
@@ -29,6 +401,12 @@
         </valueSet>
     </fields>
     <fields>
+        <fullName>CurrencyIsoCode</fullName>
+    </fields>
+    <fields>
+        <fullName>Description</fullName>
+    </fields>
+    <fields>
         <fullName>Donation_Page_Detail__c</fullName>
         <label>Donation Page Detail</label>
         <length>32768</length>
@@ -48,4 +426,466 @@
         <label>Donation Page Visible</label>
         <type>Checkbox</type>
     </fields>
+    <fields>
+        <fullName>EndDate</fullName>
+    </fields>
+    <fields>
+        <fullName>ExpectedResponse</fullName>
+    </fields>
+    <fields>
+        <fullName>ExpectedRevenue</fullName>
+    </fields>
+    <fields>
+        <fullName>HierarchyActualCost</fullName>
+    </fields>
+    <fields>
+        <fullName>HierarchyAmountAllOpportunities</fullName>
+    </fields>
+    <fields>
+        <fullName>HierarchyAmountWonOpportunities</fullName>
+    </fields>
+    <fields>
+        <fullName>HierarchyBudgetedCost</fullName>
+    </fields>
+    <fields>
+        <fullName>HierarchyExpectedRevenue</fullName>
+    </fields>
+    <fields>
+        <fullName>HierarchyNumberOfContacts</fullName>
+    </fields>
+    <fields>
+        <fullName>HierarchyNumberOfConvertedLeads</fullName>
+    </fields>
+    <fields>
+        <fullName>HierarchyNumberOfLeads</fullName>
+    </fields>
+    <fields>
+        <fullName>HierarchyNumberOfOpportunities</fullName>
+    </fields>
+    <fields>
+        <fullName>HierarchyNumberOfResponses</fullName>
+    </fields>
+    <fields>
+        <fullName>HierarchyNumberOfWonOpportunities</fullName>
+    </fields>
+    <fields>
+        <fullName>HierarchyNumberSent</fullName>
+    </fields>
+    <fields>
+        <fullName>IsActive</fullName>
+    </fields>
+    <fields>
+        <fullName>Name</fullName>
+    </fields>
+    <fields>
+        <fullName>NumberOfContacts</fullName>
+    </fields>
+    <fields>
+        <fullName>NumberOfConvertedLeads</fullName>
+    </fields>
+    <fields>
+        <fullName>NumberOfLeads</fullName>
+    </fields>
+    <fields>
+        <fullName>NumberOfOpportunities</fullName>
+    </fields>
+    <fields>
+        <fullName>NumberOfResponses</fullName>
+    </fields>
+    <fields>
+        <fullName>NumberOfWonOpportunities</fullName>
+    </fields>
+    <fields>
+        <fullName>NumberSent</fullName>
+    </fields>
+    <fields>
+        <fullName>OwnerId</fullName>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>ParentId</fullName>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>StartDate</fullName>
+    </fields>
+    <fields>
+        <fullName>Status</fullName>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Type</fullName>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>fpnpc_analytics__One_Off_Average_Amount__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Average amount per One-Off donation in this campaign (Total Donations Amount One-Off / Total Donations Count One-Off). Campaign scope only.</description>
+        <formula>IF(fpnpc_analytics__Total_Donations_Count_One_Off__c &gt; 0, fpnpc_analytics__Total_Donations_Amount_One_Off__c / fpnpc_analytics__Total_Donations_Count_One_Off__c, NULL)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>One-Off Average Amount</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>fpnpc_analytics__One_Off_Donor_Average_Amount__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Average One-Off donation amount per distinct donor in this campaign (Total Donations Amount One-Off / Total Donors One-Off). Campaign scope only.</description>
+        <formula>IF(fpnpc_analytics__Total_Donors_One_Off__c &gt; 0, fpnpc_analytics__Total_Donations_Amount_One_Off__c / fpnpc_analytics__Total_Donors_One_Off__c, NULL)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>One-Off Donor Average Amount</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>fpnpc_analytics__Regular_Average_Amount__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Average amount per Regular (Gift Commitment installment) donation in this campaign (Total Donations Amount Regular / Total Donations Count Regular). Campaign scope only.</description>
+        <formula>IF(fpnpc_analytics__Total_Donations_Count_Regular__c &gt; 0, fpnpc_analytics__Total_Donations_Amount_Regular__c / fpnpc_analytics__Total_Donations_Count_Regular__c, NULL)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Regular Average Amount</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>fpnpc_analytics__Regular_Donor_Average_Amount__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Average Regular donation amount per distinct donor in this campaign (Total Donations Amount Regular / Total Donors Regular). Campaign scope only.</description>
+        <formula>IF(fpnpc_analytics__Total_Donors_Regular__c &gt; 0, fpnpc_analytics__Total_Donations_Amount_Regular__c / fpnpc_analytics__Total_Donors_Regular__c, NULL)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Regular Donor Average Amount</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>fpnpc_analytics__Total_Donations_Amount_One_Off_All__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Sum of One-Off financial donations for this campaign plus its whole hierarchy (campaign + H). Computed by CampaignAnalyticsBatch.</description>
+        <label>Total Donations Amount - One-Off (ALL)</label>
+        <precision>16</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>fpnpc_analytics__Total_Donations_Amount_One_Off_H__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Sum of One-Off financial donations linked to child campaigns below this campaign (descendants only, without this campaign). Computed by CampaignAnalyticsBatch.</description>
+        <label>Total Donations Amount - One-Off (H)</label>
+        <precision>16</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>fpnpc_analytics__Total_Donations_Amount_One_Off__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Sum of One-Off financial donations linked to this campaign only. Only gift types (PaymentMethod) configured as Financial Donations in Gift_Type_Settings__mdt count. Computed by CampaignAnalyticsBatch.</description>
+        <label>Total Donations Amount - One-Off</label>
+        <precision>16</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>fpnpc_analytics__Total_Donations_Amount_Regular_All__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Sum of Regular financial donations for this campaign plus its whole hierarchy (campaign + H). Computed by CampaignAnalyticsBatch.</description>
+        <label>Total Donations Amount - Regular (ALL)</label>
+        <precision>16</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>fpnpc_analytics__Total_Donations_Amount_Regular_H__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Sum of Regular financial donations linked to child campaigns below this campaign (descendants only, without this campaign). Computed by CampaignAnalyticsBatch.</description>
+        <label>Total Donations Amount - Regular (H)</label>
+        <precision>16</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>fpnpc_analytics__Total_Donations_Amount_Regular__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Sum of Regular (Gift Commitment installment) financial donations linked to this campaign only. Only gift types (PaymentMethod) configured as Financial Donations in Gift_Type_Settings__mdt count. Computed by CampaignAnalyticsBatch.</description>
+        <label>Total Donations Amount - Regular</label>
+        <precision>16</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>fpnpc_analytics__Total_Donations_Count_One_Off_All__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Count of One-Off financial donations for this campaign plus its whole hierarchy (campaign + H). Computed by CampaignAnalyticsBatch.</description>
+        <externalId>false</externalId>
+        <label>Total Donations Count - One-Off (ALL)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>fpnpc_analytics__Total_Donations_Count_One_Off_H__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Count of One-Off financial donations linked to child campaigns below this campaign (descendants only, without this campaign). Computed by CampaignAnalyticsBatch.</description>
+        <externalId>false</externalId>
+        <label>Total Donations Count - One-Off (H)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>fpnpc_analytics__Total_Donations_Count_One_Off__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Count of One-Off financial donations linked to this campaign only. Only gift types (PaymentMethod) configured as Financial Donations in Gift_Type_Settings__mdt count. Computed by CampaignAnalyticsBatch.</description>
+        <externalId>false</externalId>
+        <label>Total Donations Count - One-Off</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>fpnpc_analytics__Total_Donations_Count_Regular_All__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Count of Regular financial donations for this campaign plus its whole hierarchy (campaign + H). Computed by CampaignAnalyticsBatch.</description>
+        <externalId>false</externalId>
+        <label>Total Donations Count - Regular (ALL)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>fpnpc_analytics__Total_Donations_Count_Regular_H__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Count of Regular financial donations linked to child campaigns below this campaign (descendants only, without this campaign). Computed by CampaignAnalyticsBatch.</description>
+        <externalId>false</externalId>
+        <label>Total Donations Count - Regular (H)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>fpnpc_analytics__Total_Donations_Count_Regular__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Count of Regular (Gift Commitment installment) financial donations linked to this campaign only. Only gift types (PaymentMethod) configured as Financial Donations in Gift_Type_Settings__mdt count. Computed by CampaignAnalyticsBatch.</description>
+        <externalId>false</externalId>
+        <label>Total Donations Count - Regular</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>fpnpc_analytics__Total_Donors_One_Off_All__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Distinct donors (Accounts) with a One-Off financial donation in this campaign plus its whole hierarchy (campaign + H). A donor giving to several campaigns in the hierarchy counts once. Computed by CampaignAnalyticsBatch.</description>
+        <externalId>false</externalId>
+        <label>Total Donors - One-Off (ALL)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>fpnpc_analytics__Total_Donors_One_Off_H__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Distinct donors (Accounts) with a One-Off financial donation in child campaigns below this campaign (descendants only). A donor giving to several child campaigns counts once. Computed by CampaignAnalyticsBatch.</description>
+        <externalId>false</externalId>
+        <label>Total Donors - One-Off (H)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>fpnpc_analytics__Total_Donors_One_Off__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Distinct donors (Accounts) with a One-Off financial donation linked to this campaign only. Computed by CampaignAnalyticsBatch.</description>
+        <externalId>false</externalId>
+        <label>Total Donors - One-Off</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>fpnpc_analytics__Total_Donors_Regular_All__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Distinct donors (Accounts) with a Regular financial donation in this campaign plus its whole hierarchy (campaign + H). A donor giving to several campaigns in the hierarchy counts once. Computed by CampaignAnalyticsBatch.</description>
+        <externalId>false</externalId>
+        <label>Total Donors - Regular (ALL)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>fpnpc_analytics__Total_Donors_Regular_H__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Distinct donors (Accounts) with a Regular financial donation in child campaigns below this campaign (descendants only). A donor giving to several child campaigns counts once. Computed by CampaignAnalyticsBatch.</description>
+        <externalId>false</externalId>
+        <label>Total Donors - Regular (H)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>fpnpc_analytics__Total_Donors_Regular__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Distinct donors (Accounts) with a Regular (Gift Commitment installment) financial donation linked to this campaign only. Computed by CampaignAnalyticsBatch.</description>
+        <externalId>false</externalId>
+        <label>Total Donors - Regular</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <listViews>
+        <fullName>AllActiveCampaigns</fullName>
+        <columns>CAMPAIGN.NAME</columns>
+        <columns>CAMPAIGN.START_DATE</columns>
+        <columns>CAMPAIGN.END_DATE</columns>
+        <columns>CAMPAIGN.CAMPAIGN_TYPE</columns>
+        <columns>CAMPAIGN.STATUS</columns>
+        <columns>CRMforNonProfit__Darujme_cz_Promotion_ID__c</columns>
+        <columns>CRMforNonProfit__Nove_Project_Darujme_ID__c</columns>
+        <columns>fpnpc_analytics__Total_Donations_Count_One_Off__c</columns>
+        <columns>fpnpc_analytics__Total_Donations_Count_Regular__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All Active Campaigns</label>
+    </listViews>
+    <listViews>
+        <fullName>MyActiveCampaigns</fullName>
+        <columns>CAMPAIGN.NAME</columns>
+        <columns>CAMPAIGN.START_DATE</columns>
+        <columns>CAMPAIGN.END_DATE</columns>
+        <columns>CAMPAIGN.CAMPAIGN_TYPE</columns>
+        <columns>CAMPAIGN.STATUS</columns>
+        <filterScope>Mine</filterScope>
+        <filters>
+            <field>CAMPAIGN.ACTIVE</field>
+            <operation>equals</operation>
+            <value>1</value>
+        </filters>
+        <label>My Active Campaigns</label>
+    </listViews>
+    <searchLayouts>
+        <customTabListAdditionalFields>CAMPAIGN.NAME</customTabListAdditionalFields>
+        <customTabListAdditionalFields>CAMPAIGN.STATUS</customTabListAdditionalFields>
+        <customTabListAdditionalFields>CAMPAIGN.START_DATE</customTabListAdditionalFields>
+        <lookupDialogsAdditionalFields>CAMPAIGN.NAME</lookupDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>CAMPAIGN.NAME</lookupPhoneDialogsAdditionalFields>
+        <searchResultsAdditionalFields>CAMPAIGN.NAME</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>PARENT_NAME</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>CAMPAIGN.CAMPAIGN_TYPE</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>CAMPAIGN.STATUS</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>CAMPAIGN.START_DATE</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>CAMPAIGN.END_DATE</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>CAMPAIGN.NUM_RESPONSES</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>CORE.USERS.ALIAS</searchResultsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>FullAccess</sharingModel>
+    <webLinks>
+        <fullName>CRMforNonProfit__Send_Emails</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Send Emails</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>{!REQUIRESCRIPT(&quot;/soap/ajax/10.0/connection.js&quot;)}
+{!REQUIRESCRIPT(&quot;/soap/ajax/10.0/apex.js&quot;)}
+var result = sforce.apex.execute(&quot;CRMforNonProfit.JV_AWS_SES_CampaignEmailSender&quot;,&quot;sendEmailToCampaingMembers&quot;, {objectId:&quot;{!Campaign.Id}&quot;});
+window.alert(result);
+document.location.reload(true);</url>
+    </webLinks>
+    <webLinks>
+        <fullName>CRMforNonProfit__ViewCampaignInfluenceReport</fullName>
+        <availability>online</availability>
+        <displayType>link</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <hasMenubar>false</hasMenubar>
+        <hasScrollbars>true</hasScrollbars>
+        <hasToolbar>false</hasToolbar>
+        <height>500</height>
+        <isResizable>true</isResizable>
+        <linkType>url</linkType>
+        <masterLabel>View Campaign Influence Report</masterLabel>
+        <openType>newWindow</openType>
+        <position>none</position>
+        <protected>false</protected>
+        <showsLocation>false</showsLocation>
+        <showsStatus>false</showsStatus>
+        <url>/00O?rt=117&amp;break0=CAN&amp;scope=1&amp;scopeid_lkid={!Campaign.Id}&amp;scopeid={!Campaign.Name}&amp;c=CAN&amp;c=MR&amp;c=PCS&amp;c=CFN&amp;c=RN&amp;c=ON&amp;c=OA&amp;c=OS&amp;c=OCD&amp;c=AN&amp;s=OA&amp;duel0=CAN%2CMR%2CCFN%2CRN%2CAN%2CON%2CPCS%2COS%2COCD%2COA&amp;details=yes&amp;format=t</url>
+        <width>500</width>
+    </webLinks>
+    <webLinks>
+        <fullName>ViewAllCampaignMembers</fullName>
+        <availability>online</availability>
+        <displayType>link</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <hasMenubar>false</hasMenubar>
+        <hasScrollbars>true</hasScrollbars>
+        <hasToolbar>false</hasToolbar>
+        <height>500</height>
+        <isResizable>true</isResizable>
+        <linkType>url</linkType>
+        <masterLabel>View All Campaign Members</masterLabel>
+        <openType>newWindow</openType>
+        <position>none</position>
+        <protected>false</protected>
+        <showsLocation>false</showsLocation>
+        <showsStatus>false</showsStatus>
+        <url>/camp/rptcmpgncalldown.jsp?scope=1&amp;scopeid={!Campaign_Name}</url>
+        <width>500</width>
+    </webLinks>
+    <webLinks>
+        <fullName>ViewCampaignInfluenceReport</fullName>
+        <availability>online</availability>
+        <displayType>link</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <hasMenubar>false</hasMenubar>
+        <hasScrollbars>true</hasScrollbars>
+        <hasToolbar>false</hasToolbar>
+        <height>500</height>
+        <isResizable>true</isResizable>
+        <linkType>url</linkType>
+        <masterLabel>View Campaign Influence Report</masterLabel>
+        <openType>newWindow</openType>
+        <position>none</position>
+        <protected>false</protected>
+        <showsLocation>false</showsLocation>
+        <showsStatus>false</showsStatus>
+        <url>/00O?rt=117&amp;break0=CAN&amp;scope=1&amp;scopeid_lkid={!Campaign.Id}&amp;scopeid={!Campaign_Name}&amp;c=CAN&amp;c=MR&amp;c=PCS&amp;c=CFN&amp;c=RN&amp;c=ON&amp;c=OA&amp;c=OS&amp;c=OCD&amp;c=AN&amp;s=OA&amp;duel0=CAN%2CMR%2CCFN%2CRN%2CAN%2CON%2CPCS%2COS%2COCD%2COA&amp;details=yes&amp;format=t</url>
+        <width>500</width>
+    </webLinks>
 </CustomObject>

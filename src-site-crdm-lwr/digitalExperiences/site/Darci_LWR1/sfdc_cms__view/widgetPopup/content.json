@@ -1,64 +1,57 @@
 {
-  "type": "sfdc_cms__view",
-  "title": "Widget popup",
-  "contentBody": {
-    "component": {
-      "children": [
-        {
-          "children": [
-            {
-              "attributes": {
-                "allowMonthly": true,
-                "amountsMonthly": "500,1000,1500",
-                "amountsOneOff": "500,1000,1500",
-                "arrowVariant1": "Vlastni castka",
-                "arrowVariant2": "Vlastni castka",
-                "arrowVariant3": "Vlastni castka",
-                "arrowVariantCustom": "Vlastni castka",
-                "campaignId": "701Te00000gDlc7IAC",
-                "defaultFrequency": "oneoff",
-                "personalizeByUrl": false,
-                "showArrow": true,
-                "thankYouPageUrl": "https://www.darujemekrouzky.cz/dekujeme/?widget=popup",
-                "widgetMode": "landing"
-              },
-              "definition": "c:donationWidget",
-              "id": "ce31e824-de0b-49cd-94c5-eb67b5cdce2c",
-              "type": "component"
-            }
-          ],
-          "id": "e22eb5ca-aca3-44cc-b8cd-6084cb56ac1d",
-          "name": "content",
-          "title": "Content",
-          "type": "region"
-        },
-        {
-          "children": [
-            {
-              "attributes": {
-                "customHeadTags": "",
-                "description": "",
-                "pageTitle": "Widget popup",
-                "recordId": "{!recordId}"
-              },
-              "definition": "community_builder:seoAssistant",
-              "id": "043fb045-0185-4fa5-8bc6-6948cdbbfdb7",
-              "type": "component"
-            }
-          ],
-          "id": "8c28882a-87ce-40b0-9df4-bb376eab32bd",
-          "name": "sfdcHiddenRegion",
-          "title": "sfdcHiddenRegion",
-          "type": "region"
-        }
-      ],
-      "definition": "community_layout:sldsFlexibleLayout",
-      "id": "09296222-897d-407d-9e91-1a029105e6b3",
-      "type": "component"
+  "type" : "sfdc_cms__view",
+  "title" : "Widget popup",
+  "contentBody" : {
+    "component" : {
+      "children" : [ {
+        "children" : [ {
+          "attributes" : {
+            "allowMonthly" : true,
+            "amountsMonthly" : "500,1000,1500",
+            "amountsOneOff" : "500,1000,1500",
+            "arrowVariant1" : "Vlastni castka",
+            "arrowVariant2" : "Vlastni castka",
+            "arrowVariant3" : "Vlastni castka",
+            "arrowVariantCustom" : "Vlastni castka",
+            "campaignId" : "701Te00000gDlc7IAC",
+            "defaultFrequency" : "oneoff",
+            "personalizeByUrl" : false,
+            "showArrow" : true,
+            "thankYouPageUrl" : "https://www.darujemekrouzky.cz/dekujeme/?widget=popup",
+            "widgetMode" : "landing"
+          },
+          "definition" : "c:donationWidget",
+          "id" : "ce31e824-de0b-49cd-94c5-eb67b5cdce2c",
+          "type" : "component"
+        } ],
+        "id" : "e22eb5ca-aca3-44cc-b8cd-6084cb56ac1d",
+        "name" : "content",
+        "title" : "Content",
+        "type" : "region"
+      }, {
+        "children" : [ {
+          "attributes" : {
+            "customHeadTags" : "",
+            "description" : "",
+            "pageTitle" : "Widget popup",
+            "recordId" : "{!recordId}"
+          },
+          "definition" : "community_builder:seoAssistant",
+          "id" : "043fb045-0185-4fa5-8bc6-6948cdbbfdb7",
+          "type" : "component"
+        } ],
+        "id" : "8c28882a-87ce-40b0-9df4-bb376eab32bd",
+        "name" : "sfdcHiddenRegion",
+        "title" : "sfdcHiddenRegion",
+        "type" : "region"
+      } ],
+      "definition" : "community_layout:sldsFlexibleLayout",
+      "id" : "09296222-897d-407d-9e91-1a029105e6b3",
+      "type" : "component"
     },
-    "dataProviders": [],
-    "themeLayoutType": "Inner",
-    "viewType": "custom-widget-popup"
+    "dataProviders" : [ ],
+    "themeLayoutType" : "Inner",
+    "viewType" : "custom-widget-popup"
   },
-  "urlName": "widget-popup"
+  "urlName" : "widget-popup"
 }

@@ -1,5 +1,5 @@
 {
-  "apiName": "Widget_Landing__c",
-  "type": "sfdc_cms__route",
-  "path": "routes"
+  "apiName" : "Widget_Landing__c",
+  "type" : "sfdc_cms__route",
+  "path" : "routes"
 }

@@ -1,12 +1,12 @@
 {
-  "type": "sfdc_cms__route",
-  "title": "Děkujeme",
-  "contentBody": {
-    "activeViewId": "dekujeme",
-    "configurationTags": [],
-    "pageAccess": "UseParent",
-    "routeType": "custom-dekujeme",
-    "urlPrefix": "dekujeme"
+  "type" : "sfdc_cms__route",
+  "title" : "Děkujeme",
+  "contentBody" : {
+    "activeViewId" : "dekujeme",
+    "configurationTags" : [ ],
+    "pageAccess" : "UseParent",
+    "routeType" : "custom-dekujeme",
+    "urlPrefix" : "dekujeme"
   },
-  "urlName": "dekujeme"
+  "urlName" : "dekujeme"
 }

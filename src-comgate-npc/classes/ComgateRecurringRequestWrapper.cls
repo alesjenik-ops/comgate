@@ -9,7 +9,7 @@ public with sharing class ComgateRecurringRequestWrapper {
     public String initRecurringId;
 
     public ComgateRecurringRequestWrapper(){
-        this.test = ComgateUtil.runningInASandbox;
+        this.test = ComgateUtil.isTestPayment;
     }
 
     public ComgateRecurringRequestWrapper(GiftTransaction giftTransaction) {

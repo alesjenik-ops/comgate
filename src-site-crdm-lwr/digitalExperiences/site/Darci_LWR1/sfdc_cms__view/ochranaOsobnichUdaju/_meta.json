@@ -1,5 +1,5 @@
 {
-  "apiName": "ochranaOsobnichUdaju",
-  "type": "sfdc_cms__view",
-  "path": "views"
+  "apiName" : "ochranaOsobnichUdaju",
+  "type" : "sfdc_cms__view",
+  "path" : "views"
 }

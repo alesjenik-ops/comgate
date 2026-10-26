@@ -1,5 +1,5 @@
 {
-  "apiName": "dkdBlank",
-  "type": "sfdc_cms__themeLayout",
-  "path": "themeLayouts"
+  "apiName" : "dkdBlank",
+  "type" : "sfdc_cms__themeLayout",
+  "path" : "themeLayouts"
 }

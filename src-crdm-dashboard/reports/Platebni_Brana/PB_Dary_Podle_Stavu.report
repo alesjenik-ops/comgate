@@ -19,6 +19,8 @@
     <filter>
         <criteriaItems>
             <column>GiftTransaction$PaymentMethod</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
             <operator>startsWith</operator>
             <value>Comgate -</value>
         </criteriaItems>
@@ -26,6 +28,7 @@
     </filter>
     <format>Summary</format>
     <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
         <field>GiftTransaction$Status</field>
         <sortOrder>Asc</sortOrder>
     </groupingsDown>

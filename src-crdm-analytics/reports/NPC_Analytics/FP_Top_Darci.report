@@ -6,6 +6,7 @@
         <developerName>FORMULA1</developerName>
         <downGroupingContext>ACCOUNT.NAME</downGroupingContext>
         <isActive>true</isActive>
+        <isCrossBlock>false</isCrossBlock>
         <masterLabel>Celkem darováno</masterLabel>
         <scale>0</scale>
     </aggregates>

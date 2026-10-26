@@ -6,10 +6,15 @@
     <fields>
         <fullName>Gift_Transaction_Id__c</fullName>
         <description>Id zaplacene GiftTransaction, za kterou se ma podekovat.</description>
+        <externalId>false</externalId>
+        <isFilteringDisabled>false</isFilteringDisabled>
+        <isNameField>false</isNameField>
+        <isSortingDisabled>false</isSortingDisabled>
         <label>Gift Transaction Id</label>
         <length>18</length>
         <required>false</required>
         <type>Text</type>
+        <unique>false</unique>
     </fields>
     <label>DKD poděkování za dar – požadavek</label>
     <pluralLabel>DKD poděkování za dar – požadavky</pluralLabel>

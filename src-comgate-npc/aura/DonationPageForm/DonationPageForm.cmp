@@ -84,6 +84,7 @@
     
     <aura:attribute name="thankYouLabel" type="String" default="Děkujeme za Vaší podporu."/>
     <aura:attribute name="thankYouText" type="String" default=""/>
+    <aura:attribute name="thankYouPageUrl" type="String" default="https://www.darujemekrouzky.cz/dekujeme/"/>
 
     <aura:attribute name="isPersonAccount" type="Boolean" default="true"/>
     <aura:attribute name="receiverName" type="String" default="Česká rada dětí a mládeže"/>

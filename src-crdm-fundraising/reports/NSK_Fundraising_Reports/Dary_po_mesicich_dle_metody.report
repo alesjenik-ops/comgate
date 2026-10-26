@@ -1,5 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <chart>
+        <backgroundColor1>#FFFFFF</backgroundColor1>
+        <backgroundColor2>#FFFFFF</backgroundColor2>
+        <backgroundFadeDir>Diagonal</backgroundFadeDir>
+        <chartSummaries>
+            <aggregate>Sum</aggregate>
+            <axisBinding>y</axisBinding>
+            <column>GiftTransaction$CurrentAmount</column>
+        </chartSummaries>
+        <chartType>HorizontalBar</chartType>
+        <enableHoverLabels>false</enableHoverLabels>
+        <expandOthers>true</expandOthers>
+        <groupingColumn>GiftTransaction$TransactionDate</groupingColumn>
+        <location>CHART_BOTTOM</location>
+        <showAxisLabels>true</showAxisLabels>
+        <showPercentage>false</showPercentage>
+        <showTotal>false</showTotal>
+        <showValues>false</showValues>
+        <size>Medium</size>
+        <summaryAxisRange>Auto</summaryAxisRange>
+        <textColor>#000000</textColor>
+        <textSize>12</textSize>
+        <titleColor>#000000</titleColor>
+        <titleSize>18</titleSize>
+    </chart>
     <columns>
         <field>GiftTransaction$Name</field>
     </columns>
@@ -13,6 +38,10 @@
     <columns>
         <field>GiftTransaction$Status</field>
     </columns>
+    <columns>
+        <field>GiftTransaction$Campaign</field>
+    </columns>
+    <currency>CZK</currency>
     <description>Zaplacené dary v aktuálním roce po měsících, rozdělené podle platební metody.</description>
     <filter>
         <criteriaItems>
@@ -24,14 +53,15 @@
         </criteriaItems>
         <language>en_US</language>
     </filter>
-    <format>Matrix</format>
-    <groupingsAcross>
-        <field>GiftTransaction$PaymentMethod</field>
-        <sortOrder>Asc</sortOrder>
-    </groupingsAcross>
+    <format>Summary</format>
     <groupingsDown>
         <dateGranularity>Month</dateGranularity>
         <field>GiftTransaction$TransactionDate</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>GiftTransaction$PaymentMethod</field>
         <sortOrder>Asc</sortOrder>
     </groupingsDown>
     <name>Dary po měsících dle platební metody</name>
@@ -46,6 +76,7 @@
     <showSubTotals>true</showSubTotals>
     <timeFrameFilter>
         <dateColumn>GiftTransaction$TransactionDate</dateColumn>
-        <interval>INTERVAL_CURRENT</interval>
+        <interval>INTERVAL_CUSTOM</interval>
+        <startDate>2026-07-01</startDate>
     </timeFrameFilter>
 </Report>

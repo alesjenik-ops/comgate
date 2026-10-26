@@ -19,11 +19,15 @@
     <filter>
         <criteriaItems>
             <column>GiftTransaction$Status</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
             <operator>equals</operator>
             <value>Unpaid</value>
         </criteriaItems>
         <criteriaItems>
             <column>GiftTransaction$GiftCommitment</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
             <operator>notEqual</operator>
             <value></value>
         </criteriaItems>

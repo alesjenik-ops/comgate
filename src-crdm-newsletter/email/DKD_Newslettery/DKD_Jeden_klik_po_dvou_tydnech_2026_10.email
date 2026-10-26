@@ -1,10 +1,10 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="cs">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="x-apple-disable-message-reformatting">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="x-apple-disable-message-reformatting" />
   <title>Díky vám jsme pomohli už 458 dětem</title>
   <!--[if mso]>
   <style type="text/css">
@@ -50,7 +50,7 @@
 
             <tr>
               <td bgcolor="#312030" class="mobile-padding" style="background:#312030;padding:40px;">
-                <img src="https://czechcouncilofchildrenandyouth.file.force.com/sfc/dist/version/download/?oid=00Dd100000EH40k&amp;ids=068Te00000b0Wvc&amp;d=%2Fa%2FTe000008X6Jm%2FZYRVPfKXZajWoc30O3aVipXyjvKD8mvB.O.Va2tZbgE&amp;asPdf=false" width="140" alt="Darujeme kroužky dětem" style="display:block;width:140px;max-width:140px;height:auto;margin:0 0 28px 0;">
+                <img src="https://czechcouncilofchildrenandyouth.file.force.com/sfc/dist/version/download/?oid=00Dd100000EH40k&amp;ids=068Te00000b0Wvc&amp;d=%2Fa%2FTe000008X6Jm%2FZYRVPfKXZajWoc30O3aVipXyjvKD8mvB.O.Va2tZbgE&amp;asPdf=false" width="140" alt="Darujeme kroužky dětem" style="display:block;width:140px;max-width:140px;height:auto;margin:0 0 28px 0;" />
                 <h1 class="mobile-title" style="margin:0 0 12px 0;font-family:'Fira Sans','Segoe UI',Arial,Helvetica,sans-serif;font-size:32px;line-height:38px;font-weight:700;color:#ffffff;">Díky vám jsme pomohli už 458 dětem</h1>
                 <p style="margin:0;font-family:'Fira Sans','Segoe UI',Arial,Helvetica,sans-serif;font-size:17px;line-height:26px;color:#f0e6ee;">Výsledky po dvou týdnech kampaně Jeden klik</p>
               </td>
@@ -120,9 +120,9 @@
                 <p style="margin:0 0 18px 0;font-family:'Fira Sans','Segoe UI',Arial,Helvetica,sans-serif;font-size:16px;line-height:26px;color:#3d2b38;">Budeme moc rádi, když nám pomůžete <strong>rozšířit řady dárců, aby takových lidí, jako jste vy, bylo více</strong>. Můžete nás sledovat na sociálních sítích, vybrat si příspěvek, který je vám blízký, a sdílet ho dál – nebo dát ostatním vědět, že jste naši kampaň sami podpořili. Za jakoukoli pomoc tohoto typu budeme moc vděční.</p>
                 <p style="margin:0 0 22px 0;font-family:'Fira Sans','Segoe UI',Arial,Helvetica,sans-serif;font-size:16px;line-height:26px;font-weight:700;color:#382133;">
                   <a href="https://www.facebook.com/darujemekrouzkydetem" style="color:#382133;text-decoration:underline;">Facebook</a>
-                  &nbsp;&middot;&nbsp;
+                  &nbsp;·&nbsp;
                   <a href="https://www.instagram.com/darujeme_krouzky/" style="color:#382133;text-decoration:underline;">Instagram</a>
-                  &nbsp;&middot;&nbsp;
+                  &nbsp;·&nbsp;
                   <a href="https://cz.linkedin.com/company/crdm-cz" style="color:#382133;text-decoration:underline;">LinkedIn</a>
                 </p>
                 <p style="margin:0;font-family:'Fira Sans','Segoe UI',Arial,Helvetica,sans-serif;font-size:19px;line-height:28px;font-weight:700;color:#382133;">Každé sdílení může pomoci změnit příběh dalšího dítěte.</p>

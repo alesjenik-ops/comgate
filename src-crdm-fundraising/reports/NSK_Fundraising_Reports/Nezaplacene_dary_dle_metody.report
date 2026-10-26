@@ -26,6 +26,7 @@
     </filter>
     <format>Matrix</format>
     <groupingsAcross>
+        <dateGranularity>Day</dateGranularity>
         <field>GiftTransaction$PaymentMethod</field>
         <sortOrder>Asc</sortOrder>
     </groupingsAcross>

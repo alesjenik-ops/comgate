@@ -2,6 +2,8 @@
 <PlatformEventSubscriberConfig xmlns="http://soap.sforce.com/2006/04/metadata">
     <batchSize>200</batchSize>
     <masterLabel>DKD poděkování – trigger běží jako správce</masterLabel>
+    <numPartitions>1</numPartitions>
+    <partitionKey>EventUuid</partitionKey>
     <platformEventConsumer>DKD_ThankYouRequestedTrigger</platformEventConsumer>
     <user>crdm@crmproneziskovky.cz</user>
 </PlatformEventSubscriberConfig>
