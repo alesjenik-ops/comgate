@@ -85,7 +85,7 @@ Bez toho prohlížeč iframe na cizím webu zablokuje (`X-Frame-Options: SAMEORI
   // UTM a dalsi parametry z adresy stranky predame widgetu
   if (location.search) frame.src += (frame.src.indexOf('?') < 0 ? '?' : '&') + location.search.slice(1);
   window.addEventListener('message', function (e) {
-    if (e.origin !== SITE || !e.data) return;
+    if (e.origin !== SITE || e.source !== frame.contentWindow || !e.data) return;
     if (e.data.id === 'dkdResize') frame.style.height = e.data.height + 'px';
     if (e.data.id === 'dkdNavigate' && ALLOWED.test(e.data.url)) window.location.href = e.data.url;
   });
