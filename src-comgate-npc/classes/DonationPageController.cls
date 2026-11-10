@@ -282,6 +282,20 @@ public without sharing class DonationPageController {
             } else {
                 transactionDate = Date.today().toStartOfMonth().addDays(Integer.valueOf(chargingDay)-1);
             }
+            Date scheduleStartDate = transactionDate;
+            Boolean firstPaymentOutsideSchedule = false;
+            //Kartou darce prvni platbu zaplati hned pri zalozeni, patri tedy do aktualniho mesice.
+            //Automaticke strhavani zacina charging day nasledujiciho mesice: 2.10. i 16.10. -> 10.11.
+            //Puvodne mela prvni platba splatnost nejblizsiho charging day a od 10. do konce mesice
+            //tak "spotrebovala" splatku pristiho mesice - dalsi strhnuti prislo az o dva mesice pozdeji.
+            //Jen mesicni dary - u rocniho by dalsi platba prisla uz za mesic.
+            if(ComgateUtil.comgateSettings.Day_Of_Charging__c > 0 && paymentWrapper.paymentOption == 'card'
+                    && paymentWrapper.donationType != 'recurring_yearly'){
+                transactionDate = Date.today();
+                scheduleStartDate = Date.today().addMonths(1).toStartOfMonth().addDays(Integer.valueOf(chargingDay)-1);
+                //Splatka kalendare nesmi mit splatnost pred jeho zacatkem, prvni platba proto stoji mimo nej
+                firstPaymentOutsideSchedule = true;
+            }
 
             GiftCommitment giftCommitment = new GiftCommitment();
             giftCommitment.Name = 'Příslib Daru - ' + (donor?.Name ?? (donor.FirstName + ' ' + donor.LastName)) +
@@ -304,7 +318,7 @@ public without sharing class DonationPageController {
 
             GiftCommitmentSchedule giftCommitmentSchedule = new GiftCommitmentSchedule(
                     GiftCommitmentId = giftCommitment.Id,
-                    StartDate = transactionDate,
+                    StartDate = scheduleStartDate,
                     TransactionPeriod = paymentWrapper.donationType == 'recurring_yearly' ? 'Yearly' : 'Monthly',
                     TransactionAmount = paymentWrapper.donationValue,
                     TransactionDay = chargingDay,
@@ -317,7 +331,7 @@ public without sharing class DonationPageController {
 
             insert new GiftTransaction(
                     GiftCommitmentId = giftCommitment.Id,
-                    GiftCommitmentScheduleId = giftCommitmentSchedule.Id,
+                    GiftCommitmentScheduleId = firstPaymentOutsideSchedule ? null : giftCommitmentSchedule.Id,
                     CampaignId = campaignId,
                     OriginalAmount = paymentWrapper.donationValue,
                     DonorId = donor.Id,

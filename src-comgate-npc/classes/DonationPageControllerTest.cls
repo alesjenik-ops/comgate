@@ -275,6 +275,54 @@ public with sharing class DonationPageControllerTest {
     }
 
     @IsTest
+    public static void test_createRelatedRecords_recurringMonthly_cardStartsNextMonth(){
+        GiftCommitment giftCommitmentAssert = createRecurringWithChargingDay('recurring_monthly', 10);
+
+        //Prvni platbu darce zaplati hned, automaticke strhavani zacina 10. pristiho mesice
+        Date nextChargingDate = Date.today().addMonths(1).toStartOfMonth().addDays(9);
+        System.assertEquals(nextChargingDate, giftCommitmentAssert.GiftCommitmentSchedules[0].StartDate);
+        System.assertEquals(Date.today(), giftCommitmentAssert.GiftTransactions[0].TransactionDueDate);
+    }
+
+    @IsTest
+    public static void test_createRelatedRecords_recurringYearly_keepsChargingDay(){
+        GiftCommitment giftCommitmentAssert = createRecurringWithChargingDay('recurring_yearly', 10);
+
+        Date expected = Date.today().day() >= 10
+                ? Date.today().addMonths(1).toStartOfMonth().addDays(9)
+                : Date.today().toStartOfMonth().addDays(9);
+        System.assertEquals(expected, giftCommitmentAssert.GiftCommitmentSchedules[0].StartDate);
+        System.assertEquals(expected, giftCommitmentAssert.GiftTransactions[0].TransactionDueDate);
+    }
+
+    private static GiftCommitment createRecurringWithChargingDay(String donationType, Integer chargingDay){
+        Comgate_Settings__c settings = Comgate_Settings__c.getOrgDefaults();
+        settings.Day_Of_Charging__c = chargingDay;
+        update settings;
+
+        Campaign cam = ComgateTestFactory.getCampaign();
+        insert cam;
+
+        Account donor = [SELECT Id, FirstName, LastName, PersonEmail FROM Account LIMIT 1];
+        DonationPagePaymentWrapper paymentWrapper = ComgateTestFactory.getPaymentWrapper(donationType, 48, 'card', null);
+
+        Payment_Reference__c paymentReference = ComgateTestFactory.getPaymentReference(donor.Id, cam.Id);
+        paymentReference.JSON_Account__c = JSON.serialize(donor);
+        paymentReference.JSON_Payment_Wrapper__c = JSON.serialize(paymentWrapper);
+        paymentReference.Account__c = donor.Id;
+        insert paymentReference;
+
+        Test.startTest();
+        DonationPageController.createRelatedRecords(paymentReference.Id, donor.Id);
+        Test.stopTest();
+
+        return [SELECT Id,
+                (SELECT StartDate FROM GiftCommitmentSchedules),
+                (SELECT TransactionDueDate FROM GiftTransactions)
+                FROM GiftCommitment LIMIT 1];
+    }
+
+    @IsTest
     public static void test_justCreateRecords(){
         Bank_Account__c bankAcc = new Bank_Account__c(IBAN__c = 'CZ6508000000192000145399', Bank_Account_Number__c = '19-2000145399/0800');
         insert bankAcc;
