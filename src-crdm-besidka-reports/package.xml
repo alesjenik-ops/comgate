@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <types><members>DKD_Bankovni_transakce</members><name>ReportType</name></types>
+    <types><members>DKD_Kampane/Besidka_Platby_VS_2639001</members><members>DKD_Kampane/Besidka_Nezaplacene_Dary</members><name>Report</name></types>
+    <version>64.0</version>
+</Package>
