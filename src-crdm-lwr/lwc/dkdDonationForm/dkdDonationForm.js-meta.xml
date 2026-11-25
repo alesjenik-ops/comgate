@@ -29,6 +29,7 @@
             <property name="disabledCampaignSelection" type="Boolean" label="Skrýt výběr kampaně" default="false" />
             <property name="receiverName" type="String" label="Příjemce (převod)" default="Česká rada dětí a mládeže" />
             <property name="supportEmail" type="String" label="E-mail podpory" default="" />
+            <property name="variableSymbol" type="String" label="Pevný variabilní symbol" default="" description="Pro platbu převodem. Prázdné = vlastní VS každého daru." />
             <property name="gatewayMode" type="String" label="Platební brána" datasource="auto,iframe,redirect" default="auto" description="auto = brána ve formuláři, v aplikacích Instagram a Facebook v hlavním okně (kvůli 3D Secure)." />
         </targetConfig>
     </targetConfigs>

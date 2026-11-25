@@ -438,6 +438,10 @@ export default class DonationWidget extends LightningElement {
         const value = event.currentTarget.dataset.value;
         if (value === FREQ.MONTHLY && !this.allowMonthly) return;
         this.paymentWrapper = { ...this.paymentWrapper, donationType: value };
+        // Pravidelny dar jen kartou - u prevodu darce casto trvaly prikaz nezalozi a dar se nikdy nezaplati
+        if (value === FREQ.MONTHLY && this.paymentWrapper.paymentOption === 'banktransfer') {
+            this.paymentWrapper = { ...this.paymentWrapper, paymentOption: 'card' };
+        }
         // Sady castek se mezi frekvencemi lisi, takze vyber prepocitame
         if (!this.isCustomSelected) {
             const amounts = this.activeAmounts;
@@ -540,7 +544,7 @@ export default class DonationWidget extends LightningElement {
     }
 
     get paymentOptions() {
-        return PAYMENT_OPTIONS.map((o) => ({
+        return PAYMENT_OPTIONS.filter((o) => !(this.isMonthly && o.value === 'banktransfer')).map((o) => ({
             ...o,
             key: o.value,
             cssClass: this.paymentWrapper.paymentOption === o.value ? 'toggle toggle--on' : 'toggle'

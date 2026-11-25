@@ -352,6 +352,25 @@ public with sharing class DonationPageControllerTest {
         System.assert(((String) returnMap.get('qrPayload')).startsWith('SPD*1.0*ACC:CZ6508000000192000145399'));
     }
 
+    //Stranka akce s pevnym VS: prevod se paruje podle nej, ne podle VS daru
+    @IsTest
+    public static void test_justCreateRecords_fixedVariableSymbol(){
+        Campaign cam = ComgateTestFactory.getCampaign();
+        insert cam;
+
+        Account donor = [SELECT Id, FirstName, LastName, PersonEmail FROM Account LIMIT 1];
+        DonationPagePaymentWrapper paymentWrapper = ComgateTestFactory.getPaymentWrapper('oneoff', 200, 'bankTransfer', null);
+        paymentWrapper.variableSymbol = ' 2639001 ';
+        Contact con = ComgateTestFactory.getContact();
+
+        Test.startTest();
+        Map<String, Object> returnMap = DonationPageController.justCreateRecords(JSON.serialize(donor), JSON.serialize(con), cam.Id, JSON.serialize(paymentWrapper), true);
+        Test.stopTest();
+
+        Assert.areEqual('2639001', returnMap.get('variableNumber'));
+        Assert.isTrue(((String) returnMap.get('qrPayload')).endsWith('*X-VS:2639001'));
+    }
+
     //Firma platici prevodem: dar musi dostat zalozenou firmu, ne zalozni ucet (zpusobilo to predvyplnenou zemi)
     @IsTest
     public static void test_justCreateRecords_businessAccount_withPersonCountry(){

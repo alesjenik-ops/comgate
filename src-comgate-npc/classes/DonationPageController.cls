@@ -114,7 +114,10 @@ public without sharing class DonationPageController {
         // processDonor u firmy vraci novy zaznam (bez poli osobniho uctu) - Id ma jen on
         donor = processDonor(donor, con, isPersonAccount);
         Id donationRecordId = prepareDonationRecord(donor, paymentWrapper, campaignId, bankAccount);
-        String comgateVar = getPaymentVariable(donationRecordId);
+        //Stranka akce muze mit pevny VS, podle ktereho se platby k akci paruji
+        String comgateVar = String.isNotBlank(paymentWrapper.variableSymbol)
+                ? paymentWrapper.variableSymbol.trim()
+                : getPaymentVariable(donationRecordId);
 
         return new Map<String, Object>{
                 'bankAccountNumber' => bankAccount.Bank_Account_Number__c ?? 'XXX-XXXXXXXX/XXX',

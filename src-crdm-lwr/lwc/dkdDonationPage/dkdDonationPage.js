@@ -9,11 +9,13 @@ import SITE_CSS from '@salesforce/resourceUrl/DkdLwrSiteCss';
 import BACKGROUND from '@salesforce/resourceUrl/DonationPageBackground';
 import DONATION_PAGE_IMAGES from '@salesforce/resourceUrl/DonationPageImages';
 import { injectDonationFonts } from 'c/donationFonts';
+import { startHeightReporting } from 'c/donationEmbed';
 
 export default class DkdDonationPage extends LightningElement {
     static renderMode = 'light';
 
     // ===== hlavicka =====
+    @api headerPreTitle = '';
     @api headerTitle = 'Darujte kroužky dětem';
     @api headerSubTitle = 'Pomáháme rodinám zaplatit volnočasové aktivity pro děti.';
     @api headerTitleStyle = '';
@@ -23,6 +25,10 @@ export default class DkdDonationPage extends LightningElement {
     @api headerImageCss = '';
     @api logoImage = 'DonationPageHeaderLogo';
     @api logoHref = 'https://darujemekrouzky.cz/';
+    // logo partnera (napr. oddilu) v levem rohu hlavicky naproti logu DKD
+    @api partnerLogoImage = '';
+    @api partnerLogoHref = '';
+    @api partnerLogoAlt = '';
     // ===== paticka =====
     @api footerLogoImage = 'DonationPageFooterLogo';
     @api footerLogoHref = 'https://darujemekrouzky.cz/';
@@ -46,8 +52,11 @@ export default class DkdDonationPage extends LightningElement {
     @api disabledCampaignSelection = false;
     @api receiverName = 'Česká rada dětí a mládeže';
     @api supportEmail = '';
+    // pevny VS pro prevod (napr. akce parovana podle VS); prazdne = VS daru
+    @api variableSymbol = '';
 
     selectedCampaignId;
+    _stopHeight;
     campaignDetail = '';
 
     connectedCallback() {
@@ -63,7 +72,13 @@ export default class DkdDonationPage extends LightningElement {
         this.campaignDetail = data && data.Donation_Page_Detail__c ? data.Donation_Page_Detail__c : '';
     }
 
+    disconnectedCallback() {
+        if (this._stopHeight) this._stopHeight();
+    }
+
     renderedCallback() {
+        // vlozeni pres iframe: hostitel podle vysky nastavi iframe, takze nevznikne scrollbar
+        if (!this._stopHeight) this._stopHeight = startHeightReporting(this.querySelector('.dkd-layout'));
         // Rich text kampane - lwc:inner-html platforma nepodporuje, v light DOM se vlozi rucne
         const box = this.querySelector('.dkd-campaign-detail-html');
         if (box && box.dataset.html !== this.campaignDetail) {
@@ -86,6 +101,7 @@ export default class DkdDonationPage extends LightningElement {
     get headerStyle() { return this.headerCss || ''; }
     get headerBackgroundStyle() { return 'background-image: url(' + this.resource(this.headerImage) + ');' + (this.headerImageCss || ''); }
     get logoUrl() { return this.resource(this.logoImage); }
+    get partnerLogoUrl() { return this.resource(this.partnerLogoImage); }
     get footerLogoStyle() { return 'background-image: url(' + this.resource(this.footerLogoImage) + ');'; }
     get emailIcon() { return DONATION_PAGE_IMAGES + '/social-icons/email_icon.svg'; }
     get hasCampaignDetail() { return !!this.campaignDetail; }

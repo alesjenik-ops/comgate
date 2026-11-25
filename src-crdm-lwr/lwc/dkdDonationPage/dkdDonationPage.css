@@ -622,38 +622,49 @@
     padding-top: 30px;
 }
 
-.dkd-header .company-icon>img{
+.dkd-header .partner-icon{
+    float: left;
+    padding-top: 30px;
+}
+
+.dkd-header .company-icon>img,
+.dkd-header .partner-icon>img{
     max-height: 100px;
     transition: max-height .35s cubic-bezier(.455,.03,.515,.955),opacity .35s cubic-bezier(.455,.03,.515,.955);
     will-change: opacity;
 }
 
 @media only screen and (min-width: 1921px) {
-    .dkd-header .company-icon>img {
+    .dkd-header .company-icon>img,
+    .dkd-header .partner-icon>img {
         max-height:5.55556vw
     }
 }
 
 @media only screen and (max-width: 1679px) and (min-width:1051px) {
-    .dkd-header .company-icon>img {
+    .dkd-header .company-icon>img,
+    .dkd-header .partner-icon>img {
         max-height:5.55556vw
     }
 }
 
 @media only screen and (max-width: 1050px) and (min-width:861px) {
-    .dkd-header .company-icon>img {
+    .dkd-header .company-icon>img,
+    .dkd-header .partner-icon>img {
         max-height:7.61905vw
     }
 }
 
 @media only screen and (max-width: 860px) and (min-width:641px) {
-    .dkd-header .company-icon>img {
+    .dkd-header .company-icon>img,
+    .dkd-header .partner-icon>img {
         max-height:7.55814vw
     }
 }
 
 @media only screen and (max-width: 640px) {
-    .dkd-header .company-icon>img {
+    .dkd-header .company-icon>img,
+    .dkd-header .partner-icon>img {
         max-height:17.33333vw
     }
 }
@@ -668,6 +679,14 @@
     text-align: left;
     font-weight: 400;
     line-height: 1.2;
+}
+
+.dkd-header .pretitle-text{
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 1.1;
+    color: #f3f0eb;
+    padding-bottom: 8px;
 }
 
 .dkd-header .title-text{

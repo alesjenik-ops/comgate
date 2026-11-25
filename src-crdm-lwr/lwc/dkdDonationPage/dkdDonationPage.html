@@ -5,10 +5,18 @@
             <div class="dkd-header slds-col slds-size_1-of-1 slider slds-is-relative header" style={headerStyle}>
                 <div class="slds-is-relative background-image" style={headerBackgroundStyle}>
                     <div class="header-inner container">
+                        <template lwc:if={partnerLogoUrl}>
+                            <a class="partner-icon" href={partnerLogoHref} target="_blank">
+                                <img alt={partnerLogoAlt} src={partnerLogoUrl} />
+                            </a>
+                        </template>
                         <a class="company-icon" href={logoHref} target="_blank">
                             <img alt="Darujeme kroužky dětem" src={logoUrl} />
                         </a>
                         <div class="slds-is-absolute image-text">
+                            <template lwc:if={headerPreTitle}>
+                                <div class="pretitle-text">{headerPreTitle}</div>
+                            </template>
                             <div class="title-text" style={headerTitleStyle}>{headerTitle}</div>
                             <div class="subtitle-text" style={headerSubTitleStyle}>{headerSubTitle}</div>
                         </div>
@@ -41,6 +49,7 @@
                         disabled-campaign-selection={disabledCampaignSelection}
                         receiver-name={receiverName}
                         support-email={supportEmail}
+                        variable-symbol={variableSymbol}
                         oncampaignchange={handleCampaignChange}>
                     </c-dkd-donation-form>
                 </div>

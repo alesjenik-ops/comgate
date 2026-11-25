@@ -95,6 +95,8 @@ export default class DkdDonationForm extends LightningElement {
     @api disabledCampaignSelection = false;
     @api receiverName = 'Česká rada dětí a mládeže';
     @api supportEmail = '';
+    // pevny VS pro prevod (akce parovana podle VS); prazdne = VS daru
+    @api variableSymbol = '';
     // auto = brana v iframe, v in-app prohlizecich (Instagram, Facebook...) v hlavnim okne kvuli 3D Secure
     @api gatewayMode = 'auto';
 
@@ -150,6 +152,7 @@ export default class DkdDonationForm extends LightningElement {
         if (this.selectedCampaignId) this.notifyCampaign(this.selectedCampaignId);
 
         this.paymentWrapper.redirectURL = window.location.protocol + '//' + window.location.host + window.location.pathname;
+        if (this.variableSymbol) this.paymentWrapper.variableSymbol = String(this.variableSymbol).trim();
         this.filterAllowedPaymentMethods();
         this.filterAllowedDonationTypes();
         this.setDonationAmounts();
@@ -221,6 +224,7 @@ export default class DkdDonationForm extends LightningElement {
         const config = { oneoff: this.donationTypeOneOff, recurring_monthly: this.donationTypeMonthly, recurring_yearly: this.donationTypeYearly };
         this.allowedDonationTypes = DONATION_TYPES.filter((o) => config[o.value]);
         this.paymentWrapper.donationType = this.defaultDonationType;
+        this.ensurePaymentOptionAllowed();
     }
 
     setDonationAmounts() {
@@ -262,6 +266,7 @@ export default class DkdDonationForm extends LightningElement {
         if (donationType && this.allowedDonationTypes.some((o) => o.value === donationType)) {
             this.paymentWrapper.donationType = donationType;
             this.setDefaultDonationAmount(donationType);
+            this.ensurePaymentOptionAllowed();
         }
         const urlAmount = this.getUrlParameter('amount');
         if (urlAmount !== undefined) {
@@ -342,7 +347,7 @@ export default class DkdDonationForm extends LightningElement {
         return this.radioButtons('acc', ACCOUNT_TYPES, this.isPersonAccount ? 'person' : 'legal');
     }
     get paymentOptions() {
-        return this.radioButtons('pay', this.allowedPaymentOptions || [], this.paymentWrapper.paymentOption);
+        return this.radioButtons('pay', this.visiblePaymentOptions, this.paymentWrapper.paymentOption);
     }
     get campaignOptions() {
         return this.campaigns.map((c) => ({ value: c.Id, label: c.Name, selected: c.Id === this.selectedCampaignId }));
@@ -427,7 +432,23 @@ export default class DkdDonationForm extends LightningElement {
         const value = event.currentTarget.dataset.value;
         this.paymentWrapper.donationType = value;
         this.setDefaultDonationAmount(value);
+        this.ensurePaymentOptionAllowed();
         this.errors = { ...this.errors, amount: undefined };
+    }
+
+    // Pravidelny dar jen kartou - u prevodu darce casto trvaly prikaz nezalozi a dar se nikdy nezaplati
+    get visiblePaymentOptions() {
+        const all = this.allowedPaymentOptions || [];
+        if (this.paymentWrapper.donationType === 'oneoff') return all;
+        const withoutTransfer = all.filter((o) => o.value !== 'banktransfer');
+        return withoutTransfer.length ? withoutTransfer : all;
+    }
+
+    ensurePaymentOptionAllowed() {
+        const visible = this.visiblePaymentOptions;
+        if (visible.length && !visible.some((o) => o.value === this.paymentWrapper.paymentOption)) {
+            this.paymentWrapper.paymentOption = visible[0].value;
+        }
     }
 
     handleAccountType(event) {

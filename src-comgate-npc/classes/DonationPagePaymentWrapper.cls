@@ -10,4 +10,5 @@ public with sharing class DonationPagePaymentWrapper {
     @AuraEnabled public Id shopperReferenceId;
     @AuraEnabled public Id paymentReferenceId;
     @AuraEnabled public Boolean privacyAgreement; //honeypot field
+    @AuraEnabled public String variableSymbol; //fixed VS for bank transfer set on the page (e.g. an event), otherwise the gift's own
 }
