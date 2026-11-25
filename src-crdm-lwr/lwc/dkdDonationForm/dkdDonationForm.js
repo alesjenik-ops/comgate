@@ -97,6 +97,8 @@ export default class DkdDonationForm extends LightningElement {
     @api supportEmail = '';
     // pevny VS pro prevod (akce parovana podle VS); prazdne = VS daru
     @api variableSymbol = '';
+    // predvyplnena zeme adresy (hodnota picklistu), stejne jako v donationWidget
+    @api defaultCountry = 'Czech Republic';
     // auto = brana v iframe, v in-app prohlizecich (Instagram, Facebook...) v hlavnim okne kvuli 3D Secure
     @api gatewayMode = 'auto';
 
@@ -194,6 +196,7 @@ export default class DkdDonationForm extends LightningElement {
             .then((result) => {
                 const body = JSON.parse(result);
                 if (body.donor) this.donor = { sobjectType: 'Account', ...body.donor };
+                this.applyDefaultCountry();
                 this.fieldSetWrapper = body.fieldSetWrapper || [];
                 this.campaigns = body.campaigns || [];
                 this.countryOptions = body.countryOptions || [];
@@ -457,6 +460,14 @@ export default class DkdDonationForm extends LightningElement {
         this.donor = { sobjectType: 'Account' };
         this.contactPerson = { sobjectType: 'Contact' };
         this.errors = {};
+        this.applyDefaultCountry();
+    }
+
+    applyDefaultCountry() {
+        const country = (this.defaultCountry || '').trim();
+        if (!country) return;
+        const field = this.isPersonAccount ? 'PersonMailingCountry' : 'BillingCountry';
+        if (!this.donor[field]) this.donor = { ...this.donor, [field]: country };
     }
 
     handlePaymentOption(event) {
