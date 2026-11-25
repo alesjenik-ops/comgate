@@ -52,6 +52,8 @@
         {'label': 'Platební karta', 'value': 'card'},
         {'label': 'Platební převod', 'value': 'banktransfer'}
     ]"/>
+    <!-- Nabidka podle frekvence: pravidelny dar jen kartou -->
+    <aura:attribute name="visiblePaymentOptions" type="List" default="[]"/>
 
     <aura:attribute name="accountTypeOptions" type="List" default="[
         {'label': 'Fyzická osoba', 'value': 'person'},
@@ -318,7 +320,7 @@
                                                   label="Select Payment Option"
                                                   variant="label-hidden"
                                                   class="custom-bullet-radio-group slds-col slds-size_1-of-1"
-                                                  options="{! v.paymentOptions }"
+                                                  options="{! v.visiblePaymentOptions }"
                                                   value="{! v.paymentWrapper.paymentOption }"/>
                         </div>
 

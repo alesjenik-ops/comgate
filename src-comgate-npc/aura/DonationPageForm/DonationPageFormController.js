@@ -36,6 +36,7 @@
         helper.filterAllowedDonationTypeOptions(component);
         helper.setDonationAmounts(component);
         helper.applyUrlPrefill(component, helper);
+        helper.updateVisiblePaymentOptions(component);
         helper.addEventListeners(component, event, helper);
         
         component.set('v.helper', helper);
@@ -59,6 +60,7 @@
     handleDonationTypeChanged : function(component, event, helper){
         const value = event.getSource().get('v.value');
         helper.setDefaultDonationAmount(component, value);
+        helper.updateVisiblePaymentOptions(component);
     },
     
     

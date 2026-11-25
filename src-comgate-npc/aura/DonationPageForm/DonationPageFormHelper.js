@@ -52,6 +52,21 @@
         component.set('v.paymentWrapper.paymentOption', defaultPaymentOption);
     },
     
+    //Pravidelny dar jen kartou - u prevodu darce casto trvaly prikaz nezalozi a dar se nikdy nezaplati
+    updateVisiblePaymentOptions : function(component){
+        const allOptions = component.get('v.paymentOptions') || [];
+        let visible = allOptions;
+        if(component.get('v.paymentWrapper.donationType') !== 'oneoff'){
+            const withoutTransfer = allOptions.filter(item => item.value !== 'banktransfer');
+            if(withoutTransfer.length) visible = withoutTransfer;
+        }
+        component.set('v.visiblePaymentOptions', visible);
+        const current = component.get('v.paymentWrapper.paymentOption');
+        if(visible.length && !visible.some(item => item.value === current)){
+            component.set('v.paymentWrapper.paymentOption', visible[0].value);
+        }
+    },
+
     filterAllowedDonationTypeOptions : function(component){
         const defaultDonationTypeOption = component.get('v.defaultDonationTypeOption');
         const configObject = {
