@@ -56,6 +56,47 @@ public with sharing class ComgateMonthlyCleanupBatchTest {
     }
 
     @IsTest
+    public static void test_recurringClosing_failedCountsAsNotPosted(){
+        GiftCommitment giftCommitment = createCommitmentWithStatuses(new List<String>{
+                ComgateUtil.GIFT_TRANSACTION_FAILED, ComgateUtil.GIFT_TRANSACTION_UNPAID, ComgateUtil.GIFT_TRANSACTION_FAILED});
+
+        Test.startTest();
+        Database.executeBatch(new ComgateMonthlyCleanupBatch(), 50);
+        Test.stopTest();
+
+        Assert.areEqual('Closed', [SELECT Status FROM GiftCommitment WHERE Id = :giftCommitment.Id].Status);
+    }
+
+    @IsTest
+    public static void test_recurringClosing_paidAmongLastThreeKeepsActive(){
+        GiftCommitment giftCommitment = createCommitmentWithStatuses(new List<String>{
+                ComgateUtil.GIFT_TRANSACTION_FAILED, ComgateUtil.GIFT_TRANSACTION_PAID, ComgateUtil.GIFT_TRANSACTION_UNPAID});
+
+        Test.startTest();
+        Database.executeBatch(new ComgateMonthlyCleanupBatch(), 50);
+        Test.stopTest();
+
+        Assert.areEqual('Active', [SELECT Status FROM GiftCommitment WHERE Id = :giftCommitment.Id].Status);
+    }
+
+    //Splatky po mesicich zpet od dneska, statuses[0] je nejnovejsi
+    private static GiftCommitment createCommitmentWithStatuses(List<String> statuses){
+        Account donor = [SELECT Id FROM Account LIMIT 1];
+        GiftCommitment giftCommitment = ComgateTestFactory.getGiftCommitment(donor.Id);
+        insert giftCommitment;
+
+        List<GiftTransaction> giftTransactions = new List<GiftTransaction>();
+        for(Integer i = 0; i < statuses.size(); i++){
+            GiftTransaction giftTransaction = ComgateTestFactory.getGiftTransaction(donor.Id, statuses[i]);
+            giftTransaction.GiftCommitmentId = giftCommitment.Id;
+            giftTransaction.TransactionDueDate = Date.today().addMonths(-i);
+            giftTransactions.add(giftTransaction);
+        }
+        insert giftTransactions;
+        return giftCommitment;
+    }
+
+    @IsTest
     public static void test_schedulable(){
         Test.startTest();
         String jobId = System.schedule('ComgateMonthlyCleanupBatchTest', '0 0 23 * * ?', new ComgateMonthlyCleanupBatch());
