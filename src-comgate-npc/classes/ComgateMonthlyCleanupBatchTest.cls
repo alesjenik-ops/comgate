@@ -90,6 +90,8 @@ public with sharing class ComgateMonthlyCleanupBatchTest {
             GiftTransaction giftTransaction = ComgateTestFactory.getGiftTransaction(donor.Id, statuses[i]);
             giftTransaction.GiftCommitmentId = giftCommitment.Id;
             giftTransaction.TransactionDueDate = Date.today().addMonths(-i);
+            //Zaplacena splatka musi mit datum platby (validace NPC)
+            if(statuses[i] == ComgateUtil.GIFT_TRANSACTION_PAID) giftTransaction.TransactionDate = giftTransaction.TransactionDueDate;
             giftTransactions.add(giftTransaction);
         }
         insert giftTransactions;

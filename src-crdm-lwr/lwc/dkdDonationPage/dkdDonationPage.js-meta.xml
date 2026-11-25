@@ -10,6 +10,7 @@
     </targets>
     <targetConfigs>
         <targetConfig targets="lightningCommunity__Default">
+            <property name="headerShade" type="Boolean" label="Hlavička – ztmavit fotku pod textem" default="false" />
             <property name="headerPreTitle" type="String" label="Hlavička – nadtitulek" default="" description="Řádek nad nadpisem, např. název akce." />
             <property name="headerTitle" type="String" label="Hlavička – nadpis" default="Darujte kroužky dětem" />
             <property name="headerSubTitle" type="String" label="Hlavička – podnadpis" default="Pomáháme rodinám zaplatit volnočasové aktivity pro děti." />

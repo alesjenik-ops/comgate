@@ -23,6 +23,8 @@ export default class DkdDonationPage extends LightningElement {
     @api headerCss = '';
     @api headerImage = 'DonationPageHeaderImage';
     @api headerImageCss = '';
+    // ztmaveni spodni casti fotky, aby byl text citelny i na pestre fotce
+    @api headerShade = false;
     @api logoImage = 'DonationPageHeaderLogo';
     @api logoHref = 'https://darujemekrouzky.cz/';
     // logo partnera (napr. oddilu) v levem rohu hlavicky naproti logu DKD
@@ -100,6 +102,7 @@ export default class DkdDonationPage extends LightningElement {
     get layoutStyle() { return '--dkd-bg-image: url(' + BACKGROUND + ');'; }
     get headerStyle() { return this.headerCss || ''; }
     get headerBackgroundStyle() { return 'background-image: url(' + this.resource(this.headerImage) + ');' + (this.headerImageCss || ''); }
+    get headerBackgroundClass() { return 'slds-is-relative background-image' + (this.headerShade ? ' header-shade' : ''); }
     get logoUrl() { return this.resource(this.logoImage); }
     get partnerLogoUrl() { return this.resource(this.partnerLogoImage); }
     get footerLogoStyle() { return 'background-image: url(' + this.resource(this.footerLogoImage) + ');'; }

@@ -681,6 +681,20 @@
     line-height: 1.2;
 }
 
+/* volitelne ztmaveni fotky pod textem (headerShade) */
+.dkd-header .header-shade::before{
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(43, 22, 38, .82) 0%, rgba(43, 22, 38, .45) 40%, rgba(43, 22, 38, 0) 70%);
+    pointer-events: none;
+}
+
+.dkd-header .header-shade .image-text{
+    z-index: 1;
+    text-shadow: 0 1px 6px rgba(0, 0, 0, .45);
+}
+
 .dkd-header .pretitle-text{
     font-size: 30px;
     font-weight: 700;

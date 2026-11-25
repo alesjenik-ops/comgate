@@ -15,7 +15,7 @@
                 "logoHref": "https://darujemekrouzky.cz/",
                 "footerLogoImage": "DonationPageFooterLogo",
                 "footerLogoHref": "https://darujemekrouzky.cz/",
-                "campaignId": "__MIKULAS_CAMPAIGN__",
+                "campaignId": "701Te00000mXR5sIAG",
                 "defaultDonationType": "oneoff",
                 "defaultPaymentOption": "card",
                 "disabledCampaignSelection": true,
@@ -38,7 +38,8 @@
                 "partnerLogoImage": "DkdMikulasPartnerLogo",
                 "partnerLogoAlt": "HAGA Pardubice",
                 "partnerLogoHref": "",
-                "variableSymbol": "2639001"
+                "variableSymbol": "2639001",
+                "headerShade": true
               },
               "definition": "c:dkdDonationPage",
               "id": "c6023cfd-bc73-45ea-b636-1720f6b1bdc9",
