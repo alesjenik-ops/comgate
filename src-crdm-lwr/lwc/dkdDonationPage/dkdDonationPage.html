@@ -6,9 +6,14 @@
                 <div class="slds-is-relative background-image" style={headerBackgroundStyle}>
                     <div class="header-inner container">
                         <template lwc:if={partnerLogoUrl}>
-                            <a class="partner-icon" href={partnerLogoHref} target="_blank">
-                                <img alt={partnerLogoAlt} src={partnerLogoUrl} />
-                            </a>
+                            <template lwc:if={partnerLogoHref}>
+                                <a class="partner-icon" href={partnerLogoHref} target="_blank">
+                                    <img alt={partnerLogoAlt} src={partnerLogoUrl} />
+                                </a>
+                            </template>
+                            <template lwc:else>
+                                <span class="partner-icon"><img alt={partnerLogoAlt} src={partnerLogoUrl} /></span>
+                            </template>
                         </template>
                         <a class="company-icon" href={logoHref} target="_blank">
                             <img alt="Darujeme kroužky dětem" src={logoUrl} />

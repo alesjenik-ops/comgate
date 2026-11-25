@@ -1,0 +1,82 @@
+{
+  "type": "sfdc_cms__view",
+  "title": "Mikulášská besídka",
+  "contentBody": {
+    "component": {
+      "children": [
+        {
+          "children": [
+            {
+              "attributes": {
+                "headerTitle": "Darujte kroužky dětem",
+                "headerSubTitle": "Pomáháme rodinám zaplatit volnočasové aktivity pro děti.",
+                "headerImage": "DkdMikulasHeader",
+                "logoImage": "DonationPageHeaderLogo",
+                "logoHref": "https://darujemekrouzky.cz/",
+                "footerLogoImage": "DonationPageFooterLogo",
+                "footerLogoHref": "https://darujemekrouzky.cz/",
+                "campaignId": "__MIKULAS_CAMPAIGN__",
+                "defaultDonationType": "oneoff",
+                "defaultPaymentOption": "card",
+                "disabledCampaignSelection": true,
+                "donationTypeOneOff": true,
+                "donationTypeMonthly": true,
+                "donationTypeYearly": true,
+                "amountsOneOff": "100;200;300;other",
+                "amountsMonthly": "100;200;300;other",
+                "amountsYearly": "100;200;300;other",
+                "fieldSetSelection": "DonationPageFieldSet",
+                "formHeaderLabel": "Daruj kroužky pro děti",
+                "formHeaderSubLabel": "Podporujeme rodiny v ČR, které jsou v tíživé finanční situaci.",
+                "paymentCard": true,
+                "paymentBankTransfer": true,
+                "receiverName": "Česká rada dětí a mládeže",
+                "supportEmail": "info@darujemekrouzky.cz",
+                "thankYouLabel": "Děkujeme za Vaší podporu.",
+                "thankYouPageUrl": "https://www.darujemekrouzky.cz/dekujeme/",
+                "headerPreTitle": "Mikulášská besídka",
+                "partnerLogoImage": "DkdMikulasPartnerLogo",
+                "partnerLogoAlt": "HAGA Pardubice",
+                "partnerLogoHref": "",
+                "variableSymbol": "2639001"
+              },
+              "definition": "c:dkdDonationPage",
+              "id": "c6023cfd-bc73-45ea-b636-1720f6b1bdc9",
+              "type": "component"
+            }
+          ],
+          "id": "b5938469-bb29-4806-98d4-7119d1bf9de3",
+          "name": "content",
+          "title": "Content",
+          "type": "region"
+        },
+        {
+          "children": [
+            {
+              "attributes": {
+                "customHeadTags": "",
+                "description": "",
+                "pageTitle": "Mikulášská besídka",
+                "recordId": "{!recordId}"
+              },
+              "definition": "community_builder:seoAssistant",
+              "id": "b9a1f8d3-9585-4231-8ac0-9ee555f3062e",
+              "type": "component"
+            }
+          ],
+          "id": "6eadf7e0-1cca-4869-a590-c1d13075a783",
+          "name": "sfdcHiddenRegion",
+          "title": "sfdcHiddenRegion",
+          "type": "region"
+        }
+      ],
+      "definition": "community_layout:sldsFlexibleLayout",
+      "id": "f6637861-06e9-46f1-bfbb-c82c9ffbfcb6",
+      "type": "component"
+    },
+    "dataProviders": [],
+    "themeLayoutType": "Inner",
+    "viewType": "custom-mikulasska-besidka"
+  },
+  "urlName": "mikulasska-besidka"
+}

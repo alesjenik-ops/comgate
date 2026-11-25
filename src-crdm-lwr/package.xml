@@ -8,6 +8,8 @@
     </types>
     <types>
         <members>DkdLwrSiteCss</members>
+        <members>DkdMikulasHeader</members>
+        <members>DkdMikulasPartnerLogo</members>
         <name>StaticResource</name>
     </types>
     <version>64.0</version>
