@@ -1753,3 +1753,9 @@
     width: auto;
     padding-right: 18px;
 }
+/* Platebni udaje k prevodu: obal je flex polozka a bez sirky se roztahl na 450 px karty */
+.dkd-form c-payment-details-page {
+    display: block;
+    width: 100%;
+    min-width: 0;
+}

@@ -11,7 +11,9 @@ body {
 }
 
 .payment-details-box {
-    width: 450px;
+    /* v uzkem sloupci formulare pevnych 450 px pretekalo ven */
+    width: 100%;
+    max-width: 450px;
     background-color: #ffffff;
     border: 1px solid #dddddd;
     border-radius: 8px;
@@ -50,12 +52,13 @@ body {
     font-weight: bold;
     color: #333333;
     display: inline-block;
-    min-width: 150px; /* Adjust for alignment if needed */
+    min-width: 130px; /* Adjust for alignment if needed */
 }
 
 .payment-info .value {
     color: #007bff; /* Highlight the value */
-    word-break: break-all; /* For long account numbers */
+    /* lamat po slovech; dlouhe cislo uctu nebo IBAN jen kdyz se nevejde */
+    overflow-wrap: anywhere;
 }
 
 .instructions-section {
